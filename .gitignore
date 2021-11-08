@@ -1,0 +1,12 @@
+.env
+build/
+dist/
+
+# macOS
+.DS_Store
+
+# npm
+node_modules/
+
+# Windows
+Thumbs.db
