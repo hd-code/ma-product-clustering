@@ -1,12 +1,9 @@
-.env
-build/
-dist/
+# IDEs
+.idea/
+.vscode/
 
 # macOS
 .DS_Store
-
-# npm
-node_modules/
 
 # Windows
 Thumbs.db
