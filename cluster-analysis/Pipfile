@@ -9,7 +9,6 @@ jupyter = "*"
 matplotlib = "*"
 numpy = "*"
 pandas = "*"
-requests = "*"
 
 [dev-packages]
 autopep8 = "*"
