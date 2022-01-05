@@ -1,34 +1,18 @@
-from typing import TypeVar
+from akeneo.client import AkeneoClient
+from akeneo.client_impl import AkeneoClientImpl
+from akeneo.connector import AkeneoConnector
+from config import env
 
 
-T = TypeVar('T')
+def create_client_from_env() -> AkeneoClient:
+    return AkeneoClientImpl(
+        env["AKENEO_HOST"],
+        env["AKENEO_CLIENT_ID"],
+        env["AKENEO_SECRET"],
+        env["AKENEO_USERNAME"],
+        env["AKENEO_PASSWORD"],
+    )
 
-
-def clean_response(obj: T) -> T:
-    if isinstance(obj, list):
-        result = []
-        for entry in obj:
-            entry_ = clean_response(entry)
-            if _is_allowed_value(entry_):
-                result.append(entry_)
-        return result
-
-    if isinstance(obj, dict):
-        result = {}
-        for key, value in obj.items():
-            if not _is_allowed_key(key):
-                continue
-            value_ = clean_response(value)
-            if _is_allowed_value(value_):
-                result[key] = value_
-        return result
-
-    return obj
-
-
-def _is_allowed_key(key: T) -> bool:
-    return not isinstance(key, str) or key[0] != "_"
-
-
-def _is_allowed_value(value: T) -> bool:
-    return value not in [None, [], {}]
+def create_connector_from_env(locale: str = "en_US") -> AkeneoConnector:
+    client = create_client_from_env()
+    return AkeneoConnector(client, locale)

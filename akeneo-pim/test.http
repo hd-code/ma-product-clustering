@@ -4,12 +4,12 @@ Accept: application/json
 
 ### Auth
 POST http://localhost:8080/api/oauth/v1/token
-Authorization: Basic 5_ei5n9nsst8g0sgwsssg8gkgkkockk8gkwg0koocogc4oswgwc:omk1h5l8rtw4k4o8008s0c4os4k8w8k8g4ok84kko84wwwgc0
+Authorization: Basic 5_1r4g5tnjfb0kcs0kw8cc80c48k084044ocs48ow80ssgwwscsc:6qpj3rh03wg0gcokw84sgw0g8gsogk8k8k40sw0kcgcwcc808
 Content-Type: application/json
 
 {
-  "username": "api_user_0521",
-  "password": "a6f119cee",
+  "username": "api_user_2338",
+  "password": "081d8d656",
   "grant_type": "password"
 }
 
@@ -26,6 +26,11 @@ Authorization: Bearer YWI5YmFhZGFhYzBjYjk3Njg1YmEyY2Q3MjZkYzlkMjcwMmJkMzA0NTA4YT
 Content-Type: application/json
 
 ### Products
-GET http://localhost:8080/api/rest/v1/products
-Authorization: Bearer NWJkMzJhNmEyOTc3NDgwZGRhOTg4NzUyZjM1OGEyYzQ1Yjg3OTc4NDQ3YThkYTUwOTgxODhmNTRmYzUyOGZjZg
+GET http://localhost:8080/api/rest/v1/products/
+Authorization: Bearer YTQ4ZmVlNGNiMzdhMDA2MDExY2QyNzRmNTk4OGNlMDBkNTA2ZWRlMDAxNWE5NWJiNjlhZDBhNWI0ZGVlYWFjYg
+Content-Type: application/json
+
+### Product
+GET http://localhost:8080/api/rest/v1/products/1111111130
+Authorization: Bearer YTQ0YzBiOWY1OTUwM2I5NTljN2VjNDJhMDNhNWQxM2JjNmMzMDRkNzkzMzZmYTE4ZmE1OWJhMmFlMmUwN2M3Zg
 Content-Type: application/json

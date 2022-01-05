@@ -7,11 +7,10 @@ from akeneo.route import AkeneoRoute
 JsonBody = Union[dict, list]
 
 
-class AkeneoRestClient(abc.ABC):
+class AkeneoClient(abc.ABC):
 
-    @property
     @abc.abstractmethod
-    def routes(self) -> list[AkeneoRoute]:
+    def get_routes(self) -> list[AkeneoRoute]:
         raise NotImplementedError
 
     @abc.abstractmethod

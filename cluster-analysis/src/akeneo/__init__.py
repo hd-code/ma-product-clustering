@@ -1,3 +1,3 @@
-from akeneo.restclient import AkeneoRestClient
-from akeneo.restclient_impl import AkeneoRestClientImpl
-from akeneo.util import clean_response
+from akeneo.connector import AkeneoConnector
+from akeneo.client import AkeneoClient
+from akeneo.util import create_client_from_env, create_connector_from_env

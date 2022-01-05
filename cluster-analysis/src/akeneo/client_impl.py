@@ -1,35 +1,23 @@
-import json
-
 import requests
 import requests.auth
 
 from akeneo.bearerauth import BearerAuth
-from akeneo.restclient import AkeneoRestClient, JsonBody
+from akeneo.client import AkeneoClient, JsonBody
 from akeneo.route import AkeneoRoute
 
 
-class AkeneoRestClientImpl(AkeneoRestClient):
+class AkeneoClientImpl(AkeneoClient):
 
-    @property
-    def routes(self) -> list[AkeneoRoute]:
+    def get_routes(self) -> list[AkeneoRoute]:
         return self._routes
 
     def get(self, route_id: str, path_vars: dict[str, str] = None, params: dict = None) -> JsonBody:
-        auth = BearerAuth(self._access_token)
-        route = self._get_route(route_id)
-        url = f"{self._host}{route.make_path(path_vars)}"
-
-        res = requests.get(url, params, auth=auth)
-        if res.status_code == 401:
-            self._auth_refresh()
-            res = requests.get(url, params, auth=auth)
-
-        assert res.status_code == 200, f"Http-Error: {res.status_code}\n{json.dumps(res.json())}"
-
-        return res.json()
+        url = self._get_url(route_id, path_vars)
+        return self._get(url, params)
 
     def get_list(self, route_id: str, path_vars: dict[str, str] = None, params: dict = None) -> list[dict]:
         assert self._get_route(route_id).is_list, f"Passed route is not a list"
+        url = self._get_url(route_id, path_vars)
 
         result = []
 
@@ -42,8 +30,11 @@ class AkeneoRestClientImpl(AkeneoRestClient):
         has_next = True
 
         while has_next:
-            res = self.get(route_id, path_vars, params_)
-            result.extend(res["_embedded"]["items"])
+            res = self._get(url, params_)
+
+            items = res["_embedded"]["items"]
+            self._clean_list_items(items)
+            result.extend(items)
 
             if "next" in res["_links"]:
                 params_["page"] += 1
@@ -87,8 +78,9 @@ class AkeneoRestClientImpl(AkeneoRestClient):
 
     def _auth(self, req_body: dict):
         auth = requests.auth.HTTPBasicAuth(self._client_id, self._secret)
+
         res = requests.post(self._token_url, req_body, auth=auth)
-        assert res.status_code == 200, f"Http-Error: {res.status_code}\n{json.dumps(res.json())}"
+        res.raise_for_status()
 
         res_body = res.json()
 
@@ -112,7 +104,27 @@ class AkeneoRestClientImpl(AkeneoRestClient):
 
     # util ---------------------------------------------------------------------
 
+    def _clean_list_items(self, items: list[dict]):
+        for i in range(len(items)):
+            del items[i]["_links"]
+
+    def _get(self, url: str, params: dict = None) -> JsonBody:
+        auth = BearerAuth(self._access_token)
+
+        res = requests.get(url, params, auth=auth)
+        if res.status_code == 401:
+            self._auth_refresh()
+            res = requests.get(url, params, auth=auth)
+        res.raise_for_status()
+
+        return res.json()
+
     def _get_route(self, route_id: str) -> AkeneoRoute:
         for route in self._routes:
             if route.id == route_id:
                 return route
+        raise ValueError("passed route_id unknown")
+
+    def _get_url(self, route_id: str, path_vars: dict[str, str] = None) -> str:
+        route = self._get_route(route_id)
+        return f"{self._host}{route.make_path(path_vars)}"
