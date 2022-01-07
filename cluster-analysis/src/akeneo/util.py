@@ -13,6 +13,7 @@ def create_client_from_env() -> AkeneoClient:
         env["AKENEO_PASSWORD"],
     )
 
+
 def create_connector_from_env(locale: str = "en_US") -> AkeneoConnector:
     client = create_client_from_env()
     return AkeneoConnector(client, locale)
