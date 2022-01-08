@@ -1,20 +1,19 @@
-import math
 import unittest
 
-from clustering.data_point_3d import DataPoint3DVector
-from clustering.middle_point_3d import MiddlePoint3DVector
+from clustering.data_point_3d import DataPoint3D
+from clustering.middle_point_3d import MiddlePoint3D
 
 
 class Test_MiddlePoint(unittest.TestCase):
     def test_create_points(self):
         data = [
-            DataPoint3DVector(0, 3, 0, 7),
-            DataPoint3DVector(1, 1, 1, 5),
-            DataPoint3DVector(2, 5, 5, 1),
-            DataPoint3DVector(3, 5, 8, 3),
+            DataPoint3D(3, 0, 7),
+            DataPoint3D(1, 1, 5),
+            DataPoint3D(5, 5, 1),
+            DataPoint3D(5, 8, 3),
         ]
 
-        middle_points = MiddlePoint3DVector.create_points(data, 2)
+        middle_points = MiddlePoint3D.create_points(data, 2)
         self.assertEqual(2, len(middle_points))
         for mp in middle_points:
             is_in_list = False
@@ -25,18 +24,9 @@ class Test_MiddlePoint(unittest.TestCase):
             self.assertTrue(
                 is_in_list, "MiddlePoint did not match any DataPoint")
 
-    def test_calc_distance(self):
-        mp = MiddlePoint3DVector(1, 2, 3)
-        dp = DataPoint3DVector(0, 3, 2, 1)
-
-        want = math.sqrt(4 + 0 + 4)
-        got = mp.calc_distance(dp)
-
-        self.assertAlmostEqual(want, got)
-
     def test_on_add_point_1(self):
-        mp = MiddlePoint3DVector(1, 2, 3, 1)
-        dp = DataPoint3DVector(0, 3, 2, 1)
+        mp = MiddlePoint3D(1, 2, 3, 1)
+        dp = DataPoint3D(3, 2, 1)
         mp.on_add_point(dp)
 
         self.assertAlmostEqual(mp.x, 2)
@@ -45,11 +35,23 @@ class Test_MiddlePoint(unittest.TestCase):
         self.assertAlmostEqual(mp.n, 2)
 
     def test_on_add_point_2(self):
-        mp = MiddlePoint3DVector(2, 2, 2, 2)
-        dp = DataPoint3DVector(0, 4, 0, 3)
+        mp = MiddlePoint3D(2, 2, 2, 2)
+        dp = DataPoint3D(4, 0, 3)
         mp.on_add_point(dp)
 
         self.assertAlmostEqual(mp.x, (1+3+4) / 3)
         self.assertAlmostEqual(mp.y, (2+2+0) / 3)
         self.assertAlmostEqual(mp.z, (3+1+3) / 3)
         self.assertAlmostEqual(mp.n, 3)
+
+    def test_on_restart(self):
+        mp = MiddlePoint3D(2, 2, 2, 2)
+        dp = DataPoint3D(4, 0, 3)
+
+        mp.on_restart()
+        mp.on_add_point(dp)
+
+        self.assertEqual(mp.x, dp.x)
+        self.assertEqual(mp.y, dp.y)
+        self.assertEqual(mp.z, dp.z)
+        self.assertEqual(mp.n, 1)

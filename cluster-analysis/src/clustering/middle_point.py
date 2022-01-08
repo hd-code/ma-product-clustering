@@ -4,14 +4,10 @@ from abc import ABC, abstractmethod
 from clustering.data_point import DataPoint
 
 
-class MiddlePoint(ABC):
+class MiddlePoint(DataPoint, ABC):
     @classmethod
     @abstractmethod
     def create_points(cls, data: list[DataPoint], num_of_points: int) -> list[MiddlePoint]:
-        raise NotImplementedError
-
-    @abstractmethod
-    def calc_distance(self, data_point: DataPoint) -> float:
         raise NotImplementedError
 
     @abstractmethod
