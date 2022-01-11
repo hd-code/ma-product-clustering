@@ -1,0 +1,29 @@
+<style>
+.select2-container.select2-container-multi.attributes.select2.label-field{
+    width: 35% !important; 
+    overflow-x: auto; 
+    max-height: 200px
+}
+</style>
+<div class="AknHorizontalNavtab-item--active AknVerticalNavtab-item--active">
+    <div class="AknGridToolbar">
+        <div class="AknGridToolbar-right" data-drop-zone="actions">
+        </div>
+    </div>
+    <div class="tabsection-content">
+        <div class="AknGridContainer">
+            <select class="attributes select2 label-field"  data-wrapper="attributes" multiple > 
+                <% _.each(attributes, function (attributeCode, attributeKey) {
+                    if('undefined' !== typeof(icecatAttributes[attributeCode])) {
+                        icecateAttribute = icecatAttributes[attributeCode];
+                    %>
+                    <option value="<%- attributeCode %>" selected="selected" data-attribute-code="<%- attributeCode%>"> 
+                        <%- 'undefined' != typeof(icecateAttribute.labels) && 'undefined' != typeof(icecateAttribute.labels[currentLocale]) ? icecateAttribute.labels[currentLocale] : attributeCode  %>
+                    </option>
+                    <% } %>
+            <% }) %>
+            </select> 
+            <i class="AknIconButton icon-info-sign" data-toggle="tooltip" data-placement="right" data-original-title="<%- tooltip %>"></i>
+        </div>
+    </div>
+</div>

@@ -1,27 +1,26 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal
 
 
 RestMethods = Literal["GET", "POST", "PATCH", "DELETE"]
 
 
-@dataclass(frozen=True)
+@dataclass
 class AkeneoRoute:
     id: str
     path: str
     method: RestMethods
+    path_vars: list[str] = field(init=False)
+    is_list: bool = field(init=False)
 
-    @property
-    def path_vars(self) -> list[str]:
-        result: list[str] = []
+    def __post_init__(self):
+        path_vars: list[str] = []
         for path_part in self.path.split("/"):
             if path_part and path_part[0] == "{":
-                result.append(path_part.strip("{}"))
-        return result
+                path_vars.append(path_part.strip("{}"))
+        self.path_vars = path_vars
 
-    @property
-    def is_list(self) -> bool:
-        return self.method == "GET" and self.id[-5:] == "_list"
+        self.is_list = self.method == "GET" and self.id[-5:] == "_list"
 
     def make_path(self, path_vars: dict[str, str]):
         path_parts = self.path.split("/")

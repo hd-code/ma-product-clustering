@@ -1,0 +1,3 @@
+wk_icecat_connector:
+    resource: "@IcecatConnectorBundle/Resources/config/routing.yml"
+    prefix:   / 

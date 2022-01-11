@@ -1,0 +1,9 @@
+services:
+    Webkul\IcecatConnectorBundle\Listener\ClassDefinationForCompatibility:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+                
+    webkul_icecat_connector_command_event.listener:  
+        class:  'Webkul\IcecatConnectorBundle\Listener\ClassDefinationForCompatibility'          
+        tags:
+            - { name: kernel.event_listener, event: console.command, method: createUserSystem }

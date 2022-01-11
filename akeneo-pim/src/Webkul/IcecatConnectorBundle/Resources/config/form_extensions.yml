@@ -1,0 +1,125 @@
+extensions:
+    # menu item
+    pim-menu-icecat_connector:
+        module: pim/menu/tab
+        parent: pim-menu
+        position: 100
+        targetZone: mainMenu
+        aclResourceId: webkul_icecat_connector_mapping
+        config:
+            title: webkul_icecat_connector.menu.title
+            iconModifier: iconWebkulIcecat
+            to: webkul_icecat_connector_mapping
+
+    # icecat_configuration_form:
+    webkul-icecat-connector-configuration-form:
+        module: icecatconnector/configuration
+
+    webkul-icecat-connector-configuration-breadcrumbs:
+        module: pim/common/breadcrumbs
+        parent: webkul-icecat-connector-configuration-form
+        targetZone: breadcrumbs
+        config:
+            tab: pim-menu-icecat_connector
+    
+    webkul-icecat-connector-configuration-state:
+        module: pim/form/common/state
+        parent: webkul-icecat-connector-configuration-form
+        targetZone: state
+        position: 900
+        config:
+            entity: pim_enrich.entity.product.title   
+
+    webkul-icecat-connector-configuration-title:
+        module: pim/common/grid-title
+        parent: webkul-icecat-connector-configuration-form
+        targetZone: title
+        config:
+            title: webkul_icecat_connector.title
+            countable: false
+
+    webkul-icecat-connector-configuration-user-navigation:
+        module: pim/menu/user-navigation
+        parent: webkul-icecat-connector-configuration-form
+        targetZone: user-menu
+        config:
+            userAccount: pim_menu.user.user_account
+            logout: pim_menu.user.logout    
+
+    # Save Button
+    webkul-icecat-connector-configuration-save:
+        module: icecatconnector/configuration/save
+        parent: webkul-icecat-connector-configuration-form
+        targetZone: buttons
+        position: 100
+        config:
+            url: webkul_icecat_connector_mapping_save
+
+    # Tabs
+    webkul-icecat-connector-configuration-tabs:
+        module: pim/form/common/form-tabs
+        parent: webkul-icecat-connector-configuration-form
+        targetZone: content
+        position: 90 
+
+    webkul-icecat-connector-configuration-tab-credential:
+        module: icecatconnector/form/tab/credential
+        parent: webkul-icecat-connector-configuration-tabs
+        targetZone: container
+        position: 100
+
+    webkul-icecat-connector-configuration-tab-mapping:
+        module: icecatconnector/form/tab/mapping
+        parent: webkul-icecat-connector-configuration-tabs
+        targetZone: container
+        position: 110
+
+    webkul-icecat-connector-configuration-tab-other-attribute:
+        module: icecatconnector/form/tab/extra-mapping
+        parent: webkul-icecat-connector-configuration-tabs
+        targetZone: container
+        position: 120
+        config:
+            title: webkul_icecat_connector.tab.extra_mapping.title
+            otherGroup: other
+            confirmation:
+                title: webkul_enrich.confirmation.extra_mapping.remove.attribute.title
+                subTitle: webkul_enrich.form.mapping.extra_mapping.attribute.remove.subtitle
+                message: webkul_enrich.confirmation.extra_mapping.remove.attribute.message
+                buttonText: webkul_enrich.confirmation.remove
+            removeAttributeACL: pim_enrich_attributegroup_remove_attribute
+            addAttributeACL: pim_enrich_attributegroup_add_attribute
+
+    webkul-icecat-connector-configuration-add-attribute:
+        module: icecatconnector/form/tab/extra-mapping/attribute/add-select
+        parent: webkul-icecat-connector-configuration-tab-other-attribute
+        targetZone: actions
+        aclResourceId: pim_enrich_attributegroup_add_attribute
+
+    webkul-icecat-connector-configuration-tab-attribute-type-mapping:
+        module: icecatconnector/form/tab/attribute-type-mapping
+        parent: webkul-icecat-connector-configuration-tabs
+        targetZone: container
+        position: 130
+        config:
+            title: webkul_icecat_connector.tab.attriute_type_mapping.title
+            otherGroup: other
+            confirmation:
+                title: webkul_enrich.confirmation.attriute_type_mapping.remove.attribute.title
+                subTitle: webkul_enrich.form.mapping.attriute_type_mapping.attribute.remove.subtitle
+                message: webkul_enrich.confirmation.attriute_type_mapping.remove.attribute.message
+                buttonText: webkul_enrich.confirmation.remove
+            removeAttributeACL: pim_enrich_attributegroup_remove_attribute
+            addAttributeACL: pim_enrich_attributegroup_add_attribute
+
+    webkul-icecat-connector-configuration-add-attribute-type:
+        module: icecatconnector/form/tab/extra-mapping/attribute/add-select
+        parent: webkul-icecat-connector-configuration-tab-attribute-type-mapping
+        targetZone: actions
+        aclResourceId: pim_enrich_attributegroup_add_attribute
+
+    webkul-icecat-connector-configuration-tab-locale_mapping:
+        module: icecatconnector/form/tab/locale-mapping
+        parent: webkul-icecat-connector-configuration-tabs
+        targetZone: container
+        position: 140

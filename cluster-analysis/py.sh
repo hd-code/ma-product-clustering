@@ -1,3 +1,5 @@
+cd $(dirname $0)
+
 export PIPENV_VERBOSITY=-1
 
 CMD="$1"

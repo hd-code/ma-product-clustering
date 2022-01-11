@@ -1,0 +1,45 @@
+services:
+    webkul_icecat_connector.job.import_feature_mapping:
+        class: '%pim_connector.job.simple_job.class%'
+        arguments:
+            - 'webkul_icecat_import_features_mapping'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            -
+                - '@webkul_icecat_connector.step.import_features_mapping'
+            - true
+        tags:
+            -
+                name: akeneo_batch.job
+                connector: 'Akeneo Icecat Connector'
+                type: '%pim_connector.job.import_type%'
+
+    webkul_icecat_connector.job.import_features:
+        class: '%pim_connector.job.simple_job.class%'
+        arguments:
+            - 'webkul_icecat_import_features'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            -
+                - '@webkul_icecat_connector.step.import_features'
+            - true
+        tags:
+            -
+                name: akeneo_batch.job
+                connector: 'Akeneo Icecat Connector'
+                type: '%pim_connector.job.import_type%'
+
+    webkul_icecat_connector.job.import.enrich_products:
+        class: '%pim_connector.job.simple_job.class%'
+        arguments:
+            - 'webkul_icecat_enrich_products'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            -
+                - '@webkul_icecat_connector.step.enrich_products'
+            - true
+        tags:
+            -
+                name: akeneo_batch.job
+                connector: 'Akeneo Icecat Connector'
+                type: '%pim_connector.job.import_type%'
