@@ -1,116 +1,115 @@
-import math
-from typing import Callable
-
 from clustering.data_point import DataPoint
 from clustering.middle_point import MiddlePoint
-
-
-def _on_cluster_found_noop(data_point_index: int, cluster_index: int) -> None:
-    """Callback during clustering to perform some task when the nearest cluster for a point ist found"""
-    pass
 
 
 class KMeans:
     def __init__(
         self,
+        data_points: list[DataPoint],
         middle_point_cls: MiddlePoint,
         k: int = 5,
-        num_of_trys: int = 10,
         max_iter: int = 100,
+        num_of_trys: int = 1,
     ) -> None:
+        self._assign(data_points, middle_point_cls, k, max_iter, num_of_trys)
+        self._create_middle_points()
+        self._init_rest()
+        self._cluster_data()
+
+    # public -------------------------------------------------------------------
+
+    @property
+    def iterations(self) -> int:
+        return self._iterations
+
+    @property
+    def middle_points(self) -> list[MiddlePoint]:
+        return self._middle_points
+
+    @property
+    def result(self) -> list[int]:
+        return self._result
+
+    def predict(self, data_points: list[DataPoint]) -> list[int]:
+        return self._find_nearest_clusters(data_points)
+
+    def predict_single(self, data_point: DataPoint) -> int:
+        return self._find_nearest_cluster(data_point)
+
+    # init ---------------------------------------------------------------------
+
+    def _assign(
+        self,
+        data_points: list[DataPoint],
+        middle_point_cls: MiddlePoint,
+        k: int = 5,
+        max_iter: int = 100,
+        num_of_trys: int = 1,
+    ) -> None:
+        self._data_points = data_points
         self._middle_point_cls = middle_point_cls
         self._k = k
         self._num_of_trys = num_of_trys
         self._max_iter = max_iter
 
-    iterations = 0
+    def _create_middle_points(self) -> None:
+        self._middle_points = self._middle_point_cls.create_points(
+            self._data_points, self._k)
 
-    # public -------------------------------------------------------------------
-
-    def fit(self, data: list[DataPoint]) -> list[int]:
-        return self._cluster_data(data)
-
-    def predict(self, data: list[DataPoint]) -> list[int]:
-        self._check_is_initialized()
-        return self._find_nearest_clusters(data)
-
-    def predict_single(self, data_point: DataPoint) -> int:
-        self._check_is_initialized()
-        return self._find_nearest_cluster(data_point)
-
-    # attributes ---------------------------------------------------------------
-
-    def _create_middle_points(self, data: list[DataPoint]) -> None:
-        self.middle_points = self._middle_point_cls.create_points(data, self._k)
-
-    def _restart_middle_points(self) -> None:
-        for middle_point in self.middle_points:
-            middle_point.on_restart()
-
-    def _check_is_initialized(self) -> None:
-        if self.iterations == 0 or not hasattr(self, "middle_points"):
-            print("Clustering not initialized. Use `fit` first.")
-            raise AttributeError
+    def _init_rest(self) -> None:
+        self._iterations = 0
+        self._result: list[int] = []
 
     # clustering ---------------------------------------------------------------
 
-    def _cluster_data(self, data: list[DataPoint]) -> list[int]:
-        cluster_assigns = self._init_clustering(data)
-        self.iterations += 1
-
-        self._clusters_changed = False
-
-        def on_cluster_found(data_point_index: int, cluster_index: int) -> None:
-            data_point = data[data_point_index]
-            middle_point = self.middle_points[cluster_index]
-            middle_point.on_add_point(data_point)
-
-            if cluster_assigns[data_point_index] != cluster_index:
-                self._clusters_changed = True
+    def _cluster_data(self) -> None:
+        self._init_clustering()
+        self._iterations += 1
 
         while self.iterations <= self._max_iter:
-            self._clusters_changed = False
-            self._restart_middle_points()
+            have_clusters_changed = self._recluster()
+            self._iterations += 1
 
-            cluster_assigns = self._find_nearest_clusters(
-                data, on_cluster_found)
-            self.iterations += 1
-
-            if not self._clusters_changed:
+            if not have_clusters_changed:
                 break
 
-        return cluster_assigns
-
-    def _init_clustering(self, data: list[DataPoint]) -> list[int]:
-        self._create_middle_points(data)
-
-        def update_mp(data_point_index: int, cluster_index: int) -> None:
-            data_point = data[data_point_index]
-            middle_point = self.middle_points[cluster_index]
-            middle_point.on_add_point(data_point)
-
-        return self._find_nearest_clusters(data, update_mp)
-
-    def _find_nearest_clusters(
-        self,
-        data: list[DataPoint],
-        on_cluster_found: Callable[[int, int], None] = _on_cluster_found_noop
-    ) -> list[int]:
-        result: list[int] = []
-        for i in range(len(data)):
-            data_point = data[i]
+    def _init_clustering(self) -> None:
+        for i in range(len(self._data_points)):
+            data_point = self._data_points[i]
             cluster_index = self._find_nearest_cluster(data_point)
-            on_cluster_found(i, cluster_index)
+            self._middle_points[cluster_index].on_add_point(data_point)
+            self._result.append(cluster_index)
+
+    def _recluster(self) -> bool:
+        self._restart_middle_points()
+        have_clusters_changed = False
+        for i in range(len(self._data_points)):
+            data_point = self._data_points[i]
+            cluster_index = self._find_nearest_cluster(data_point)
+            if cluster_index != self._result[i]:
+                have_clusters_changed = True
+                self._result[i] = cluster_index
+            self._middle_points[cluster_index].on_add_point(data_point)
+        return have_clusters_changed
+
+    def _find_nearest_clusters(self, data_points: list[DataPoint]) -> list[int]:
+        result: list[int] = []
+        for data_point in data_points:
+            cluster_index = self._find_nearest_cluster(data_point)
             result.append(cluster_index)
         return result
 
     def _find_nearest_cluster(self, data_point: DataPoint) -> int:
         result = 0
-        distance = math.inf
-        for i in range(self._k):
-            middle_point = self.middle_points[i]
+        distance = self._middle_points[0].calc_distance(data_point)
+        for i in range(1, self._k):
+            middle_point = self._middle_points[i]
             next_distance = middle_point.calc_distance(data_point)
             if next_distance < distance:
                 distance = next_distance
                 result = i
         return result
+
+    def _restart_middle_points(self) -> None:
+        for middle_point in self.middle_points:
+            middle_point.on_restart()

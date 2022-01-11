@@ -1,0 +1,8 @@
+version: '3.4'
+services:
+  mysql:
+    volumes:
+      - "./data/mysql:/var/lib/mysql"
+  elasticsearch:
+    volumes:
+      - "./data/elasticsearch:/usr/share/elasticsearch/data"

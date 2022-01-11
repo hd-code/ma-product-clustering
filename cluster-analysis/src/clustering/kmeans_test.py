@@ -12,12 +12,11 @@ class Test_KMeans(unittest.TestCase):
             DataPoint3D(2, 2, 2),
         ]
 
-        kmeans = KMeans(MiddlePoint3D, 2)
-        got = kmeans.fit(points)
+        kmeans = KMeans(points, MiddlePoint3D, 2)
 
+        self.assertListEqual(kmeans.result, [0, 1])
         self.assertEqual(kmeans.iterations, 2,
                          "Should converge after second iteration")
-        self.assertListEqual(got, [0, 1])
 
     def test_cluster_four_points_and_clusters(self):
         points = [
@@ -27,12 +26,11 @@ class Test_KMeans(unittest.TestCase):
             DataPoint3D(4, 4, 4),
         ]
 
-        kmeans = KMeans(MiddlePoint3D, 4)
-        got = kmeans.fit(points)
+        kmeans = KMeans(points, MiddlePoint3D, 4)
 
+        self.assertListEqual(kmeans.result, [0, 1, 2, 3])
         self.assertEqual(kmeans.iterations, 2,
                          "Should converge after second iteration")
-        self.assertListEqual(got, [0, 1, 2, 3])
 
     def test_cluster_several_points_suboptimal_start(self):
         points = [
@@ -50,10 +48,9 @@ class Test_KMeans(unittest.TestCase):
             DataPoint3D(14, 4, 4),
         ]
 
-        kmeans = KMeans(MiddlePoint3D, 3)
-        got = kmeans.fit(points)
+        kmeans = KMeans(points, MiddlePoint3D, 3)
 
-        self.assertListEqual(got, [0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 2])
+        self.assertListEqual(kmeans.result, [0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 2, 2])
         self.assertEqual(kmeans.iterations, 5)
 
     def test_cluster_with_wild_ordering(self):
@@ -72,8 +69,7 @@ class Test_KMeans(unittest.TestCase):
             DataPoint3D(3, 13, 3),
         ]
 
-        kmeans = KMeans(MiddlePoint3D, 4)
-        got = kmeans.fit(points)
+        kmeans = KMeans(points, MiddlePoint3D, 4)
 
-        self.assertListEqual(got, [0, 3, 2, 3, 1, 3, 3, 3, 1, 2, 3, 1])
+        self.assertListEqual(kmeans.result, [0, 3, 2, 3, 1, 3, 3, 3, 1, 2, 3, 1])
         self.assertEqual(kmeans.iterations, 3)
