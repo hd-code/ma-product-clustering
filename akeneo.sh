@@ -57,17 +57,6 @@ case $CMD in
         docker rm -v akeneo_job_queue
         ;;
 
-    install_icecat)
-        alias docker_php='docker-compose run -u www-data --rm php php'
-        alias docker_yarn='docker-compose run -u node --rm node yarn'
-        docker_php bin/console cache:clear --env=prod
-        docker_php bin/console pim:installer:assets --symlink --clean --env=prod
-        docker_php bin/console d:s:u --force
-        docker_yarn run webpack
-        docker_yarn run update-extensions
-        docker_yarn run less
-        ;;
-
     *)
         echo "Usage: $0 CMD"
         echo "  run       – run a command like 'php ...' in akeneo pim"
