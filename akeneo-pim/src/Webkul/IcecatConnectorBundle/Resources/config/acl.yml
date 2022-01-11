@@ -1,4 +1,0 @@
-webkul_icecat_connector_mapping:
-    type: action
-    label: Icecat Connector Configuration 
-    group_name: webkul_icecat_connector_acl_groups_configuration

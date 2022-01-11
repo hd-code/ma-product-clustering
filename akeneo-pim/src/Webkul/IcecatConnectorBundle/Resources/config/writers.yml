@@ -1,6 +1,0 @@
-services:
-    webkul_icecat_connector.writer.file.feature_mapping:
-        class: Webkul\IcecatConnectorBundle\Connector\Writer\Import\FeatureMappingWriter
-        arguments:
-            - '@icecat_connector.repository.data_mapping'
-            - '@doctrine.orm.entity_manager'
