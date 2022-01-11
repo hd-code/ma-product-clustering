@@ -1,2 +1,1 @@
-cd $(dirname $0)/cluster-analysis
-./py.sh $@
+$(dirname $0)/cluster-analysis/py.sh "$@"
