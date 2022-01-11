@@ -1,0 +1,24 @@
+Webkul\IcecatConnectorBundle\Entity\IcecatMapping:
+    type: entity
+    table: wk_icecatconnector_config
+    repositoryClass: Webkul\IcecatConnectorBundle\Repository\IcecatMappingRepository
+    indexes:
+        webkul_icecat_mapping_index:
+            columns: [name, section]
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        value:
+            type: text
+            nullable: true
+        section:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

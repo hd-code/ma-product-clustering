@@ -1,0 +1,16 @@
+services:
+    # Mapping controller
+    icecat_connector.mapping.controller:
+        public: true
+        class: 'Webkul\IcecatConnectorBundle\Controller\MappingController'
+        arguments:
+            - '@icecat_connector.repository.config'
+            - '@icecat_connector.repository.data_mapping'
+            - '@icecat_connector.repository.data_mapping.search'
+            - '@doctrine.orm.entity_manager'
+            - '@webkul_icecat_connector.component.http_client'
+            
+    # Configuration controller
+    icecat_connector.configuration.controller:
+        public: true
+        class: 'Webkul\IcecatConnectorBundle\Controller\ConfigurationController'

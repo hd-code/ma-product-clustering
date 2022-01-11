@@ -1,0 +1,66 @@
+config:
+    paths:
+        # Js
+        icecatconnector/controller/configuration                    : icecatconnector/js/controller/configuration
+        icecatconnector/configuration                               : icecatconnector/js/configuration/configuration
+        icecatconnector/configuration/save                          : icecatconnector/js/configuration/save
+        icecatconnector/form/tab/credential                         : icecatconnector/js/form/tab/credential
+        icecatconnector/form/tab/mapping                            : icecatconnector/js/form/tab/mapping
+        icecatconnector/form/tab/extra-mapping                      : icecatconnector/js/form/tab/extra-mapping
+        icecatconnector/form/tab/attribute-type-mapping             : icecatconnector/js/form/tab/attribute-type-mapping
+        icecatconnector/form/tab/extra-mapping/attribute/add-select : icecatconnector/js/form/tab/select
+        icecatconnector/form/tab/locale-mapping                     : icecatconnector/js/form/tab/locale-mapping
+        icecatconnector/form/common/locales                         : icecatconnector/js/form/common/locales
+        icecatconnector/form/common/currencies                      : icecatconnector/js/form/common/currencies
+        icecatconnector/job/history/class                           : icecatconnector/js/job/history
+        icecatconnector/job/common/locale                           : icecatconnector/js/job/common/locale
+        icecatconnector/job/icecat-attribute                        : icecatconnector/js/job/icecat-attribute
+
+        # Templates
+        icecatconnector/template/tab/credential                     : icecatconnector/templates/tab/credential.html
+        icecatconnector/template/tab/mapping                        : icecatconnector/templates/tab/mapping.html
+        icecatconnector/template/tab/attribute                      : icecatconnector/templates/tab/attribute.html
+        icecatconnector/template/tab/attribute-type                 : icecatconnector/templates/tab/attribute-type.html
+        icecatconnector/template/tab/locale-mapping                 : icecatconnector/templates/tab/locale-mapping.html
+        icecatconnector/template/form/common/locales                : icecatconnector/templates/common/locales.html
+        icecatconnector/template/form/common/currencies             : icecatconnector/templates/common/currencies.html
+        icecatconnector/template/job/common/locale                  : icecatconnector/templates/job/common/locale.html
+        icecatconnector/template/job/icecat-attribute               : icecatconnector/templates/job/icecat-attribute.html
+    config:
+        # Controllers
+        pim/controller-registry:
+            controllers:
+                webkul_icecat_connector_mapping:
+                    module: icecatconnector/controller/configuration    
+        # Fetcher
+        pim/fetcher-registry:
+            fetchers:
+                icecatconnector-get-mapping:
+                    module: pim/base-fetcher
+                    options:
+                        urls:
+                            list: webkul_icecat_connector_mapping_get
+                            
+                icecatconnector-history-class:
+                    module: pim/base-fetcher
+                    options:
+                        urls:
+                            list: webkul_icecat_connector_get_history_class
+
+                icecatconnector-icecat-locale:
+                    module: pim/base-fetcher
+                    options:
+                        urls:
+                            list: webkul_icecat_connector_icecate_locale_get
+
+                icecatconnector-get-data-mapping:
+                    module: pim/base-fetcher
+                    options:
+                        urls:
+                            list: webkul_icecat_connector_data_mapping_get
+
+                icecatconnector-get-icecat-attribute:
+                    module: pim/base-fetcher
+                    options:
+                        urls:
+                            list: webkul_icecat_connector_get_icecat_attribute

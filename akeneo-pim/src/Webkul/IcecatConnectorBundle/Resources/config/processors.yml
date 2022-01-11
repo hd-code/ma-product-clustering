@@ -1,0 +1,5 @@
+services:
+    webkul_icecat_connector.processor.mapping.features_mapping:
+        class: Webkul\IcecatConnectorBundle\Connector\Processor\Import\FetaureMappingProcessor
+        arguments:
+            - '@webkul_icecat_connector.component.measurement_handler'

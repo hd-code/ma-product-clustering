@@ -1,0 +1,16 @@
+services:
+    webkul_icecat_connector.reader.features:
+        class: Webkul\IcecatConnectorBundle\Connector\Reader\Import\FeatureReader
+        arguments:
+            - '@webkul_icecat_connector.component.http_client'
+            - '@icecat_connector.repository.config'
+            - '@webkul_icecat_connector.component.attribute_type_resolver'
+            - '@pim_catalog.repository.attribute'
+            - '@webkul_icecat_connector.component.measurement_handler'
+
+    webkul_icecat_connector.reader.features_mapping:
+        class: Webkul\IcecatConnectorBundle\Connector\Reader\Import\FeatureMappingReader
+        arguments:
+            - '@webkul_icecat_connector.component.http_client'
+            - '@icecat_connector.repository.config'
+            - '@webkul_icecat_connector.component.attribute_type_resolver'
