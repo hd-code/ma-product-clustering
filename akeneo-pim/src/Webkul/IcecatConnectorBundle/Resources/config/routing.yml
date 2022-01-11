@@ -1,0 +1,34 @@
+# Mapping routing
+webkul_icecat_connector_mapping:
+    path: /icecatconnector/
+
+webkul_icecat_connector_mapping_get:
+    path: /icecatconnector/mapping
+    defaults: { _controller: icecat_connector.mapping.controller:getAction }
+    methods: [GET]
+
+webkul_icecat_connector_icecate_locale_get:
+    path: /icecatconnector/locale
+    defaults: { _controller: icecat_connector.mapping.controller:getIcecateLocalesAction}
+    methods: [GET]
+
+webkul_icecat_connector_data_mapping_get:
+    path: /icecatconnector/data-mapping
+    defaults: { _controller: icecat_connector.mapping.controller:getDataMappingAction}
+    methods: [GET]
+
+webkul_icecat_connector_get_icecat_attribute:
+    path: /icecatconnector/icecat-attribute
+    defaults: { _controller: icecat_connector.mapping.controller:getIcecatAttributeAction}
+    methods: [GET]
+
+webkul_icecat_connector_mapping_save:
+    path: /icecatconnector/mapping/save/{tab}
+    defaults: { _controller: icecat_connector.mapping.controller:saveMappingAction }
+    methods: [POST]
+
+# Configuartion routing
+webkul_icecat_connector_get_history_class:
+    path: /icecatconnector-configuration/history-class/
+    defaults: { _controller: icecat_connector.configuration.controller:getHistoryClassAction }
+    methods: [GET]

@@ -1,0 +1,38 @@
+<div class="AknSubsection">
+    <div class="AknFormContainer--withPadding">
+        <table class="AknGrid grid">
+            <thead class="AknGrid-header">
+                <tr class="AknGrid-bodyRow">
+                    <th class="AknGrid-headerCell">
+                        <%- _.__('webkul_icecat_connector.tab.locale_mapping.header.akeneo_locale') %>
+                    </th>
+                   <th class="AknGrid-headerCell">
+                       <%- _.__('webkul_icecat_connector.tab.locale_mapping.header.icecat_locale') %>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="AknGrid-body">
+                <% _.each(availableLocales, function(locale) { %>
+                    <tr class="AknGrid-bodyRow">
+                        <td class="AknGrid-bodyCell AknGrid-bodyCell--highlight">
+                            <%- _.__(locale.label) %>
+                        </td>
+                        <td class="AknGrid-bodyCell string-cell">
+                            <select style = "width:70% !important" class="icecatLocaleMapping select2 label-field" data-wrapper="icecatLocaleMapping" id="<%- locale.code %>" name="<%- locale.code %>" > 
+                                <option><%- _.__('Select Atribute') %></option>
+                                <% selectVal = icecatLocaleMapping && typeof(icecatLocaleMapping) !== 'undefined' && typeof(icecatLocaleMapping[locale.code]) !== 'undefined' ?  icecatLocaleMapping[locale.code] : '' %>
+                                <% _.each(icecatLocales, function(icecatLocaleLabel, icecatLocaleCode) { %>
+                                    <option value="<%- icecatLocaleCode %>" <% if(icecatLocaleCode === selectVal ) { %>selected="selected"<% } %> 
+                                        <% if(icecatLocaleCode !== selectVal && _.indexOf(mappedLocale, icecatLocaleCode) !== -1) { %> disabled <% } %>>
+                                        <%- icecatLocaleLabel ? icecatLocaleLabel : icecatLocaleCode  %>
+                                    </option>
+                                <% }); %>
+                            </select>
+                            
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

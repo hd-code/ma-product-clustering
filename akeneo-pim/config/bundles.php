@@ -4,4 +4,5 @@ return [
     // Add your bundles here with the associated env.
     // Ex:
     // Acme\Bundle\AppBundle\AcmeAppBundle::class => ['dev' => true, 'test' => true, 'prod' => true]
+    Webkul\IcecatConnectorBundle\IcecatConnectorBundle::class => ['all' => true]
 ];

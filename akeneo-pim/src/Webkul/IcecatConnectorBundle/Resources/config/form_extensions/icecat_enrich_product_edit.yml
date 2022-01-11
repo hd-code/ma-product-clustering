@@ -1,0 +1,224 @@
+extensions:
+    webkul-icecat-job-instance-enrich-product-edit:
+        module: pim/form/common/edit-form
+
+    webkul-icecat-job-instance-enrich-product-edit-main-image:
+        module: pim/form/common/main-image
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: main-image
+        config:
+            path: bundles/icecatconnector/images/akeneo-icecat-connector-webkul.png
+
+    webkul-icecat-job-instance-enrich-product-edit-user-navigation:
+        module: pim/menu/user-navigation
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: user-menu
+        config:
+            userAccount: pim_menu.user.user_account
+            logout: pim_menu.user.logout
+
+    webkul-icecat-job-instance-enrich-product-edit-breadcrumbs:
+        module: pim/common/breadcrumbs
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: breadcrumbs
+        config:
+            tab: pim-menu-imports
+
+    webkul-icecat-job-instance-enrich-product-edit-cache-invalidator:
+        module: pim/cache-invalidator
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        position: 1000
+
+    webkul-icecat-job-instance-enrich-product-edit-tabs:
+        module: pim/form/common/form-tabs
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: content
+        position: 100
+
+    webkul-icecat-job-instance-enrich-product-edit-properties:
+        module: pim/job/common/edit/properties
+        parent: webkul-icecat-job-instance-enrich-product-edit-tabs
+        aclResourceId: pim_importexport_export_profile_property_edit
+        targetZone: container
+        position: 100
+        config:
+            tabTitle: webkul_enrich.form.job_instance.tab.properties.title
+            tabCode: webkul-icecat-job-instance-properties
+
+    webkul-icecat-job-instance-enrich-product-edit-content:
+        module: pim/job/product/edit/content
+        parent:  webkul-icecat-job-instance-enrich-product-edit-tabs
+        aclResourceId: pim_importexport_export_profile_content_edit
+        targetZone: container
+        position: 110
+        config:
+            tabTitle: webkul_enrich.form.job_instance.tab.content.title
+            tabCode: pim-job-instance-content
+
+    webkul-icecat-job-instance-enrich-product-edit-global:
+        module: pim/job/common/edit/properties
+        parent: webkul-icecat-job-instance-enrich-product-edit-tabs
+        aclResourceId: pim_importexport_export_profile_property_edit
+        targetZone: container
+        position: 130
+        config:
+            tabTitle: pim_enrich.export.product.global_settings.title
+            tabCode: pim-job-instance-global
+
+    webkul-icecat-job-instance-enrich-product-edit-history:
+        module: icecatconnector/job/history/class 
+        parent: webkul-icecat-job-instance-enrich-product-edit-tabs
+        targetZone: container
+        aclResourceId: pim_importexport_import_profile_history
+        position: 140
+        config:
+            class: Akeneo\Component\Batch\Model\JobInstance
+            title: webkul_enrich.form.job_instance.tab.history.title
+            tabCode: pim-job-instance-history
+
+    webkul-icecat-job-instance-enrich-product-edit-properties-code:
+        module: pim/job/common/edit/field/text
+        parent: webkul-icecat-job-instance-enrich-product-edit-properties
+        position: 100
+        targetZone: properties
+        config:
+            fieldCode: code
+            label: webkul_enrich.form.job_instance.tab.properties.code.title
+            readOnly: true
+
+    webkul-icecat-job-instance-enrich-product-edit-properties-label:
+        module: pim/job/common/edit/field/text
+        parent: webkul-icecat-job-instance-enrich-product-edit-properties
+        position: 110
+        targetZone: properties
+        config:
+            fieldCode: label
+            label: webkul_enrich.form.job_instance.tab.properties.label.title
+
+    webkul-icecat-job-instance-enrich-product-edit-global-download-image:
+        module: pim/job/common/edit/field/switch
+        parent: webkul-icecat-job-instance-enrich-product-edit-global
+        position: 100
+        targetZone: properties
+        config:
+            fieldCode: configuration.downloadImage
+            readOnly: false
+            label: webkul_enrich.form.job_instance.tab.global.downloadImage.title
+            tooltip: webkul_enrich.form.job_instance.tab.global.downloadImage.help
+
+    webkul-icecat-job-instance-enrich-product-edit-global-fallbacklocale:
+        module: icecatconnector/job/common/locale 
+        parent: webkul-icecat-job-instance-enrich-product-edit-global
+        position: 110
+        targetZone: properties
+        config:
+            fieldCode: configuration.fallBackLocale
+
+    webkul-icecat-job-instance-enrich-product-edit-content-structure:
+        module: pim/job/product/edit/content/structure
+        parent: webkul-icecat-job-instance-enrich-product-edit-content
+        targetZone: structure-filters
+        position: 100
+    
+    webkul-icecat-job-instance-enrich-product-edit-content-structure-scope:
+        module: pim/job/product/edit/content/structure/scope
+        parent: webkul-icecat-job-instance-enrich-product-edit-content-structure
+        targetZone: filters
+        position: 90
+
+    webkul-icecat-job-instance-enrich-product-edit-content-structure-locales:
+        module: icecatconnector/form/common/locales
+        parent: webkul-icecat-job-instance-enrich-product-edit-content-structure
+        targetZone: filters
+        position: 100
+        config:
+            multiple: true
+            label: webkul_enrich.form.job_instance.tab.content.locales.title
+            tooltip: webkul_enrich.form.job_instance.tab.content.locales.help
+
+    webkul-icecat-job-instance-enrich-product-edit-content-data-filters:
+        module: pim/job/product/edit/content/data
+        parent: webkul-icecat-job-instance-enrich-product-edit-content
+        targetZone: data-filters
+        position: 120
+        config:
+            filters:
+                -
+                    field: family
+                    view: akeneo-product-family-filter
+                -
+                    field: updated
+                    view: akeneo-product-updated-filter
+                -
+                    field: categories
+                    view: akeneo-product-category-filter
+
+    webkul-icecat-job-instance-enrich-product-edit-content-default-attribute-filters:
+        module: pim/job/product/edit/content/data/default-attribute-filters
+        parent: webkul-icecat-job-instance-enrich-product-edit-content-data-filters
+        config:
+            types: [pim_catalog_identifier]
+
+    webkul-icecat-job-instance-enrich-product-edit-content-data-add-filter:
+        module: pim/job/product/edit/content/data/add-select/attribute
+        parent: webkul-icecat-job-instance-enrich-product-edit-content-data-filters
+        targetZone: headings
+        position: 90
+
+    webkul-icecat-job-instance-enrich-product-edit-label:
+        module: pim/job/common/edit/label
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: title
+        position: 100
+
+    webkul-icecat-job-instance-enrich-product-edit-meta:
+        module: pim/job/common/edit/meta
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: meta
+        position: 100
+
+    webkul-icecat-job-instance-enrich-product-edit-secondary-actions:
+        module: pim/form/common/secondary-actions
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: buttons
+        position: 50
+
+    webkul-icecat-job-instance-enrich-product-edit-delete:
+        module: pim/job/import/edit/delete
+        parent: webkul-icecat-job-instance-enrich-product-edit-secondary-actions
+        targetZone: secondary-actions
+        aclResourceId: pim_importexport_import_profile_remove
+        position: 100
+        config:
+            trans:
+                title: confirmation.remove.import_profile
+                content: pim_enrich.confirmation.delete_item
+                success: flash.job_instance.removed
+                failed: error.removing.job_instance
+            redirect: pim_importexport_import_profile_index
+
+    webkul-icecat-job-instance-enrich-product-edit-save-buttons:
+        module: pim/form/common/save-buttons
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: buttons
+        position: 120
+
+    webkul-icecat-job-instance-enrich-product-edit-save:
+        module: pim/job-instance-import-edit-form/save
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: buttons
+        position: 0
+        config:
+            redirectPath: pim_importexport_import_profile_show
+
+    webkul-icecat-job-instance-enrich-product-edit-state:
+        module: pim/form/common/state
+        parent: webkul-icecat-job-instance-enrich-product-edit
+        targetZone: state
+        position: 900
+        config:
+            entity: pim_enrich.entity.job_instance.title
+
+    webkul-icecat-job-instance-enrich-product-edit-validation:
+        module: pim/job/common/edit/validation
+        parent: webkul-icecat-job-instance-enrich-product-edit

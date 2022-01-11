@@ -1,0 +1,40 @@
+<div class="AknSubsection">
+    <div class="AknFormContainer--withPadding">
+        <table class="AknGrid grid">
+            <thead class="AknGrid-header">
+                <tr class="AknGrid-bodyRow">
+                   <th class="AknGrid-headerCell">
+                    <%- _.__('webkul_icecat_connector.tab.mapping.header.icecat_attribute') %>
+                   </th>
+                   <th class="AknGrid-headerCell">
+                    <%- _.__('webkul_icecat_connector.tab.mapping.header.akeneo_attribute') %>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="AknGrid-body">
+                <% _.each(commonAttributes, function(commonAttributeData, commonAttributeKey) { %>
+                    <tr class="AknGrid-bodyRow">
+                        <td class="AknGrid-bodyCell AknGrid-bodyCell--highlight">
+                            <%- _.__(commonAttributeData.label) %>
+                        </td>
+                        <td class="AknGrid-bodyCell string-cell">
+                            <select style = "width:70% !important" class="attributeMapping select2 label-field" data-wrapper="attributeMapping" id="<%- commonAttributeData.name %>" name="<%- commonAttributeData.name %>" <% if(commonAttributeData.isMultiple) { %> multiple <% } %>> 
+                                <option><%- _.__('Select Atribute') %></option>
+                                <% selectVal = attributeMapping && typeof(attributeMapping) !== 'undefined' && typeof(attributeMapping[commonAttributeData.name]) !== 'undefined' ?  attributeMapping[commonAttributeData.name] : '' %>
+                                <% _.each(attributes, function(attribute) { %>
+                                    <% if(_.indexOf(commonAttributeData.supportedType, attribute.type) != -1 && attribute.unique === commonAttributeData.unique) { %>
+                                        <option value="<%- attribute.code %>" <% if(attribute.code === selectVal || _.contains(selectVal, attribute.code)) { %>selected="selected"<% } %> 
+                                            <% if(attribute.code != selectVal && !commonAttributeData.isMultiple && _.indexOf(mappedAttribute, attribute.code) !== -1) { %> disabled <% } %>>
+                                            <%- 'undefined' !== typeof(attribute.labels[currentLocale]) ? attribute.labels[currentLocale] : attribute.code  %>
+                                        </option>
+                                    <% } %>
+                                <% }); %>
+                            </select>
+                            <i class="AknIconButton icon-info-sign" data-toggle="tooltip" data-placement="right" data-original-title="<%- _.__(commonAttributeData.supportedTypeLabel) %>."></i>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+services:
+    webkul_icecat_connector.component.http_client:
+        class: Webkul\IcecatConnectorBundle\Component\HttpClient
+
+    webkul_icecat_connector.component.attribute_type_resolver:
+        class: Webkul\IcecatConnectorBundle\Component\AttributeTypeResolver
+
+    webkul_icecat_connector.comonent.enrich_product:
+        class: Webkul\IcecatConnectorBundle\Component\EnrichProduct
+        arguments:
+            - '@pim_catalog.repository.attribute'
+            - '@pim_catalog.repository.attribute_option'
+            - '@webkul_icecat_connector.tmp_storage.dir'
+            - '@pim_catalog.factory.attribute_option'
+            - '@form.factory'
+            - '@pim_internal_api_serializer'
+            - '@pim_catalog.saver.attribute_option'
+            - '@webkul_icecat_connector.component.measurement_handler'
+
+    webkul_icecat_connector.component.media_storer:
+        class: Webkul\IcecatConnectorBundle\Component\MediaStorer
+        arguments:
+        - '@akeneo_file_storage.file_storage.file.file_storer'
+        - '%tmp_storage_dir%'
+
+    webkul_icecat_connector.tmp_storage.dir:
+      class: 'Webkul\IcecatConnectorBundle\Component\TempStorageDir'
+      arguments: 
+         - '@service_container'
+
+    webkul_icecat_connector.installer.measurement_installer:
+        class: Webkul\IcecatConnectorBundle\Installer\MeasurementInstaller
+        arguments:
+            - '@doctrine.dbal.default_connection'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    webkul_icecat_connector.component.measurement_handler:
+        class: Webkul\IcecatConnectorBundle\Component\MeasurementHandler
+        arguments:
+            - '%akeneo_measure.measures_config%'
+            - '@?akeneo_measure.persistence.measurement_family_repository'
+            
