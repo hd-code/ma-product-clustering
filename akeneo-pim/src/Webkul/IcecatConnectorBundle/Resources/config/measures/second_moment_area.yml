@@ -1,8 +1,0 @@
-measures_config:
-    SecondMomentArea:
-        standard: CM4
-        units:
-            CM4:
-                convert: [{'mul': 1}]
-                symbol: 'cm⁴'
-                alternative_symbols: ['cm4', 'cm^4']

@@ -1,11 +1,19 @@
-/tmp/
+/.env
 
 # IDEs
 .idea/
 .vscode/
 
+# Jupyter
+.ipynb_checkpoints/
+
 # macOS
 .DS_Store
+
+# Python
+__pycache__/
+build/
+*.egg-info
 
 # Windows
 Thumbs.db

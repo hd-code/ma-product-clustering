@@ -1,3 +1,0 @@
-parameters:
-    akeneo_measure.measures_config: ~
-    pim_enrich.provider.form.job_instance.class: Akeneo\Platform\Bundle\ImportExportBundle\Provider\Form\JobInstanceFormProvider

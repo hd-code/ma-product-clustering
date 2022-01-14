@@ -1,9 +1,0 @@
-.env
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Python
-__pycache__/
-build/
-*.egg-info

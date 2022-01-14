@@ -1,2 +1,0 @@
-parameters:
-    pim_enrich.provider.form.job_instance.class: Pim\Bundle\EnrichBundle\Provider\Form\JobInstanceFormProvider
