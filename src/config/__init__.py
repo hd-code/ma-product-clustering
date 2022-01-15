@@ -1,2 +1,1 @@
-from config.env import get_env
-from config.paths import *
+from .config import dir_base, dir_data, env

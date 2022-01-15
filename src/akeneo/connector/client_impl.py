@@ -1,12 +1,12 @@
 import requests
 import requests.auth
 
-from akeneo.connector.bearerauth import BearerAuth
-from akeneo.connector.client import AkeneoClient, JsonBody
-from akeneo.models.route import AkeneoRoute
+from .bearerauth import BearerAuth
+from .client import Client, JsonBody
+import akeneo.models as models
 
 
-class AkeneoClientImpl(AkeneoClient):
+class ClientImpl(Client):
     def __init__(self, host: str, client_id: str, secret: str, username: str, password: str) -> None:
         super().__init__()
         self._assign(host, client_id, secret, username, password)
@@ -15,7 +15,7 @@ class AkeneoClientImpl(AkeneoClient):
 
     # interface ----------------------------------------------------------------
 
-    def get_routes(self) -> list[AkeneoRoute]:
+    def get_routes(self) -> list[models.Route]:
         return self._routes
 
     def get(self, route_id: str, path_vars: dict[str, str] = None, params: dict = None) -> JsonBody:
@@ -69,11 +69,11 @@ class AkeneoClientImpl(AkeneoClient):
         self._token_url = f"{self._host}{token_path}"
 
         res_routes: dict[str, dict] = res_body["routes"]
-        routes: list[AkeneoRoute] = []
+        routes: list[models.Route] = []
         for (route_id, route_details) in res_routes.items():
             path = route_details["route"]
             method = route_details["methods"][0]
-            route = AkeneoRoute(route_id, path, method)
+            route = models.Route(route_id, path, method)
             routes.append(route)
         self._routes = routes
 
@@ -122,7 +122,7 @@ class AkeneoClientImpl(AkeneoClient):
 
         return res.json()
 
-    def _get_route(self, route_id: str) -> AkeneoRoute:
+    def _get_route(self, route_id: str) -> models.Route:
         for route in self._routes:
             if route.id == route_id:
                 return route

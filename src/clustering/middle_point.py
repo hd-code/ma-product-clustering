@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
-from clustering.data_point import DataPoint
+from .data_point import DataPoint
 
 
 class MiddlePoint(DataPoint, ABC):

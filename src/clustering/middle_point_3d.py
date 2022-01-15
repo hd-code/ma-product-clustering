@@ -1,8 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from clustering.data_point_3d import DataPoint3D
-from clustering.middle_point import MiddlePoint
+from .data_point_3d import DataPoint3D
+from .middle_point import MiddlePoint
 
 
 @dataclass

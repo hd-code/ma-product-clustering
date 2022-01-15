@@ -1,8 +1,8 @@
 import unittest
 
-from clustering.data_point_3d import DataPoint3D
-from clustering.kmeans import KMeans
-from clustering.middle_point_3d import MiddlePoint3D
+from .data_point_3d import DataPoint3D
+from .kmeans import KMeans
+from .middle_point_3d import MiddlePoint3D
 
 
 class Test_KMeans(unittest.TestCase):

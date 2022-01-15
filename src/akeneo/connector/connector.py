@@ -1,25 +1,22 @@
 from abc import ABC, abstractmethod
 
-from akeneo.models.attribute import AkeneoAttribute
-from akeneo.models.category import AkeneoCategory
-from akeneo.models.family import AkeneoFamily
-from akeneo.models.product import AkeneoProduct, AkeneoProductValues
+import akeneo.models as models
 
 
-class AkeneoConnector(ABC):
+class Connector(ABC):
 
     @abstractmethod
-    def get_attributes(self) -> list[AkeneoAttribute]:
+    def get_attributes(self) -> list[models.Attribute]:
         raise NotImplementedError
 
     @abstractmethod
-    def get_categories(self) -> list[AkeneoCategory]:
+    def get_categories(self) -> list[models.Category]:
         raise NotImplementedError
 
     @abstractmethod
-    def get_families(self) -> list[AkeneoFamily]:
+    def get_families(self) -> list[models.Family]:
         raise NotImplementedError
 
     @abstractmethod
-    def get_products(self) -> list[AkeneoProduct]:
+    def get_products(self) -> list[models.Product]:
         raise NotImplementedError

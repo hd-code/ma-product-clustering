@@ -4,10 +4,10 @@ from datetime import date, datetime
 from enum import Enum
 from typing import Optional
 
-from akeneo.models.util import LocalStr
+from .util import LocalStr
 
 
-class AkeneoAttributeType(Enum):
+class AttributeType(Enum):
     ID = "pim_catalog_identifier"
     TEXT = "pim_catalog_text"
     TEXTAREA = "pim_catalog_textarea"
@@ -25,9 +25,9 @@ class AkeneoAttributeType(Enum):
 
 
 @dataclass
-class AkeneoAttribute:
+class Attribute:
     code: str
-    type: AkeneoAttributeType
+    type: AttributeType
     labels: LocalStr
 
     localizable: bool
@@ -60,20 +60,22 @@ class AkeneoAttribute:
     validation_regexp: Optional[str]
     wysiwyg_enabled: Optional[bool]
 
+    # useable_as_grid_filter: Optional[bool]
 
-_map_attribute_to_type: dict[AkeneoAttributeType, type] = {
-    AkeneoAttributeType.ID: str,
-    AkeneoAttributeType.TEXT: str,
-    AkeneoAttributeType.TEXTAREA: str,
-    AkeneoAttributeType.SELECT_SINGLE: str,
-    AkeneoAttributeType.SELECT_MULTI: list[str],
-    AkeneoAttributeType.BOOL: bool,
-    AkeneoAttributeType.DATE: datetime,
-    AkeneoAttributeType.NUMBER: float,
-    AkeneoAttributeType.METRIC: float,
-    AkeneoAttributeType.PRICE: float,
-    AkeneoAttributeType.IMAGE: str,
-    AkeneoAttributeType.FILE: str,
-    AkeneoAttributeType.REFERENCE_SINGLE: str,
-    AkeneoAttributeType.REFERENCE_MULTI: list[str],
+
+_map_attribute_to_type: dict[AttributeType, type] = {
+    AttributeType.ID: str,
+    AttributeType.TEXT: str,
+    AttributeType.TEXTAREA: str,
+    AttributeType.SELECT_SINGLE: str,
+    AttributeType.SELECT_MULTI: list[str],
+    AttributeType.BOOL: bool,
+    AttributeType.DATE: datetime,
+    AttributeType.NUMBER: float,
+    AttributeType.METRIC: float,
+    AttributeType.PRICE: float,
+    AttributeType.IMAGE: str,
+    AttributeType.FILE: str,
+    AttributeType.REFERENCE_SINGLE: str,
+    AttributeType.REFERENCE_MULTI: list[str],
 }

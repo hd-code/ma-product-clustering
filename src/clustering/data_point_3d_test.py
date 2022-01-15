@@ -1,7 +1,7 @@
 import math
 import unittest
 
-from clustering.data_point_3d import DataPoint3D
+from .data_point_3d import DataPoint3D
 
 
 class Test_DataPoint3D(unittest.TestCase):

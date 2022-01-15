@@ -1,5 +1,5 @@
-from clustering.data_point import DataPoint
-from clustering.middle_point import MiddlePoint
+from .data_point import DataPoint
+from .middle_point import MiddlePoint
 
 
 class KMeans:

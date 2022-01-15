@@ -1,22 +1,22 @@
 import unittest
 
-from akeneo.models.route import AkeneoRoute
+from .route import Route
 
 
 class Test_AkeneoRoute(unittest.TestCase):
     def setUp(self):
         self.routes = [
-            AkeneoRoute(
+            Route(
                 "pim_api_locale_list",
                 "/api/rest/v1/locales",
                 "GET",
             ),
-            AkeneoRoute(
+            Route(
                 "pim_api_attribute_option_get",
                 "/api/rest/v1/attributes/{attributeCode}/options/{code}",
                 "GET",
             ),
-            AkeneoRoute(
+            Route(
                 "pim_api_attribute_group_partial_update",
                 "/api/rest/v1/attribute-groups/{code}",
                 "PATCH",

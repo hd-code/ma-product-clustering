@@ -5,22 +5,18 @@ from typing import TypeVar
 from dacite import from_dict
 from dacite.config import Config
 
-from akeneo.connector.client import AkeneoClient
-from akeneo.connector.connector import AkeneoConnector
-from akeneo.models.attribute import AkeneoAttribute, AkeneoAttributeType
-from akeneo.models.category import AkeneoCategory
-from akeneo.models.family import AkeneoFamily
-from akeneo.models.product import AkeneoProduct, AkeneoProductValues
-from akeneo.models.util import LocalStr
+from .client import Client
+from .connector import Connector
+import akeneo.models as models
 
 
 T = TypeVar("T")
 
 
-class AkeneoConnectorImpl(AkeneoConnector):
+class ConnectorImpl(Connector):
     def __init__(
         self,
-        client: AkeneoClient,
+        client: Client,
         preferred_channel: str = "ecommerce",
         locale: str = "en_US",
         check: bool = True
@@ -33,47 +29,47 @@ class AkeneoConnectorImpl(AkeneoConnector):
 
     # public -------------------------------------------------------------------
 
-    def get_attributes(self) -> list[AkeneoAttribute]:
+    def get_attributes(self) -> list[models.Attribute]:
         return self.attributes
 
-    def get_categories(self) -> list[AkeneoCategory]:
+    def get_categories(self) -> list[models.Category]:
         return self.categories
 
-    def get_families(self) -> list[AkeneoFamily]:
+    def get_families(self) -> list[models.Family]:
         return self.families
 
-    def get_products(self) -> list[AkeneoProduct]:
+    def get_products(self) -> list[models.Product]:
         return self.products
 
     # data & cache -------------------------------------------------------------
 
     @property
-    def attributes(self) -> list[AkeneoAttribute]:
+    def attributes(self) -> list[models.Attribute]:
         if not hasattr(self, "_attributes"):
             route_id = "pim_api_attribute_list"
             config = Config(
-                type_hooks={LocalStr: self._translate},
-                cast=[AkeneoAttributeType],
+                type_hooks={models.LocalStr: self._translate},
+                cast=[models.AttributeType],
             )
             self._attributes = self._get_list_from_api(
-                route_id, AkeneoAttribute, config)
+                route_id, models.Attribute, config)
         return self._attributes
 
     @property
-    def attributes_dict(self) -> dict[str, AkeneoAttribute]:
+    def attributes_dict(self) -> dict[str, models.Attribute]:
         if not hasattr(self, "_attributes_dict"):
-            self._attributes_dict: dict[str, AkeneoAttribute] = {}
+            self._attributes_dict: dict[str, models.Attribute] = {}
             for attr in self.attributes:
                 self._attributes_dict[attr.code] = attr
         return self._attributes_dict
 
     @property
-    def categories(self) -> list[AkeneoCategory]:
+    def categories(self) -> list[models.Category]:
         if not hasattr(self, "_categories"):
             route_id = "pim_api_category_list"
-            config = Config(type_hooks={LocalStr: self._translate})
+            config = Config(type_hooks={models.LocalStr: self._translate})
             self._categories = self._get_list_from_api(
-                route_id, AkeneoCategory, config)
+                route_id, models.Category, config)
         return self._categories
 
     @property
@@ -83,12 +79,12 @@ class AkeneoConnectorImpl(AkeneoConnector):
         return self._channels
 
     @property
-    def families(self) -> list[AkeneoFamily]:
+    def families(self) -> list[models.Family]:
         if not hasattr(self, "_families"):
             route_id = "pim_api_family_list"
-            config = Config(type_hooks={LocalStr: self._translate})
+            config = Config(type_hooks={models.LocalStr: self._translate})
             self._families = self._get_list_from_api(
-                route_id, AkeneoFamily, config)
+                route_id, models.Family, config)
         return self._families
 
     @property
@@ -98,16 +94,16 @@ class AkeneoConnectorImpl(AkeneoConnector):
         return self._locales
 
     @property
-    def products(self) -> list[AkeneoProduct]:
+    def products(self) -> list[models.Product]:
         if not hasattr(self, "_products"):
             route_id = "pim_api_product_list"
             params = {"locales": self._locale}
             config = Config(type_hooks={
                 datetime: datetime.fromisoformat,
-                AkeneoProductValues: self._extract_values,
+                models.ProductValues: self._extract_values,
             })
             self._products = self._get_list_from_api(
-                route_id, AkeneoProduct, config, params)
+                route_id, models.Product, config, params)
         return self._products
 
     # check --------------------------------------------------------------------
@@ -149,8 +145,8 @@ class AkeneoConnectorImpl(AkeneoConnector):
         except:
             return ""
 
-    def _extract_values(self, values: dict[list]) -> AkeneoProductValues:
-        result: AkeneoProductValues = {}
+    def _extract_values(self, values: dict[list]) -> models.ProductValues:
+        result: models.ProductValues = {}
         for key, value in values.items():
             result[key] = self._extract_value(key, value)
         return result
@@ -173,22 +169,20 @@ class AkeneoConnectorImpl(AkeneoConnector):
         data = value[index]["data"]
         return self._map_attr_type_to_handler[attr.type](data)
 
-    _map_attr_type_to_handler: dict[AkeneoAttributeType] = {
-        AkeneoAttributeType.ID: lambda x: x,
-        AkeneoAttributeType.TEXT: lambda x: x,
-        AkeneoAttributeType.TEXTAREA: lambda x: x,
-        AkeneoAttributeType.SELECT_SINGLE: lambda x: x,
-        AkeneoAttributeType.SELECT_MULTI: lambda x: x,
-        AkeneoAttributeType.BOOL: lambda x: x,
-        AkeneoAttributeType.DATE: datetime.fromisoformat,
-        AkeneoAttributeType.NUMBER: lambda x: x,
+    _map_attr_type_to_handler: dict[models.AttributeType] = {
+        models.AttributeType.ID: lambda x: x,
+        models.AttributeType.TEXT: lambda x: x,
+        models.AttributeType.TEXTAREA: lambda x: x,
+        models.AttributeType.SELECT_SINGLE: lambda x: x,
+        models.AttributeType.SELECT_MULTI: lambda x: x,
+        models.AttributeType.BOOL: lambda x: x,
+        models.AttributeType.DATE: datetime.fromisoformat,
+        models.AttributeType.NUMBER: lambda x: x,
         # TODO !!!
-        AkeneoAttributeType.METRIC: lambda x: x["amount"],
-        AkeneoAttributeType.PRICE: lambda x: x[0]["amount"],
-        AkeneoAttributeType.IMAGE: lambda x: x,
-        AkeneoAttributeType.FILE: lambda x: x,
-        AkeneoAttributeType.REFERENCE_SINGLE: lambda x: x,
-        AkeneoAttributeType.REFERENCE_MULTI: lambda x: x,
+        models.AttributeType.METRIC: lambda x: x["amount"],
+        models.AttributeType.PRICE: lambda x: x[0]["amount"],
+        models.AttributeType.IMAGE: lambda x: x,
+        models.AttributeType.FILE: lambda x: x,
+        models.AttributeType.REFERENCE_SINGLE: lambda x: x,
+        models.AttributeType.REFERENCE_MULTI: lambda x: x,
     }
-
-    

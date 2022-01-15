@@ -2,11 +2,11 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Optional
 
-from akeneo.models.util import LocalStr
+from .util import LocalStr
 
 
 @dataclass
-class AkeneoCategory:
+class Category:
     code: str
-    parent: Optional[str]
     labels: LocalStr
+    parent: Optional[str]

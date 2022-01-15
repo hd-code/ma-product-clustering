@@ -1,11 +1,14 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
-from akeneo.models.util import LocalStr
+from .util import LocalStr
 
 
 @dataclass
-class AkeneoFamily:
+class Family:
     code: str
-    attributes: list[str]
     labels: LocalStr
+    attributes: list[str]
+    # attribute_as_label: str
+    # attribute_as_image: str
+    # attribute_requirements: dict[str, list[str]]

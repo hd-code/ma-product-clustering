@@ -4,15 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-cluster-analysis = {editable = true, path = "./src"}
 jupyter = "*"
 matplotlib = "*"
 numpy = "*"
 pandas = "*"
-python-dotenv = "*"
-requests = "*"
-toml = "*"
-dacite = "*"
+src = {editable = true, path = "./src"}
 
 [dev-packages]
 autopep8 = "*"

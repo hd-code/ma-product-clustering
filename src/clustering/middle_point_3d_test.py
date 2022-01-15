@@ -1,7 +1,7 @@
 import unittest
 
-from clustering.data_point_3d import DataPoint3D
-from clustering.middle_point_3d import MiddlePoint3D
+from .data_point_3d import DataPoint3D
+from .middle_point_3d import MiddlePoint3D
 
 
 class Test_MiddlePoint(unittest.TestCase):

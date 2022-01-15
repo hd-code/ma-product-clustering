@@ -1,27 +1,27 @@
 from __future__ import annotations
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime
 from typing import Optional, Union
 
 
-AkeneoProductValue = Union[date, bool, float, str, list[str], None]
-AkeneoProductValues = dict[str, AkeneoProductValue]
+ProductValue = Union[date, bool, float, str, list[str], None]
+ProductValues = dict[str, ProductValue]
 
 
 @dataclass
-class AkeneoProduct:
+class Product:
     identifier: str
     enabled: bool
     family: Optional[str]
     categories: list[str]
     groups: list[str]
-    parent: Optional[str]
-    values: AkeneoProductValues
     created: datetime
     updated: datetime
-    associations: dict[str, dict]
-    quantified_associations: dict
+    parent: Optional[str]
+    # associations: dict[str, dict]
+    # quantified_associations: dict
+    values: ProductValues = field(repr=False)
 
     @staticmethod
-    def get_products_values(products: list[AkeneoProduct]) -> list[AkeneoProductValues]:
+    def to_products_values(products: list[Product]) -> list[ProductValues]:
         return [product.values for product in products]

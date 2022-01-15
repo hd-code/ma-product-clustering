@@ -1,16 +1,16 @@
 import abc
 from typing import Union
 
-from akeneo.models.route import AkeneoRoute
+import akeneo.models as models
 
 
 JsonBody = Union[dict, list]
 
 
-class AkeneoClient(abc.ABC):
+class Client(abc.ABC):
 
     @abc.abstractmethod
-    def get_routes(self) -> list[AkeneoRoute]:
+    def get_routes(self) -> list[models.Route]:
         raise NotImplementedError
 
     @abc.abstractmethod

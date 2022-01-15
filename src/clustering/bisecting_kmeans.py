@@ -1,9 +1,9 @@
 from __future__ import annotations
 from dataclasses import Field, dataclass
 
-from clustering.data_point import DataPoint
-from clustering.kmeans import KMeans
-from clustering.middle_point import MiddlePoint
+from .data_point import DataPoint
+from .kmeans import KMeans
+from .middle_point import MiddlePoint
 
 
 class BisectingKMeans:

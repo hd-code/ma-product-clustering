@@ -6,7 +6,7 @@ RestMethods = Literal["GET", "POST", "PATCH", "DELETE"]
 
 
 @dataclass
-class AkeneoRoute:
+class Route:
     id: str
     path: str
     method: RestMethods
