@@ -1,0 +1,6 @@
+job_execution:
+    summary:
+        download:
+            start: 'download start'
+            success: 'download finish'
+webkul_icecat_connector_acl_groups_configuration: Icecat Configuration

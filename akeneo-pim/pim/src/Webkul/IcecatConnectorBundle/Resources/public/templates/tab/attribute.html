@@ -1,0 +1,58 @@
+<div class="AknHorizontalNavtab-item--active AknVerticalNavtab-item--active">
+    <div class="AknGridToolbar">
+        <div class="AknGridToolbar-right" data-drop-zone="actions">
+        </div>
+    </div>
+    <div class="tabsection-content">
+        <div class="AknGridContainer">
+            <table class="AknGrid AknGrid--unclickable table attributes">
+                <thead>
+                    <tr>
+                        <th class="AknGrid-headerCell">&nbsp;</th>
+                        <th class="AknGrid-headerCell"><%- __('webkul_icecat_connector.tab.extra_mapping.header.icecat_attribute') %></th>
+                        <th class="AknGrid-headerCell"><%- __('webkul_icecat_connector.tab.extra_mapping.header.akeneo_attribute') %></th>
+                        <% if (hasRightToRemove) { %>
+                        <th class="AknGrid-headerCell">&nbsp;</th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody class="attribute-list">
+                    <% _.each(attributes, function (attributeValue, attributeCode) {
+                        if('undefined' !== typeof(icecatAttributes[attributeCode])) {
+                            icecateAttribute = icecatAttributes[attributeCode];
+                            icecateAttributeType = 'undefined' != typeof(attributesType[attributeCode]) ? attributesType[attributeCode] : '';
+                            %>
+                        <tr class="AknGrid-bodyRow attribute" data-attribute-code="<%- attributeCode %>">
+                            <td class="AknGrid-bodyCell AknGrid-bodyCell--tight">
+                                <span class="handle">
+                                    <i class="icon-reorder"></i>
+                                </span>
+                            </td>
+                            <td class="AknGrid-bodyCell"><%- i18n.getLabel(icecateAttribute.labels, UserContext.get('catalogLocale'), attributeCode) %></td>
+                            <td class="AknGrid-bodyCell">
+                                <select style = "width:70% !important" class="attributes select2 label-field" data-wrapper="attributes" id="<%- attributeCode %>" name="<%- attributeCode %>" > 
+                                    <option><%- _.__('Select Atribute') %></option>
+                                    <% _.each(pimAttributes, function(pimAttribute) { %>
+                                        <% if(pimAttribute.type == icecateAttributeType || pimAttribute.type == icecateAttribute.type) { %>
+                                            <option value="<%- pimAttribute.code %>" <% if(pimAttribute.code === attributeValue ) { %>selected="selected"<% } %> 
+                                                <% if(pimAttribute.code != attributeValue && _.indexOf(mappedAttribute, pimAttribute.code) !== -1) { %> disabled <% } %>>
+                                                <%- 'undefined' !== typeof(pimAttribute.labels[currentLocale]) ? pimAttribute.labels[currentLocale] : pimAttribute.code  %>
+                                            </option>
+                                        <% } %>
+                                    <% }); %>
+                                </select>
+                                <i class="AknIconButton icon-info-sign" data-toggle="tooltip" data-placement="right" data-original-title="Support attribute of type <%- _.__(icecateAttributeType ? icecateAttributeType : icecateAttribute.type) %>."></i>
+                            </td>
+                            <% if (hasRightToRemove) { %>
+                                <td class="AknGrid-bodyCell AknGrid-bodyCell--right">
+                                    <span class="AknIconButton AknIconButton--small AknIconButton--trash remove-attribute" data-attribute-label="<%- i18n.getLabel(icecateAttribute.labels, UserContext.get('catalogLocale'), attributeCode) %>" data-attribute-code="<%- attributeCode %>"></span>
+                                </td>
+                            <% } %>
+                        </tr>
+                        <% } %>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

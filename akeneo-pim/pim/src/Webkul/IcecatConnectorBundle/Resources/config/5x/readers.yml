@@ -1,0 +1,12 @@
+services:
+    webkul_icecat_connector.reader.database.product:
+        class:  Webkul\IcecatConnectorBundle\Connector\Reader\Import\AkeneoThree\ProductReader
+        arguments:
+            - '@pim_catalog.query.product_query_builder_factory'
+            - '@pim_catalog.repository.channel'
+            - '@pim_catalog.converter.metric'
+            - '@icecat_connector.repository.config'
+            - false
+            - '@webkul_icecat_connector.component.http_client'
+            - '@webkul_icecat_connector.comonent.enrich_product'
+            - '@pim_catalog.repository.attribute'

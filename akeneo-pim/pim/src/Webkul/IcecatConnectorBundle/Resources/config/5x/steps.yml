@@ -1,0 +1,36 @@
+services:
+    webkul_icecat_connector.step.import_features_mapping:
+        class: '%pim_connector.step.item_step.class%'
+        arguments:
+            - 'import'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            - '@webkul_icecat_connector.reader.features_mapping'
+            - '@webkul_icecat_connector.processor.mapping.features_mapping'
+            - '@webkul_icecat_connector.writer.file.feature_mapping'
+            -  50
+            - '@akeneo_batch.job.job_stopper'
+
+    webkul_icecat_connector.step.import_features:
+        class: '%pim_connector.step.item_step.class%'
+        arguments:
+            - 'import'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            - '@webkul_icecat_connector.reader.features'
+            - '@pim_connector.processor.denormalization.attribute'
+            - '@pim_connector.writer.database.attribute'
+            -  50
+            - '@akeneo_batch.job.job_stopper'
+
+    webkul_icecat_connector.step.enrich_products:
+        class: '%pim_connector.step.item_step.class%'
+        arguments:
+            - 'import'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            - '@webkul_icecat_connector.reader.database.product'
+            - '@pim_connector.processor.denormalization.product'
+            - '@pim_connector.writer.database.product'
+            -  10
+            - '@akeneo_batch.job.job_stopper'
