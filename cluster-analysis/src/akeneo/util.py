@@ -16,8 +16,9 @@ def create_client_from_env() -> Client:
 
 def create_from_env(
     preferred_channel: str = "ecommerce",
-    locale: str = "en_US"
+    locale: str = "en_US",
+    currency: str = "USD",
 ) -> tuple[Connector, Client]:
     client = create_client_from_env()
-    connector = ConnectorImpl(client, preferred_channel, locale)
+    connector = ConnectorImpl(client, preferred_channel, locale, currency)
     return connector, client

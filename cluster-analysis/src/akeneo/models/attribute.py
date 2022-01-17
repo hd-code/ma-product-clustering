@@ -1,6 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import datetime
 from enum import Enum
 from typing import Optional
 
@@ -43,8 +43,8 @@ class Attribute:
     allowed_extensions: list[str]
     auto_option_sorting: Optional[bool]
     available_locales: list[str]
-    date_max: Optional[date]
-    date_min: Optional[date]
+    date_max: Optional[datetime]
+    date_min: Optional[datetime]
     decimals_allowed: Optional[bool]
     default_metric_unit: Optional[str]
     default_value: Optional[bool]
@@ -61,21 +61,3 @@ class Attribute:
     wysiwyg_enabled: Optional[bool]
 
     # useable_as_grid_filter: Optional[bool]
-
-
-_map_attribute_to_type: dict[AttributeType, type] = {
-    AttributeType.ID: str,
-    AttributeType.TEXT: str,
-    AttributeType.TEXTAREA: str,
-    AttributeType.SELECT_SINGLE: str,
-    AttributeType.SELECT_MULTI: list[str],
-    AttributeType.BOOL: bool,
-    AttributeType.DATE: datetime,
-    AttributeType.NUMBER: float,
-    AttributeType.METRIC: float,
-    AttributeType.PRICE: float,
-    AttributeType.IMAGE: str,
-    AttributeType.FILE: str,
-    AttributeType.REFERENCE_SINGLE: str,
-    AttributeType.REFERENCE_MULTI: list[str],
-}
