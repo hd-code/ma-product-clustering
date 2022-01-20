@@ -13,6 +13,7 @@ T = TypeVar("T")
 
 
 class CacheProducts:
+    
     def __init__(self, client: Client, cache_meta: CacheMeta, locale: str, currency: str, channel: str) -> None:
         self._client = client
 
@@ -33,11 +34,12 @@ class CacheProducts:
     # --------------------------------------------------------------------------
 
     @property
-    def products(self) -> list[dict]:
+    def products(self) -> list[models.Product]:
         route_id = "pim_api_product_list"
-        if not hasattr(self._cache, route_id):
+        if not route_id in self._cache:
             params = {"locales": self._locale}
-            self._cache[route_id] = self._get_from_api(route_id, models.Product, params)
+            products = self._get_from_api(route_id, models.Product, params)
+            self._cache[route_id] = products
         return self._cache[route_id]
 
     # --------------------------------------------------------------------------

@@ -1,3 +1,10 @@
-from .data_point import DataPoint
+"""General tools and framework to perform cluster analysis
+
+It offers interfaces for `Datapoint`s and `Centroid`s as well as the clustering
+methods for `KMeans` and `BisectingKMeans`.
+"""
+
+from .bisecting_kmeans import BisectingKMeans
+from .centroid import Centroid
+from .datapoint import Datapoint
 from .kmeans import KMeans
-from .middle_point import MiddlePoint

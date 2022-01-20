@@ -24,34 +24,32 @@ class MeasurementConversion:
     operator: ConversionOperator
     value: float
 
+    def convert(self, amount: float) -> float:
+        return _conversion_map[self.operator](amount, self.value)
+
+    def invert(self, amount: float) -> float:
+        operator = _conversion_map_reverse[self.operator]
+        return _conversion_map[operator](amount, self.value)
+
 
 @dataclass
 class MeasurementUnit:
     code: str
     labels: LocalStr
+    # actually describes how to convert TO the standard unit
     convert_from_standard: list[MeasurementConversion]
     symbol: str
 
-    @property
-    def convert_to_standard(self) -> list[MeasurementConversion]:
-        if not hasattr(self, "_convert_to_standard"):
-            self._convert_to_standard = [
-                MeasurementConversion(_conversion_map_reverse[step.operator], step.value)
-                for step in self.convert_from_standard
-            ]
-            self._convert_to_standard.reverse()
-        return self._convert_to_standard
-
     def from_standard(self, amount: float) -> float:
         result = amount
-        for conversion in self.convert_from_standard:
-            result = _conversion_map[conversion.operator](result, conversion.value)
+        for conversion in reversed(self.convert_from_standard):
+            result = conversion.invert(result)
         return result
 
     def to_standard(self, amount: float) -> float:
         result = amount
-        for conversion in self.convert_to_standard:
-            result = _conversion_map[conversion.operator](result, conversion.value)
+        for conversion in self.convert_from_standard:
+            result = conversion.convert(result)
         return result
 
 

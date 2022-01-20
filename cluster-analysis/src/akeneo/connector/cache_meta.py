@@ -40,7 +40,7 @@ class CacheMeta:
     @property
     def measurement_families(self) -> list[models.MeasurementFamily]:
         route_id = "pim_api_measurement_family_get"
-        if not hasattr(self._cache, route_id):
+        if not route_id in self._cache:
             entries = self._client.get(route_id)
             self._cache[route_id] = [
                 from_dict(models.MeasurementFamily, entry, self._config)
@@ -51,7 +51,7 @@ class CacheMeta:
     # --------------------------------------------------------------------------
 
     def _get_from_cache_or_api(self, route_id: str, cls: Type[T]) -> list[T]:
-        if not hasattr(self._cache, route_id):
+        if not route_id in self._cache:
             self._cache[route_id] = self._get_from_api(route_id, cls)
         return self._cache[route_id]
 

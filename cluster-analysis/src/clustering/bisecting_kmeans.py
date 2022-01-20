@@ -1,66 +1,94 @@
 from __future__ import annotations
-from dataclasses import Field, dataclass
 
-from .data_point import DataPoint
+from typing import Type
+
+from .centroid import Centroid
+from .cluster import Cluster
+from .datapoint import Datapoint
 from .kmeans import KMeans
-from .middle_point import MiddlePoint
 
 
 class BisectingKMeans:
+    """Divisive clustering by repetitively splitting groups with `KMeans`
+
+    The clustering starts immediately upon initializing the class and might take
+    a while to compute.
+
+    The `Datapoint` and `Centroid` interfaces have to be implemented by the
+    passed data in order to work.
+    """
+
     def __init__(
         self,
-        data_points: list[DataPoint],
-        middle_point_cls: MiddlePoint,
+        dataset: list[Datapoint],
+        middle_point_cls: Type[Centroid],
         kmeans_max_iter: int = 100,
-        kmeans_num_of_trys: int = 1,
+        kmeans_num_of_trys: int = 3,
     ) -> None:
-        self._assign(data_points, middle_point_cls,
-                     kmeans_max_iter, kmeans_num_of_trys)
+        self._dataset = dataset
 
-    # public -------------------------------------------------------------------
+        self._kmeans = lambda data: KMeans(
+            data, middle_point_cls, 2, kmeans_max_iter, kmeans_num_of_trys)
 
-    # init ---------------------------------------------------------------------
+        self._dataset_to_cluster: list[list[int]] = [
+            [0]
+            for _ in range(len(dataset))
+        ]
+        
+        self._clusters: list[Cluster] = [
+            Cluster(
+                dataset,
+                list(range(0, len(dataset))),
+                KMeans(dataset, middle_point_cls,
+                       1, 1, 1).mean_distances[0]
+            )
+        ]
 
-    def _assign(
-        self,
-        data_points: list[DataPoint],
-        middle_point_cls: MiddlePoint,
-        kmeans_max_iter: int = 100,
-        kmeans_num_of_trys: int = 1,
-    ) -> None:
-        self._data_points = data_points
-        self._middle_point_cls = middle_point_cls
-        self._kmeans_max_iter = kmeans_max_iter
-        self._kmeans_num_of_trys = kmeans_num_of_trys
+        self._cluster_dataset()
 
-    def _init_attributes(self) -> None:
-        self._result: list[int] = []
-        self._clusters: list[int | None] = []
+    # --------------------------------------------------------------------------
 
-    # clustering ---------------------------------------------------------------
+    @property
+    def dataset(self) -> list[Datapoint]:
+        return self._dataset
 
-    def _cluster_data(self) -> None:
-        pass
+    @property
+    def result(self) -> list[list[int]]:
+        return self._dataset_to_cluster
 
-    def _bisect_data(self, data_points: list[DataPoint], data_points_index: list[int], parent_cluster_index: int):
-        kmeans = KMeans(data_points, self._middle_point_cls, 2,
-                        self._kmeans_max_iter, self._kmeans_num_of_trys)
+    def result_flat(self, num_of_clusters: int = None) -> list[int]:
+        if num_of_clusters == None:
+            return [
+                max(d)
+                for d in self._dataset_to_cluster
+            ]
+        return [
+            max(filter(lambda c: c < num_of_clusters, d))
+            for d in self._dataset_to_cluster
+        ]
 
-        next_cluster_index = len(self._clusters)
-        self._clusters.append(parent_cluster_index)
-        self._clusters.append(parent_cluster_index)
+    # --------------------------------------------------------------------------
 
-        for i in len(range(kmeans.result)):
-            # data_point = data_points[i]
-            data_point_index = data_points_index[i]
-            self._result[data_point_index] = next_cluster_index + \
-                kmeans.result[i]
-        pass
+    def _cluster_dataset(self):
+        biggest_cluster_i = self._get_biggest_cluster_i()
+        while biggest_cluster_i != -1:
+            cluster = self._clusters[biggest_cluster_i]
 
+            new_cluster = cluster.splinter_off_better_cluster(self._kmeans)
+            new_cluster_i = len(self._clusters)
 
-@dataclass
-class Cluster:
-    members: list[DataPoint] = Field(default_factory=list)
-    members_index: list[int] = Field(default_factory=list)
-    children: list[Cluster] = Field(default_factory=list)
-    parent: Cluster | None = None
+            self._clusters.append(new_cluster)
+            for i in new_cluster.dataset_i:
+                self._dataset_to_cluster[i].append(new_cluster_i)
+
+            biggest_cluster_i = self._get_biggest_cluster_i()
+
+    def _get_biggest_cluster_i(self) -> int:
+        index = -1
+        error = -float('inf')
+        for i in range(len(self._clusters)):
+            cluster = self._clusters[i]
+            if cluster.num_of_entries > 1 and cluster.error > error:
+                index = i
+                error = cluster.error
+        return index

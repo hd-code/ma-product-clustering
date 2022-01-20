@@ -10,6 +10,7 @@ T = TypeVar("T")
 
 
 class CacheBase:
+    
     def __init__(self, client: Client) -> None:
         self._client = client
 
@@ -28,7 +29,7 @@ class CacheBase:
     # --------------------------------------------------------------------------
 
     def _get_from_cache_or_api(self, route_id: str, cls: Type[T]) -> list[T]:
-        if not hasattr(self._cache, route_id):
+        if not route_id in self._cache:
             self._cache[route_id] = self._get_from_api(route_id, cls)
         return self._cache[route_id]
 

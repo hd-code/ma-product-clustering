@@ -13,6 +13,7 @@ T = TypeVar("T")
 
 
 class ConnectorImpl(Connector):
+    
     def __init__(
         self,
         client: Client,
@@ -28,7 +29,8 @@ class ConnectorImpl(Connector):
 
         self._cache_base = CacheBase(client)
         self._cache_meta = CacheMeta(client, locale)
-        self._cache_products = CacheProducts(client, self._cache_meta, locale, currency, preferred_channel)
+        self._cache_products = CacheProducts(
+            client, self._cache_meta, locale, currency, preferred_channel)
 
         if check:
             self._check()

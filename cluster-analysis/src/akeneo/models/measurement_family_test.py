@@ -14,10 +14,10 @@ class Test_MeasurementFamily(unittest.TestCase):
                     MeasurementConversion("mul", 1),
                 ], "g"),
                 "kilogram": MeasurementUnit("kilogram", "Kilogram", [
-                    MeasurementConversion("div", 1000),
+                    MeasurementConversion("mul", 1000),
                 ], "kg"),
                 "bettergram": MeasurementUnit("bettergram", "Bettergram", [
-                    MeasurementConversion("add", 42),
+                    MeasurementConversion("sub", 42),
                 ], "bg"),
             },
         )

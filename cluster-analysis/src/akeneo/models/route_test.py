@@ -4,6 +4,7 @@ from .route import Route
 
 
 class Test_AkeneoRoute(unittest.TestCase):
+    
     def setUp(self):
         self.routes = [
             Route(

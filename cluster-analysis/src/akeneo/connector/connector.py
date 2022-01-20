@@ -4,6 +4,7 @@ import akeneo.models as models
 
 
 class Connector(ABC):
+    """Gives access to the structured data in an Akeneo-PIM instance"""
 
     @abstractmethod
     def get_attributes(self) -> list[models.Attribute]:
