@@ -13,7 +13,7 @@ T = TypeVar("T")
 
 
 class CacheProducts:
-    
+
     def __init__(self, client: Client, cache_meta: CacheMeta, locale: str, currency: str, channel: str) -> None:
         self._client = client
 

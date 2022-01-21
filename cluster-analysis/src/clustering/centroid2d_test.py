@@ -5,20 +5,13 @@ from .centroid2d import Centroid2D
 from .datapoint2d import Datapoint2D
 
 
+@unittest.skip
 class Test_Centroid2D(unittest.TestCase):
 
     def test_create(self):
-        points = [Datapoint2D(i, i) for i in range(1, 13)]
-
-        test_cases = [
-            (1, [Centroid2D(1, 1)]),
-            (2, [Centroid2D(1, 1), Centroid2D(2, 2)]),
-            (3, [Centroid2D(1, 1), Centroid2D(2, 2), Centroid2D(3, 3)]),
-        ]
-        for k, want in test_cases:
-            with self.subTest(f"{k} groups"):
-                got = Centroid2D.create(points, k)
-                self.assertListEqual(got, want)
+        want = Centroid2D(2, 4, 1, Datapoint2D(2, 4))
+        got = Centroid2D.create(Datapoint2D(2, 4))
+        self.assertEqual(got, want)
 
     def test_calc_distance(self):
         point1 = Datapoint2D(1, 2)

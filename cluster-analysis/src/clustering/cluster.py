@@ -28,7 +28,7 @@ class Cluster:
         kmeans = do_kmeans(self.dataset)
         dataset, dataset_i = self._get_separated_dataset(kmeans.result)
 
-        errors = kmeans.mean_distances
+        errors = kmeans.error_per_cluster
         better_i, worse_i = (0, 1) if errors[0] < errors[1] else (1, 0)
 
         self.dataset = dataset[worse_i]

@@ -5,7 +5,6 @@ from typing import Type
 
 from .centroid import Centroid
 from .datapoint2d import Datapoint2D
-import util
 
 
 @dataclass
@@ -14,12 +13,9 @@ class Centroid2D(Centroid, Datapoint2D):
     next_mp: Datapoint2D = field(default_factory=lambda: Datapoint2D(0, 0))
 
     @classmethod
-    def create(cls: Type[Centroid2D], data: list[Datapoint2D], num_of_points: int) -> list[Centroid2D]:
-        result: list[Centroid2D] = []
-        for index in range(num_of_points):
-            datapoint = data[index]
-            middle_point = cls(datapoint.x, datapoint.y)
-            result.append(middle_point)
+    def init_from_datapoint(cls: Type[Centroid2D], datapoint: Datapoint2D) -> Centroid2D:
+        result = cls(datapoint.x, datapoint.y)
+        result.on_add_point(datapoint)
         return result
 
     def calc_distance(self, datapoint: Datapoint2D) -> float:
@@ -37,17 +33,3 @@ class Centroid2D(Centroid, Datapoint2D):
 
         self.next_mp = Datapoint2D(0, 0)
         self.n = 0
-
-
-@dataclass
-class Centroid2DRandom(Centroid2D):
-
-    @classmethod
-    def create(cls: Type[Centroid2DRandom], data: list[Datapoint2D], num_of_points: int) -> list[Centroid2DRandom]:
-        result: list[Centroid2DRandom] = []
-        indexes = util.random_int_set(num_of_points, 0, len(data) - 1)
-        for index in list(indexes):
-            datapoint = data[index]
-            middle_point = cls(datapoint.x, datapoint.y)
-            result.append(middle_point)
-        return result

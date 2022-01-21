@@ -72,7 +72,7 @@ class Test_Cluster(unittest.TestCase):
                 def do_kmeans(_):
                     kmeans_mock = mock.Mock(KMeans)
                     kmeans_mock.result = tc.kmeans_result
-                    kmeans_mock.mean_distances = tc.kmeans_errors
+                    kmeans_mock.error_per_cluster = tc.kmeans_errors
                     return kmeans_mock
 
                 cluster_orig = Cluster(data, data_i, tc.init_error)

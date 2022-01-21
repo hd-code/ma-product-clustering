@@ -7,7 +7,7 @@ import akeneo.models as models
 
 
 class ClientImpl(Client):
-    
+
     def __init__(self, host: str, client_id: str, secret: str, username: str, password: str) -> None:
         super().__init__()
         self._assign(host, client_id, secret, username, password)

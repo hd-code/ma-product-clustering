@@ -1,8 +1,8 @@
-import util
+import random
 import unittest
 
 from .bisecting_kmeans import BisectingKMeans
-from .centroid2d import Centroid2DRandom
+from .centroid2d import Centroid2D
 from .datapoint2d import Datapoint2D
 
 
@@ -21,21 +21,20 @@ class Test_BisectingKMeans(unittest.TestCase):
             Datapoint2D(5, 4),
             Datapoint2D(5, 5),
         ]
-        util.seed()
 
-        bi_kmeans = BisectingKMeans(data, Centroid2DRandom,
-                                    kmeans_num_of_trys=5)
+        random.seed(0)
+        bi_kmeans = BisectingKMeans(data, Centroid2D)
 
         with self.subTest("check 2 clusters"):
             self.assertListEqual(
                 bi_kmeans.result_flat(2),
-                [1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+                [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
             )
 
         with self.subTest("check 4 clusters"):
             self.assertListEqual(
                 bi_kmeans.result_flat(4),
-                [1, 1, 1, 2, 3, 3, 0, 0, 0, 0]
+                [0, 0, 2, 2, 0, 3, 1, 1, 1, 1]
             )
 
         with self.subTest("check if all points in their own cluster"):

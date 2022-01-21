@@ -5,6 +5,7 @@ from typing import Type
 from .centroid import Centroid
 from .cluster import Cluster
 from .datapoint import Datapoint
+from .inits import InitFunc, random_init
 from .kmeans import KMeans
 
 
@@ -22,25 +23,27 @@ class BisectingKMeans:
         self,
         dataset: list[Datapoint],
         middle_point_cls: Type[Centroid],
+        kmeans_init: InitFunc = random_init,
+        kmeans_n_init: int = 10,
         kmeans_max_iter: int = 100,
-        kmeans_num_of_trys: int = 3,
     ) -> None:
         self._dataset = dataset
 
-        self._kmeans = lambda data: KMeans(
-            data, middle_point_cls, 2, kmeans_max_iter, kmeans_num_of_trys)
+        def kmeans(dataset: list[Datapoint]):
+            return KMeans(dataset, middle_point_cls, 2,
+                          kmeans_init, kmeans_n_init, kmeans_max_iter)
+        self._kmeans = kmeans
 
         self._dataset_to_cluster: list[list[int]] = [
             [0]
             for _ in range(len(dataset))
         ]
-        
+
         self._clusters: list[Cluster] = [
             Cluster(
                 dataset,
                 list(range(0, len(dataset))),
-                KMeans(dataset, middle_point_cls,
-                       1, 1, 1).mean_distances[0]
+                KMeans(dataset, middle_point_cls, 1, lambda *_: [0], 1).error
             )
         ]
 

@@ -13,7 +13,7 @@ T = TypeVar("T")
 
 
 class ConnectorImpl(Connector):
-    
+
     def __init__(
         self,
         client: Client,

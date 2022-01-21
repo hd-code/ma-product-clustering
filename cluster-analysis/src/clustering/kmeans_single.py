@@ -2,11 +2,12 @@ from typing import Type
 
 from .centroid import Centroid
 from .datapoint import Datapoint
+from .inits import InitFunc, random_init
 
 
 class KMeansSingle:
-    """Single run of KMeans over the dataset
-    
+    """Single run of k-means over the dataset
+
     The clustering starts immediately on instancing the class and may take some
     time to compute.
     """
@@ -14,64 +15,54 @@ class KMeansSingle:
     def __init__(
         self,
         dataset: list[Datapoint],
-        middle_point_cls: Type[Centroid],
+        centroid_cls: Type[Centroid],
         k: int = 5,
+        init: InitFunc = random_init,
         max_iter: int = 100,
     ) -> None:
         self._dataset = dataset
+        self._centroid_cls = centroid_cls
         self._num_of_clusters = k
+        self._init = init
         self._max_iter = max_iter
 
+        self._centroids: list[Centroid] = []
+        self._dataset_to_cluster = [-1] * len(dataset)
         self._iterations = 0
-        self._middle_points = middle_point_cls.create(dataset, k)
-        self._dataset_to_cluster: list[int] = [-1] * len(dataset)
+        self._num_of_datapoints = len(dataset)
 
         self._cluster_dataset()
 
     # --------------------------------------------------------------------------
 
     @property
+    def error(self) -> float:
+        return sum(self.error_per_cluster)
+
+    @property
+    def error_per_cluster(self) -> list[float]:
+        if not hasattr(self, "_error_per_cluster"):
+            result = [0.0] * self._num_of_clusters
+            for point_i in range(self._num_of_datapoints):
+                datapoint = self._dataset[point_i]
+                cluster_i = self._dataset_to_cluster[point_i]
+                distance = self._centroids[cluster_i].calc_distance(datapoint)
+                result[cluster_i] += distance * distance
+            self._error_per_cluster = result
+        return self._error_per_cluster
+
+    @property
     def iterations(self) -> int:
         return self._iterations
-
-    @property
-    def mean_distances(self) -> list[float]:
-        if not hasattr(self, "_mean_distances"):
-            result = [0.0] * self._num_of_clusters
-            len_of_clusters = [0] * self._num_of_clusters
-
-            for index in range(len(self._dataset)):
-                datapoint = self._dataset[index]
-                cluster_index = self._dataset_to_cluster[index]
-                middle_point = self._middle_points[cluster_index]
-
-                len_of_clusters[cluster_index] += 1
-                result[cluster_index] += middle_point.calc_distance(datapoint)
-
-            for index in range(self._num_of_clusters):
-                result[index] = result[index] / len_of_clusters[index]
-
-            self._mean_distances = result
-        return self._mean_distances
-
-    @property
-    def middle_points(self) -> list[Centroid]:
-        return self._middle_points
 
     @property
     def result(self) -> list[int]:
         return self._dataset_to_cluster
 
-    def predict(self, dataset: list[Datapoint]) -> list[int]:
-        return self._find_nearest_clusters(dataset)
-
-    def predict_single(self, datapoint: Datapoint) -> int:
-        return self._find_nearest_cluster(datapoint)
-
     # --------------------------------------------------------------------------
 
-    def _cluster_dataset(self) -> None:
-        self._init_clustering()
+    def _cluster_dataset(self):
+        self._cluster_init()
         self._iterations += 1
 
         while self._iterations <= self._max_iter:
@@ -81,44 +72,44 @@ class KMeansSingle:
             if not have_clusters_changed:
                 break
 
-    def _init_clustering(self) -> None:
-        for index in range(len(self._dataset)):
-            datapoint = self._dataset[index]
+    def _cluster_init(self):
+        init_points_i = self._init(self._dataset, self._num_of_clusters)
+        for init_point_i in init_points_i:
+            datapoint = self._dataset[init_point_i]
+            centroid = self._centroid_cls.init_from_datapoint(datapoint)
+
+            self._dataset_to_cluster[init_point_i] = len(self._centroids)
+            self._centroids.append(centroid)
+
+        for point_i in range(self._num_of_datapoints):
+            if point_i in init_points_i:
+                continue
+
+            datapoint = self._dataset[point_i]
             cluster_index = self._find_nearest_cluster(datapoint)
 
-            self._middle_points[cluster_index].on_add_point(datapoint)
-            self._dataset_to_cluster[index] = cluster_index
-
-    def _recluster(self) -> bool:
-        self._restart_middle_points()
-        have_clusters_changed = False
-        for index in range(len(self._dataset)):
-            datapoint = self._dataset[index]
-            cluster_index = self._find_nearest_cluster(datapoint)
-            if cluster_index != self._dataset_to_cluster[index]:
-                have_clusters_changed = True
-                self._dataset_to_cluster[index] = cluster_index
-            self._middle_points[cluster_index].on_add_point(datapoint)
-        return have_clusters_changed
-
-    def _find_nearest_clusters(self, dataset: list[Datapoint]) -> list[int]:
-        result: list[int] = []
-        for datapoint in dataset:
-            cluster_index = self._find_nearest_cluster(datapoint)
-            result.append(cluster_index)
-        return result
+            self._dataset_to_cluster[point_i] = cluster_index
+            self._centroids[cluster_index].on_add_point(datapoint)
 
     def _find_nearest_cluster(self, datapoint: Datapoint) -> int:
         result = 0
-        distance = self._middle_points[0].calc_distance(datapoint)
+        distance = self._centroids[0].calc_distance(datapoint)
         for index in range(1, self._num_of_clusters):
-            middle_point = self._middle_points[index]
-            next_distance = middle_point.calc_distance(datapoint)
+            centroid = self._centroids[index]
+            next_distance = centroid.calc_distance(datapoint)
             if next_distance < distance:
                 distance = next_distance
                 result = index
         return result
 
-    def _restart_middle_points(self) -> None:
-        for middle_point in self._middle_points:
-            middle_point.on_restart()
+    def _recluster(self) -> bool:
+        [c.on_restart() for c in self._centroids]
+        have_clusters_changed = False
+        for point_i in range(self._num_of_datapoints):
+            datapoint = self._dataset[point_i]
+            cluster_index = self._find_nearest_cluster(datapoint)
+            if cluster_index != self._dataset_to_cluster[point_i]:
+                have_clusters_changed = True
+                self._dataset_to_cluster[point_i] = cluster_index
+            self._centroids[cluster_index].on_add_point(datapoint)
+        return have_clusters_changed
