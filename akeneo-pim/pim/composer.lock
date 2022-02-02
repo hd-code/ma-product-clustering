@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31a6f6e14c76f8d1f8d6ae46de0f5a1e",
+    "content-hash": "968007861d454e7b1e9efcfe30fe131d",
     "packages": [
         {
             "name": "akeneo/pim-community-dev",
@@ -4480,6 +4480,51 @@
                 "source": "https://github.com/PhenX/php-svg-lib/tree/0.3.4"
             },
             "time": "2021-10-18T02:13:32+00:00"
+        },
+        {
+            "name": "prewk/xml-string-streamer",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/prewk/xml-string-streamer.git",
+                "reference": "d6609f6b48402d65b2926aff050eced979e45641"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/prewk/xml-string-streamer/zipball/d6609f6b48402d65b2926aff050eced979e45641",
+                "reference": "d6609f6b48402d65b2926aff050eced979e45641",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.8.0",
+                "prewk/xml-faker": "0.0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Prewk\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "prewk",
+                    "email": "oskar.thornblad@gmail.com"
+                }
+            ],
+            "description": "Stream large XML files with low memory consumption",
+            "homepage": "https://github.com/prewk/xml-string-streamer",
+            "support": {
+                "issues": "https://github.com/prewk/xml-string-streamer/issues",
+                "source": "https://github.com/prewk/xml-string-streamer/tree/0.9.0"
+            },
+            "time": "2017-03-23T20:54:43+00:00"
         },
         {
             "name": "psr/cache",
