@@ -23,7 +23,6 @@ start_queue() {
 stop_queue() {
   echo "Stopping job queue"
   docker stop akeneo_job_queue
-  docker rm -v akeneo_job_queue
 }
 
 CMD=$1
