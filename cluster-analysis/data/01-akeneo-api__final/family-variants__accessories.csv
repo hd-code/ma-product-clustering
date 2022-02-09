@@ -1,0 +1,2 @@
+code,labels,variant_attribute_sets
+accessories_size,"{'de_DE': 'Accessories by size', 'en_US': 'Accessories by size', 'fr_FR': 'Accessoires par taille'}","[{'level': 1, 'axes': ['size'], 'attributes': ['sku', 'weight', 'size', 'ean']}]"

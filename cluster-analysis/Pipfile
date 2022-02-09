@@ -9,9 +9,11 @@ matplotlib = "*"
 numpy = "*"
 pandas = "*"
 src = {editable = true, path = "./src"}
+scipy = "*"
 
 [dev-packages]
-autopep8 = "*"
+black = "*"
+isort = "*"
 
 [requires]
 python_version = "3.9"

@@ -7,7 +7,8 @@ shift
 
 case $CMD in
   format)
-    pipenv run python -m autopep8 -ir .
+    pipenv run python -m isort --profile black ./src
+    pipenv run python -m black ./src
     ;;
   init)
     pipenv --rm

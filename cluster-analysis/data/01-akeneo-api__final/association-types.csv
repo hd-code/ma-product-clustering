@@ -1,0 +1,5 @@
+code,labels,is_two_way,is_quantified
+PACK,"{'de_DE': 'Pack', 'en_US': 'Pack', 'fr_FR': 'Pack'}",False,False
+SUBSTITUTION,"{'de_DE': 'Ersatz', 'en_US': 'Substitution', 'fr_FR': 'Remplacement'}",False,False
+UPSELL,"{'en_US': 'Upsell', 'fr_FR': 'Vente incitative'}",False,False
+X_SELL,"{'en_US': 'Cross sell', 'fr_FR': 'Vente croisée'}",False,False

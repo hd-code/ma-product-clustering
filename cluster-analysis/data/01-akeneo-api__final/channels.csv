@@ -1,0 +1,4 @@
+code,currencies,locales,category_tree,conversion_units,labels
+ecommerce,"['USD', 'EUR']","['de_DE', 'en_US', 'fr_FR']",master,{},"{'en_US': 'Ecommerce', 'de_DE': 'Ecommerce', 'fr_FR': 'Ecommerce'}"
+mobile,"['USD', 'EUR']","['de_DE', 'en_US', 'fr_FR']",master,{},"{'en_US': 'Mobile', 'de_DE': 'Mobil', 'fr_FR': 'Mobile'}"
+print,"['USD', 'EUR']","['de_DE', 'en_US', 'fr_FR']",master,{},"{'en_US': 'Print', 'de_DE': 'Drucken', 'fr_FR': 'Impression'}"
