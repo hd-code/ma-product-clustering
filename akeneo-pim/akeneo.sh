@@ -64,8 +64,8 @@ case $CMD in
 
   run)
     case $1 in
-      node|yarn)
-        docker-compose run --rm -u node "$@"
+      node|npm|yarn)
+        docker-compose run --rm -u node node "$@"
         ;;
       *)
         docker-compose run --rm -u www-data php "$@"
