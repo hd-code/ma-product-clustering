@@ -1,7 +1,7 @@
 import abc
 from typing import Union
 
-from .route import Route
+from .route import PathVars, Route
 
 JsonBody = Union[dict, list]
 
@@ -15,15 +15,12 @@ class Client(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(
-        self, route_id: str, path_vars: dict[str, str] = None, params: dict = None
+    def request(
+        self,
+        route_id: str,
+        path_vars: PathVars = None,
+        body: JsonBody = None,
+        params: dict = None,
     ) -> JsonBody:
-        """GET request against one of the endpoints"""
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def get_list(
-        self, route_id: str, path_vars: dict[str, str] = None, params: dict = None
-    ) -> list[dict]:
-        """GET request against a list endpoint removing pagination"""
+        """Send a request against an endpoint"""
         raise NotImplementedError

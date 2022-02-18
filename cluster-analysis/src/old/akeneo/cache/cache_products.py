@@ -1,62 +1,67 @@
 from datetime import datetime
-from typing import Any, Callable, Optional, Type, TypeVar
+from typing import Any, Callable, Type, TypeVar
 
+from akeneo import models
+from akeneo.cache.cache_meta import CacheMeta
+from akeneo.client.client import Client
 from dacite import from_dict
 from dacite.config import Config
-
-from .. import models
 
 T = TypeVar("T")
 
 
-class Parser:
+class CacheProducts:
     def __init__(
-        self, locale: str, currency: str, channel: str, attr_data, measurements_data
+        self,
+        client: Client,
+        cache_meta: CacheMeta,
+        locale: str,
+        currency: str,
+        channel: str,
     ) -> None:
+        self._client = client
+
         self._locale = locale
         self._currency = currency
         self._channel = channel
 
-        self._attributes = self._parse_list_to_dict(attr_data, models.Attribute, "code")
-        self._measurements = self._parse_list_to_dict(
-            measurements_data, models.MeasurementFamily, "code"
-        )
+        self._attributes: dict[str, models.Attribute] = {}
+        for attribute in cache_meta.attributes:
+            self._attributes[attribute.code] = attribute
+
+        self._measurements: dict[str, models.MeasurementFamily] = {}
+        for measurement in cache_meta.measurement_families:
+            self._measurements[measurement.code] = measurement
+
+        self._cache = {}
 
     # --------------------------------------------------------------------------
 
-    def parse_list(self, data: Any, data_cls: Type[T]) -> list[T]:
-        return [from_dict(data_cls, d, self._config) for d in data]
+    @property
+    def products(self) -> list[models.Product]:
+        route_id = "pim_api_product_list"
+        if not route_id in self._cache:
+            params = {"locales": self._locale}
+            products = self._get_from_api(route_id, models.Product, params)
+            self._cache[route_id] = products
+        return self._cache[route_id]
 
     # --------------------------------------------------------------------------
 
-    def _parse_list_to_dict(
-        self, data: Any, data_cls: Type[T], key_prop: str
-    ) -> dict[str, T]:
-        entries = [from_dict(data_cls, d, self._config) for d in data]
-        result = {}
-        for entry in entries:
-            key = entry.__dict__[key_prop]
-            result[key] = entry
-        return result
+    def _get_from_api(
+        self, route_id: str, cls: Type[T], params: dict = None
+    ) -> list[T]:
+        entries = self._client.get_list(route_id, params=params)
+        return [from_dict(cls, entry, self._config) for entry in entries]
 
     @property
     def _config(self) -> Config:
         return Config(
-            cast=[bool, float, int, models.AttributeType],
             type_hooks={
                 datetime: datetime.fromisoformat,
-                models.LocalStr: self._translate,
                 models.ProductValues: self._handle_values,
             },
         )
-
-    # --------------------------------------------------------------------------
-
-    def _translate(self, locales: Optional[dict]) -> str:
-        try:
-            return locales[self._locale]
-        except:
-            return ""
 
     def _handle_values(self, values: dict[str, list[dict]]) -> models.ProductValues:
         result: models.ProductValues = {}

@@ -1,16 +1,9 @@
 import json
-from dataclasses import dataclass
 from os import scandir
 from pathlib import Path
 
 from ..client.client import Client, JsonBody
-
-
-@dataclass
-class _CacheFileData:
-    filename: str
-    route_id: str
-    is_list: bool = True
+from .files import FileInfo, Files
 
 
 class Fetcher:
@@ -30,29 +23,16 @@ class Fetcher:
         else:
             data_dir.mkdir(parents=True)
 
-    _files = [
-        _CacheFileData("attributes.json", "pim_api_attribute_list"),
-        _CacheFileData("categories.json", "pim_api_category_list"),
-        _CacheFileData("channels.json", "pim_api_channel_list"),
-        _CacheFileData("currencies.json", "pim_api_currency_list"),
-        _CacheFileData("families.json", "pim_api_family_list"),
-        _CacheFileData("products.json", "pim_api_product_list"),
-        _CacheFileData("measurements.json", "pim_api_measurement_family_get", False),
-    ]
-
     def _fetch_files(self) -> None:
-        for filedata in self._files:
-            self._fetch_file(filedata)
+        for filedata in Files:
+            self._fetch_file(filedata.value)
 
-    def _fetch_file(self, filedata: _CacheFileData) -> None:
-        if filedata.is_list:
-            data = self._client.get_list(filedata.route_id)
-        else:
-            data = self._client.get(filedata.route_id)
+    def _fetch_file(self, filedata: FileInfo) -> None:
+        data = self._client.request(filedata.route_id)
         filehandle = open(self._data_dir / filedata.filename, "w")
         json.dump(data, filehandle)
 
-        if filedata.filename == "attributes.json":
+        if filedata == Files.ATTRIBUTES.value:
             self._fetch_attributes_options(data)
 
     def _fetch_attributes_options(self, attributes: JsonBody) -> None:
@@ -65,7 +45,7 @@ class Fetcher:
                 "pim_catalog_multiselect",
             ]:
                 code = attribute["code"]
-                options = self._client.get_list(
+                options = self._client.request(
                     "pim_api_attribute_option_list", {"attributeCode": code}
                 )
                 filehandle = open(opts_dir / f"{code}.json", "w")

@@ -1,13 +1,14 @@
-from src.akeneo.cache.cache import Cache
-from src.akeneo.cache.fetcher import Fetcher
-from src.akeneo.client.client import Client
-from src.akeneo.client.client_impl import ClientImpl
 from src.config import dir_data, env
+
+from .cache.cache import Cache
+from .cache.fetcher import Fetcher
+from .client.client import Client
+from .client.client_impl import ClientImpl
 
 
 def create_client_from_env() -> Client:
     """Creates an Akeneo REST Client using the config from .env file
-    
+
     .env values
     -----------
     AKENEO_HOST:        base url of Akeneo PIM instance
@@ -25,9 +26,9 @@ def create_client_from_env() -> Client:
     )
 
 
-def fetch_from_client_from_env() -> None:
+def fetch_with_client_from_env() -> None:
     """Fetches all important data from Akeneo PIM using the config from .env
-    
+
     .env values
     -----------
     (all from `create_client_from_env`)
@@ -44,7 +45,7 @@ def load_cache_from_env() -> Cache:
 
     The data has to be fetched from the Akeneo PIM Api first.
     E.g. use `fetch_from_client_from_env` to do so
-    
+
     .env values
     -----------
     AKENEO_CACHE_DIR:   name of the directory the data is located in,
@@ -57,4 +58,4 @@ def load_cache_from_env() -> Cache:
     channel = env["AKENEO_CHANNEL"]
     currency = env["AKENEO_CURRENCY"]
     locale = env["AKENEO_LOCALE"]
-    Cache(data_dir, locale, currency, channel)
+    return Cache(data_dir, locale, currency, channel)

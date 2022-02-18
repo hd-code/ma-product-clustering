@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from .util import LocalStr
+from .locale import LocalStr
 
 
 class AttributeType(Enum):

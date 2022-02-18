@@ -1,13 +1,11 @@
-from __future__ import annotations
-
 from dataclasses import dataclass
-from typing import Optional
 
 from .locale import LocalStr
 
 
 @dataclass
-class Category:
+class AttributeGroup:
     code: str
     labels: LocalStr
-    parent: Optional[str]
+    sort_order: int
+    attributes: list[str]

@@ -1,10 +1,9 @@
-from __future__ import annotations
-
 import json
 from pathlib import Path
-from typing import Any, Type, TypeVar
+from typing import Any, TypeVar
 
 from .. import models
+from .files import FileInfo, Files
 from .parser import Parser
 
 T = TypeVar("T")
@@ -20,33 +19,48 @@ class Cache:
     ) -> None:
         self._data_dir = data_dir
 
-        attr_data = self._load_file(data_dir / "attributes.json")
-        meas_data = self._load_file(data_dir / "measurements.json")
+        attr_data = self._load_file(data_dir / Files.ATTRIBUTES.value.filename)
+        meas_data = self._load_file(data_dir / Files.MEASUREMENTS.value.filename)
 
         self._parser = Parser(locale, currency, channel, attr_data, meas_data)
 
-    def get_attributes(self) -> list[models.Attribute]:
-        return self._load_and_parse("attributes.json", models.Attribute)
+    # --------------------------------------------------------------------------
 
-    def get_categories(self) -> list[models.Category]:
-        return self._load_and_parse("categories.json", models.Category)
+    @property
+    def attribute_groups(self) -> list[models.AttributeGroup]:
+        return self._load_and_parse(Files.ATTRIBUTE_GROUPS.value)
 
-    def get_channels(self) -> list[models.Channel]:
-        return self._load_and_parse("channels.json", models.Channel)
+    @property
+    def attributes(self) -> list[models.Attribute]:
+        return self._load_and_parse(Files.ATTRIBUTES.value)
 
-    def get_currencies(self) -> list[models.Currency]:
-        return self._load_and_parse("currencies.json", models.Currency)
+    @property
+    def categories(self) -> list[models.Category]:
+        return self._load_and_parse(Files.CATEGORIES.value)
 
-    def get_families(self) -> list[models.Family]:
-        return self._load_and_parse("families.json", models.Family)
+    @property
+    def channels(self) -> list[models.Channel]:
+        return self._load_and_parse(Files.CHANNELS.value)
 
-    def get_measurements(self) -> list[models.MeasurementFamily]:
-        return self._load_and_parse(
-            "measurement-families.json", models.MeasurementFamily
-        )
+    @property
+    def currencies(self) -> list[models.Currency]:
+        return self._load_and_parse(Files.CURRENCIES.value)
 
-    def get_products(self) -> list[models.Product]:
-        return self._load_and_parse("products.json", models.Product)
+    @property
+    def families(self) -> list[models.Family]:
+        return self._load_and_parse(Files.FAMILIES.value)
+
+    @property
+    def locales(self) -> list[models.Locale]:
+        return self._load_and_parse(Files.LOCALES.value)
+
+    @property
+    def measurements(self) -> list[models.MeasurementFamily]:
+        return self._load_and_parse(Files.MEASUREMENTS.value)
+
+    @property
+    def products(self) -> list[models.Product]:
+        return self._load_and_parse(Files.PRODUCTS.value)
 
     # --------------------------------------------------------------------------
 
@@ -54,7 +68,7 @@ class Cache:
         file = open(filepath, "r")
         return json.load(file)
 
-    def _load_and_parse(self, filename: str, cls: Type[T]) -> list[T]:
-        filepath = self._data_dir / filename
+    def _load_and_parse(self, fileinfo: FileInfo) -> list[T]:
+        filepath = self._data_dir / fileinfo.filename
         data = self._load_file(filepath)
-        return self._parser.parse_list(data, cls)
+        return self._parser.parse_list(data, fileinfo.model_cls)

@@ -1,2 +1,0 @@
-code,labels,variant_attribute_sets
-tv,"{'de_DE': 'LED TV', 'en_US': 'LED TV', 'fr_FR': 'LED TV'}","[{'level': 1, 'axes': ['display_diagonal'], 'attributes': ['sku', 'price', 'weight', 'display_diagonal', 'picture']}]"

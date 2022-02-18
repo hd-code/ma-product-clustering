@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .util import LocalStr
+from .locale import LocalStr
 
 
 @dataclass

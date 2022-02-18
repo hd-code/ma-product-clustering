@@ -35,18 +35,6 @@ class Test_AkeneoRoute(unittest.TestCase):
                 got = self.routes[i].path_vars
                 self.assertListEqual(want, got)
 
-    def test_is_list(self):
-        test_cases = [
-            True,
-            False,
-            False,
-        ]
-        for i in range(len(test_cases)):
-            want = test_cases[i]
-            with self.subTest(i):
-                got = self.routes[i].is_list
-                self.assertEqual(want, got)
-
     def test_make_path(self):
         test_cases = [
             (None, "/api/rest/v1/locales"),

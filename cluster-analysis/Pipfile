@@ -7,9 +7,10 @@ name = "pypi"
 jupyter = "*"
 matplotlib = "*"
 numpy = "*"
+openpyxl = "*"
 pandas = "*"
-src = {editable = true, path = "./src"}
 scipy = "*"
+src = {editable = true, path = "./src"}
 
 [dev-packages]
 black = "*"

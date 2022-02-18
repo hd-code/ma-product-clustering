@@ -1,0 +1,11 @@
+code,type,en,de,opts
+sku,pim_catalog_identifier,SKU,SKU,{}
+ean,pim_catalog_text,EAN,EAN,"{""unique"": True}"
+icecat_brand,pim_catalog_text,Brand,Brand,"{""localizable"": True, ""scopable"": True}"
+icecat_name,pim_catalog_text,Name,Name,"{""localizable"": True, ""scopable"": True}"
+icecat_title,pim_catalog_text,Title,Titel,"{""localizable"": True, ""scopable"": True}"
+icecat_description,pim_catalog_textarea,Description,Beschreibung,"{""localizable"": True, ""scopable"": True}"
+icecat_description_short,pim_catalog_text,Short Description,Kurzbeschreibung,"{""localizable"": True, ""scopable"": True}"
+icecat_summary,pim_catalog_text,Summary,Zusammenfassung,"{""localizable"": True, ""scopable"": True}"
+icecat_summary_short,pim_catalog_text,Short Summary,Kurzzusammenfassung,"{""localizable"": True, ""scopable"": True}"
+icecat_image_0,pim_catalog_image,Main Picture,Hauptbild,{}
