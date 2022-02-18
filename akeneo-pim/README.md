@@ -18,7 +18,7 @@ If you run it without arguments, it will tell you how to use it:
 sh akeneo.sh
 ```
 
-E.g. to create a new instance of Akeneo PIM, run `sh akeneo.sh setup`.
+E.g. to create a new production instance of Akeneo PIM, run `sh akeneo.sh init`.
 
 ## Troubleshooting
 

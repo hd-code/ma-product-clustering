@@ -2,18 +2,17 @@ DIR="pim"
 
 if [ ! -d "$(dirname $0)/$DIR" ]
 then
-  DIR_TMP=$(pwd)
+  echo "Akeneo project does not exist. Creating project ..."
   cd "$(dirname $0)"
   docker run -it --rm -u www-data -v $(pwd)/$DIR:/srv/pim -w /srv/pim akeneo/pim-php-dev:5.0 \
     php -d memory_limit=4G /usr/local/bin/composer create-project --prefer-dist \
     akeneo/pim-community-standard /srv/pim "5.0.*@stable"
-  cd "$DIR_TMP"
+  exit 0
 fi
 
 cd "$(dirname $0)/$DIR"
 
-run_in_php() { docker-compose run --rm -u www-data php "$@"; }
-run_in_node() { docker-compose run --rm -u node node "$@"; }
+# ------------------------------------------------------------------------------
 
 start_queue() {
   echo "Starting job queue"
@@ -25,50 +24,66 @@ stop_queue() {
   docker stop akeneo_job_queue
 }
 
+# ------------------------------------------------------------------------------
+
 CMD=$1
 shift
 
 case $CMD in
-  run)
-    run_in_php "$@"
-    ;;
-  run_node)
-    run_in_node "$@"
-    ;;
-
-  start)
-    docker-compose start
+  up)
+    make up
     start_queue
     ;;
-  stop)
+  down)
     stop_queue
-    docker-compose stop
-    ;;
-
-  setup)
-    make prod
-    echo "--- Create first user to be able to login"
-    run_in_php php bin/console pim:user:create
-    start_queue
-    ;;
-  setup-dev)
-    make dev
-    start_queue
-    ;;
-  teardown)
-    stop_queue
-    docker-compose stop
     make down
     ;;
 
+  init)
+    make prod
+    start_queue
+    echo "--- Create first user to be able to login"
+    docker-compose run --rm -u www-data php php bin/console pim:user:create
+    ;;
+  init-dev)
+    make dev
+    start_queue
+    ;;
+
+  refresh)
+    rm -rf vendor node_modules
+    make vendor
+    make upgrade-front
+    ;;
+  update)
+    rm -rf vendor node_modules
+    rm composer.lock yarn.lock
+    make vendor
+    make upgrade-front
+    ;;
+
+  run)
+    case $1 in
+      node|yarn)
+        docker-compose run --rm -u node "$@"
+        ;;
+      *)
+        docker-compose run --rm -u www-data php "$@"
+        ;;
+    esac
+    ;;
+
   *)
-    echo "Usage: $0 CMD"
-    echo "  run       – run a command like 'php ...' in akeneo pim"
-    echo "  run_node  – run a command like 'yarn ...' in akeneo pim"
-    echo "  start     – restart pim"
-    echo "  stop      – stop pim"
-    echo "  setup     – creates new akeneo instance"
-    echo "  setup-dev – like setup but with test data"
-    echo "  teardown  – destroy akeneo instance for good"
+    echo "Usage: $0 TASK"
+    echo "  up       - starts Akeneo PIM"
+    echo "  down     - stops Akeneo PIM"
+    echo ""
+    echo "  init     - (re)creates blank Akeneo PIM for production"
+    echo "  init-dev - (re)creates Akeneo PIM in dev mode with some sample data"
+    echo ""
+    echo "  refresh  – refreshes the installation e.g. after dependency updates"
+    echo "  update   – updates all dependencies to their latest version and refreshes the installation"
+    echo ""
+    echo "  run CMD  - runs a command like 'php ...' or 'yarn ...' inside Akeneo PIM"
     ;;
 esac

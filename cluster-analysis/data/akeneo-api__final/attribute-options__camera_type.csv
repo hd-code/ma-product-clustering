@@ -1,0 +1,7 @@
+code,attribute,sort_order,labels
+bridge,camera_type,1,"{'de_DE': 'Bridge', 'en_US': 'Bridge', 'fr_FR': 'Bridge'}"
+compact,camera_type,2,"{'de_DE': 'Compact', 'en_US': 'Compact', 'fr_FR': 'Compact'}"
+milc,camera_type,3,"{'de_DE': 'MILC', 'en_US': 'MILC', 'fr_FR': 'MILC'}"
+milc_body,camera_type,4,"{'de_DE': 'MILC Body', 'en_US': 'MILC Body', 'fr_FR': 'MILC Body'}"
+slr_body,camera_type,5,"{'de_DE': 'SLR Body', 'en_US': 'SLR Body', 'fr_FR': 'SLR Body'}"
+slr_kit,camera_type,6,"{'de_DE': 'SLR Kit', 'en_US': 'SLR Kit', 'fr_FR': 'SLR Kit'}"
