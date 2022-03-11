@@ -17,12 +17,7 @@ class Centroid(ABC, Generic[Datapoint]):
     @classmethod
     @abstractmethod
     def init(cls: Type[Centroid]) -> Centroid:
-        """Creates a centroid from a set of datapoints
-
-        `KMeans` chooses some datapoints at random as initial centroids of the
-        clusters. This method specifies, how a centroid is created from a chosen
-        datapoint. The chosen Datapoint is also the first member in this cluster.
-        """
+        """Creates a centroid for a clustering"""
         raise NotImplementedError
 
     @abstractmethod
@@ -38,7 +33,6 @@ class Centroid(ABC, Generic[Datapoint]):
     def on_add_point(self, datapoint: Datapoint) -> None:
         """Called when a datapoint is added to the cluster of this centroid
 
-        The centroid might be updated with each new member in the cluster or
-        after a complete run through the dataset. See `on_restart`
+        Should update the centroid. Might be called in quick succession.
         """
         raise NotImplementedError

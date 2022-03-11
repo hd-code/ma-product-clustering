@@ -1,0 +1,391 @@
+code,locale_en,group,type,mobile_phone_cases,smartphones
+34,Contrast ratio (typical),display,contrast ratio,,optional
+47,Processor model,processor,dropdown,,required
+48,Digital zoom,camera,numerical,,optional
+74,Optical zoom,camera,numerical,,optional
+75,Platform,software,dropdown,,required
+94,Weight,weight_and_dimensions,numerical,optional,required
+249,Certification,certificates,textarea,,optional
+251,Bundled software,software,textarea,,optional
+432,Wi-Fi standards,network,multi_dropdown,,optional
+434,Battery technology,battery,dropdown,,optional
+442,Audio system,multimedia,dropdown,,optional
+454,Security algorithms,network,multi_dropdown,,optional
+614,Graphics card,performance,dropdown,,optional
+667,Operating altitude,operational_conditions,range,,optional
+685,Browser supported,network,text,,optional
+703,Operating relative humidity (H-H),operational_conditions,range,,optional
+730,Compatible memory cards,storage,multi_dropdown,,required
+757,Storage temperature (T-T),operational_conditions,range,,optional
+762,Package weight,weight_and_dimensions,numerical,,optional
+771,Form factor,design,dropdown,,required
+853,Mac compatibility,software,y_n,,optional
+890,Compatibility,features,textarea,required,
+898,Material,features,multi_dropdown,required,
+906,AC adapter power,packaging_content,numerical,,optional
+909,Battery capacity,battery,numerical,,required
+944,Display diagonal,display,numerical,,required
+1024,Speakers,multimedia,dropdown,,optional
+1112,Operating temperature (T-T),operational_conditions,range,,optional
+1208,Bluetooth version,network,dropdown,,optional
+1230,AC adapter included,packaging_content,y_n,,optional
+1383,Storage relative humidity (H-H),operational_conditions,range,,optional
+1389,Display brightness,display,numerical,,optional
+1464,Height,weight_and_dimensions,numerical,optional,optional
+1503,Modulation,network,multi_dropdown,,optional
+1535,Battery recharge time,battery,numerical,,optional
+1574,Sensor type,camera,dropdown,,optional
+1578,Image stabilizer,camera,y_n,,optional
+1585,Display resolution,display,2d,,required
+1597,Video capture resolution (max),camera,2d,,optional
+1614,Auto focus,camera,y_n,,optional
+1618,Optical sensor size,camera,ratio,,optional
+1649,Width,weight_and_dimensions,numerical,optional,optional
+1650,Depth,weight_and_dimensions,numerical,optional,optional
+1660,Speaker power,multimedia,numerical,,optional
+1733,Electronic compass,navigation,y_n,,optional
+1742,USB connector type,ports_and_interfaces,multi_dropdown,,optional
+1766,Product colour,design,multi_dropdown,,required
+1805,Speakerphone,performance,y_n,,optional
+1809,Voice codecs,multimedia,multi_dropdown,,optional
+1830,Cables included,packaging_content,multi_dropdown,,optional
+1842,Equalizer,multimedia,y_n,,optional
+1901,Short Message Service (SMS),messaging,y_n,,optional
+2102,ISO sensitivity,camera,multi_dropdown,,optional
+2169,Continuous audio playback time,battery,numerical,,optional
+2172,FM radio,multimedia,y_n,,optional
+2173,Continuous video playback time,battery,numerical,,optional
+2180,Multimedia Messaging Service (MMS),messaging,y_n,,optional
+2183,Bluetooth,network,y_n,,required
+2196,Processor family,processor,dropdown,,required
+2220,Radio Data System (RDS),multimedia,y_n,,optional
+2224,Audio formats supported,multimedia,multi_dropdown,,optional
+2442,Equalizer bands quantity,multimedia,numerical,,optional
+2646,Interior dimensions (W x D x H),weight_and_dimensions,3d,optional,
+2681,Night mode,camera,y_n,,optional
+2684,Voice dialling,performance,y_n,,optional
+2757,Thickness,weight_and_dimensions,numerical,optional,
+2963,Resolution at capture speed,camera,multi_dropdown,,optional
+3233,Operating system installed,software,dropdown,,required
+3239,Wi-Fi,network,y_n,,required
+3294,Country of origin,performance,dropdown,,optional
+3329,GPS (satellite),navigation,y_n,,optional
+3541,Vibrating alert,performance,y_n,,optional
+3577,Fingerprint reader,performance,y_n,,optional
+3672,Auto exposure,camera,y_n,,optional
+3711,Panorama,camera,y_n,,optional
+3797,USB mass storage,storage,y_n,,optional
+3806,Package depth,weight_and_dimensions,numerical,,optional
+3807,Package height,weight_and_dimensions,numerical,,optional
+3808,Package width,weight_and_dimensions,numerical,,optional
+3851,Push-to-Talk (PTT),performance,y_n,,optional
+3889,Belt clip,features,y_n,optional,
+3981,Quick start guide,packaging_content,y_n,,optional
+3989,Second display,display,y_n,,optional
+4023,Warranty card,packaging_content,y_n,,optional
+4133,Bluetooth profiles,network,multi_dropdown,,optional
+4163,Headphone connectivity,ports_and_interfaces,dropdown,,optional
+4456,Master (outer) case height,logistics_data,numerical,optional,
+4457,Master (outer) case width,logistics_data,numerical,optional,
+4463,Package type,packaging_data,dropdown,optional,
+4642,Artificial Intelligence control,performance,y_n,,optional
+4754,Specific absorption rate (SAR) value (EU),certificates,numerical,,optional
+4851,Supported video modes,multimedia,multi_dropdown,,optional
+4857,Battery weight,battery,numerical,,optional
+4858,Battery voltage,battery,numerical,,optional
+4860,Desktop stand,features,y_n,optional,
+4963,Touchscreen,display,y_n,,required
+4981,Fast charging,performance,y_n,,optional
+5039,Memory card included,packaging_content,dropdown,,optional
+5197,Waterproof up to,features,numerical,optional,
+5214,Housing material,design,multi_dropdown,,optional
+5516,Washable,features,y_n,optional,
+6089,Processor cores,processor,dropdown,,optional
+6584,Gaming time,battery,numerical,,optional
+6630,Voice commands,performance,y_n,,optional
+6697,Flash type,camera,dropdown,,optional
+6767,Maximum screen size,features,numerical,required,
+6893,Video formats supported,multimedia,multi_dropdown,,optional
+7018,Video call,performance,y_n,,optional
+7021,Maximum memory card size,storage,numerical,,optional
+7114,Face detection,camera,y_n,,optional
+7283,Talk time (3G),battery,numerical,,required
+7285,Standby time (3G),battery,numerical,,required
+7350,Orientation sensor,sensors,y_n,,optional
+7450,Maximum refresh rate,display,numerical,,optional
+7507,Second display diagonal,display,numerical,,optional
+7508,Second display resolution,display,2d,,optional
+7515,Maximum frame rate,camera,numerical,,optional
+7609,Barometer,sensors,y_n,,optional
+7664,GPRS multislot class,network,dropdown,,optional
+7861,RAM capacity,storage,numerical,,required
+7900,International Protection (IP) code,design,dropdown,,optional
+7978,Processor boost frequency,processor,numerical,,optional
+7986,Windows operating systems supported,software,multi_dropdown,,optional
+7987,Mac operating systems supported,software,multi_dropdown,,optional
+8006,Built-in battery,features,y_n,optional,
+8041,Image editing,camera,dropdown,,optional
+8062,Image stabilizer type,camera,dropdown,,optional
+8072,Protection features,design,multi_dropdown,,optional
+8080,USB On-The-Go support,performance,y_n,,optional
+8097,Touchscreen type,display,dropdown,,optional
+8156,Brand compatibility,features,dropdown,required,
+8367,3G bands supported,network,multi_dropdown,,optional
+8411,Surface coloration,features,dropdown,optional,
+8541,USB version,ports_and_interfaces,dropdown,,optional
+8576,Interface adapters included,packaging_content,dropdown,,optional
+8578,Subscription type,subscription,dropdown,,required
+8697,Geotagging,camera,y_n,,optional
+8698,Proximity sensor,sensors,y_n,,optional
+8720,Ambient light sensor,sensors,y_n,,optional
+8730,Internal storage capacity,storage,numerical,,required
+8734,Included memory card size,storage,numerical,,optional
+8742,Wi-Fi positioning,navigation,y_n,,optional
+8745,Video recording modes,camera,multi_dropdown,,optional
+8746,Video stabilizer,camera,y_n,,optional
+8778,Case type,features,dropdown,required,
+8801,Screen protector,packaging_content,y_n,,optional
+9021,Market positioning,design,dropdown,,optional
+9040,Office support,software,y_n,,optional
+9042,Multi-shot,camera,y_n,,optional
+9043,Self-timer,camera,y_n,,optional
+9097,Tethering (modem-mode),network,y_n,,optional
+9104,Display type,display,dropdown,,optional
+9147,Smile detection,camera,y_n,,optional
+9166,SIM card type,network,dropdown,,required
+9220,Headset included,packaging_content,y_n,,optional
+9689,Number of card pockets,features,numerical,optional,
+9731,Accelerometer,sensors,y_n,,optional
+9732,Gyroscope,sensors,y_n,,optional
+9763,AirPlay,network,y_n,,optional
+9779,Wi-Fi Direct,network,y_n,,optional
+9780,Google applications,software,multi_dropdown,,optional
+9984,Processor architecture,processor,dropdown,,optional
+10035,Swivel angle,display,numerical,,optional
+10101,Folded depth,weight_and_dimensions,numerical,,optional
+10102,Folded height,weight_and_dimensions,numerical,,optional
+10103,Folded width,weight_and_dimensions,numerical,,optional
+10157,Near Field Communication (NFC),network,y_n,,optional
+10399,Stylus included,packaging_content,y_n,,optional
+10733,IK code,design,dropdown,,optional
+10935,Face recognition,performance,y_n,,optional
+11184,Lightning connector,ports_and_interfaces,y_n,,optional
+11379,Processor frequency,processor,numerical,,required
+11417,Native aspect ratio,display,dropdown,,optional
+11990,Memory card hot swapping,storage,y_n,,optional
+11991,SIM card hot swapping,network,y_n,,optional
+12096,Hearing aid compatibility,performance,y_n,,optional
+12148,Wireless charging,performance,y_n,,optional
+12434,Rear camera resolution,camera,2d,,optional
+12435,Rear camera resolution (numeric),camera,numerical,,required
+12437,Front camera resolution (numeric),camera,numerical,,required
+12655,Standby time (4G),battery,numerical,,optional
+12935,Lanyard,packaging_data,y_n,optional,
+12991,RAM type,storage,dropdown,,optional
+13246,Pixel density,display,numerical,,optional
+13248,Social network services supported,software,multi_dropdown,,optional
+13463,Miracast,network,y_n,,optional
+13908,User memory,storage,numerical,,optional
+14077,Front camera resolution,camera,2d,,optional
+14695,4G bands supported,network,multi_dropdown,,optional
+14752,Fingerprint resistant,display,y_n,,optional
+15264,Browsing time (Wi-Fi),battery,numerical,,optional
+15265,Browsing time (3G),battery,numerical,,optional
+15266,Browsing time (4G),battery,numerical,,optional
+15618,GLONASS,navigation,y_n,,optional
+15624,Pedometer,sensors,y_n,,optional
+15767,Easy to apply,features,y_n,optional,
+16404,ANT+ enabled,ports_and_interfaces,y_n,,optional
+16922,4G standard,network,dropdown,,required
+16923,3G standards,network,multi_dropdown,,required
+17554,Screen shape,display,dropdown,,optional
+17669,Head SAR (EU),certificates,numerical,,optional
+17670,Body SAR (EU),certificates,numerical,,optional
+17671,Head SAR category (EU),certificates,dropdown,,optional
+17672,Body SAR category (EU),certificates,dropdown,,optional
+17956,Colour name,design,text,,optional
+17981,Coprocessor,processor,y_n,,optional
+17982,Coprocessor frequency,processor,numerical,,optional
+17983,Coprocessor cores,processor,numerical,,optional
+17984,Coprocessor architecture,processor,dropdown,,optional
+18096,Removable battery,battery,y_n,,optional
+18111,Talk time (4G),battery,numerical,,optional
+18116,Coprocessor model,processor,dropdown,,optional
+18262,Magnetic sensor,sensors,y_n,,optional
+19016,Master (outer) case gross weight,logistics_data,numerical,optional,
+19033,Pallet gross weight,technical_details,numerical,,optional
+19122,Head SAR (USA),certificates,numerical,,optional
+19123,Head SAR (Canada),certificates,numerical,,optional
+19124,Body SAR (USA),certificates,numerical,,optional
+19125,Body SAR (Canada),certificates,numerical,,optional
+19653,SIM card capability,network,dropdown,,required
+19925,Adjustable pressure,performance,y_n,,optional
+20228,Quantity per pack,packaging_data,numerical,optional,
+20912,Protective case,packaging_content,y_n,,optional
+21045,RAM clock speed,storage,dropdown,,optional
+22044,Pallet net weight,technical_details,numerical,optional,optional
+22615,Pattern,features,dropdown,optional,
+22656,Pallet gross volume,technical_details,numerical,optional,optional
+22658,Master (outer) case length,logistics_data,numerical,optional,
+22659,Products per master (outer) case,logistics_data,numerical,optional,
+22660,Shipping (inner) case width,logistics_data,numerical,optional,
+22661,Shipping (inner) case length,logistics_data,numerical,optional,
+22662,Shipping (inner) case height,logistics_data,numerical,optional,
+22663,Shipping (inner) case gross weight,logistics_data,numerical,optional,
+22664,Products per shipping (inner) case,logistics_data,numerical,optional,optional
+22751,Temperature measuring range,camera,range,,optional
+23047,Pallet GTIN (EAN/UPC),technical_details,alphanumeric,optional,optional
+23056,Master (outer) case GTIN (EAN/UPC),technical_details,alphanumeric,,optional
+23092,Master (outer) case volume,technical_details,numerical,,optional
+23692,Package volume,technical_details,numerical,,optional
+23731,Harmonized System (HS) code,logistics_data,alphanumeric,,optional
+23798,USB port,ports_and_interfaces,y_n,,required
+23802,E-mail,messaging,y_n,,optional
+24847,Display number of colours,display,dropdown,,optional
+25964,Swiveling display,display,y_n,,optional
+26241,Card pocket,features,y_n,optional,
+26425,Position location,navigation,y_n,,required
+27575,Closure,features,dropdown,optional,
+27587,Rear camera type,camera,dropdown,,required
+27588,Second rear camera resolution (numeric),camera,numerical,,optional
+27597,Rear camera aperture number,camera,numerical,,optional
+27598,Second rear camera aperture number,camera,numerical,,optional
+27601,Front camera aperture number,camera,numerical,,optional
+27602,Wireless audio playback time,battery,numerical,,optional
+27603,Wireless video playback time,battery,numerical,,optional
+27802,MIMO,network,y_n,,optional
+28170,Shipping (inner) cases per master (outer) case,logistics_data,numerical,,optional
+28694,BeiDou,navigation,y_n,,optional
+28695,Continuous audio playback time (display off),battery,numerical,,optional
+28715,Time lapse mode,camera,y_n,,optional
+29170,Refurbished,performance,y_n,,optional
+31440,iBeacon,network,y_n,,optional
+31445,Virtual assistant,software,dropdown,,optional
+32518,Pressure sensor,sensors,y_n,,optional
+32871,Distance sensor,sensors,y_n,,optional
+33517,Memory card slot type,storage,dropdown,,optional
+33562,Front camera type,camera,dropdown,,required
+33563,Second front camera resolution (numeric),camera,numerical,,optional
+33685,Galileo,navigation,y_n,,optional
+33686,Quasi-Zenith Satellite System (QZSS),navigation,y_n,,optional
+33690,Rounded display corners,display,y_n,,optional
+34087,Voice over LTE (VoLTE) supported,network,y_n,,optional
+34273,Display glass type,display,dropdown,,optional
+35264,SIM card ejector pin,packaging_content,y_n,,optional
+35273,Fast charging technology,performance,dropdown,,optional
+35935,Third rear camera resolution (numeric),camera,numerical,,optional
+35936,Third rear camera aperture number,camera,numerical,,optional
+36243,Second display type,display,dropdown,,optional
+36310,High Dynamic Range (HDR) supported,display,y_n,,optional
+36601,Front camera flash,camera,y_n,,optional
+36602,Rear camera flash,camera,y_n,,required
+36710,Iris recognition,performance,y_n,,optional
+36711,Gorilla Glass version,display,dropdown,,optional
+36910,Rear camera pixel size,camera,numerical,,optional
+36911,Second rear camera pixel size,camera,numerical,,optional
+36912,Front camera pixel size,camera,numerical,,optional
+36916,Rear camera field of view (FOV) angle,camera,numerical,,optional
+36917,Second rear camera field of view (FOV) angle,camera,numerical,,optional
+36918,Front camera field of view (FOV) angle,camera,numerical,,optional
+36919,Rear camera dual aperture number,camera,dropdown,,optional
+36920,Rear camera sensor size,camera,alphanumeric,,optional
+36921,Second rear camera sensor size,camera,alphanumeric,,optional
+36922,Front camera sensor size,camera,alphanumeric,,optional
+37530,Graphics card cores,performance,dropdown,,optional
+37533,Fourth rear camera resolution (numeric),camera,numerical,,optional
+37637,Export Control Classification Number (ECCN),logistics_data,alphanumeric,optional,optional
+37638,Commodity Classification Automated Tracking System (CCATS),technical_details,alphanumeric,optional,optional
+37772,Second display glass type,display,dropdown,,optional
+38163,Drop proof up to,features,numerical,optional,
+38164,Built-in screen cover,features,y_n,optional,
+38308,Second front camera field of view (FOV) angle,camera,numerical,,optional
+38309,Second front camera aperture number,camera,numerical,,optional
+38310,Wireless Power Share,battery,y_n,,optional
+38331,Geomagnetic sensor,sensors,y_n,,optional
+38332,Heart rate sensor,sensors,y_n,,optional
+38333,Hall sensor,sensors,y_n,,optional
+38334,Third rear camera field of view (FOV) angle,camera,numerical,,optional
+38393,Fifth rear camera resolution (numeric),camera,numerical,,optional
+38394,Fifth rear camera aperture number,camera,numerical,,optional
+38395,Fourth rear camera aperture number,camera,numerical,,optional
+38673,Oleophobic coating,features,y_n,optional,
+38687,Second display aspect ratio,display,dropdown,,optional
+38688,Second display pixel density,display,numerical,,optional
+38691,Third rear camera pixel size,camera,numerical,,optional
+38692,Second front camera pixel size,camera,numerical,,optional
+38693,Cover camera resolution (numeric),camera,numerical,,optional
+38694,Cover camera field of view (FOV) angle,camera,numerical,,optional
+38695,Cover camera aperture number,camera,numerical,,optional
+38697,Cover camera pixel size,camera,numerical,,optional
+38779,Rotating camera,camera,y_n,,optional
+38780,3D depth rear camera,camera,y_n,,optional
+38781,3D depth front camera,camera,y_n,,optional
+38974,Second display refresh rate,display,numerical,,optional
+40020,Plant-based material,features,y_n,optional,
+40629,Mobile network generation,network,dropdown,,required
+40712,High Dynamic Range (HDR) technology,display,multi_dropdown,,optional
+40909,LiDAR sensor,sensors,y_n,,optional
+40984,Bluetooth Low Energy (BLE),network,y_n,,optional
+41012,aptX technology,network,y_n,,optional
+41305,Pallet net length,technical_details,numerical,optional,optional
+41308,Pallet net width,technical_details,numerical,optional,optional
+41309,Pallet net height,technical_details,numerical,optional,optional
+41381,Customs product code (TARIC),logistics_data,numerical,optional,optional
+41561,Talk time (5G),battery,numerical,,optional
+41562,Colour temperature sensor,sensors,y_n,,optional
+41564,Infrared sensor,sensors,y_n,,optional
+41565,Display resolution (unfolded),display,2d,,optional
+41566,Display diagonal (unfolded),display,numerical,,optional
+41624,Extremities SAR (USA),certificates,numerical,,optional
+41625,Extremities SAR (EU),certificates,numerical,,optional
+41626,Extremities SAR (Canada),certificates,numerical,,optional
+41632,Huawei Mobile Services (HMS),software,y_n,,optional
+41642,Continuous navigation,battery,numerical,,optional
+41675,Thermal imaging camera,camera,y_n,,optional
+41676,Thermal imaging camera resolution,camera,2d,,optional
+41752,Gesture sensor,sensors,y_n,,optional
+41753,NavIC,navigation,y_n,,optional
+41754,Huawei Acoustic Display Technology,display,y_n,,optional
+41758,Dual-screen function,performance,y_n,,optional
+41759,Dual-screen weight,weight_and_dimensions,numerical,,optional
+42058,App distribution platform,software,dropdown,,optional
+42121,Stylus dimensions (W x D x H),weight_and_dimensions,3d,,optional
+42165,Depth camera resolution (numeric),camera,numerical,,optional
+42166,Macro camera resolution (numeric),camera,numerical,,optional
+42170,Macro camera sensor size,camera,numerical,,optional
+42171,Depth camera sensor size,camera,numerical,,optional
+42172,Number of flash intensity levels,camera,numerical,,optional
+42218,MSX (Multi-Spectral Dynamic Imaging) technology,camera,y_n,,optional
+42283,Second display brightness,display,numerical,,optional
+42365,Second display Gorilla Glass version,display,dropdown,,optional
+42366,Third rear camera sensor size,camera,alphanumeric,,optional
+42367,Artificial Intelligence processor model,processor,dropdown,,optional
+42368,Artificial Intelligence processor family,processor,dropdown,,optional
+42369,5G bands supported,network,multi_dropdown,,optional
+42370,3G data rate (max),network,numerical,,optional
+42371,4G data rate (max),network,numerical,,optional
+42372,5G data rate (max),network,numerical,,optional
+42437,Rear camera focal length,camera,numerical,,optional
+42438,Second rear camera focal length,camera,numerical,,optional
+42439,Third rear camera focal length,camera,numerical,,optional
+42440,Third rear camera lens elements,camera,dropdown,,optional
+42441,Second rear camera lens elements,camera,dropdown,,optional
+42442,Rear camera lens elements,camera,dropdown,,optional
+42443,Maximum display brightness (HDR),display,numerical,,optional
+42512,Sustainability compliance,technical_details,y_n,optional,optional
+42513,Sustainability certificates,technical_details,multi_dropdown,optional,optional
+42514,Sustainability organizations,technical_details,multi_dropdown,optional,optional
+42515,Sustainable technologies and materials,technical_details,text,optional,optional
+42516,Doesn't contain,technical_details,multi_dropdown,optional,optional
+42521,Recycled material,features,multi_dropdown,optional,
+42645,Digital Living Network Alliance (DLNA) certified,certificates,y_n,,optional
+42731,Voice recognition,performance,y_n,,optional
+42930,Repairability index,technical_details,dropdown,,optional
+43267,Pop-up camera,camera,y_n,,optional
+43335,Frequency band,network,dropdown,,optional
+43841,Firmware version,software,dropdown,,optional
+44158,RAM expansion (max),storage,numerical,,optional
+44188,AI scene recognition,camera,y_n,,optional
+44243,Fourth rear camera pixel size,camera,numerical,,optional
+44244,Fourth rear camera field of view (FOV) angle,camera,numerical,,optional
+44462,Anti-yellowing protection,features,y_n,optional,

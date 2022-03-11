@@ -1,8 +1,10 @@
 from typing import Type
 
+import numpy as np
+
 from .centroid import Centroid, Datapoint
 from .inits import InitFunc, random_init
-from .kmeans_single import kmeans_single
+from .kmeans_single import KMeansSingle
 
 
 class KMeans:
@@ -17,30 +19,38 @@ class KMeans:
         n_init: int = 10,
         max_iter: int = 100,
     ) -> None:
-        kmeans_result = kmeans_single(dataset, centroid_cls, n_cluster, init, max_iter)
-        for _ in range(n_init - 1):
-            kmeans_next = kmeans_single(
-                dataset, centroid_cls, n_cluster, init, max_iter
-            )
-            if kmeans_next.mean_distance < kmeans_result.mean_distance:
-                kmeans_result = kmeans_next
+        kmeanses = [
+            KMeansSingle(dataset, centroid_cls, n_cluster, init, max_iter)
+            for _ in range(n_init)
+        ]
+        errors = np.array([k.error for k in kmeanses])
+        best_clustering_i = errors.argmin()
 
-        self._result = kmeans_result
+        self._result = kmeanses[best_clustering_i]
 
     # --------------------------------------------------------------------------
 
     @property
-    def error(self) -> float:
-        return self._result.mean_distance
+    def centroids(self) -> list[Centroid]:
+        """The Centroids after the final clustering pass through the dataset"""
+        self._result._centroids
 
     @property
-    def error_per_cluster(self) -> list[float]:
-        return self._result.mean_distances
+    def error(self) -> float:
+        """Mean distance of all points to their cluster"""
+        return self._result.error
+
+    @property
+    def error_per_cluster(self) -> np.ndarray:
+        """Mean distance of all points to their cluster by cluster"""
+        return self._result._error_per_cluster
 
     @property
     def iterations(self) -> int:
-        return self._result.iterations
+        """Number of iterations needed before the clusters converged"""
+        return self._result._iterations
 
     @property
-    def result(self) -> list[int]:
+    def result(self) -> np.ndarray:
+        """IntVector(n x 1) that shows which datapoint belongs to which cluster"""
         return self._result.result
