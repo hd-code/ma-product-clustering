@@ -22,7 +22,7 @@ class KMeansSingle:
         max_iter: int = 100,
         random_state: int = None,
     ) -> None:
-        if random_state != None:
+        if random_state is not None:
             seed_random_init(random_state)
 
         self._dataset = dataset
@@ -67,7 +67,7 @@ class KMeansSingle:
 
     # --------------------------------------------------------------------------
 
-    def _init_centroids(self) -> list[Centroid]:
+    def _init_centroids(self):
         self._centroids: list[Centroid] = []
         startpoints_i = list(self._init(self._dataset, self._n_cluster))
         for i in startpoints_i:
@@ -76,7 +76,7 @@ class KMeansSingle:
             self._labels[i] = len(self._centroids)
             self._centroids.append(centroid)
 
-    def _re_init_centroids(self) -> list[Centroid]:
+    def _re_init_centroids(self):
         self._centroids = [self._centroid_cls.init() for _ in range(self._n_cluster)]
         for i in range(len(self._dataset)):
             datapoint = self._dataset[i]

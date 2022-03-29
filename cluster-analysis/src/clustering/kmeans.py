@@ -20,7 +20,7 @@ class KMeans:
         max_iter: int = 100,
         random_state: int = None,
     ) -> None:
-        if random_state != None:
+        if random_state is not None:
             seed_random_init(random_state)
 
         kmeanses = [
