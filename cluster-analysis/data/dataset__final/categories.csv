@@ -15,3 +15,10 @@ samsung,s22_series,S22 Series,S22-Reihe
 s22_series,s22,S22,S22
 s22_series,s22_plus,S22+,S22+
 s22_series,s22_ultra,S22 Ultra,S22 Ultra
+master,duplicates,Duplicates,Duplikate
+duplicates,dup_s20,Duplicates S20,Duplikate S20
+duplicates,dup_s20_ultra,Duplicates S20 Ultra,Duplikate S20 Ultra
+duplicates,dup_s21_128,Duplicates S21 128GB,Duplikate S21 128GB
+duplicates,dup_s21_256,Duplicates S21 256GB,Duplikate S21 256GB
+duplicates,dup_s21_plus,Duplicates S21 Plus,Duplikate S21 Plus
+duplicates,dup_s21_ultra,Duplicates S21 Ultra,Duplikate S21 Ultra

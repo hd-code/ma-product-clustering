@@ -5,16 +5,20 @@ name = "pypi"
 
 [packages]
 jupyter = "*"
+kmodes = "*"
 matplotlib = "*"
 numpy = "*"
 openpyxl = "*"
 pandas = "*"
 scipy = "*"
-src = {editable = true, path = "./src"}
+sklearn = "*"
+src = {editable = true, path = "./"}
 
 [dev-packages]
 black = "*"
 isort = "*"
+mypy = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.9"

@@ -6,6 +6,10 @@ CMD="$1"
 shift
 
 case $CMD in
+  coverage)
+    pipenv run coverage run -m unittest discover -p '*_test.py'
+    pipenv run coverage report -m --skip-covered
+    ;;
   format)
     pipenv run python -m isort --profile black ./src
     pipenv run python -m black ./src
@@ -17,11 +21,14 @@ case $CMD in
   install)
     pipenv install "$@"
     ;;
+  lint)
+    pipenv run python -m mypy src
+    ;;
   run)
     pipenv run python "$@"
     ;;
   test)
-    pipenv run python -m unittest discover -s src -p '*_test.py'
+    pipenv run python -m unittest discover -p '*_test.py'
     ;;
   *)
     echo "Usage: $0 CMD"

@@ -1,0 +1,12 @@
+code,labels,attributes,sort_order
+color,"{'en_US': 'Color', 'fr_FR': 'Couleur', 'de_DE': 'Farbe'}","['main_color', 'secondary_color']",8
+design,"{'en_US': 'Design', 'fr_FR': 'Style', 'de_DE': 'Stil'}",['tshirt_style'],3
+ecommerce,"{'en_US': 'Ecommerce', 'fr_FR': 'Ecommerce', 'de_DE': 'Ecommerce'}","['meta_title', 'meta_description', 'keywords']",6
+erp,"{'en_US': 'ERP', 'fr_FR': 'ERP', 'de_DE': 'ERP'}","['sku', 'price', 'erp_name', 'ean', 'supplier']",1
+manufacturing,"{'en_US': 'Manufacturing', 'fr_FR': 'Fabrication', 'de_DE': 'Herstellung'}","['container_material', 'tshirt_materials']",6
+marketing,"{'en_US': 'Marketing', 'fr_FR': 'Marketing', 'de_DE': 'Marketing'}","['name', 'description', 'response_time', 'release_date', 'variation_name', 'variation_description', 'collection', 'brand']",0
+medias,"{'en_US': 'Media', 'fr_FR': 'Media', 'de_DE': 'Media'}","['picture', 'pdf_description', 'image', 'notice', 'variation_image']",9
+other,"{'en_US': 'Other', 'fr_FR': 'Autre', 'de_DE': 'Ander'}",[],10
+product,"{'en_US': 'Product', 'fr_FR': 'Produit', 'de_DE': 'Product'}","['composition', 'wash_temperature', 'care_instructions', 'color', 'size', 'eu_shoes_size', 'sole_composition', 'top_composition', 'material']",4
+size,"{'en_US': 'Size', 'fr_FR': 'Taille', 'de_DE': 'Größe'}",['clothing_size'],8
+technical,"{'en_US': 'Technical', 'fr_FR': 'Technique', 'de_DE': 'Technische'}","['weight', 'maximum_scan_size', 'color_scanning', 'power_requirements', 'maximum_print_size', 'sensor_type', 'total_megapixels', 'optical_zoom', 'image_stabilizer', 'camera_type', 'thd', 'snr', 'headphone_connectivity', 'maximum_video_resolution', 'maximum_frame_rate', 'multifunctional_functions', 'display_srgb', 'display_color', 'display_diagonal', 'viewing_area', 'camera_brand', 'camera_model_name', 'short_description', 'max_image_resolution', 'image_resolutions', 'supported_aspect_ratios', 'supported_image_format', 'lens_mount_interface', 'focus', 'focus_adjustement', 'auto_focus_modes', 'auto_focus_points', 'auto_focus_lock', 'auto_focus_assist_beam', 'iso_sensitivity', 'light_exposure_modes', 'light_exposure_corrections', 'light_metering', 'auto_exposure', 'iso_sensitivity_max', 'iso_sensitivity_min']",2
