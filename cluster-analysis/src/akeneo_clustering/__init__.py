@@ -1,4 +1,5 @@
 from .centroid import Centroid
+from .centroid_with_weights import create_centroid_cls_with_weights
 from .datapoint import (
     KEY_CATEGORIES,
     KEY_FAMILY,

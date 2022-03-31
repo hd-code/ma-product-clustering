@@ -40,5 +40,5 @@ T = TypeVar("T", float, str, set[str])
 _map_type_to_handler: dict[Type[T], Callable[[T, T], float]] = {  # type: ignore
     float: lambda x, y: abs(x - y),  # type: ignore
     str: lambda x, y: 0 if x == y else 1,
-    set: lambda x, y: 1 - len(x.intersection(y)) / len(x.union(y)),  # type: ignore
+    set: lambda x, y: 1 - (len(x.intersection(y)) / len(x.union(y))),  # type: ignore
 }
