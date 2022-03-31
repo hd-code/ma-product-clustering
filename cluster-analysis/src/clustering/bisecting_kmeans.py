@@ -55,7 +55,7 @@ class BisectingKMeans:
     # --------------------------------------------------------------------------
 
     @property
-    def dendogram_matrix(self) -> np.ndarray:
+    def dendrogram_matrix(self) -> np.ndarray:
         n_datapoints = len(self._dataset)
 
         result = np.array([[0.0, 0.0, 0.0, 0.0]])
@@ -99,13 +99,13 @@ class BisectingKMeans:
         return self._dataset_to_cluster
 
     def labels_flat(self, num_of_clusters: int = None) -> list[int]:
-        if num_of_clusters == None:
+        if num_of_clusters is None:
             return [max(d) for d in self._dataset_to_cluster]
-        else:
-            return [
-                max(filter(lambda c: c < num_of_clusters, d))  # type: ignore
-                for d in self._dataset_to_cluster
-            ]
+
+        return [
+            max(filter(lambda c: c < num_of_clusters, d))  # type: ignore
+            for d in self._dataset_to_cluster
+        ]
 
     # --------------------------------------------------------------------------
 
@@ -115,21 +115,16 @@ class BisectingKMeans:
             self._split_cluster(cluster_to_split)
             cluster_to_split = self._find_cluster_to_split()
 
-    def _find_cluster_to_split(self):
-        cluster = self._cluster_errors.argmax()
-        if len(self._cluster_to_dataset_i[cluster]) > 1:
-            return cluster
+    def _find_cluster_to_split(self) -> int:
+        cluster_i = self._cluster_errors.argmax()
+        if len(self._cluster_to_dataset_i[cluster_i]) > 1:
+            return int(cluster_i)
 
-        index = -1
-        error = -float("inf")
-        for i in range(len(self._cluster_errors)):
-            if (
-                len(self._cluster_to_dataset_i[cluster]) > 1
-                and self._cluster_errors[i] > error
-            ):
-                index = i
-                error = self._cluster_errors[i]
-        return index
+        for i in range(cluster_i, len(self._cluster_errors)):
+            if len(self._cluster_to_dataset_i[i]) > 1:
+                return i
+
+        return -1
 
     def _split_cluster(self, cluster_to_split: int) -> None:
         cluster_orig = cluster_to_split

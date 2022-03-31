@@ -75,17 +75,21 @@ class Centroid(clustering.Centroid[Datapoint]):
             self._values[key] = mean
 
         for key, words in self._modes.items():
-            self._values[key] = _find_best_word(words)
+            best_word = ""
+            best_word_count = -1
+            for word, count in words.items():
+                if count > best_word_count:
+                    best_word = word
+                    best_word_count = count
+            self._values[key] = best_word
 
         for key, words in self._modes_multi.items():
-            self._values[key] = {_find_best_word(words)}
-
-
-def _find_best_word(words: dict[str, int]) -> str:
-    best_word = ""
-    best_word_count = -1
-    for word, count in words.items():
-        if count > best_word_count:
-            best_word = word
-            best_word_count = count
-    return best_word
+            best_words = set()
+            best_words_count = -1
+            for word, count in words.items():
+                if count == best_words_count:
+                    best_words.add(word)
+                if count > best_words_count:
+                    best_words = {word}
+                    best_words_count = count
+            self._values[key] = best_words

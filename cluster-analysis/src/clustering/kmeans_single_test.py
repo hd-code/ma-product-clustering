@@ -21,7 +21,7 @@ class Test_KMeansSingle(unittest.TestCase):
                 self.assertEqual(got.iterations, 1)
                 self.assertEqual(got.error, 0)
 
-    def test_data_set(self):
+    def test_dataset_linear_init(self):
         points = [
             Datapoint2D(0, 3),
             Datapoint2D(1, 2),
@@ -45,6 +45,34 @@ class Test_KMeansSingle(unittest.TestCase):
         for k, want, want_iter, error_ in test_cases:
             with self.subTest(f"{k} clusters"):
                 got = KMeansSingle(points, Centroid2D, k, init=linear_init)
+                npt.assert_array_equal(got.labels, np.array(want))
+                self.assertEqual(got.iterations, want_iter)
+                self.assertAlmostEqual(got.error, error_)
+
+    def test_dataset_random_init(self):
+        points = [
+            Datapoint2D(0, 3),
+            Datapoint2D(1, 2),
+            Datapoint2D(2, 1),
+            Datapoint2D(4, 1),
+            Datapoint2D(2, 4),
+            Datapoint2D(3, 5),
+            Datapoint2D(4, 4),
+            Datapoint2D(5, 3),
+            Datapoint2D(5, 4),
+            Datapoint2D(5, 5),
+        ]
+
+        test_cases = [
+            (2, [0, 0, 0, 1, 1, 1, 1, 1, 1, 1], 2, 13.3752955936086),
+            (3, [0, 0, 0, 2, 1, 1, 2, 2, 2, 2], 2, 10.50107013020284),
+            (4, [0, 0, 0, 3, 2, 2, 1, 1, 1, 1], 3, 7.304193499928116),
+            (7, [0, 0, 0, 4, 1, 2, 3, 5, 5, 6], 3, 3.8284271247461903),
+            (10, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 1, 0),
+        ]
+        for k, want, want_iter, error_ in test_cases:
+            with self.subTest(f"{k} clusters"):
+                got = KMeansSingle(points, Centroid2D, k, random_state=0)
                 npt.assert_array_equal(got.labels, np.array(want))
                 self.assertEqual(got.iterations, want_iter)
                 self.assertAlmostEqual(got.error, error_)

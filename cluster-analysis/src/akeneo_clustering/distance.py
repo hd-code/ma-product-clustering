@@ -5,6 +5,11 @@ from .datapoint import Datapoint
 
 def distance(p1: Datapoint, p2: Datapoint) -> float:
     attr_codes = set(p1.keys()).union(p2.keys())
+    n_codes = len(attr_codes)
+
+    if n_codes == 0:
+        return 1.0
+
     distance = 0.0
 
     for attr_code in attr_codes:
@@ -16,7 +21,7 @@ def distance(p1: Datapoint, p2: Datapoint) -> float:
         else:
             distance += 1  # if one value is missing, add 1 => inverted Jaccard
 
-    return distance / len(attr_codes)  # Jaccard
+    return distance / n_codes  # Jaccard
 
 
 T = TypeVar("T", float, str, set[str])

@@ -9,3 +9,10 @@ from .datapoint import (
 )
 from .datapoint_util import calc_proximity_matrix
 from .parse_products import parse_products
+from .util import (
+    TYPES_CATEGORICAL,
+    TYPES_MULTI,
+    TYPES_NUMERICAL,
+    TYPES_TEXT,
+    TYPES_TEXTAREA,
+)

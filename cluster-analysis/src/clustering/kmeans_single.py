@@ -37,6 +37,9 @@ class KMeansSingle:
         self._init_centroids()
         self._cluster_dataset()
 
+        if self._iterations == 1:
+            self._re_init_centroids()
+
     # --------------------------------------------------------------------------
 
     @property

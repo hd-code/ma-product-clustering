@@ -21,6 +21,5 @@ def dataset_from_records(records: list[dict]) -> list[Datapoint]:
             if type(value) == float and math.isnan(value):
                 continue
             values[key] = value
-        if len(values) > 0:
-            result.append(Datapoint(values))
+        result.append(Datapoint(values))
     return result

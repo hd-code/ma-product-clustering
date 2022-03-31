@@ -1,7 +1,8 @@
 from datetime import datetime
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 from src import akeneo
+from src.akeneo_clustering.util import ATTR_GROUP_FAULTY
 
 from .datapoint import KEY_CATEGORIES, KEY_FAMILY, KEY_ID, Datapoint, DataValue
 
@@ -11,6 +12,8 @@ MeasureDict = dict[str, akeneo.MeasurementFamily]
 def parse_product(
     product: akeneo.Product,
     attributes: dict[str, akeneo.Attribute],
+    attribute_types: Optional[list[akeneo.AttributeType]],
+    remove_faulty_attributes: bool,
     measures: MeasureDict,
     channel: str,
     locale: str,
@@ -27,7 +30,12 @@ def parse_product(
 
     for attr_code, values in product.values.items():
         attribute = attributes[attr_code]
-        parsed_value = _parse_product_values(
+        if remove_faulty_attributes and attribute.group == ATTR_GROUP_FAULTY:
+            continue
+        if attribute_types is not None and attribute.type not in attribute_types:
+            continue
+
+        parsed_value = _parse_product_value(
             values,
             attribute,
             measures,
@@ -42,41 +50,41 @@ def parse_product(
     return result, numericals
 
 
-def _parse_product_values(
-    values: list[akeneo.ProductValue],
+def _parse_product_value(
+    value: list[akeneo.ProductValue],
     attribute: akeneo.Attribute,
     measures: MeasureDict,
     channel: str,
     locale: str,
     currency: str,
 ) -> DataValue:
-    value = _select_product_value(values, channel, locale)
-    return _parse_product_value(value, attribute, measures, currency)
+    data = _select_product_value(value, channel, locale).data
+    return _parse_product_data(data, attribute, measures, currency)
 
 
 def _select_product_value(
-    values: list[akeneo.ProductValue],
+    value: list[akeneo.ProductValue],
     channel: str,
     locale: str,
 ) -> akeneo.ProductValue:
     index = 0
-    for i in range(1, len(values)):
-        value = values[i]
-        if value.locale in [None, locale] and value.scope in [None, channel]:
+    for i in range(1, len(value)):
+        v = value[i]
+        if v.locale in [None, locale] and v.scope in [None, channel]:
             index = i
-    return values[index]
+    return value[index]
 
 
 # ------------------------------------------------------------------------------
 
 
-def _parse_product_value(
-    value: akeneo.ProductValue,
+def _parse_product_data(
+    data: Any,
     attribute: akeneo.Attribute,
     measures: MeasureDict,
     currency: str,
 ) -> DataValue:
-    return _parse_attr_type[attribute.type](value.data, attribute, measures, currency)
+    return _parse_attr_type[attribute.type](data, attribute, measures, currency)
 
 
 def _parse_metric(

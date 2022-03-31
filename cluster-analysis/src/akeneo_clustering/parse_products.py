@@ -6,7 +6,10 @@ from .parse_product import parse_product
 
 def parse_products(
     cache: akeneo.Cache,
-    products: list[akeneo.Product] = [],
+    *_,
+    product_family: str = None,
+    attribute_types: list[akeneo.AttributeType] = None,
+    remove_faulty_attributes: bool = True,
     channel: str = "default",
     locale: str = "en_US",
     currency: str = "USD",
@@ -17,11 +20,21 @@ def parse_products(
     result: list[Datapoint] = []
     min_max_values: dict[str, tuple[float, float]] = {}
 
-    prods = products if len(products) > 0 else cache.products
+    products = filter(
+        lambda prod: product_family is None or prod.family == product_family,
+        cache.products,
+    )
 
-    for product in prods:
+    for product in products:
         prod, numericals = parse_product(
-            product, attr_dict, meas_dict, channel, locale, currency
+            product,
+            attr_dict,
+            attribute_types,
+            remove_faulty_attributes,
+            meas_dict,
+            channel,
+            locale,
+            currency,
         )
         result.append(prod)
         for key, value in numericals.items():

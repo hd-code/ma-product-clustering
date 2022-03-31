@@ -25,14 +25,32 @@ class Test_Centroid(unittest.TestCase):
             (
                 "categorical only",
                 {"a1": "a", "a2": "a", "a3": "a"},
-                {"a1": "b", "a2": "a", "a3": "a"},
-                1 - 2 / 3,
+                {"a1": "b", "a3": "a"},
+                1 - 1 / 3,
             ),
             (
                 "categorical with missing",
                 {"a1": "a", "a2": "a", "a3": "a"},
                 {"a1": "b", "a3": "a"},
                 1 - 1 / 3,
+            ),
+            (
+                "multi only",
+                {"a1": {"red"}, "a2": {"green"}, "a3": {"blue"}},
+                {"a1": {"red"}, "a2": {"red"}, "a3": {"red", "blue"}},
+                (1 + 0.5) / 3,
+            ),
+            (
+                "multi with missing",
+                {"a1": {"red"}, "a2": {"green"}},
+                {"a1": {"red"}, "a2": {"red"}, "a3": {"red", "blue"}},
+                2 / 3,
+            ),
+            (
+                "multi matches",
+                {"a1": {"red", "green"}, "a2": {"red"}, "a3": {"blue"}},
+                {"a1": {"red", "green"}, "a2": {"red"}, "a3": {"blue"}},
+                0,
             ),
             (
                 "mixed example",
@@ -81,12 +99,10 @@ class Test_Centroid(unittest.TestCase):
             (
                 "numerical only",
                 {"a1": 0.5, "a2": 0.2, "a3": 0.6},
-                0.0,
             ),
             (
                 "categorical only",
                 {"a1": "a", "a2": "a", "a3": "a"},
-                0.0,
             ),
             (
                 "mixed example",
@@ -98,12 +114,11 @@ class Test_Centroid(unittest.TestCase):
                     "a5": "xl",
                     "a8": {"red", "green"},
                 },
-                0.08333333333333333,
             ),
         ]
-        for name, point, want in test_cases:
+        for name, point in test_cases:
             with self.subTest(name):
                 c = Centroid()
                 c.on_add_point(point)
                 got = c.calc_distance(point)
-                self.assertAlmostEqual(got, want)
+                self.assertAlmostEqual(got, 0.0)
