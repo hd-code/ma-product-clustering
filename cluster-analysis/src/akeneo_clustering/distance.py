@@ -3,36 +3,23 @@ from typing import Callable, Type, TypeVar
 from .datapoint import Datapoint
 
 
-def distance(
-    p1: Datapoint, p2: Datapoint, sample_weight: dict[str, float] = None
-) -> float:
+def distance(p1: Datapoint, p2: Datapoint) -> float:
     attr_codes = set(p1.keys()).union(p2.keys())
-    n_codes = len(attr_codes)
-
-    if n_codes == 0:
+    if len(attr_codes) == 0:
         return 0.0
 
     distance = 0.0
-    n_values = 0.0
 
     for attr_code in attr_codes:
-        weight = (
-            1
-            if sample_weight is None or attr_code not in sample_weight
-            else sample_weight[attr_code]
-        )
-
         if attr_code in p1 and attr_code in p2:
             v1 = p1[attr_code]
             v2 = p2[attr_code]
 
-            distance += weight * _map_type_to_handler[type(v1)](v1, v2)  # type: ignore
-            n_values += weight
+            distance += _map_type_to_handler[type(v1)](v1, v2)  # type: ignore
         else:
-            distance += weight  # if one value is missing, add 1 => inverted Jaccard
-            n_values += weight
+            distance += 1  # if one value is missing, add 1
 
-    return distance / n_values  # Jaccard
+    return distance / len(attr_codes)
 
 
 T = TypeVar("T", float, str, set[str])

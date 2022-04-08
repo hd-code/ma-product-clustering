@@ -4,4 +4,5 @@ build-backend = "setuptools.build_meta"
 
 [tool.mypy]
 install_types = true
+ignore_missing_imports = true
 pretty = true

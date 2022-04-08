@@ -4,7 +4,11 @@ import numpy as np
 import numpy.testing as npt
 
 from .datapoint import Datapoint
-from .datapoint_util import calc_proximity_matrix
+from .datapoint_util import (
+    calc_proximity_matrix,
+    overweight_attributes,
+    transform_multi_to_single_cat,
+)
 
 
 class Test_DatapointUtil(unittest.TestCase):
@@ -43,3 +47,92 @@ class Test_DatapointUtil(unittest.TestCase):
             with self.subTest(name):
                 got = calc_proximity_matrix(dataset)
                 npt.assert_almost_equal(got, np.array(want))
+
+    def test_transform_multi_to_single_cat(self):
+        test_cases = [
+            (
+                "no transform",
+                [Datapoint({"a": 0.5, "b": "name"})],
+                [Datapoint({"a": 0.5, "b": "name"})],
+            ),
+            (
+                "one transform",
+                [Datapoint({"a": 0.5, "b": "name", "c": {"1", "2", "3"}})],
+                [Datapoint({"a": 0.5, "b": "name", "c": "1,2,3"})],
+            ),
+            (
+                "all transforms",
+                [Datapoint({"a": {"a"}, "b": {"a", "b"}, "c": {"1", "2", "3"}})],
+                [Datapoint({"a": "a", "b": "a,b", "c": "1,2,3"})],
+            ),
+        ]
+        for name, arg, want in test_cases:
+            with self.subTest(name):
+                got = transform_multi_to_single_cat(arg)
+                self.assertListEqual(got, want)
+
+    def test_overweight_attributes(self):
+        test_cases = [
+            (
+                "no overweight",
+                [Datapoint({"a": 0.5, "b": "name"})],
+                ["c", "d"],
+                2,
+                [Datapoint({"a": 0.5, "b": "name"})],
+            ),
+            (
+                "overweight some once",
+                [Datapoint({"a": 0.5, "b": "name", "c": {"1", "2", "3"}})],
+                ["c", "d"],
+                2,
+                [
+                    Datapoint(
+                        {
+                            "a": 0.5,
+                            "b": "name",
+                            "c": {"1", "2", "3"},
+                            "c_1": {"1", "2", "3"},
+                        }
+                    )
+                ],
+            ),
+            (
+                "overweight some twice",
+                [Datapoint({"a": 0.5, "b": "name", "c": {"1", "2", "3"}})],
+                ["c", "d"],
+                3,
+                [
+                    Datapoint(
+                        {
+                            "a": 0.5,
+                            "b": "name",
+                            "c": {"1", "2", "3"},
+                            "c_1": {"1", "2", "3"},
+                            "c_2": {"1", "2", "3"},
+                        }
+                    )
+                ],
+            ),
+            (
+                "overweight all once",
+                [Datapoint({"a": 0.5, "b": "name", "c": {"1", "2", "3"}})],
+                ["a", "b", "c", "d"],
+                2,
+                [
+                    Datapoint(
+                        {
+                            "a": 0.5,
+                            "a_1": 0.5,
+                            "b": "name",
+                            "b_1": "name",
+                            "c": {"1", "2", "3"},
+                            "c_1": {"1", "2", "3"},
+                        }
+                    )
+                ],
+            ),
+        ]
+        for name, dataset, attr, factor, want in test_cases:
+            with self.subTest(name):
+                got = overweight_attributes(dataset, attr, factor)
+                self.assertListEqual(got, want)

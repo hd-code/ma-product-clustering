@@ -8,7 +8,7 @@ Dieser Prozess des Clustering ist eine Methode des *unüberwachten Lernens (unsu
 
 Allgemein wird die Clusteranalyse als eine Form des Data Minings gesehen. Laut Bissantz und Hagedorn "beschreibt [Data Mining] die Extraktion implizit vorhandenen, nicht trivialen und nützlichen Wissens aus großen, dynamischen, relativ komplex strukturierten Datenbeständen" [@bissantz2009]. Mit "Wissen" meinen sie dabei in den Daten implizit enthaltene Muster, welche für den Anwender interessant sind und mit einer hinreichenden Wahrscheinlichkeit tatsächlich in den Daten existieren. [@bissantz2009]
 
-## Notation – TODO
+## Notation
 
 **Datenpunkte und -set**
 
@@ -28,7 +28,7 @@ Allgemein wird die Clusteranalyse als eine Form des Data Minings gesehen. Laut B
 
 - Vektor aus Labels für jeden Datenpunkt in $X$: $Y = (l | l_i = \text{ label for } x_i \in X)$
 
-## Distanz- und Ähnlichkeitsmaße – TODO
+## Distanz- und Ähnlichkeitsmaße
 
 ### Definition
 
@@ -59,7 +59,7 @@ durch (rationale) Zahlen dargestellt [@kaufman2009, Kap. 1.2 Types of Data and H
 
 #### Minkowski-Familie
 
-Datenpunkte damit numerischen Vektoren also Punkte. Bestimmung des Abstand der Punkte => verschiedene Maße, gehören alle zur Minkowski-Familie [@cha2007 und @king2015, Kap. 1.2 Capturing the Clusters]:
+Datenpunkte damit numerischen Vektoren also Punkte. Bestimmung des Abstand der Punkte => verschiedene Maße, gehören alle zur Minkowski-Familie [@cha2007; und @king2015, Kap. 1.2 Capturing the Clusters]:
 
 | Name | $p$-Norm | Formell |
 |-|-|---|
@@ -152,7 +152,7 @@ freie Textfelder
 
 #### Tokenization
 
-!!!QUELLEN!!! [@cohen2003]
+[@cohen2003]
 
 Bei nominalen Attributen mit vielen Ausprägungen (bsp Produkttitel => jeder ist anders)
 
@@ -164,9 +164,9 @@ Am Ende erhalten wir eine feste Menge an Tokens oder Keywords => Menge kategoris
 
 oder auch Überführung in Vektor-Space ...
 
-#### String-Metrics (eventuell weglassen??)
+#### String-Metrics
 
-!!!QUELLEN!!! [@cohen2003] [@rajalingam2011]
+[@cohen2003] [@rajalingam2011]
 
 Alternativ kann Abstand auch mittels String-Metrics ermittelt werden.
 
@@ -221,7 +221,7 @@ $d(x,y) = w d_numerical(x,y) + (1-w) d_categorical(x,y)$, also z.B. euklidisch u
 
 $w$ soll eine Gleichgewichtung erzeugen also z.B. $\frac{Anzahl numerischer Attribute}{Anzahl aller Attribute}$
 
-## Clustering-Verfahren – TODO
+## Clustering-Verfahren
 
 ### Partitionierendes Clustering
 
@@ -395,7 +395,6 @@ zur Teilung des größten Clusters wird k-Means mit $k=2$ genutzt
 - dadurch viel effizienter da k-Means in $\mathcal{O}(n)$
 - k-Means wird zwar $k$ mal aufgerufen, aber gleichzeitig wird die Anzahl der Datenpunkte je Cluster mit jeder Teilung kleiner
 
-
 ## Cluster-Validität
 
 ### Überblick
@@ -404,7 +403,7 @@ Die Clusteranalyse selbst ist ein Verfahren des unüberwachten Lernens und finde
 
 **Externe Indizes** (engl. External Indices) sind Metriken, welche die berechnete Gruppenzuteilung mit einer extern vorgegeben Zuteilung vergleicht. Das heißt, es gibt eine erwartete Art der Gruppierung, welche nicht Teil des Datensets selbst ist. Diese Indizes messen nun den Grad der Übereinstimmung zwischen berechnetem und gewünschten Clustering-Ergebnis. [@rendon2011]
 
-**Interne Indizes** (engl. Internal Indices) messen die Qualität des Clusterings ohne externe Informationen. Die Cluster sollten möglichst "kompakt" gruppiert und die verschiedenen Gruppen gut von einander getrennt sein. Diese Indizes versuchen diese Anforderungen zu quantifizieren. [@rendon2011 und @king2015, Kap. 8.1. Cluster Validity – Introduction]
+**Interne Indizes** (engl. Internal Indices) messen die Qualität des Clusterings ohne externe Informationen. Die Cluster sollten möglichst "kompakt" gruppiert und die verschiedenen Gruppen "gut von einander getrennt" sein. Diese Indizes versuchen diese Anforderungen zu quantifizieren. [@rendon2011; und @king2015, Kap. 8.1. Cluster Validity – Introduction]
 
 Die **Stabilität** ist ebenfalls ein wichtiger Faktor. Hierbei wird das Datenset mehrmals mit verschiedenen Modifikationen geclustert. Solche Modifikationen können die Änderung einzelner Werte oder das Weglassen ganzer Spalten sein. Ein "stabiles" Clustering erzeugt auch mit diesen Veränderungen ähnliche Ergebnisse. Für die konkrete Bewertung der Stabilität werden externe oder interne Indizes verwendet und ihre Ergebnisse über die verschiedenen Clusterings miteinander verglichen. [@king2015, Kap. 8.1. Cluster Validity – Introduction]
 
@@ -414,15 +413,15 @@ Manche Autoren (z.B. [@rendon2011] und auch [@king2015]) führen formal noch sog
 
 #### Überblick
 
-Zur Bewertung der Übereinstimmung zweier Clustering-Ergebnisse können grundsätzlich Metriken aus dem Bereich der Klassifikation verwendet werden [@hubert1985]. Beispiele dafür wären Maße wie die Entropie oder ihr Gegensatz die Reinheit (engl. Purity), welche analysieren, wie viele falsche zu richtigen Zuordnungen innerhalb einer Klasse aufgetreten sind [@rendon2011]. Ebenso das F-Maß (engl. F-Measure), welches aus dem Bereich des Document Retrievals bekannt ist. Es simuliert durchgeführte "Suchen" und vergleicht die gefundenen mit den erwarteten Suchergebnissen [@rendon2011 und @steinbach2000].
+Zur Bewertung der Übereinstimmung zweier Clustering-Ergebnisse können grundsätzlich Metriken aus dem Bereich der Klassifikation verwendet werden [@hubert1985]. Beispiele dafür wären Maße wie die Entropie oder ihr Gegensatz die Reinheit (engl. Purity), welche analysieren, wie viele falsche zu richtigen Zuordnungen innerhalb einer Klasse aufgetreten sind [@rendon2011]. Ebenso das F-Maß (engl. F-Measure), welches aus dem Bereich des Document Retrievals bekannt ist. Es simuliert durchgeführte "Suchen" und vergleicht die gefundenen mit den erwarteten Suchergebnissen [@rendon2011; und @steinbach2000].
 
-Das Problem mit diesen Maßen ist, dass die Benennung der Labels im Ergebnis von entscheidender Bedeutung in der Bewertung ist. Nehmen wir an, wir haben ein Datenset $X$ mit vier Datenpunkten. Die berechnete Clusterzuordnung ist $Y = (0, 0, 1, 1)$ und die erwartete Zuordnung ist $Y' = (1, 1, 0, 0)$. Metriken der Klassifikation würden eine Übereinstimmung von null Prozent feststellen, da keines der Labels in $Y$ und $Y'$ den gleichen Klassen zugeordnet worden ist. Im Kontext der Clusteranalyse weisen $Y$ und $Y'$ aber eine perfekte Übereinstimmung auf, denn es geht alleine um die Zuordnung der Datenpunkte in die gleichen Gruppen. Wie diese Gruppen benannt werden (in diesem Beispiel $0$ oder $1$), spielt dabei keine Rolle. Daher sind für die Clusteranalyse eigene Metriken entwickelt worden, welche unabhängig von der Benennung der Labels die Übereinstimmung zwischen den Zuordnungen berechnen können. [@rand1971 und @hubert1985]
+Das Problem mit diesen Maßen ist, dass die Benennung der Labels im Ergebnis von entscheidender Bedeutung in der Bewertung ist. Nehmen wir an, wir haben ein Datenset $X$ mit vier Datenpunkten. Die berechnete Clusterzuordnung ist $Y = (0, 0, 1, 1)$ und die erwartete Zuordnung ist $Y' = (1, 1, 0, 0)$. Metriken der Klassifikation würden eine Übereinstimmung von null Prozent feststellen, da keines der Labels in $Y$ und $Y'$ den gleichen Klassen zugeordnet worden ist. Im Kontext der Clusteranalyse weisen $Y$ und $Y'$ aber eine perfekte Übereinstimmung auf, denn es geht alleine um die Zuordnung der Datenpunkte in die gleichen Gruppen. Wie diese Gruppen benannt werden (in diesem Beispiel $0$ und $1$), spielt dabei keine Rolle. Daher sind für die Clusteranalyse eigene Metriken entwickelt worden, welche unabhängig von der Benennung der Labels die Übereinstimmung zwischen den Zuordnungen berechnen können. [@rand1971; und @hubert1985]
 
 #### Rand-Index
 
-Der Rand-Index war einer der ersten Metriken, die speziell für die Clusteranalyse entwickelt worden sind [@king2015, Kap. 8.4 Indices of Cluster Validity]. William M. Rand veröffentlichte dieses Maß 1971 [@rand1971] und es ist immer noch eines der populärsten und weitverbreitetsten (bzw. vor allem die Verbesserung dieses Indexes siehe nächster Abschnitt). [@hubert1985 und @steinley2004]
+Der Rand-Index war einer der ersten Metriken, die speziell für die Clusteranalyse entwickelt worden sind [@king2015, Kap. 8.4 Indices of Cluster Validity]. William M. Rand veröffentlichte dieses Maß 1971 [@rand1971] und es ist immer noch eines der populärsten und weitverbreitetsten (bzw. vor allem die Verbesserungen dieses Indexes siehe nächster Abschnitt). [@hubert1985; und @steinley2004]
 
-Um unabhängig von der Bennung der Labels zu werden, vergleicht man nicht wie in der Klassifikation die gefundenen Labels eins zu eins miteinander. Stattdessen werden alle möglichen Paarungen der Datenpunkte in $X$ betrachtet und die Zuordnung der Paare in $Y$ und $Y'$ miteinander verglichen. [@rand1971]
+Um unabhängig von der Benennung der Labels zu werden, vergleicht man nicht wie in der Klassifikation die gefundenen Labels eins zu eins miteinander. Stattdessen werden alle möglichen Paarungen der Datenpunkte in $X$ betrachtet und die Zuordnung der Paare in $Y$ und $Y'$ miteinander verglichen. [@rand1971]
 
 | $Y$ \\ $Y'$ | Paar im gleichen Cluster | Paar in anderem Cluster |
 |-|:-:|:-:|
@@ -433,34 +432,34 @@ Um unabhängig von der Bennung der Labels zu werden, vergleicht man nicht wie in
 
 Die Tabelle zeigt die möglichen Fälle: Ein Paar aus Datenpunkten kann entweder dem gleichen Cluster oder zwei unterschiedlichen Clustern zugeordnet worden sein. Haben sowohl $Y$ als auch $Y'$ das Paar jeweils in das gleiche Cluster (mit dem gleichen Label wie auch immer dieses benannt ist) zugordnet, so wird dieses Paar zu $a$ gezählt. Haben beide jeweils ein unterschiedliches Cluster zugeordnet, so wird das Paar in $d$ gezählt usw. [@steinley2004]
 
-$$
-rand = \frac{a+d}{a+b+c+d} = \frac{a+d}{\binom{n}{2}}
-$$
+\begin{equation}
+  rand = \frac{a+d}{a+b+c+d} = \frac{a+d}{\binom{n}{2}}
+\end{equation}
 
 Der Rand-Index teilt nun die Menge an Paaren, welche die gleiche Zuordnung erhalten haben ($a$ und $d$) durch die Anzahl aller möglichen Paarungen. Das Ergebnis ist ein Wert zwischen $0$ (keine Übereinstimmung) und $1$ (perfekte Übereinstimmung). [@rand1971]
 
 Der Rand-Index weist eine Reihe von Problemen auf, welche teilweise von Rand selbst erkannt oder später ermittelt worden sind:
 
-- Je höher die Anzahl an Clustern ist, desto höher (näher an der $1$) liegt der Rand-Index standardmäßig. Das liegt daran, dass es viele Paare in $Y$ und $Y'$ gibt, die unterschiedlichen Clustern zugeordnet worden sind. Das ist bei einer hohen Anzahl an Clustern ein häufig auftretendes Phänomen. [@steinley2004, teilweise zitiert nach @rand1971]
-- Zum Vergleich verschiedener Clustering-Verfahren werden häufig Monte-Carlo-Simulationen mit großen Mengen an zufällig generierten Datensätzen und Clusterings verwendet. Werden zwei Zufalls-Zuordnung miteinander verglichen, so gibt der Rand-Index keine Werte nahe der $0$, was aber wünschenswert wäre. Die Anzahl an zufälligen Übereinstimmungen wird also nicht adequat herausgerechnet. [@hubert1985 und @king2015, Kap. 8.4 Indices of Cluster Validity]
+- Je höher die Anzahl an Clustern ist, desto höher (näher an der $1$) liegt der Rand-Index standardmäßig. Das kommt daher, dass bei einer hohen Anzahl an Clustern, die meisten Paare unterschiedlichen Clustern zu gewiesen sein müssen. Das treibt den Index künstlich in die Höhe. [@steinley2004; teilweise zitiert nach @rand1971]
+- Zum Vergleich verschiedener Clustering-Verfahren werden häufig Monte-Carlo-Simulationen mit großen Mengen an zufällig generierten Datensätzen und Clusterings verwendet. Werden zwei Zufalls-Zuordnung miteinander verglichen, so gibt der Rand-Index keine Werte nahe der $0$, was aber wünschenswert wäre. Das liegt daran, dass die Anzahl an zufälligen Übereinstimmungen nicht adequat herausgerechnet wird. [@hubert1985; und @king2015, Kap. 8.4 Indices of Cluster Validity]
 
 #### Adjusted Rand-Index
 
 Aus den genannten Problemen haben eine Vielzahl von Autoren versucht, eine bessere Variante des Rand-Indexes zu finden. Vor allem das "Herausrechnen" von angeblichen hohen Übereinstimmungen bei zufälligen Zuteilungen (engl. correction for chance) ist eines der Hauptanliegen gewesen [@hubert1985]. Von allen vorgestellten Lösungen scheint die Variante von Hubert und Arabie [@hubert1985] diejenige mit den wünschenwertesten Eigenschaften zu sein. (siehe die Versuche z.B. von Steinley [@steinley2004])
 
-$$
-arand = \frac{rand - rand_{expected}}{rand_{max} - rand_{expected}}
-$$
+\begin{equation}
+  arand = \frac{rand - rand_{expected}}{rand_{max} - rand_{expected}}
+\end{equation}
 
 Im Allgemeinen geht es darum, den Rand-Index zu berechnen und anschließend den "erwarteten Rand-Index" für zufällige Zuordnungen davon abzuziehen. Verschiedene Autoren haben nun unterschiedliche Methoden hergeleitet, um diesen "erwarteten Rand-Index" zu berechnen. [@hubert1985]
 
-$$
-arand = \frac{\binom{n}{2}(a+d)-[(a+b)(a+c)+(c+d)(b+d)]}{\binom{n}{2}^2 - [(a+b)(a+c)+(c+d)(b+d)]}
-$$
+\begin{equation}
+  arand = \frac{\binom{n}{2}(a+d)-[(a+b)(a+c)+(c+d)(b+d)]}{\binom{n}{2}^2 - [(a+b)(a+c)+(c+d)(b+d)]}
+\end{equation}
 
-Hubert und Arabie berechnen den "erwarteten Rand-Index" aus der Menge aller möglichen Permutationen der Paarungen und ihrer Übereinstimmung $\frac{(a+b)(a+c)+(c+d)(b+d)}{\binom{n}{2}}$. Die gegebene Formell zeigt eine breits vereinfachte Umstellung von Steinley. [@hubert1985 und vereinfachte Formell aus @steinley2004]
+Hubert und Arabie berechnen den "erwarteten Rand-Index" aus der Menge aller möglichen Permutationen der Paarungen und ihrer Übereinstimmung $\frac{(a+b)(a+c)+(c+d)(b+d)}{\binom{n}{2}}$. Die gegebene Formell zeigt eine breits vereinfachte Umstellung von Steinley. [@hubert1985; und vereinfachte Formell aus @steinley2004]
 
-Dieser "Adjusted Rand-Index" liefert Werte zwischen $-1$ und $1$. Negative Ergebnisse oder Werte um die $0$ zeigen, dass die Übereinstimmung der beiden Clusterings der zu erwartenden Übereinstimmung aufgrund von Zufall entspricht (oder sogar deutlich darunter liegt) und damit nicht signifikant ist. Höhere Zahlen nahe der $1$ stehen nachwievor für ein perfekte Übereinstimmung, welche zusätzlich statistische Signifikanz aufweist. Auch der Bias zu hohen Werten bei einer hohen Anzahl an Clustern wird daurch ausgeglichen. [@hubert1985 und @steinley2004]
+Dieser "Adjusted Rand-Index" liefert Werte zwischen $-1$ und $1$. Negative Ergebnisse oder Werte um die $0$ zeigen, dass die Übereinstimmung der beiden Clusterings der zu erwartenden Übereinstimmung aufgrund von Zufall entspricht (oder sogar deutlich darunter liegt) und damit nicht signifikant ist. Höhere Zahlen nahe der $1$ stehen nachwievor für eine perfekte Übereinstimmung, welche zusätzlich statistische Signifikanz aufweist. Auch der Bias zu hohen Werten bei einer hohen Anzahl an Clustern wird daurch ausgeglichen. [@hubert1985; und @steinley2004]
 
 ### Internal Indices
 
@@ -470,11 +469,11 @@ In der Literatur werden eine Vielzahl von Indizes beschrieben, welche die Qualit
 
 Der Silhouettenkoeffizient wurde von Peter J. Rousseeuw entwickelt [@rousseeuw1987] und ist ein häufig verwendetes Maß für die Qualität von Clusterings.
 
-\begin{align*}
-s(x) &= \frac{b(x) - a(x)}{\max{a(x), b(x)}} \\
-a(x) &= d(x, C_x) \\
-b(x) &= \min_{C_x \neq C_i} d(x, C_i)
-\end{align*}
+\begin{align}
+  s(x) &= \frac{b(x) - a(x)}{\max{a(x), b(x)}} \\
+  a(x) &= d(x, C_x) \\
+  b(x) &= \min_{C_x \neq C_i} d(x, C_i)
+\end{align}
 
 Für jeden Datenpunkt $x$ im Datenset wird die Silhouetten-Weite $s(x)$ berechnet. Diese ergibt sich aus der Differenz zwischen dem durchschnittlichen Abstand zu allen Datenpunkten im selben Cluster ($a(x)$) und dem durchschnittlichen Abstand zu allen Datenpunkten im direkt benachbarten Cluster ($b(x)$). Anschließend wird der Wert zwischen $-1$ und $1$ normiert. [@rousseeuw1987]
 
@@ -482,9 +481,9 @@ Für jeden Datenpunkt $x$ im Datenset wird die Silhouetten-Weite $s(x)$ berechne
 - Werte um die $0$ zeigen, dass der Datenpunkt fast mittig zwischen beiden Clustern platziert ist.
 - Befindet sich die Weite nahe der $1$, so liegt der Datenpunkt mittig in seinem eigenen Cluster und das benachbarte Cluster ist ordentlich weit entfernt.
 
-$$
-sil = \frac{1}{n}\sum_{i=1}^n s(x_i)
-$$
+\begin{equation}
+  sil = \frac{1}{n}\sum_{i=1}^n s(x_i)
+\end{equation}
 
 Der Koeffizient ergibt sich schließlich aus dem Durchschnitt aller Silhouetten-Weiten aller Datenpunkte. Werte nahe der $1$ deuten auf kompakte und wohl-separierte Cluster hin. [@rousseeuw1987]
 
@@ -494,9 +493,9 @@ In den Versuchen von Rendón et al [@rendon2011] erwies sich dieser Index als ei
 
 Der Davies-Bouldin Index wurde von seinen Namesgebern David L. Davies und Donald W. Bouldin [@davies1979] entwickelt. Ziel war es, eine Metrik zu konstruieren, welche die durchschnittliche Ähnlichkeit zwischen benachbarten Clustern berechnet.
 
-$$
-dbi = \frac{1}{k} \sum_{i=1}^{k} \max_{i \neq j}{\frac{d(c_i, C_i) + d(c_j, C_j)}{d(c_i, c_j)}}
-$$
+\begin{equation}
+  dbi = \frac{1}{k} \sum_{i=1}^{k} \max_{i \neq j}{\frac{d(c_i, C_i) + d(c_j, C_j)}{d(c_i, c_j)}}
+\end{equation}
 
 Die Ähnlichkeit zwischen den Clustern $K$ ($K$ steht hier für die Menge an gefundenen Clustern $C_i$) berechnet sich aus dem durchschnittlichen Abstand der Punkte eines Clusters zu ihrem Cluster-Mittelpunkt ($d(c_i, C_i)$ und $d(c_j, C_j)$) geteilt durch den Abstand der beiden Cluster-Mittelpunkte zueinander ($d(c_i, c_j)$). [@davies1979]
 

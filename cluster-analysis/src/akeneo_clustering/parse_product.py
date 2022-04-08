@@ -2,9 +2,10 @@ from datetime import datetime
 from typing import Any, Callable, Optional
 
 from src import akeneo
-from src.akeneo_clustering.util import ATTR_GROUP_FAULTY
 
 from .datapoint import KEY_CATEGORIES, KEY_FAMILY, KEY_ID, Datapoint, DataValue
+from .tokenize import tokenize
+from .util import ATTR_GROUP_FAULTY
 
 MeasureDict = dict[str, akeneo.MeasurementFamily]
 
@@ -14,6 +15,7 @@ def parse_product(
     attributes: dict[str, akeneo.Attribute],
     attribute_types: Optional[list[akeneo.AttributeType]],
     remove_faulty_attributes: bool,
+    remove_unique_attributes: bool,
     measures: MeasureDict,
     channel: str,
     locale: str,
@@ -30,6 +32,8 @@ def parse_product(
 
     for attr_code, values in product.values.items():
         attribute = attributes[attr_code]
+        if remove_unique_attributes and attribute.unique:
+            continue
         if remove_faulty_attributes and attribute.group == ATTR_GROUP_FAULTY:
             continue
         if attribute_types is not None and attribute.type not in attribute_types:
@@ -59,7 +63,7 @@ def _parse_product_value(
     currency: str,
 ) -> DataValue:
     data = _select_product_value(value, channel, locale).data
-    return _parse_product_data(data, attribute, measures, currency)
+    return _parse_product_data(data, attribute, measures, locale, currency)
 
 
 def _select_product_value(
@@ -82,9 +86,10 @@ def _parse_product_data(
     data: Any,
     attribute: akeneo.Attribute,
     measures: MeasureDict,
+    locale: str,
     currency: str,
 ) -> DataValue:
-    return _parse_attr_type[attribute.type](data, attribute, measures, currency)
+    return _parse_attr_type[attribute.type](data, attribute, measures, locale, currency)
 
 
 def _parse_metric(
@@ -105,6 +110,7 @@ def _parse_price(
     data: Any,
     _1: akeneo.Attribute,
     _2: MeasureDict,
+    locale: str,
     currency: str,
 ) -> DataValue:
     index = 0
@@ -115,10 +121,11 @@ def _parse_price(
 
 
 _parse_attr_type: dict[
-    akeneo.AttributeType, Callable[[Any, akeneo.Attribute, MeasureDict, str], DataValue]
+    akeneo.AttributeType,
+    Callable[[Any, akeneo.Attribute, MeasureDict, str, str], DataValue],
 ] = {
     akeneo.AttributeType.ID: lambda x, *_: str(x),
-    akeneo.AttributeType.TEXT: lambda x, *_: str(x),
+    akeneo.AttributeType.TEXT: lambda x, _1, _2, locale, *_: tokenize(str(x), locale),
     akeneo.AttributeType.TEXTAREA: lambda x, *_: str(x),
     akeneo.AttributeType.SELECT_SINGLE: lambda x, *_: str(x),
     akeneo.AttributeType.SELECT_MULTI: lambda x, *_: set([str(y) for y in x]),

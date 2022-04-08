@@ -7,9 +7,10 @@ from .parse_product import parse_product
 def parse_products(
     cache: akeneo.Cache,
     *_,
-    product_family: str = None,
+    product_families: list[str] = None,
     attribute_types: list[akeneo.AttributeType] = None,
     remove_faulty_attributes: bool = True,
+    remove_unique_attributes: bool = True,
     channel: str = "default",
     locale: str = "en_US",
     currency: str = "USD",
@@ -21,7 +22,7 @@ def parse_products(
     min_max_values: dict[str, tuple[float, float]] = {}
 
     products = filter(
-        lambda prod: product_family is None or prod.family == product_family,
+        lambda prod: product_families is None or prod.family in product_families,
         cache.products,
     )
 
@@ -31,6 +32,7 @@ def parse_products(
             attr_dict,
             attribute_types,
             remove_faulty_attributes,
+            remove_unique_attributes,
             meas_dict,
             channel,
             locale,

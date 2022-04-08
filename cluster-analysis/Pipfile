@@ -4,9 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+jaro-winkler = "*"
 jupyter = "*"
 kmodes = "*"
 matplotlib = "*"
+nltk = "*"
 numpy = "*"
 openpyxl = "*"
 pandas = "*"

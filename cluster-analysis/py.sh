@@ -36,7 +36,7 @@ case $CMD in
     pipenv run python "$@"
     ;;
   test)
-    pipenv run python -m unittest discover -p '*_test.py'
+    pipenv run python -m unittest discover -p '*_test.py' "$@"
     ;;
   *)
     echo "Usage: $0 CMD"
