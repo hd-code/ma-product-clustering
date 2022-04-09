@@ -2,7 +2,7 @@
 
 ## Begriff und Einordnung
 
-King definiert die *Clusteranalyse* als die "[...] Generierung eines Klassifizierungsschemas, welches Individuen in eine feste Anzahl an Gruppen einteilt, so dass sich die Individuen innerhalb einer Gruppe auf eine Art und Weise ähnlich sind und unähnlich denen in anderen Gruppen" [@king2015, Kap. 1.1 What Is a Cluster?]. Diese Gruppen werden als auch Cluster bezeichnet.
+King definiert die *Clusteranalyse* als die "[...] Generierung eines Klassifizierungsschemas, welches Individuen in eine feste Anzahl an Gruppen einteilt, so dass sich die Individuen innerhalb einer Gruppe auf eine Art und Weise ähnlich sind und unähnlich denen in anderen Gruppen" [@king2015, Kap. 1.1 What Is a Cluster?]. Diese Gruppen werden auch als Cluster bezeichnet.
 
 Dieser Prozess des Clustering ist eine Methode des *unüberwachten Lernens (unsupervised learning)* – einem Teilgebiet des maschinellen Lernens. Papp et al. schreiben dazu: "Machine Learning beschäftigt sich mit der Entwicklung von Methoden, die Modelle von Zusammenhängen aus Daten erlernen, anstatt sie *per Hand* zu implementieren" [@papp2019, Kap. 5 Statistik-Grundlagen]. Ferner geben sie an, dass die Unterschiede zur Statistik fließend sind [@papp2019, Kap. 5 Statistik-Grundlagen]. Unüberwachtes Lernen bedeutet dabei, dass die verwendeten Daten nicht im Vorhinein gekennzeichnet sind (Unlabeled Data). Stattdessen werden Ähnlichkeiten und Muster in den Daten selbst gesucht ohne eine vorgegebene Zielgröße. Häufig dienen diese Analysen als erste Schritte der *Data Exploration* aus denen im Anschluss neue Erkenntnisse und Anwendungen abgeleitet werden. [@papp2019, Kap. 5.2.3 Unüberwachtes Lernen]
 
@@ -10,56 +10,55 @@ Allgemein wird die Clusteranalyse als eine Form des Data Minings gesehen. Laut B
 
 ## Notation
 
-**Datenpunkte und -set**
+Bevor konkrete Algorithmen und Verfahren der Clusteranalyse vorgestellt werden, müssen einige grundlegende Sachverhalte und ihre mathematische Definition geklärt werden:
 
-- Objekte oder Datenpunkte sind Vektoren aus numerischen und/oder kategorischen Attributen: $x = (a | a \text{ is numerical or categorical attribute})$
-- Menge aus Datenpunkten $x$ (= Datenset) mit Großbuchstaben angegeben $x \in X$
-- i.d.R. $n=|X|$
+Die Objekte, welche es zu clustern gilt, werden in dieser Arbeit auch als *Datenpunkte* oder *Produkte* (da dies die Anwendung im Praxisteil ist) bezeichnet. Mathematisch werden sie i.d.R. mittels $x$ definiert.
 
-**Cluster**
+Diese Produkte bestehen aus einer festen Menge an Attributen (z.B. Farbe, Gewicht etc.). Mathematisch ist so ein Datenpunkt als ein Vektor definiert und jedes Element im Vektor steht für die Ausprägung eines spezifischen Attributes $x=(a | a \text{is attribute})$. Mittels Superskript werden spezifische Attribute eines Datenpunktes angesprochen. $x^i$ bezeichnet also das $i$-te Attribut von $x$.
 
-- Cluster sind spezielle Teilgruppen aus dem Datenset $C \subset X$
-- Cluster können Datenpunkten oder andere Cluster enthalten: $C = {e | e = C_i \vee x \in X}$
-- leere Cluster gibt es nicht $C \neq \emptyset$
-- die Menge aller Cluster ist $K = {C_1, C_2, ...}$ und $k = |K|$
-- Cluster haben häufig einen Mittelpunkt $c = centroid(C)$
+Die Produkte oder Datenpunkte sind Teil eines *Datensets* $X$. Hierbei handelt es sich um eine simple Menge dieser Datenpunkte $x \in X$. Mittels Subskript werden einzelne Punkte des Sets angesprochen (z.B. $x_1$, $x_2$ oder $x_i$). Wenn nicht anders angegeben gilt $n=|X|$.
 
-**Cluster-Zuordnungen**
+Als *Cluster* $C$ wird nun eine Teilgruppen aus dem Datenset bezeichnet: $C \subset X$. Allerdings Cluster auch "hierarchisch" strukturiert sein. D.h. ein Cluster kann sowohl Datenpunkte als auch andere Cluster enthalten. $C = {e | e = C_i \vee x \in X}$.
 
-- Vektor aus Labels für jeden Datenpunkt in $X$: $Y = (l | l_i = \text{ label for } x_i \in X)$
+Die *Menge aller Cluster* wird mit $K = {C_1, C_2, ...}$ bezeichnet. Dabei wird die Anzahl der Cluster mit $k = |K|$ angegeben.
+
+Schlussendlich gibt es noch das *Clustering-Ergebnis* $Y$. Dies ist ein Vektor der Länge $n$, welches jeden Datenpunkt im Set einem entsprechenden Cluster zuordnet: $Y = (l | l_i = \text{ label for } x_i \in X)$
 
 ## Distanz- und Ähnlichkeitsmaße
 
 ### Definition
 
-Clustering erfolgt über Bestimmung der "Nähe" (engl. proximity) der Objekte zueinander. [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
+Die Forderung, dass Objekte in gleichen Clustern sich "ähnlich" sein sollen und unähnlich zu den Objekten in anderen Clustern, muss in irgendeiner Form quantifiziert werden. Dies erfolgt über die Berechnung der "Nähe" (engl. proximity) der Objekte zueinander. Dazu werden sog. Abstands- bzw. Distanzmaße verwendet. [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
 
-Bestimmung der Nähe mittels Abstands- bzw. Distanzmaßen. Distanzmaß wird über Funktion $d$ dargestellt [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
+Mathematisch wird dieses Distanzmaß mittels der Funktion $d(x_1,x_2)$ (engl. distance) definiert, welche die Distanz zwischen zwei Datenpunkten $x_1$ und $x_2$ als skalaren Wert zurückgibt. Zusätzlich geben Kaufmann und Rousseeuw folgende Eigenschaften für $d$ an [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]:
 
 ||||
-|-|--------------|------------------|
+|-|---------------|-------------------|
 | 1. | $d(x_1,x_2) \geq 0$ | Distanzen sind stets positiv |
 | 2. | $d(x_1,x_1) = 0$ | zwei gleiche Objekte haben immer einen Abstand von $0$ |
 | 3. | $d(x_1,x_2) = d(x_2,x_1)$ | die Distanzfunktion ist kommutativ bzw. symmetrisch |
 | 4. | $d(x_1,x_3) \leq d(x_1,x_2) + d(x_2,x_3)$ | Distanzen geben stets den kürzesten Weg an |
-
 : Eigenschaften der Abstandfunktion $d$
 
-=> [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
+Anstatt des Abstandes kann alternativ auch die Ähnlichkeit zweier Objekte berechnet werden. Solche Ähnlichkeitsmaßes $s(x_1,x_2)$ (engl. similarity) sind häufig im Interval $[0;1]$ angegeben, wobei die $1$ maximale Ähnlichkeit angibt. Ist nun eine entsprechende Distanzfunktion z.B. durch Normalisierung ebenfalls im Interval $[0;1]$ definiert, so können Distanzen und Ähnlichkeiten einfach ineinander überführt werden [@kaufman2009, Kap. 1.2.3 Similarities]:
 
-Statt Distanzmaße auch Verwendung von Ähnlichkeitsmaßen $s(x,y)$ (engl. similarity) möglich. Ähnlichkeit i.d.R. im Interval $[0,1]$ angegeben, wobei $s(x,x)=1$. Wenn Distanz z.B. durch Normalisierung ebenfalls im Interval $[0,1]$ liegt, dann gilt: $d(x,y)=1-s(x,y)$ [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
+\begin{equation}
+  d(x_1,x_2) = 1 - s(x_1,x_2)
+\end{equation}
 
-Distanz und Ähnlichkeit dadurch beliebig austauschbar, deshalb diese Verwendung empfehlenswert.
+Distanzen und Ähnlichkeiten sind dadurch beliebig austauschbar. Daher ist dieses Vorgehen stets empfehlenswert.
 
-(Frage: Erwähnung der Proximity Matrix? ist eigentlich nicht wichtig für diese Arbeit)
+Es existieren eine Vielzahl an Distanz- und Ähnlichkeitsmaßen. Welche zur Anwendung kommen, hängt maßgeblich von den Attributen und vor allem den Attribut-Typen ab, aus denen die Datenpunkte bestehen. [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
 
 ### Numerische Attribute
 
-durch (rationale) Zahlen dargestellt [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them], mit stetigen (engl. continuous) Werten [@huang1998]. Umfasst damit sowohl Daten in Intervall- und Verhältnisskalen (engl. interval and ratio data) [@boslaugh2012, Kap. 1 Basic Concepts of Measurement]
+Numerische Attribute sind im Allgemeinen alle Arten von (rationale) Zahlen [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them] mit stetigen (engl. continuous) Werten [@huang1998]. Es kann sich dabei sowohl um Intervall- als auch um Verhältnisskalen handeln (engl. interval and ratio data). [@boslaugh2012, Kap. 1 Basic Concepts of Measurement]
+
+Datenpunkte, die nur aus numerischen Attributen bestehen, sind die klassischste Form von Daten, mit denen Clusteranalyse durchgeführt wird. Die meisten Algorithmen und Verfahren sind damit speziell auf diesen Attribut-Typ ausgelegt. [@king2015, Kap. 1.2 Capturing the Clusters]
 
 #### Minkowski-Familie
 
-Datenpunkte damit numerischen Vektoren also Punkte. Bestimmung des Abstand der Punkte => verschiedene Maße, gehören alle zur Minkowski-Familie [@cha2007; und @king2015, Kap. 1.2 Capturing the Clusters]:
+Der Abstand zwischen reinen numerischen Vektoren wird mittels Maßen aus der sog. Minkowski-Familie berechnet. Das älteste dieser Metriken ist der "euklidische" Abstand (auch pythagoreische Metrik genannt), welcher den Abstand zwischen zwei Punkten über eine gerade Linie zwischen diesen beiden bestimmt. Im 19. Jahrhundert verallgemeinerte Hermann Minkowski dieses Maß zu einer ganzen Familie. [@cha2007]
 
 | Name | $p$-Norm | Formell |
 |-|-|---|
@@ -67,49 +66,56 @@ Datenpunkte damit numerischen Vektoren also Punkte. Bestimmung des Abstand der P
 | Manhattan | $p=1$ | $d(x,y) = \sum_{i=1}^n |x_i - y_i|$ |
 | euklidisch | $p=2$ | $d(x,y) = \sqrt{\sum_{i=1}^n |x_i - y_i|^2}$ |
 | Chebyshev | $p=\infty$ | $d(x,y) = \max |x_i - y_i|$ |
+: Übersicht über die gängigen Maße aus der Minkowski-Familie [@cha2007]
 
-: Übersicht gängiger Maße aus der Minkowski-Familie
+Die allgemeine Form ist über den Ausdruck $p$ parametrisiert. Die konkreten Vertreter der Familie kommen nun durch ein spezifisch gewähltes $p$ zustande. Daher wird bei diesen Maßen auch von der sog. $p$-Norm gesprochen. Eine höhere $p$-Norm steht dabei im Allgemeinen für eine robustere bzw. eindeutigere Bestimmung des Abstandes. [@king2015, Kap. 12.3 Which Proximity Measure Should Be Used?]
 
-höhere $p$-Norm bedeutet i.d.R. robustere Bestimmung des Abstands. Manhattan => Winkel zwischen zwei Punkten, euklidisch => Länger der Geraden durch die Punkte [@king2015, Kap. 12.3 Which Proximity Measure Should Be Used?]
+Dies sind bei weitem nicht alle Arten von Maßen für numerische Attribute. Cha [@cha2007] hat eine Vielzahl solcher Maße zusammengetragen, analysiert und miteinander verglichen. Dabei kam er zu folgenden Erkenntnissen:
 
-verschiedenste Versionen und Abwandlungen dieser Maße [siehe @cha2007]
+Die meisten dieser Maße sind Abwandlungen eines Vertreters aus der Minkowski-Familie bzw. lassen sich auf einen solchen abbilden (z.B. basieren einige Maße auf der Pearson-Korrelation, welche ihrerseits wieder auf dem euklidischen Abstand beruht). In seinen anschließenden Versuchen zeigte er, dass Maße, die auf einander basieren, auch stets ähnliche Abstände liefern. [@cha2007]
 
-- aber die meisten basieren auf Minkowski-Familie
-- oder lassen sich auf Minkowski abbilden (z.B. Maße basierend auf der Pearson Korrelation nutzen im Kern euklidischen Abstand zur Berechnung)
-- liefern ähnliche Ergebnisse wie klassische Minkowski
-- [siehe @cha2007] Clustering mit verschiedenen Maßen und dann Ergebnisse geclustert. (eigene Erkenntnis aus dem Paper) im Kern jeder Cluster Gruppe war auch ein Vertreter der Minkowski-Familie
+Daraus lässt sich ableiten, dass die Vertreter der Minkowski-Familie ausreichend sind, um den Abstand numerischer Vektoren zu bestimmen.
 
-#### Normalisierung
+#### Standardisierung
 
-manche numerischen haben logarithmischen Zusammenhang (10 zu 20 ist gleichbedeutend mit 100 zu 200), dann $x_i' = \log x_i$ für gleichmäßige Abstände
+Häufig macht eine Vorverarbeitung der numerischen Attribute Sinn, um bestimmte Probleme zu vermeiden. [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]
 
-Projektion auf $[0,1]$ => $x' = \frac{x - \textrm{avg }X}{\max X - \min X}$; empfehlenswert, wenn Attribute gleichgewichtet sein sollen
+Die Abstandsmaße der Minkowski-Familie gehen i.d.R. von linearen Verhältnissen der Zahlen zueinander aus (Punkte mit einem Abstand von $2$ sind doppelt so weit entfernt, wie Punkte mit einem Abstand von $1$). Es kann aber vorkommen, dass die vorliegenden Daten eigentlich einen logarithmischen Zusammenhang aufweisen (der Abstand von $10$ zu $20$ ist exakt gleichbedeutend mit dem Abstand von $100$ zu $200$). Damit die Abstandsmaße richtig arbeiten können, sollten solche Attribute vorher in eine lineare Abbildung überführt werden [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]. Dies wird folgendermaßen bewerkstelligt:
 
-manchmal ist Normalisierung nicht sinnvoll, da dadurch verschiedene "Gewichtung" der Attribute bestimmtes Wissen dargestellt wird => erfordert Domänenwissen
+\begin{equation}
+  x^{i'} = \log x^i
+\end{equation}
 
-Eventuell sogar arbeiten mit Gewichtsvektor für die Attribute => eher spezielle Anwendungsfälle
+Weiterhin können Probleme entstehen, wenn die absoluten Werte in den verschiedenen Dimensionen der Vektoren stark voneinander abweichen. Angenommen das Datenset besteht aus zwei-dimensionalen Vektoren. Die Werte in der ersten Dimension liegen im Bereich $[0;1]$ und in der zweiten im Bereich $[100;200]$. Dadurch würden die Unterschiede zwischen den Werten in der zweiten Dimension viel stärker ins Gewicht fallen, da hier Differenzen von $100$ und mehr entstehen können. Um hier eine Gleichgewichtung zu erzeugen, sollten die Attribute jeweils auf das gleiche Interval abgebildet werden [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables].
 
-gesamter Abschnitt [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
+Für diese *Standardisierung* empfehlen Kaufmann und Rousseeuw die Berechnung des sog. z-Scores, welcher sich wie folgt berechnet:
+
+\begin{align}
+  x^{i'} &= \frac{x^i - \textrm{avg }X^i}{mad(X^i)}
+  mad(X^i) &= \frac{1}{n} \sum_j |x^i_j - \textrm{avg }X^i|
+\end{align}
+
+$X^i$ bezeichnet alle vorkommenden Werte des jeweiligen Attributes. $mad(X^i)$ ist die mittlere absolute Abweichung (engl. *mean absolute deviation*). Dieser z-Score zentriert die vorkommenden Werte um die $0$ im Interval $[-1;1]$. Zusätzlich dämpft er den Einfluss von Outliers, also Werten die sehr weit am Rande des Spektrums liegen. Diese würden sonst dazu führen, dass die meisten Werte in die Mitte des Intervals komprimiert werden, anstatt sie gleichmäßig über das gesamte Interval zu verteilen. [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]
+
+Kaufmann und Rousseeuw geben zu bedenken, dass die unterschiedlichen Gewichtungen der Werte echte Zusammenhänge der realen Welt widerspiegeln könnten. Durch Standardisierung gehen diese entsprechend verloren. Weiterhin ist sogar denkbar, bewusst einige Attribute stärker zu gewichten als anderen (indem sie mit entsprechenden Gewichten multipliziert werden). Dies sind allerdings eher speziellere Fälle, in denen im Vorfeld bereits Domänenwissen zum Datenset vorliegen muss. [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]
 
 ### Kategorische Attribute
 
-statt Zahlen bestehen Datenpunkte aus ihnen zugeordneten Kategorien oder Labels [@boslaugh2012, Kap. 5 Categorical Data]
-
-Manchmal gibt es eine sinnvolle Reihenfolge der Labels (z.B. xs, s, m, l, xl), dennoch keine Aussage über Verhältnis oder Intervall zueinander möglich. mit Reihenfolge als ordinal bezeichnet, ohne als nominal [@boslaugh2012, Kap. 1 Basic Concepts of Measurement, Kap. 5 Categorical Data]
+Kategorische Attribute bilden die zweite große Gruppe von Attribut-Typen. Sie zeichnen sich dadurch aus, dass als Wertausprägungen Labels verwendet werden, die verschiedene Kategorien repräsentieren. Diese Labels können in Form von Zeichenketten (z.B. "red", "green", "blue"), Bool-Werten ($true$/$false$, Ja/Nein, $0$/$1$) oder auch diskreten Ziffern auftreten. Es ist ein weitere Unterscheidung in die zwei Teilgruppen ordinale und nominale Attribute möglich. [@boslaugh2012, Kap. 5 Categorical Data]
 
 #### Ordinale Attribute
 
-zwei Möglichkeiten:
+Lassen sich die vorkommenden Labels eines Attributes in eine sinnvolle Reihenfolge bringen (z.B. "XS", "S", "M", "L", "XL"), so werden sie als *ordinal* bezeichnet. Wichtig dabei ist, dass nur eine sinnvolle Reihenfolge besteht. Eine Aussage über Intervalle zwischen den Labels ("XS" bis "S" ist genauso weit wie "M" zu "L") oder über deren quantitativen Verhältnisse ($3$"XS"$=2$"S") macht aber keinen Sinn. [@boslaugh2012, Kap. 1 Basic Concepts of Measurement]
 
-Reihenfolge ignorieren und als nominal verarbeiten => siehe folgende Abschnitte
+Für die Berechnung das Abstandes gibt es grundsätzlich zwei Möglichkeiten: Zum einen können ordinale Attribute genauso wie nominale verarbeitet werden (siehe nächster Abschnitt). Zum anderen kann die Reihenfolge der Labels verwendet werden, um die Labels in numerische Werte umzuwandeln. Anschließend kann der Abstand mittels der Maße für numerische Attribute berechnet werden. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
 
-aber eher empfohlen: Umwandlung und Verarbeitung als numerische Attribute:
+Die Umwandlung erfolgt dabei so, dass die Labels entsprechend ihrer natürlichen Reihenfolge beginnend mit $1$ nummeriert werden. Der finale numerische Wert berechnet sich dann wie folgt:
 
-- Nummerierung der Labels nach ihrer Reihenfolge von $1$ bis $n$
-- dann: $x'=\frac{x-1}{n-1}$
-- dadurch im Interval $[0,1]$ in $n-1$ gleichmäßige Abschnitte eingeteilt
+\begin{equation}
+  x^{i'} = \frac{x^i - 1}{|{X^i}| - 1}
+\end{equation}
 
-ganzer Abschnitt [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
+$|{X^i}|$ ist dabei die Menge an auftretenden Labels. Dadurch liegen alle Werte erneut im Interval $[0;1]$, welches in $|{X^i}| - 1$ gleichmäßige Schritte unterteilt ist. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
 
 #### Nominale Attribute
 

@@ -244,14 +244,13 @@ Grundsätzlich kann K-Prototypes mit gemischten Attributen (numerisch und katego
 | string | pim_catalog_text, pim_catalog_textarea |
 | Datei | pim_catalog_image, pim_catalog_file |
 | sonstige | pim_catalog_identifier |
-
 : Einteilung der Akeneo-Typen in übergeordnete Datenklassen
 
-Für die numerischen und kategorischen Attribute muss überprüft werden, ob eine Art "Vorverarbeitung" vor dem CLustering sinnvoll ist. Ansonsten können diese direkt verwendet werden.
+Für die numerischen und kategorischen Attribute muss überprüft werden, ob eine Art "Vorverarbeitung" vor dem Clustering sinnvoll ist. Ansonsten können diese direkt verwendet werden.
 
 Die Klasse "multi-kategorisch" beschreibt die Möglichkeit aus einer gegeben Liste an Optionen mehrere auswählen zu können. Bspw. könnte eine Liste von Materialien gegeben sein und das jeweilige Produkt markiert alle vorkommenden (z.B. Silikon, PET & Glas). Eine solche Datenklasse ist in der Literatur nicht beschrieben. Der Umgang mit diesen Attributen muss also gesondert erarbeitet werden.
 
-Die "string"-Klasse ist streng genommen klassisch "kategorisch". Allerdings handelt es sich hier um freie Textfelder (z.B. der Produkttitel), welche bei jedem Produkt völlig frei gefüllt werden kann. Somit ist die Betrachtung als "Kategorien" nicht zielführend. Wenn bspw. jedes Produkt einen individuellen Titel hat, somit gibt es genauso viele "Kategorien" wie es Produkte gibt. Dies ist keine sinnvolle Form der Datenverarbeitung. Auch für diese Klasse muss eine gesonderte Art der Verarbeitung gefunden werden.
+Die "string"-Klasse ist streng genommen klassisch "kategorisch". Allerdings handelt es sich hier um freie Textfelder (z.B. der Produkttitel), welche bei jedem Produkt völlig frei gefüllt werden kann. Somit ist die Betrachtung als "Kategorien" nicht zielführend. Wenn bspw. jedes Produkt einen individuellen Titel hat, dann gibt es genau so viele "Kategorien" wie es Produkte gibt. Dies ist keine sinnvolle Form der Datenverarbeitung. Auch für diese Klasse muss eine gesonderte Art der Verarbeitung gefunden werden.
 
 Die Klasse "Datei" wird im Rahmen dieser Arbeit ignoriert. Die Analyse von Bildern oder Textdokumenten ist ein weites Feld mit vielen verschiedenen Ansätzen. Die tatsächliche Relevanz bspw. eines Produktbildes für das Clustering ist aber fraglich. In der Theorie müssten alle Eigenschaften eines Produktes in den anderen Attributen ebenfalls abgebildet sein. Im Bild liegen diese Information aber äußerst unstrukturiert vor, wenn überhaupt.
 
@@ -267,24 +266,28 @@ Viele der numerischen Attribute enthalten ihre Daten auf eine implizite Art und 
 
 | Akeneo-Typ | Vorverarbeitung |
 |----|---------|
-| pim_catalog_date | Umwandlung in Unix-Timestamp, Normalisierung |
-| pim_catalog_number | Normalisierung |
-| pim_catalog_metric | Umrechnung in Standard-Unit des Attributs, Normalisierung |
-| pim_catalog_price_collection | Filter nach einer Währung z.B. USD, Normalisierung |
-
+| pim_catalog_date | Umwandlung in Unix-Timestamp, Standardisierung |
+| pim_catalog_number | Standardisierung |
+| pim_catalog_metric | Umrechnung in Standard-Unit des Attributs, Standardisierung |
+| pim_catalog_price_collection | Filter nach einer Währung z.B. USD, Standardisierung |
 : Vorverarbeitung der numerischen Attribute in Akeneo
 
-Die Verarbeitungsschritte sind recht selbsterklärend. Alle Attribute werden auf das Interval zwischen $[0,1]$ normalisiert, um eine stärkere Gewichtung von Attributen mit tendenziell höheren Zahlen (z.B. Unix-Timestamps) zu vermeiden. Für die Normalisierung werden nur die tatsächlich vorkommenden Werte genutzt. Werte, welche in den Constraints der Akeneo-Attribute definiert sind (z.B. `date_min` und `date_max`), werden nicht betrachtet.
+Die Verarbeitungsschritte sind recht selbsterklärend. Um eine stärkere Gewichtung von Attributen mit tendenziell höheren Zahlen (z.B. Unix-Timestamps) zu vermeiden und eventuelle Outlier zu dämpfen, wird die Standardisierung der Werte mittels z-Score durchgeführt. Allerdings ist es für die Verrechnung mit den anderen Attribut-Typen sinnvoll, wenn die numerischen Attribute auf das Interval $[0;1]$ abgebildet werden. Daher wird diese Standardisierung wie folgt angepasst:
 
 \begin{equation}
-  x^{i'} = \frac{x^i - \min X^i}{\max X^i - \min X^i}
+  x^{i'} &= \frac{1}{2} \cdot \frac{x^i - \textrm{avg }X^i}{mad(X^i)} + \frac{1}{2}
+  mad(X^i) &= \frac{1}{n} \sum_j |x^i_j - \textrm{avg }X^i|
 \end{equation}
+
+Für die Standardisierung werden nur die tatsächlich vorkommenden Werte genutzt. Werte, welche in den Constraints der Akeneo-Attribute definiert sind (z.B. `date_min` und `date_max`), werden nicht betrachtet.
 
 ##### kategorische Attribute
 
-Der K-Prototypes verlangt keine spezielle Vorverarbeitung kategorischer Attribute. Es könnte bei ordinalen Attributen sinnvoll sein, diese u.U. als numerische Attribute anzusehen. Allerdings geben die Daten in Akeneo keinen direkten Rückschluss her, ob es sich z.B. bei einem Single-Select eigentlich um ein ordinales Attribut handelt. Somit müssten hier alle Attribute (knapp hundert) händisch analysiert werden, was den Rahmen dieser Arbeit weit gesprengt hätte.
+Es könnte bei ordinalen Attributen sinnvoll sein, diese u.U. als numerische Attribute anzusehen. Allerdings geben die Daten in Akeneo keinen direkten Rückschluss her, ob es sich z.B. bei einem Single-Select eigentlich um ein ordinales Attribut handelt. Somit müssten hier alle Attribute (knapp hundert) händisch analysiert werden, was den Rahmen dieser Arbeit weit gesprengt hätte.
 
-Zu beachten ist lediglich, dass kategorische Attribute auf ihre Ähnlichkeit und numerische auf ihre Distanz überprüft werden. Da die numerischen im Interval $[0,1]$ liegen, können die Ergebnisse der Ähnlichkeitsmaße (z.B. Jaccard-Koeffizient) einfach invertiert werden.
+Der K-Prototypes verlangt keine spezielle Vorverarbeitung kategorischer Attribute abseits von der Umwandlung der Labels in symmetrische bzw. asymmetrische boolsche Werte. Der Akeneo-Typ "Bool" ist theoretisch symmetrisch. Praktisch kann aber in Akeneo jedes Attribut auch `null` sein. Somit können tatsächlich drei Wertausprägungen ($true$, $false$ oder `null`) vorkommen. Daher werden diese Attribute genauso wie alle anderen (z.B. Single-Selects) in asymmetrische boolsche Attribute umgewandelt.
+
+Zu beachten ist aber, dass kategorische Attribute auf ihre Ähnlichkeit und numerische auf ihre Distanz überprüft werden. Da die numerischen im Interval $[0;1]$ liegen, können die Ergebnisse der Ähnlichkeitsmaße (z.B. Jaccard-Koeffizient) einfach invertiert werden.
 
 \begin{equation}
   d(x_1^{cat}, x_2^{cat}) = 1 - \frac{x_1^{cat} \cap x_2^{cat}}{x_1^{cat} \cup x_2^{cat}}
@@ -292,7 +295,7 @@ Zu beachten ist lediglich, dass kategorische Attribute auf ihre Ähnlichkeit und
 
 ##### multi-kategorische Attribute
 
-Der naheliegendste Ansatz besteht darin, die verschiedenen auftretenden Kombinationen an gewählten Optionen in eigene Kategorien zu fassen und sie wie normale kategorische Attribute zu behandeln. Dies geht allerdings mit einem Verlust an Informationen einher: Angenommen eine Produkt besteht aus den Materialien $\{\text{silicone}, \text{pet}\}$ und ein anderes aus $\{\text{silicone}, \text{glass}\}$. Beide würden nun unterschiedlichen Kategorien zugeordnet und ihre Ähnlichkeit ist $0$, obwohl sie zumindest eines der Materialien gemeinsam haben. Besser wäre, wenn dieses Attribut z.B. mittels Jaccard-Koeffizient analysiert werden würde. Hier würde eine Ähnlichkeit von $\frac{1}{3}$ herauskommen.
+Der naheliegendste Ansatz besteht darin, die verschiedenen auftretenden Kombinationen an gewählten Optionen in eigene Kategorien zu fassen und sie wie normale kategorische Attribute zu behandeln. Dies geht allerdings mit einem Verlust an Informationen einher: Angenommen ein Produkt besteht aus den Materialien $\{\text{silicone}, \text{pet}\}$ und ein anderes aus $\{\text{silicone}, \text{glass}\}$. Beide würden nun unterschiedlichen Kategorien zugeordnet und ihre Ähnlichkeit ist $0$, obwohl sie zumindest eines der Materialien gemeinsam haben. Besser wäre, wenn dieses Attribut z.B. mittels Jaccard-Koeffizient analysiert werden würde. Hier würde eine Ähnlichkeit von $\frac{1}{3}$ herauskommen.
 
 Dieser Ansatz ist neuartig und so noch nicht beschrieben worden. Daher wird er im Rahmen dieser Arbeit mit dem naheliegenderem Ansatz verglichen werden.
 
@@ -322,11 +325,11 @@ Aus den genannten Ansätzen lässt sich insgesamt folgende Formell für die fina
   d_{mul}(x_1, x_2) &= \sum_{i \in mul} \frac{|x_1^i \cap x_2^i|}{|x_1^i \cup x_2^i|}
 \end{align}
 
-Die numerischen Attribute werden mittels Manhatten-Distanz verrechnet. Da die Attribute vorher normalisiert worden sind, kann so maximal eine Distanz von $1$ je numerischem Attribut entstehen. Die kategorischen Attribute werden mit dem beschriebenen inversen Jaccard-Koeffizienten berechnet. Der Koeffizient wird außerdem mit der Anzahl an kategorischen Attributen $n_{cat}$ multipliziert, um ihn mit den anderen Metriken gleich zu gewichten. Die multi-kategorischen Attribute werden jeweils einzeln mittels inversem Jaccard-Koeffizienten verglichen.
+Die numerischen Attribute werden mittels Manhatten-Distanz verrechnet. Da die Attribute vorher normalisiert worden sind, kann so maximal eine Distanz von $1$ je numerischem Attribut entstehen. Die kategorischen Attribute werden mit dem beschriebenen inversen Jaccard-Koeffizienten berechnet (da asynchron). Der Koeffizient wird außerdem mit der Anzahl an kategorischen Attributen $n_{cat}$ multipliziert, um ihn mit den anderen Metriken gleich zu gewichten. Die multi-kategorischen Attribute werden jeweils einzeln mittels inversem Jaccard-Koeffizienten verglichen.
 
-Da immerzu `null`-Values vorkommen können, ist wichtig zu erwähnen, dass $d_{num}$, $d_{cat}$ und $d_{mul}$ nur dann aufgerufen werden, wenn beide Produkte einen Wert ungleich `null` im Attribut definiert haben. Mit dem Ausdruck $|x_1^{null}|$ ist die Anzahl an Attributen gemeint, die in $x_1$ `null` sind, in $x_2$ aber einen Wert aufweisen und umgekehrt. Je weniger Attribute von beiden Produkten gemeinsam gefüllt werden, desto höher ist damit die Distanz durch die letzten beiden Summanden. Der Grund für dieses Vorgehen ist, dass Produkte als unterschiedlich angesehen werden, wenn sie kaum oder keine Attribute gemeinsam haben.
+Da immerzu `null`-Values vorkommen können, ist wichtig zu erwähnen, dass $d_{num}$ und $d_{mul}$ nur dann aufgerufen werden, wenn beide Produkte einen Wert ungleich `null` im jeweiligen Attribut definiert haben. Mit dem Ausdruck $|x_1^{null}|$ ist die Anzahl an Attributen gemeint, die in $x_1$ `null` sind, in $x_2$ aber einen Wert aufweisen und umgekehrt. Je weniger Attribute von beiden Produkten gemeinsam gefüllt werden, desto höher ist damit die Distanz durch die letzten beiden Summanden. Der Grund für dieses Vorgehen ist, dass Produkte als unterschiedlich angesehen werden, wenn sie kaum oder keine Attribute gemeinsam haben.
 
-Der Divisor $|\text{attr in }x_1 \cup x_2|$ sorgt für eine Normalisierung der Distanz in das Interval $[0,1]$. Dadurch werden Unterschiedene zwischen Produkten, welche alleine aus der verschiedenen Anzahl an definierten Attributen entsteht, ausgeglichen.
+Der Divisor $|\text{attr in }x_1 \cup x_2|$ sorgt für eine Normalisierung der Distanz in das Interval $[0;1]$. Dadurch werden Unterschiede zwischen Produkten, welche alleine aus der verschiedenen Anzahl an definierten Attributen entstehen, ausgeglichen.
 
 Eine vereinfachte (serialisierte) Form dieser Funktion sieht folgendermaßen aus:
 
@@ -345,13 +348,13 @@ Eine vereinfachte (serialisierte) Form dieser Funktion sieht folgendermaßen aus
 
 ### Kriterien
 
-Das hergeleitete Clustering-Verfahren in seinen Varianten sollte auf seine Validität überprüft werden. Speziell wird getestet, ob mit diesem Verfahren "sinnvolle" Cluster gefunden. Die verschiedenen Aspekte dieser Sinnhaftigkeit werden nun anhand von drei Hauptkriterien definiert: Stabilität, Qualität, Erkennungsfähigkeit.
+Das hergeleitete Clustering-Verfahren in seinen Varianten sollte auf seine Validität überprüft werden. Speziell wird getestet, ob mit diesem Verfahren "sinnvolle" Cluster gefunden werden. Die verschiedenen Aspekte dieser Sinnhaftigkeit werden nun anhand von drei Hauptkriterien definiert: Stabilität, Qualität und Erkennungsfähigkeit.
 
 #### Stabilität
 
-Der K-Prototypes-Algorithmus nutzt wie alle Verfahren dieser Klasse ein Initialisierungsverfahren, welches auf dem Zufall beruht. Da es sich um ein klassisches Minimierungsverfahren mit eventuellen lokalen Minima handelt, können mehrmalige Durchläufe über das gleiche Datenset verschiedene Clusterzuteilungen finden. Ein Verfahren, welches keinerlei Determinismus aufweist und je nach Uhrzeit komplett andere Ergebnisse liefert, ist allerdings in der Praxis nicht zu gebrauchen. Zudem sollte eine wohldefinierte Distanzfunktion in der Lage sein, die Datenpunkte eindeutig genug voneinander zu trennen, sodass trotz verschiedenen Startpunkten die Zuteilung in Cluster stets ähnlich ablaufen sollte.
+Der K-Prototypes-Algorithmus nutzt wie alle Verfahren dieser Klasse ein Initialisierungsverfahren, welches auf dem Zufall beruht. Da es sich um ein klassisches Minimierungsverfahren mit eventuellen lokalen Minima handelt, können mehrmalige Durchläufe über das gleiche Datenset verschiedene Clusterzuteilungen finden. Ein Verfahren, welches keinerlei Determinismus aufweist und je nach Uhrzeit komplett andere Ergebnisse liefert, ist allerdings in der Praxis nicht zu gebrauchen. Zudem sollte eine wohldefinierte Distanzfunktion in der Lage sein, die Datenpunkte eindeutig genug voneinander zu trennen, sodass trotz verschiedener Startpunkte die Zuteilung in Cluster stets ähnlich abläuft.
 
-Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird stets mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches verfahren verwendet wird, wird jede Hierarchie-Ebene der verschiedenen Durchläufe betrachten und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchie-Stufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100%$ sein.
+Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird stets mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches verfahren verwendet wird, wird jede Hierarchie-Ebene der verschiedenen Durchläufe betrachten und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchie-Stufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100$% sein.
 
 #### Qualität
 

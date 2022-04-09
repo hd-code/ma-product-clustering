@@ -11,7 +11,7 @@
 - [ ] Kapitel 2 – Clusteranalyse
   - [ ] ausformulieren
     - [x] Begriff und Definition
-    - [ ] Notation
+    - [x] Notation
     - [ ] Distanz- und Ähnlichkeitsmaße
     - [ ] Clustering-Verfahren
       - [ ] Quellen zu Agglomerative nachschauen
@@ -68,6 +68,7 @@
 - [x] Versuche mit gesamtem Set – alle Attribute
 - [x] Versuche mit gesamtem Set – gemeinsame Attribute
 - [x] pickle zum caching verwenden
+- [ ] Normalisierung korrigieren und alles erneut ausführen
 
 ## Sonstiges
 
