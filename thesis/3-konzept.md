@@ -2,13 +2,15 @@
 
 ## Überblick
 
-Zur Beantwortung des Kernfrage wird ein Konzept für das Clustern komplexerer Datenstrukturen erarbeitet und anschließend evaluiert. Da diese Fragestellung sehr vielfältig angegangen werden kann, werden zuerst einige Grundanforderungen definiert, welche den Rahmen effektiv einschränken sollen:
+Zur Beantwortung der Kernfrage wird ein Konzept für das Clustern komplexerer Datenstrukturen erarbeitet und anschließend evaluiert. Diese Herleitung soll aber nicht nur theoretischer Natur sein. Daher wird die Überprüfung des Konzeptes an einem möglichst realen Beispiel mit realitätsnahen Daten erfolgen. Die folgende Grafik zeigt einen Überblick zum Praxisteil dieser Arbeit:
 
-Diese Arbeit soll nicht nur eine theoretische Herleitung sein. Die Überprüfung des Konzeptes soll an einem möglichst realen Beispiel mit realitätsnahen Daten erfolgen. Daher wird eine Instanz eines populären Product-Information-Management-Systems angelegt und mit entsprechenden authentischen Produktdaten gefüllt.
+![Grober Architektur-Entwurf für den Praxisteil](img/architecture-overview.png){width=80%}
 
-Parallel wird ein Konzept für ein Clustering-Verfahren erarbeitet, welches die vielfältigen Datenstrukturen verarbeiten kann. Zu beachten dabei ist die "Praxistauglichkeit" des Clustering-Verfahrens. Konkret bedeutet das, dass bei der Auswahl des Verfahrens, speziell auf die Laufzeit und Effizienz geachtet wird. In Online-Shops kommen in der Praxis oft riesige Mengen an Produktdaten vor, sodass die Rechenzeit für das Clustering nicht ins unermessliche steigen kann.
+Um ein authentisches *Datenset* in den typischen Datenstrukturen zu erhalten, wird eine Instanz des Product-Information-Management-Systems Akeneo-PIM aufgesetzt und mit Produktdaten aus dem umfangreichen Online-Katalog Icecat gefüllt. Im Abschnitt [Datenquellen & -sets](#datenquellen---sets) werden beide Komponenten genauer erläutert. Außerdem werden genaue Anforderung für die Auswahl der Produkte, welche importiert werden, definiert.
 
-In der Evaluation kommt schließlich das erstellte Datenset mit dem erarbeiteten Clustering-Verfahren zusammen. Es wird überprüft, inwiefern das Verfahren "sinnvolle" Cluster in den Produktdaten findet. Eine genaue Definition von "sinnvollem" Clustering wird im Rahmen des Konzeptes ebenfalls erarbeitet werden.
+Parallel wird ein Konzept für ein *Clustering-Verfahren* erarbeitet, welches die vielfältigen Datenstrukturen verarbeiten kann. Dies setzt i.d.R. eine entsprechende Vorverarbeitung der Daten voraus. Das entsprechende Konzept wird im Abschnitt [Clustering-Verfahren](#clustering-verfahren) hergeleitet.
+
+In der *Evaluation* kommt schließlich das erstellte Datenset mit dem erarbeiteten Clustering-Verfahren zusammen. Es wird überprüft, inwiefern das Verfahren "sinnvolle" Cluster in den Produktdaten findet. Eine genaue Definition von "sinnvollem" Clustering sowieso die konkrete Berechnung entsprechender Metriken usw. wird im Abschnitt [Evaluation](#evaluation) dargelegt.
 
 ## Datenquellen & -sets
 
@@ -34,7 +36,7 @@ Akeneo-PIM ist eine PHP-Applikation, welche auf dem Symfony-Framework basiert. F
 
 Das System kann über ein Webfrontend genutzt werden. Hier lassen sich verschiedene Nutzer und Applikationen hinterlegen, welche verschiedene Berechtigungen zum Abrufen und Bearbeiten der Daten bekommen können.
 
-![TODO: Bild von Akeneo-PIM Webfrontend]()
+![Akeneo-PIM Webfrontend bei der Bearbeitung eines Produktes](img/akeneo-pim-edit-product.png)
 
 Eine Restful-API steht ebenfalls zur Verfügung, um Daten mittels HTTP-Requests abzurufen und zu verändern. In der Regel werden die Daten im JSON-Format transferiert und zurückgegeben. [@akeneo2022api]
 
@@ -48,7 +50,7 @@ Die Produkte sind das zentrale Element in Akeneo-PIM. Aus ihnen leiten sich eine
 
 Jedes Produkt wird genau einer "Family" zugeordnet. Sie bestimmt, welche Attribute dieses Produkt aufweisen sollte.
 
-Ein Produkt kann einer oder mehreren "Categories" zugeordnet sein. Der Sinn dabei, ist der Aufbau z.B. von Navigationsstrukturen. Hierbei ist die Zuordnung in mehrere verschiedene Kategorien möglich.
+Ein Produkt kann einer oder mehreren "Categories" zugeordnet sein. Der Sinn dabei ist der Aufbau z.B. von Navigationsstrukturen. Hierbei ist die Zuordnung in mehrere verschiedene Kategorien möglich.
 
 Die "ProductValues" sind die tatsächlichen Wertausprägungen eines Produktes. Sie werden in Form einer Hash-Map angegeben. Der Key der Einträge ist stets der "code" eines bestimmten "Attributes" (eine weitere Datenstruktur). Dieses Attribut wird separat definiert und legt verschiedene Constraints für den "ProductValue" fest. Dabei bietet Akeneo volle Flexibilität. Jedes Produkt kann jedes beliebige Attribut mit einem entsprechenden Wert aufweisen.
 
@@ -92,7 +94,7 @@ Mit einer "Category" können Produkte in verschiedene Kategorien sortiert werden
 
 ##### Family
 
-Eine "Family" definiert die Attribute, welches ein zugehöriges "Product" aufweisen sollte. Dies ist allerdings keine strikte Zuteilung. Produkte können auch Attribute aufweisen, welche gar nicht in ihrer "Family" vorgesehen sind. Ebenso können in der Family erforderliche (engl. required) Attribute hinterlegt werden. Produkten müssen diese aber nicht erfüllen. Das Produkt weißt dann lediglich einen niedrigeren "Completeness Score" auf. Dadurch kann in Akeneo auch mit unvollständigen Produkten gearbeitet werden, bevor man diese weiter anreichert. [@akeneo2022catalog]
+Eine "Family" definiert die Attribute, welches ein zugehöriges "Product" aufweisen sollte. Dies ist allerdings keine strikte Zuteilung. Produkte können auch Attribute aufweisen, welche gar nicht in ihrer "Family" vorgesehen sind. Ebenso können in der Family erforderliche (engl. required) Attribute hinterlegt werden. Produkte müssen diese aber nicht erfüllen. Das Produkt weist dann lediglich einen niedrigeren "Completeness Score" auf. Dadurch kann in Akeneo auch mit unvollständigen Produkten gearbeitet werden, bevor man diese weiter anreichert. [@akeneo2022catalog]
 
 ```json
 {
@@ -110,11 +112,11 @@ Eine "Family" definiert die Attribute, welches ein zugehöriges "Product" aufwei
 }
 ```
 
-Die Erforderlichkeit von Attributen kann für jeden Channel einzeln definiert werden. Für eine Erklärung zu Channels siehe dem entsprechenden Abschnitt.
+Die Erforderlichkeit von Attributen kann für jeden Channel einzeln definiert werden. Für eine Erklärung zu Channels siehe Abschnitt [Channel, Currency, Locale](#channel-currency-locale).
 
 ##### Attribute & Attribute Group
 
-Die verschiedenen Wertausprägungen eines Produktes müssen einem entsprechenden "Attribute" zugeordnet sein. Ein solches Attribut muss zuerst definiert werden bevor Produkte einen Wert darin aufweisen können. [@akeneo2022catalog]
+Die verschiedenen Wertausprägungen eines Produktes müssen einem entsprechenden "Attribute" zugeordnet sein. Ein solches Attribut muss zuerst definiert werden, bevor Produkte einen Wert darin aufweisen können. [@akeneo2022catalog]
 
 ```json
 {
@@ -128,32 +130,29 @@ Die verschiedenen Wertausprägungen eines Produktes müssen einem entsprechenden
 }
 ```
 
-Jedes Attribut kann einer "AttributeGroup" zugeordnet werden. Dies erlaubt das besser Strukturieren der Attribute. [@akeneo2022catalog]
+Jedes Attribut kann einer "AttributeGroup" zugeordnet werden. Dies erlaubt das bessere Strukturieren der Attribute. [@akeneo2022catalog]
 
-Jedes Attribut ist einem `type` zugeordnet, welches den Datentyp anzeigt. Z.B. der Typ `pim_catalog_boolean` zeigt einen booleschen Wert an, `pim_catalog_text` eine Textzeile usw. Zusätzlich können in einem Attribut auch weitere Constraints für die jeweiligen Typen definiert werden. Bspw. kann mit dem Constraint `decimals_allowed` festgelegt werden, ob ein numerisches Attribut Nachkommastellen erlaubt oder nicht [@akeneo2022catalog]. Die folgende Tabelle zeigt ein Auflistung aller möglicher Typen.
+Jedes Attribut ist einem `type` zugeordnet, welches den Datentyp anzeigt. Z.B. der Typ `pim_catalog_boolean` zeigt einen booleschen Wert an, `pim_catalog_text` eine Textzeile usw. Zusätzlich können in einem Attribut auch weitere Constraints für die jeweiligen Typen definiert werden. Bspw. kann mit dem Constraint `decimals_allowed` festgelegt werden, ob ein numerisches Attribut Nachkommastellen erlaubt oder nicht [@akeneo2022catalog]. Auf diese Constraints wird allerdings nicht weiter eingegangen, da sie für diese Arbeit keine Rolle spielen. Die folgende Tabelle zeigt ein Auflistung aller möglicher Typen.
 
-| Type | Erklärung | Constraints |
-|----|---|---|
-| pim_catalog_identifier | eindeutige Id | max_characters, validation_rule, validation_regex |
-| pim_catalog_text | Textzeile | max_characters, validation_rule, validation_regex |
-| pim_catalog_textarea | mehrzeiliger Textblock | max_characters |
-| pim_catalog_simpleselect | einfache Auswahl aus einer Liste an Optionen | |
-| pim_catalog_multiselect | mehrfache Auswahl aus einer Liste an Optionen | |
-| pim_catalog_boolean | Ja/Nein | default_value |
-| pim_catalog_date | Datum | date_min, date_max |
-| pim_catalog_number | einfache Zahl | number_min, number_max, decimals_allowed, negative_allowed |
-| pim_catalog_metric | Zahl mit Recheneinheit | number_min, number_max, decimals_allowed, negative_allowed |
-| pim_catalog_price_collection | Preise je Währung | number_min, number_max, decimals_allowed |
-| pim_catalog_image | Bild | allowed_extensions, max_file_size |
-| pim_catalog_file | sonstige Datei (z.B. Datenblatt als PDF) | allowed_extensions, max_file_size |
-| pim_reference_data_simpleselect | einfache Auswahl einer "ReferenceEntity" | |
-| pim_reference_data_multiselect | mehrfache Auswahl von "ReferenceEntities" | |
-
+| Akeneo-Typ | Erklärung |
+|-|-|
+| pim_catalog_identifier | eindeutige Id |
+| pim_catalog_text | Textzeile |
+| pim_catalog_textarea | mehrzeiliger Textblock |
+| pim_catalog_simpleselect | einfache Auswahl aus einer Liste an Optionen |
+| pim_catalog_multiselect | mehrfache Auswahl aus einer Liste an Optionen |
+| pim_catalog_boolean | boolescher Wert |
+| pim_catalog_date | Datum |
+| pim_catalog_number | einfache rationale Zahl |
+| pim_catalog_metric | rationale Zahl mit Recheneinheit |
+| pim_catalog_price_collection | Preise je Währung |
+| pim_catalog_image | Bild |
+| pim_catalog_file | sonstige Datei (z.B. Datenblatt als PDF) |
+| pim_reference_data_simpleselect | einfache Auswahl einer "ReferenceEntity" |
+| pim_reference_data_multiselect | mehrfache Auswahl von "ReferenceEntities" |
 : Attribut-Typen in Akeneo-PIM [@akeneo2022constraints]
 
-(FRAGE: Die Constraints spielen eigentlich keine weitere Rolle, daher wäre es wahrscheinlich sinnvoller die wegzulassen, oder?Die Tabelle ist so einfach sehr unübersichtlich, finde ich)
-
-*Hinweis:* "ReferenceEntities" sind in dieser Arbeit nicht verwendet worden und können daher ignoriert werden.
+*Hinweis:* "ReferenceEntities" sind in dieser Arbeit ebenfalls nicht verwendet worden und können daher ignoriert werden.
 
 ##### Channel, Currency, Locale
 
@@ -176,11 +175,15 @@ Um maximale Flexibilität bei der Verwaltung der Daten zu gewährleisten, könne
 
 ##### Measurement Family
 
-Für den Attribut-Typ "pim_catalog_metric" werden eine Zahl und eine Einheit hinterlegt. Jede Einheit wird einer bestimmten "Measurement Family" zugeordnet. Dort sind alle verfügbaren Einheiten, sowie deren Umrechnung ineinander hinterlegt. [@akeneo2022catalog]
+Für den Attribut-Typ "pim_catalog_metric" werden eine Zahl und eine Einheit hinterlegt. Jede Einheit wird einer bestimmten "Measurement Family" zugeordnet. Dort sind alle verfügbaren Einheiten sowie deren Umrechnung ineinander hinterlegt. [@akeneo2022catalog]
 
 ### Icecat
 
-Für den Import von realistischen Produktdaten wird auf Icecat (<https://icecat.biz/de>) zurückgegriffen. Icecat ist ein sehr umfangreicher offener online Produktkatalog. Über 33.000 Firmen veröffentlichen hier die Daten ihrer Produkte. Zum heutigen Stand (April 2022) sind über 11 Mio. Produkte bei Icecat gelistet. Viele dieser Daten sind nur für Premium-Nutzer zugänglich. Allerdings gibt es eine ganze Reihe von Unternehmen (u.a. große Player wie Samsung), die als "Icecat-Sposoren" ihre Produktdaten frei zugänglich zur Verfügung stellen. [@icecat2021]
+Akeneo-PIM ist nur eine Software, in der Produkte strukturiert gespeichert und aufbereitet werden können. Tatsächliche Produktdaten müssen aber erst importiert werden. Eine Möglichkeit wäre die Kreation eines komplett künstlichen Sets an Produkten. Das Ziel dieser Arbeit ist es aber, eine möglichst realitätsnahe Evaluation durchzuführen. Daher wird für den Import von realistischen Produktdaten auf Icecat (<https://icecat.biz/de>) zurückgegriffen.
+
+Icecat ist ein sehr umfangreicher offener Online-Produktkatalog. Über 33.000 Hersteller veröffentlichen hier die Daten ihrer Produkte. Zum heutigen Stand (April 2022) sind über 11 Mio. Produkte bei Icecat gelistet. Viele dieser Daten sind nur für Premium-Nutzer zugänglich. Allerdings gibt es eine ganze Reihe von Unternehmen (u.a. große Player wie Samsung), die als "Icecat-Sposoren" ihre Produktdaten frei zugänglich zur Verfügung stellen. [@icecat2021]
+
+Icecat bietet Herstellern damit die Möglichkeit, sehr schnell ihre neuen Produkte zu verbreiten, sodass Shops und Händler direkt die Daten automatisiert in ihr Sortiment aufnehmen können. Zusätzlich werden die Produktdaten nach der UNSPSC-Taxonomy (eine international geläufige Taxonomie zur Definition von Produkteigenschaften) von Icecat standardisiert. [@icecat2021manufacturers]
 
 Aus diesem umfangreichen Fundus wird ein Datenset zur Beantwortung der Kernfrage erstellt. Icecat ist zudem besonders attraktiv, da es einen Importer für Akeneo gibt (<https://marketplace.akeneo.com/extension/akeneo-icecat-connector>), welcher den Import von Produktdaten größtenteils automatisieren soll.
 
@@ -194,7 +197,7 @@ Die Menge an verschiedenen Attributen könnte sich sehr unterschiedlich auf das 
 
 Daraus folgt, dass Produkte aus **verschiedenen Kategorien** gewählt werden sollten. Als zusätzliche Herausforderung könnten diese Kategorien am besten **miteinander verwandt** sein, sodass die Fähigkeit einer eindeutigen Trennung der Kategorien überprüft werden kann.
 
-Innerhalb einer Produktkategorien sollten **verschiedenen Variationen** des gleichen Produktes, sowie **verwandte Varianten** (etwa mehrere verschiedene Generationen des Produktes) auftreten.
+Innerhalb einer Produktkategorien sollten **verschiedene Variationen** des gleichen Produktes sowie **verwandte Varianten** (etwa mehrere verschiedene Generationen des Produktes) auftreten.
 
 Zuletzt sollten **Duplikate** enthalten sein. In realen Datensets kommt häufig dasselbe Produkt mehrmals vor, etwa durch geringfügige Unterschiede der Daten beim Import aus verschiedenen Quellen. Ein Clustering-Verfahren sollte in der Lage sein, solche Duplikate zu erkennen.
 
@@ -216,17 +219,17 @@ Es ist damit sogar denkbar, einige Clustering mit dem Ziel durchzuführen, die S
 
 #### Anforderungen
 
-Um aus den vielfältigen Ansätzen des Clusterings ein geeignetes Verfahren auswählen zu können, werden zunächst einige genauere Anforderung für die Fragestellung dieser Arbeit definiert:
+Um aus den vielfältigen Ansätzen des Clusterings ein geeignetes Verfahren auswählen zu können, werden zunächst einige genauere Anforderungen für die Fragestellung dieser Arbeit definiert:
 
-Ein **hierarchisches Verfahren** ist für diese Arbeit wünschenswert. Es ist bezeichnend, dass Akeneo beliebige Verschachtelungen der "Categories" erlaubt. In der Praxis ist die Einteilung von Produkten in Kategorien stark vom gewünschten Detail-Grad abhängig. Ein hierarchisches Verfahren bildet dieses Verhalten exakter ab. Außerdem müssen partitionierende Verfahren die gesuchte Anzahl an Clustern vorab übergeben bekommen. Damit sind zuerst andere Analysen notwendig bevor der richtige Wert ermittelt ist. Eine hierarchische Einteilung gibt dem Anwender die Wahl, wie weit aufgefächert die Ergebnisse sein sollen.
+Ein **hierarchisches Verfahren** ist für diese Arbeit wünschenswert. Es ist bezeichnend, dass Akeneo beliebige Verschachtelungen der "Categories" erlaubt. In der Praxis ist die Einteilung von Produkten in Kategorien stark vom gewünschten Detail-Grad abhängig. Ein hierarchisches Verfahren bildet dieses Verhalten exakter ab. Außerdem müssen partitionierende Verfahren die gesuchte Anzahl an Clustern vorab übergeben bekommen. Damit sind zuerst andere Analysen notwendig, bevor der richtige Wert ermittelt ist. Eine hierarchische Einteilung gibt dem Anwender die Wahl, wie weit aufgefächert die Ergebnisse sein sollen.
 
-Ebenso ist die **Laufzeit** ein wichtiger Faktor, da in Praxis tendenziell sehr große Mengen an Produkten auftreten können.
+Ebenso ist die **Laufzeit** ein wichtiger Faktor, da in der Praxis tendenziell sehr große Mengen an Produkten auftreten können.
 
-Von Vorteil ist weiterhin, wenn das Verfahren mit relativ vielen **verschiedenen Datentypen** umgehen kann. Die meisten vorherigen Transformationen verringert tendenziell den Informationsgehalt der Daten (bspw. die Diskretierung numerischer Attribute in eine geringere Anzahl an Bändern). [@kaufman2009, Kap. 1.2.6 Mixed Variables]
+Von Vorteil ist weiterhin, wenn das Verfahren mit relativ vielen **verschiedenen Datentypen** umgehen kann. Die meisten vorherigen Transformationen verringern tendenziell den Informationsgehalt der Daten (bspw. die Diskretierung numerischer Attribute in eine geringere Anzahl an Bändern). [@kaufman2009, Kap. 1.2.6 Mixed Variables]
 
 #### Ansatz
 
-Agglomerative Verfahren weisen immer mindestens eine quadratische Laufzeit auf [TODO:quelle]. Diversive Ansätze sind dagegen meistens effizienter (siehe Versuche von [@rajalingam2011]) und liefern tendenziell für uns Menschen nachvollziehbare Einteilungen. [@king2015, Kap. 3.3 Agglomerative versus Divisive Clustering]
+Agglomerative Verfahren weisen immer mindestens eine quadratische Laufzeit auf [@sibson1973]. Diversive Ansätze sind dagegen meistens effizienter (siehe Versuche von [@rajalingam2011]) und liefern tendenziell für uns Menschen besser nachvollziehbare Einteilungen. [@king2015, Kap. 3.3 Agglomerative versus Divisive Clustering]
 
 Das Verfahren Bisecting K-Means wird in dem Zusammenhang als sehr potent angesehen [@steinbach2000]. Allerdings muss dieser Ansatz modifiziert werden, um auch mit gemischten Attributen arbeiten zu können. Da zum K-Means eine Variante für gemischte Attribute verfügbar ist (K-Prototypes [@huang1998]), wird dieser Ansatz mit dem "Bisecting"-Prinzip kombiniert. Das eingesetzte Verfahren ist also ein **Bisecting K-Prototypes**. Aus der Literatur ist diese Kombination noch nicht bekannt und damit neuartig. Mit diesem Ansatz können sehr viele Arten von Attributen verarbeitet werden. Mehr dazu im folgenden Abschnitt.
 
@@ -250,47 +253,45 @@ Für die numerischen und kategorischen Attribute muss überprüft werden, ob ein
 
 Die Klasse "multi-kategorisch" beschreibt die Möglichkeit aus einer gegeben Liste an Optionen mehrere auswählen zu können. Bspw. könnte eine Liste von Materialien gegeben sein und das jeweilige Produkt markiert alle vorkommenden (z.B. Silikon, PET & Glas). Eine solche Datenklasse ist in der Literatur nicht beschrieben. Der Umgang mit diesen Attributen muss also gesondert erarbeitet werden.
 
-Die "string"-Klasse ist streng genommen klassisch "kategorisch". Allerdings handelt es sich hier um freie Textfelder (z.B. der Produkttitel), welche bei jedem Produkt völlig frei gefüllt werden kann. Somit ist die Betrachtung als "Kategorien" nicht zielführend. Wenn bspw. jedes Produkt einen individuellen Titel hat, dann gibt es genau so viele "Kategorien" wie es Produkte gibt. Dies ist keine sinnvolle Form der Datenverarbeitung. Auch für diese Klasse muss eine gesonderte Art der Verarbeitung gefunden werden.
+Die "string"-Klasse ist streng genommen klassisch "kategorisch". Allerdings handelt es sich hier um freie Textfelder (z.B. der Produkttitel), welche bei jedem Produkt völlig frei gefüllt werden kann. Somit ist die Betrachtung als "Kategorien" nicht zielführend. Wenn bspw. jedes Produkt einen individuellen Titel hat, dann gibt es genau so viele "Kategorien" wie Produkte. Dies ist keine sinnvolle Form der Datenverarbeitung. Auch für diese Klasse muss eine gesonderte Art des Umgangs gefunden werden.
 
 Die Klasse "Datei" wird im Rahmen dieser Arbeit ignoriert. Die Analyse von Bildern oder Textdokumenten ist ein weites Feld mit vielen verschiedenen Ansätzen. Die tatsächliche Relevanz bspw. eines Produktbildes für das Clustering ist aber fraglich. In der Theorie müssten alle Eigenschaften eines Produktes in den anderen Attributen ebenfalls abgebildet sein. Im Bild liegen diese Information aber äußerst unstrukturiert vor, wenn überhaupt.
 
 Der Akeneo-Typ "pim_catalog_identifier" ist die Id eines Produktes. Sie hat keine Relevanz für das Clustering. Ebenso können in Akeneo Attribute als `unique` gekennzeichnet werden. Dies ist sinnvoll für das Speichern mehrerer verschiedener Identifier (also in Akeneo wird das besagte Identifier-Attribut genutzt, aber die Id im ERP-System ist eine andere, die hier ebenfalls hinterlegt ist). Diese Identifier geben aber keine Ähnlichkeitsinformationen, sondern sind rein logistische Werte. Sie werden im Clustering stets ignoriert werden.
 
-Ein weiteres Problem ist, dass die Definition der Attribut-Anforderungen in den Akeneo-Families keinen bindenden Character haben. Das heißt, jedes Produkt kann Werte für jedes beliebige Attribut aufweisen oder auch nicht. Der Umgang mit `null`-Values wird also ebenfalls eine zentrale Rolle einnehmen.
+Ein weiteres Problem ist, dass die Definition der Attribut-Anforderungen in den Akeneo-Families keinen bindenden Charakter haben. Das heißt, jedes Produkt kann Werte für jedes beliebige Attribut aufweisen oder auch nicht. Der Umgang mit `null`-Values wird also ebenfalls eine zentrale Rolle einnehmen.
 
 #### Ansatz
 
 ##### numerische Attribute
 
-Viele der numerischen Attribute enthalten ihre Daten auf eine implizite Art und Weise (z.B. ein Datum). Die folgende Tabelle zeigt für verschiedenen Typen in Akeneo, ob und wie diese Daten extrahiert werden.
+Viele der numerischen Attribute enthalten ihre Daten auf eine implizite Art und Weise (z.B. ein Datum). Die folgende Tabelle zeigt für die verschiedenen Typen in Akeneo, ob und wie diese Daten extrahiert werden.
 
 | Akeneo-Typ | Vorverarbeitung |
 |----|---------|
-| pim_catalog_date | Umwandlung in Unix-Timestamp, Standardisierung |
-| pim_catalog_number | Standardisierung |
-| pim_catalog_metric | Umrechnung in Standard-Unit des Attributs, Standardisierung |
-| pim_catalog_price_collection | Filter nach einer Währung z.B. USD, Standardisierung |
+| pim_catalog_date | Umwandlung in Unix-Timestamp, Normalisierung |
+| pim_catalog_number | Normalisierung |
+| pim_catalog_metric | Umrechnung in Standard-Unit des Attributs, Normalisierung |
+| pim_catalog_price_collection | Filter nach einer Währung z.B. USD, Normalisierung |
+
 : Vorverarbeitung der numerischen Attribute in Akeneo
 
-Die Verarbeitungsschritte sind recht selbsterklärend. Um eine stärkere Gewichtung von Attributen mit tendenziell höheren Zahlen (z.B. Unix-Timestamps) zu vermeiden und eventuelle Outlier zu dämpfen, wird die Standardisierung der Werte mittels z-Score durchgeführt. Allerdings ist es für die Verrechnung mit den anderen Attribut-Typen sinnvoll, wenn die numerischen Attribute auf das Interval $[0;1]$ abgebildet werden. Daher wird diese Standardisierung wie folgt angepasst:
+Die Verarbeitungsschritte sind recht selbsterklärend. Alle Attribute werden auf das Interval zwischen $[0,1]$ normalisiert, um eine stärkere Gewichtung von Attributen mit tendenziell höheren Zahlen (z.B. Unix-Timestamps) zu vermeiden. Für die Normalisierung werden nur die tatsächlich vorkommenden Werte genutzt. Werte, welche in den Constraints der Akeneo-Attribute definiert sind (z.B. `date_min` und `date_max`), werden nicht betrachtet.
 
 \begin{equation}
-  x^{i'} &= \frac{1}{2} \cdot \frac{x^i - \textrm{avg }X^i}{mad(X^i)} + \frac{1}{2}
-  mad(X^i) &= \frac{1}{n} \sum_j |x^i_j - \textrm{avg }X^i|
+  x'^i = \frac{x^i - \min X^i}{\max X^i - \min X^i}
 \end{equation}
-
-Für die Standardisierung werden nur die tatsächlich vorkommenden Werte genutzt. Werte, welche in den Constraints der Akeneo-Attribute definiert sind (z.B. `date_min` und `date_max`), werden nicht betrachtet.
 
 ##### kategorische Attribute
 
 Es könnte bei ordinalen Attributen sinnvoll sein, diese u.U. als numerische Attribute anzusehen. Allerdings geben die Daten in Akeneo keinen direkten Rückschluss her, ob es sich z.B. bei einem Single-Select eigentlich um ein ordinales Attribut handelt. Somit müssten hier alle Attribute (knapp hundert) händisch analysiert werden, was den Rahmen dieser Arbeit weit gesprengt hätte.
 
-Der K-Prototypes verlangt keine spezielle Vorverarbeitung kategorischer Attribute abseits von der Umwandlung der Labels in symmetrische bzw. asymmetrische boolsche Werte. Der Akeneo-Typ "Bool" ist theoretisch symmetrisch. Praktisch kann aber in Akeneo jedes Attribut auch `null` sein. Somit können tatsächlich drei Wertausprägungen ($true$, $false$ oder `null`) vorkommen. Daher werden diese Attribute genauso wie alle anderen (z.B. Single-Selects) in asymmetrische boolsche Attribute umgewandelt.
+Der K-Prototypes verlangt keine spezielle Vorverarbeitung kategorischer Attribute abseits von der Umwandlung der Labels in symmetrische bzw. asymmetrische binäre Werte. Der Akeneo-Typ "Bool" ist theoretisch symmetrisch. Praktisch kann aber in Akeneo jedes Attribut auch `null` sein. Somit können tatsächlich drei Wertausprägungen ($true$, $false$ oder `null`) vorkommen. Daher werden diese Attribute genauso wie alle anderen (z.B. Single-Selects) in asymmetrische binäre Attribute umgewandelt.
 
 Zu beachten ist aber, dass kategorische Attribute auf ihre Ähnlichkeit und numerische auf ihre Distanz überprüft werden. Da die numerischen im Interval $[0;1]$ liegen, können die Ergebnisse der Ähnlichkeitsmaße (z.B. Jaccard-Koeffizient) einfach invertiert werden.
 
 \begin{equation}
-  d(x_1^{cat}, x_2^{cat}) = 1 - \frac{x_1^{cat} \cap x_2^{cat}}{x_1^{cat} \cup x_2^{cat}}
+  d(x_1^{cat}, x_2^{cat}) = 1 - \frac{|x_1^{cat} \cap x_2^{cat}|}{|x_1^{cat} \cup x_2^{cat}|}
 \end{equation}
 
 ##### multi-kategorische Attribute
@@ -301,22 +302,24 @@ Dieser Ansatz ist neuartig und so noch nicht beschrieben worden. Daher wird er i
 
 ##### String-Attribute
 
-Für diese Attribute gibt sehr vielfältige Ansätze.
+Für diese Attribute gibt sehr vielfältige Ansätze:
 
 Die einfache Verwendung als kategorische Attribute fällt, wie bereits in der Problemstellung dargelegt, weg.
 
-Eine weitere Möglichkeit wäre der Vergleich mittels String-Metrics (wie Jaro-Winkler oder Levensthein-Distance). Dieser Ansatz birgt ein Hauptproblem: Der K-Prototypes-Algorithmus berechnet für jedes Cluster einen Mittelpunkt. Die String-Metrics sind aber nur für einen paarweisen Vergleich von Strings geeignet. Ein "Mittelpunkt" kann hieraus nicht abgeleitet werden. Die Verwendung des Modus (wie bei kategorischen Attributen) scheidet ebenfalls aus. Wenn jeder Produkttitel individuell ist, dann ist der Modus immer $1$. Dieser Ansatz funktioniert für das gewählte Clustering-verfahren also nicht ohne weiteres.
+Eine weitere Möglichkeit wäre der Vergleich mittels String-Metrics (wie Jaro-Winkler oder Levensthein-Distance). Dieser Ansatz birgt ein Hauptproblem: Der K-Prototypes-Algorithmus berechnet für jedes Cluster einen Mittelpunkt. Die String-Metrics sind aber nur für einen paarweisen Vergleich von Strings geeignet. Ein "Mittelpunkt" kann hieraus nicht abgeleitet werden. Die Verwendung des Modus (wie bei kategorischen Attributen) scheidet ebenfalls aus. Wenn jeder Produkttitel individuell ist, dann ist der Modus immer $1$. Dieser Ansatz funktioniert für das gewählte Clustering-Verfahren also nicht ohne weiteres.
 
-Die Idee ist die folgende: Zuvor wurde ein Ansatz zur Evaluation multi-kategorischer Attribute hergeleitet. Dieser Ansatz könnte für Strings ebenfalls verwendet werden. Zerlegt man einen solchen String in Tokens und harmonisiert die Endungen (Stemming), so erhält man eine Art multi-kategorischen Wert. Bsp.: aus "Samsung Galaxy S20 128GB" wird $\{\text{samsung}, \text{galaxi}, \text{s20}, \text{128gb}\}$. Solche Tokens lassen sich wieder mittels Jaccard-Koeffizienten vergleichen.
+Schließlich besteht der Ansatz, mit Tokenization zu arbeiten. In der Literatur wird dieser Ansatz aber lediglich für Datensets beschrieben, deren Datenpunkte aus ausschließlich einem String-Wert bestehen. Datensets mit mehreren String-Attributen oder in gemischter Form sind hingegen noch nicht zusammen verarbeitet worden.
 
-Auch dieser Ansatz ist so in der Literatur noch nicht beschrieben und wird in dieser Arbeit verwendet und evaluiert.
+Zur Lösung kam die Idee folgende auf: Zuvor wurde ein Ansatz zur Evaluation multi-kategorischer Attribute hergeleitet. Dieser Ansatz könnte für Strings ebenfalls verwendet werden. Zerlegt man einen solchen String in Tokens, so erhält man eine Art multi-kategorischen Wert. Bsp.: aus "Samsung Galaxy S20 128GB" wird $\{\text{samsung}, \text{galaxi}, \text{s20}, \text{128gb}\}$. Solche Tokens lassen sich wieder mittels Jaccard-Koeffizienten vergleichen.
+
+Auch dieser Ansatz wird mit der Verwendung der Strings als einfaches kategorisches Attribute verglichen werden.
 
 #### Mathematische Formulierung
 
 Aus den genannten Ansätzen lässt sich insgesamt folgende Formell für die finale Distanz-Funktion ableiten:
 
 \begin{equation}
-  d(x_1, x_2) = \frac{d_{num}(x_1, x_2) + n_{cat} \cdot d_{cat}(x_1, x_2) + d_{mul}(x_1, x_2) + |x_1^{null}| + |x_2^{null}|}{|\text{attr in }x_1 \cup x_2|}
+  d(x_1, x_2) = \frac{d_{num}(x_1, x_2) + n_{cat} \cdot d_{cat}(x_1, x_2) + d_{mul}(x_1, x_2) + |x_1^{num_{null}}| + |x_2^{num_{null}}|}{|attributes \text{ in }x_1 \cup x_2|}
 \end{equation}
 
 \begin{align}
@@ -327,16 +330,16 @@ Aus den genannten Ansätzen lässt sich insgesamt folgende Formell für die fina
 
 Die numerischen Attribute werden mittels Manhatten-Distanz verrechnet. Da die Attribute vorher normalisiert worden sind, kann so maximal eine Distanz von $1$ je numerischem Attribut entstehen. Die kategorischen Attribute werden mit dem beschriebenen inversen Jaccard-Koeffizienten berechnet (da asynchron). Der Koeffizient wird außerdem mit der Anzahl an kategorischen Attributen $n_{cat}$ multipliziert, um ihn mit den anderen Metriken gleich zu gewichten. Die multi-kategorischen Attribute werden jeweils einzeln mittels inversem Jaccard-Koeffizienten verglichen.
 
-Da immerzu `null`-Values vorkommen können, ist wichtig zu erwähnen, dass $d_{num}$ und $d_{mul}$ nur dann aufgerufen werden, wenn beide Produkte einen Wert ungleich `null` im jeweiligen Attribut definiert haben. Mit dem Ausdruck $|x_1^{null}|$ ist die Anzahl an Attributen gemeint, die in $x_1$ `null` sind, in $x_2$ aber einen Wert aufweisen und umgekehrt. Je weniger Attribute von beiden Produkten gemeinsam gefüllt werden, desto höher ist damit die Distanz durch die letzten beiden Summanden. Der Grund für dieses Vorgehen ist, dass Produkte als unterschiedlich angesehen werden, wenn sie kaum oder keine Attribute gemeinsam haben.
+Wie bereits ausführlich dargelegt, können in den Produktdaten von Akeneo immerzu `null`-Values vorkommen. Die kategorischen und multi-kategorischen Distanzmaße können danke des Jaccard-Koeffizienten problemlos damit umgehen. Die Minkowski-Metriken sind allerdings nur für tatsächlich vorhandene numerische Werte in beiden Produkten definiert. Daher wird $d_{num}$ ausschließlich in diesem Fall aufgerufen. Für den Fall, dass `null`-Values in den numerischen Attributen von einem der beiden Produkte vorkommen, wird für jedes dieser Attribute $1$ addiert. Die Attribute sind sich ja maximal unähnlich, da das eine Produkt es definiert und das andere nicht. In der Formel ist das mit $|x_1^{num_{null}}|$ und $|x_2^{num_{null}}|$ hinterlegt.
 
-Der Divisor $|\text{attr in }x_1 \cup x_2|$ sorgt für eine Normalisierung der Distanz in das Interval $[0;1]$. Dadurch werden Unterschiede zwischen Produkten, welche alleine aus der verschiedenen Anzahl an definierten Attributen entstehen, ausgeglichen.
+Der Divisor $|attributes \text{ in }x_1 \cup x_2|$ sorgt für eine Normalisierung der Distanz in das Interval $[0;1]$. Dadurch werden Unterschiede zwischen Produkten, welche alleine aus der verschiedenen Anzahl an definierten Attributen entstehen, ausgeglichen.
 
 Eine vereinfachte (serialisierte) Form dieser Funktion sieht folgendermaßen aus:
 
 \begin{align}
-  d(x_1, x_2) &= \frac{\sum d'(x_1^i, x_2^i)}{|\text{attr in }x_1 \cup x_2|} \\
+  d(x_1, x_2) &= \frac{\sum d'(x_1^i, x_2^i)}{|attributes \text{ in }x_1 \cup x_2|} \\
   d'(x_1^i, x_2^i) &= \begin{cases}
-    1 &, x_1^i \text{ is } null \vee x_2^i \text{ is } null \\
+    1 &, i \text{ is } numerical \wedge (x_1^i \text{ is } null \vee x_2^i \text{ is } null) \\
     |x_1^i - x_2^i| &, i \text{ is } numerical \\
     0 &, i \text{ is } categorical \wedge x_1^i = x_2^i \\
     1 &, i \text{ is } categorical \wedge x_1^i \neq x_2^i \\
@@ -354,13 +357,13 @@ Das hergeleitete Clustering-Verfahren in seinen Varianten sollte auf seine Valid
 
 Der K-Prototypes-Algorithmus nutzt wie alle Verfahren dieser Klasse ein Initialisierungsverfahren, welches auf dem Zufall beruht. Da es sich um ein klassisches Minimierungsverfahren mit eventuellen lokalen Minima handelt, können mehrmalige Durchläufe über das gleiche Datenset verschiedene Clusterzuteilungen finden. Ein Verfahren, welches keinerlei Determinismus aufweist und je nach Uhrzeit komplett andere Ergebnisse liefert, ist allerdings in der Praxis nicht zu gebrauchen. Zudem sollte eine wohldefinierte Distanzfunktion in der Lage sein, die Datenpunkte eindeutig genug voneinander zu trennen, sodass trotz verschiedener Startpunkte die Zuteilung in Cluster stets ähnlich abläuft.
 
-Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird stets mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches verfahren verwendet wird, wird jede Hierarchie-Ebene der verschiedenen Durchläufe betrachten und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchie-Stufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100$% sein.
+Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird stets mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches Verfahren verwendet wird, wird jede Hierarchie-Ebene der verschiedenen Durchläufe betrachtet und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchie-Stufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100$% sein.
 
 #### Qualität
 
-Ziel des Clusterings ist es ordentlich voneinander getrennte Gruppen zu finden. Dies ist zum einen wichtig, um mit den Ergebnissen überhaupt weiterarbeiten und belastbare Aussagen zu den Gruppierungen finden zu können. Zum anderen sind wohl-separierte Cluster aber auch ein Garant für eine gewisse Resilienz vor neuen Datenpunkten, welche in Zukunft zum Datenset hinzugefügt werden. Schließlich ist es nicht sinnvoll, wenn sich jedes mal bei einem neu hinzugefügten Produkt die Cluster stark verschieben. Sind sie ordentlich voneinander getrennt, so ist dies unwahrscheinlicher.
+Ziel des Clusterings ist es, ordentlich voneinander getrennte Gruppen zu finden. Dies ist zum einen wichtig, um mit den Ergebnissen überhaupt weiterarbeiten und belastbare Aussagen zu den Gruppierungen finden zu können. Zum anderen sind wohl-separierte Cluster aber auch ein Garant für eine gewisse Resilienz vor neuen Datenpunkten, welche in Zukunft zum Datenset hinzugefügt werden. Schließlich ist es nicht sinnvoll, wenn sich jedes mal bei einem neu hinzugefügten Produkt die Cluster stark verschieben. Sind sie ordentlich voneinander getrennt, so ist dies unwahrscheinlicher.
 
-Daher wird ein gefundenes Clustering-Ergebnis mittels einem internen Index auf seine Qualität überprüft. Zum Einsatz können entweder der Silhouetten-Koeffizient oder Davies-Bouldin-Index kommen. Um bei der Evaluation keine zusätzlichen Fehlerquellen zu erzeugen, wird für die Berechnung der Metriken auf externe Bibliotheken zurückgegriffen werden. Es wird dabei der Index zum Einsatz kommen, der besser nutzbar ist.
+Daher wird ein gefundenes Clustering-Ergebnis mittels eines internen Index auf seine Qualität überprüft. Zum Einsatz können entweder der Silhouetten-Koeffizient oder Davies-Bouldin-Index kommen. Um bei der Evaluation keine zusätzlichen Fehlerquellen zu erzeugen, wird für die Berechnung der Metriken auf externe Bibliotheken zurückgegriffen werden. Es wird dabei der Index zum Einsatz kommen, der besser nutzbar ist.
 
 Da das Clustering ein hierarchisches Verfahren verwendet, wird der interne Index für jede sinnvolle Hierarchie-Stufe ($2 \leq k \leq n$) berechnet und anschließend der Durchschnitt gebildet.
 
@@ -370,7 +373,7 @@ Stabile und wohl-separierte Cluster zu finden, sind sehr sinnvolle Kriterien. Al
 
 ##### Generationen und Modelle
 
-In dem erstellten Datenset kommen objektiv erkennbare natürlich "Gruppen" vor. Die verschiedenen Generationen der Smartphones sowie die verschiedenen Modelle innerhalb einer Serie sind für uns Menschen offensichtliche Unterscheidungsmerkmale dieser Produkte. Daher sollte das Clustering-Verfahren ebenfalls in der Lage sein, diese Unterteilung zu finden.
+In dem erstellten Datenset kommen objektiv erkennbare natürliche "Gruppen" vor. Die verschiedenen Generationen der Smartphones sowie die verschiedenen Modelle innerhalb einer Serie sind für uns Menschen offensichtliche Unterscheidungsmerkmale dieser Produkte. Daher sollte das Clustering-Verfahren ebenfalls in der Lage sein, diese Unterteilung zu finden.
 
 Konkret werden die Generationen und Modelle in den "Akeneo-Categories" hinterlegt werden. Nach einem Cluster-Durchlauf werden anschließend die Hierarchie-Ebenen für die jeweiligen Kategorien abgefragt (z.B. wenn es drei Generationen im Datenset gibt, dann sollte das Clustering bei $k=3$ jedes Produkt der gleichen Generation in die gleiche Gruppe positioniert haben). Der Vergleich der Übereinstimmung mit "Akeneo-Categories" und Clustering-Ergebnis erfolgt über den Adjusted-Rand-Index.
 
@@ -384,7 +387,7 @@ Für die Evaluation spielen eine Reihe von Teilaspekten bei der Auswertung eine 
 
 #### Verarbeitung multi-kategorischer Attribute
 
-Im vorherigen Abschnitt ist ein alternativer Ansatz zur Verarbeitung multi-kategorischer Attribute vorgestellt worden, welcher mit weniger Informationsverlust einhergeht. Daher sollte diese Art der Verarbeitung bessere Cluster produzieren, als wenn die multi-kategorischer Attribute in normale kategorische Attribute umgewandelt werden.
+Im vorherigen Abschnitt ist ein alternativer Ansatz zur Verarbeitung multi-kategorischer Attribute vorgestellt worden, welcher mit weniger Informationsverlust einhergeht. Daher sollte diese Art der Verarbeitung bessere Cluster produzieren, als wenn die multi-kategorischen Attribute in normale kategorische Attribute umgewandelt werden.
 
 Zusätzlich kann diese Art der Verarbeitung auch auf String-Attribute angewendet werden, welches ebenfalls zu besseren Ergebnissen führen sollte.
 
@@ -396,11 +399,11 @@ Manche Typen von Attributen könnten wichtiger sein als andere. Z.B. stecken in 
 
 Über die Families in Akeneo können Attribute als **optional oder erforderlich** gekennzeichnet werden. Attribute mit vielen `null`-Werten könnten für das Clustering womöglich keine Rolle spielen. Daher werden die Cluster mit und ohne Verwendung optionaler Attribute überprüft.
 
-Als letztes wird überprüft, ob eine **menschliche "Vorauswahl"** der Attribute sinnvollere Ergebnisse liefern kann. Um den Rahmen dieser Arbeit nicht komplett zu sprengen, wird der Autor die Auswahl nach persönlichem Ermessen treffen. Es ist aber denkbar in Zukunft z.B. externe Statistiken heranzuziehen, um vor allem Attribute zu verwenden, welche für Kunden von besonderer Relevanz sind.
+Als letztes wird überprüft, ob eine **menschliche "Vorauswahl"** der Attribute sinnvollere Ergebnisse liefern kann. Um den Rahmen dieser Arbeit nicht komplett zu sprengen, wird der Autor die Auswahl nach persönlichem Ermessen treffen. Es ist aber denkbar, in Zukunft z.B. externe Statistiken heranzuziehen, um vor allem Attribute zu verwenden, welche für Kunden von besonderer Relevanz sind.
 
 #### Gewichtung der Attribute
 
-In der gesamten bisherigen Herleitung ist stets die "Gleichgewichtung" der Attribute angestrebt worden (z.B. durch Normalisierung der numerischen Attribute etc.). Es ist aber denkbar, dass der komplette Ausschluss von Attributen mit zu viel Verlust an Informationen einhergeht. Daher wird gesondert überprüft, ob sich bessere Cluster bilden, wenn bestimmte Attribute (z.B. die menschliche "Vorauswahl" in vorherigen Absatz) im Verhältnis zu den anderen übergewichtet werden.
+In der gesamten bisherigen Herleitung ist stets die "Gleichgewichtung" der Attribute angestrebt worden (z.B. durch Normalisierung der numerischen Attribute etc.). Es ist aber denkbar, dass der komplette Ausschluss von Attributen mit zu viel Verlust an Informationen einhergeht. Daher wird gesondert überprüft, ob sich bessere Cluster bilden, wenn bestimmte Attribute (z.B. die menschliche "Vorauswahl" im vorherigen Absatz) im Verhältnis zu den anderen übergewichtet werden.
 
 Die Übergewichtung lässt sich bewerkstelligen, indem die entsprechenden Attribute im Datenset während der Vorverarbeitung dupliziert werden.
 

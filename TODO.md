@@ -6,21 +6,23 @@
   - [x] ausformulieren
   - [ ] Gegenlesen lassen
     - [ ] Robert
-    - [ ] Rossak
-    - [ ] Mama
+    - [x] Rossak
+    - [x] Mama
 - [ ] Kapitel 2 – Clusteranalyse
-  - [ ] ausformulieren
+  - [x] ausformulieren
     - [x] Begriff und Definition
     - [x] Notation
-    - [ ] Distanz- und Ähnlichkeitsmaße
-    - [ ] Clustering-Verfahren
-      - [ ] Quellen zu Agglomerative nachschauen
-      - [ ] schreiben
+    - [x] Distanz- und Ähnlichkeitsmaße
+    - [x] Clustering-Verfahren
+      - [x] Quellen zu Agglomerative nachschauen
+      - [x] schreiben
     - [x] Evaluation
   - [ ] Gegenlesen lassen
     - [ ] Rossak
-    - [ ] Mama
+    - [ ] Mama => nur noch Distanz- und Ähnlichkeitsmaße & Clustering-Verfahren
 - [ ] Kapitel 3 – Konzeption
+  - [x] Architektur-Überblick geben und einbauen
+  - [x] mehr Informationen zu Icecat – warum verwenden wir es?
   - [x] ausformulieren
     - [x] Überblick
     - [x] Datenquellen und -sets
@@ -33,7 +35,7 @@
       - [x] Vorgehen
   - [ ] Gegenlesen lassen
     - [ ] Rossak
-    - [ ] Mama
+    - [ ] Mama => Überblick nochmal
 - [ ] Kapitel 4 – Implementierung
   - [x] Stichpunkte sammeln
   - [ ] Stichpunkte gegenprüfen
@@ -68,9 +70,11 @@
 - [x] Versuche mit gesamtem Set – alle Attribute
 - [x] Versuche mit gesamtem Set – gemeinsame Attribute
 - [x] pickle zum caching verwenden
-- [ ] Normalisierung korrigieren und alles erneut ausführen
+- [ ] Clusterings in RapidMiner => AutoModel => Einfluss der Attribute auf Ergebnis cross-validieren
+- [ ] MacQueen's Ansatz per Parameter einbauen
 
 ## Sonstiges
 
-- [ ] klären der Erwartungen mit Haitse und Robert
-- [ ] Termin für Kolloquium absprechen mit Haitse und Robert
+- [ ] Haitse und Robert
+  - [ ] klären der Erwartungen
+  - [ ] Termin für Kolloquium absprechen
