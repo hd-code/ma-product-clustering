@@ -12,7 +12,7 @@ Nun musste Akeneo-PIM mit Produktdaten gefüllt werden, welche aus dem Online-Ka
 
 Anschließend erfolgte die Implementierung diverser Klassen und Packages, welche das hergeleitete Konzept umsetzen oder wichtige Hilfsfunktionalitäten für die spätere Evaluation liefern. Alle diese Komponenten sind in der Programmiersprache Python (<https://www.python.org/>) implementiert worden. Python ist sehr weit verbreitet für Aufgaben der Datenanalyse bzw. Data Science allgemein. Das liegt daran, dass es eine Vielzahl nützlicher Bibliotheken für die Analyse und Aufbereitung von Daten gibt. Ebenso sind Implementierungen vieler Algorithmen und Verfahren in Python verfügbar [@papp2019, Kap. 2.4.2 Programmierung]. Zu den meisten umgesetzten Elementen ist ebenfalls grundlegendes Unit-Testing durchgeführt worden, um die korrekte Funktionalität zu prüfen.
 
-Das Package `akeneo` liefert zwei Hauptkomponenten. Der `AkeneoClient` kommuniziert mit der REST-API von Akeneo zum Abrufen der hinterlegten Daten. Ebenso konnten damit verschiedene Aufgaben, wie das Zuordnen der Produkte zu ihren passenden Kategorien teilweise automatisiert werden. Der `AkeneoCache` nutzt den `AkeneoClient`, um alle Endpunkte, welche Daten zurückgeben, abzufragen. Die `JSON`-Payloads dieser Anfragen werden anschließend in `JSON`-Dateien gespeichert. Die REST-Anfragen dauern mit unter recht lange (mehrere Sekunden), allerdings änderte sich das Datenset nach der Erstellung nicht mehr. Durch diese Zwischenspeicherung wurde die Evaluation erheblich beschleunigt, da die Daten direkt aus den Dateien gelesen werden konnten. Der `AkeneoCache` kann die gespeicherten Daten ebenfalls laden und zur Verfügung stellen. Dazu werden die `JSON`-Objekte in Python-Datenstrukturen umgewandelt. Dazu kam das Tool `dacite` (<https://github.com/konradhalas/dacite>) zum Einsatz.
+Das Package `akeneo` liefert zwei Hauptkomponenten. Der `AkeneoClient` kommuniziert mit der REST-API von Akeneo zum Abrufen der hinterlegten Daten. Ebenso konnten damit verschiedene Aufgaben, wie das Zuordnen der Produkte zu ihren passenden Kategorien teilweise automatisiert werden. Der `AkeneoCache` nutzt den `AkeneoClient`, um alle Endpunkte, welche Daten zurückgeben, abzufragen. Die `JSON`-Responses dieser Anfragen werden anschließend in `JSON`-Dateien gespeichert. Die REST-Anfragen dauern mit unter recht lange (mehrere Sekunden), allerdings änderte sich das Datenset nach der Erstellung nicht mehr. Durch diese Zwischenspeicherung wurde die Evaluation erheblich beschleunigt, da die Daten direkt aus den Dateien gelesen werden konnten. Der `AkeneoCache` ist ebenso für das Laden der Daten zuständig. Dazu werden die `JSON`-Objekte in Python-Datenstrukturen überführt. Dazu kam die Bibliothek `dacite` (<https://github.com/konradhalas/dacite>) zum Einsatz.
 
 Zunächst wurde überprüft, ob externe Clustering-Bibliotheken in der Lage sind, das erarbeitete Konzept umzusetzen. Da keine Bibliothek den Anforderungen genügte, wurde im Package `clustering` eine generische Version des `KMeans` und `BisectingKMeans` implementiert. Sie nutzen ein allgemeines Interface `Centroid`, welches für eine konkrete Clustering-Anwendung vorher implementiert werden muss. Genauere Details dazu in Abschnitt [Clustering](#clustering).
 
@@ -22,36 +22,77 @@ Abschließend fand die Evaluation mithilfe von Jupyter-Notebooks statt. Das sind
 
 ## Datenset
 
-### Auswahl und Import
+### Attribute
 
-### Analyse und Korrektur
+Wie bereits beschrieben, müssen die Attribute in Akeneo zu erst existieren, bevor ein Produkt einen Wert darin aufweisen kann. Icecat definiert ebenfalls eine sehr umfangreiche Liste an Icecat-Attributen. Diese können über den Icecat-Importer ausgewählt und in Akeneo importiert werden. Dabei werden die Icecat-Typen entsprechend auf äquivalente Akeneo-Attribut-Typen abgebildet. Dieser Prozess läuft grundsätzlich automatisch über den Importer. Allerdings müssen dazu vorher per Hand in der Weboberfläche des Importers alle Attribute ausgewählt werden, welche es zu importieren gilt.
 
-### Übersicht
+Icecat stellt für jede Produktkategorie eine eigene Taxonomie zur Verfügung, welche beschreibt, was für Attribute in den Produkten der jeweiligen Kategorie vorkommen können und ob sie erforderlich oder optional sind. Entsprechend sind die Taxonomien für "mobile_phone_cases" und "smartphones" heruntergeladen worden. Die Excel-Dateien finden sich im angehängt Git-Repository im Ordner `cluster-analysis > data > icecat-taxonomy__final`. Mittels dieser Dateien sind per Hand im Importer alle benötigten Attribute ausgewählt und importiert worden.
 
-- Icecat Taxonomy => Import der Attribute
-- händische Auswahl aller zu importierenden Attribute
-- Suche nach Produkten auf icecat.biz
-- Beschränkung auf Sponsoren-Vendors
-- Import der Produkte mittels SKU und EAN; dann Icecat Importer "Enrich Products"
-- Analyse der Daten und Korrektur verschiedener Fehler:
-  - Multi-Select werden als Single-Select importiert
-  - einige Single-Selects als Text
-  - Import diverser "number" Attribute schlägt fehl => Import als Text und anschließend Umwandlung
-  - Fix: Attribut dupliziert mit suffix "_fixed" und korrektem Typ
-  - Außerdem: fehlerhafter Import diverser metrischer Attribute (wahrscheinlich Unit nicht richtig erkannt), aber ist bei allen gleich fehlerhaft importiert => wird eh normalisiert, daher ignoriert
+Anschließend sind nach dem Vorbild der Icecat-Taxonomien in Akeneo 2 "Families" (eine für die Hüllen und eine für die Smartphones) angelegt worden. Über die "Family" kann in Akeneo festgelegt werden, welche Attribute bei Produkten dieser Art vorkommen können sowie ob sie erforderlich oder optional sind. Dieser Prozess ließ sich weitestgehend per Skript lösen. Im Repository im Ordner `cluster-analysis > reports > dataset` sind die ausgeführten Schritte, samt Code in PDF-Dateien hinterlegt.
 
-- Statistiken zu Datenset: Attribute, Categories, Families, Produkte
+Es folgten ein paare kleinere weitere Schritte, wie die Strukturierung der Attribute in Gruppen zur besseren Übersicht. Diese sind aber nicht weiter von Belang.
+
+### Produkte
+
+Als nächstes sind Produkte für den Import ausgewählt worden. In der kostenlosen Version von Icecat stehen nur Produkte von einigen wenigen Herstellern (sog. Sponsoren) zur Verfügung. Zu diesen Sponsoren zählen auch Samsung und einige Hersteller von Smartphone-Hüllen für Samsung-Smartphones. Über die Suchfunktion von Icecat sind nun Samsung-Smartphones der S-Reihe aus den Generationen S20, S21 und S22 gesucht und ausgewählt worden – ebenso zu den Modellen passende Hüllen. Im angehängten Git-Repository gibt es den Ordner `cluster-analysis > data > dataset__final`. Dieser enthält mehrere `CSV`-Dateien, welche verschiedene Daten enthalten, die später in Akeneo importiert wurden. Die Datei `products.csv` enthält alle ausgewählten Produkten mit ihrem jeweiligen Link zu Icecat. Außerdem ist zu jedem Produkt hinterlegt, zu welcher "Family" (Hülle oder Smartphone) es gehört. Außerdem sind die Produkte verschiedenen "Categories" zugeordnet worden. Über diese Categories ist hinterlegt, zu welchem Smartphone-Modell das Produkt gehört. Ebenso ist mit entsprechenden Categories vermerkt, ob zwei Produkte Duplikate voneinander sind. Die folgende Tabelle gibt eine Übersicht über die 122 ausgewählten Produkte:
+
+| Modell | Hüllen | Smartphones | davon Duplikate [^dups] |
+|-|-:|-:|-:|
+| S20       | 18 |  5 |  2 |
+| S20+      | 14 |  5 |  0 |
+| S20 Ultra | 11 |  4 |  2 |
+| S20 FE    |  2 |  3 |  0 |
+| S21       | 11 |  7 |  4 |
+| S21+      | 10 |  4 |  2 |
+| S21 Ultra |  5 |  6 |  2 |
+| S21 FE    |  5 |  4 |  0 |
+| S22       |  2 |  2 |  0 |
+| S22+      |  1 |  1 |  0 |
+| S22 Ultra |  1 |  1 |  0 |
+| *gesamt:* |*80*|*42*|*12*|
+: Importierte Produkte nach Smartphone-Modell
+
+[^dups]: Es kommen nur Duplikate von Smartphones vor.
+
+Schließlich ist aus der Icecat-URL die SKU und EAN der Produkte ausgelesen und per Skript in Akeneo jeweils als neues Produkt eingefügt worden. Danach wurde im Icecat-Importer der `EnrichProducts`-Job ausgeführt, welcher die restlichen noch leeren Attribute der Produkte mit den Daten aus Icecat füllt.
+
+### Korrekturen
+
+Nach dem Import der Attribute und Produkte wurden die Daten analysiert und auf Fehler geprüft. Dabei traten eine ganze Reihe von Problemen zutage:
+
+- Alle 31 Attribute, welche in Icecat als Multi-Select definiert sind, wurden in Akeneo als Single-Select importiert. Unter den Labels des Attributs "Material" finden sich z.B. die Werte "Silicone, Thermoplastic polyurethane (TPU)" sowie "Thermoplastic polyurethane (TPU), Silicone". Also die gleiche Information als zwei verschiedene Labels.
+- 22 numerische Attribute warfen beim Import Fehler, weshalb diese schließlich als Textzeilen importiert werden mussten.
+- 10 Single-Selects sind automatisch als Textzeilen importiert worden.
+
+Diese Fehler wurden anschließend per Skript gefixt. Dazu wurde jedes fehlerhafte Attribut ein zweites Mal in korrigierter Version in Akeneo angelegt. Anschließend wurde jedes Produkt durchgegangen und die Werte aus den fehlerhaften Attributen korrigiert und in den neuen Attributen gespeichert. Die Werte der Multi-Selects enthielten die verschiedenen Optionen als Komma-getrennte Liste, welche entsprechend aufgeteilt worden ist. Die fehlerhaften numerischen Attribute und Single-Selects konnten ohne Problem direkt auf den richtigen Typ übertragen werden.
+
+Zum Schluss sind alle fehlerhaften Attribute in eine Attribut-Gruppe names "Faulty" sortiert worden. Dadurch können sie in der Evaluation direkt herausgefiltert werden, sodass nur die korrekten Attribute bei der Verarbeitung übrig bleiben.
+
+Etwas später wurde noch offenkundig, dass alle numerischen Attribute mit einer "MeasurementUnit" ebenfalls fehlerhaft sind. Die Einheit ist falsch importiert worden, sodass bspw. die Smartphones zwischen 5 und 6 Kilogramm wiegen. Da dieser Fehler aber bei allen Attributen "konsistent" aufgetreten ist und die numerischen Attribute im Zuge der Vorverarbeitung sowieso normalisiert werden, kann dieser Fehler ignoriert werden.
+
+| Attribut-Klasse | Hüllen |  | Smartphones | | davon in beiden |
+|--|-:|-:|-:|-:|-:|
+| | *erforderlich* | *optional* | *erforderlich* | *optional* | |
+| numerisch         | 1 | 22 | 10 | 106 | 10 |
+| kategorisch       | 2 | 16 | 18 | 157 |  1 |
+| multi-kategorisch | 1 |  4 |  3 |  26 |  3 |
+| strings           | 6 |  5 |  7 |  27 | 10 |
+| andere            | 5 |  0 |  4 |   2 |  4 |
+: Anzahl an Attributen je Attribut-Klasse und Produktfamilie
+
+Die Tabelle zeigt die jeweilige Menge an Attributen für die Hüllen und die Smartphones nach der Durchführung der Korrekturen.
 
 ## Clustering
 
 ### Überblick zu externen Libraries
 
-- sklearn, nicovk
+- biescting kmean apache pyspark => nur numerisch [@apache2022bikmeans]
+- sklearn [@sklearn2022], nicovk [@nicodv2022]
 - erlauben keine null-Values !
 - Umsetzung von Multi-Selects nicht möglich
 - Orientierung an diesen Bibliotheken, aber keine Verwendung
 
-### Clustering-Package
+### Clustering-Library
 
 - KMeans & Bisecting KMeans mit generischer Centroid-Klasse
 - Centroid-Klasse erklären

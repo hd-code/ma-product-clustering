@@ -38,8 +38,12 @@
     - [ ] Mama => Überblick nochmal
 - [ ] Kapitel 4 – Implementierung
   - [x] Stichpunkte sammeln
-  - [ ] Stichpunkte gegenprüfen
+  - [x] Stichpunkte gegenprüfen
   - [ ] ausformulieren
+    - [x] Überblick
+    - [x] Datenset
+    - [ ] Clustering
+    - [ ] Evaluation
   - [ ] Gegenlesen lassen
     - [ ] Rossak
     - [ ] Mama
@@ -72,6 +76,9 @@
 - [x] pickle zum caching verwenden
 - [ ] Clusterings in RapidMiner => AutoModel => Einfluss der Attribute auf Ergebnis cross-validieren
 - [-] MacQueen's Ansatz per Parameter einbauen
+- [ ] Reports erstellen HTML
+- [ ] Reports erstellen PDF
+- [ ] README für `cluster-analysis`
 
 ## Sonstiges
 
