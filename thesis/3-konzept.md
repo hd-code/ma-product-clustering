@@ -319,7 +319,7 @@ Auch dieser Ansatz wird mit der Verwendung der Strings als einfaches kategorisch
 Aus den genannten Ansätzen lässt sich insgesamt folgende Formell für die finale Distanz-Funktion ableiten:
 
 \begin{equation}
-  d(x_1, x_2) = \frac{d_{num}(x_1, x_2) + n_{cat} \cdot d_{cat}(x_1, x_2) + d_{mul}(x_1, x_2) + |x_1^{num_{null}}| + |x_2^{num_{null}}|}{|attributes \text{ in }x_1 \cup x_2|}
+  d(x_1, x_2) = \frac{d_{num}(x_1, x_2) + |x_1^{num_{null}}| + |x_2^{num_{null}}| + n_{cat} \cdot d_{cat}(x_1, x_2) + d_{mul}(x_1, x_2)}{|attributes \text{ in }x_1 \cup x_2|}
 \end{equation}
 
 \begin{align}
@@ -339,7 +339,7 @@ Eine vereinfachte (serialisierte) Form dieser Funktion sieht folgendermaßen aus
 \begin{align}
   d(x_1, x_2) &= \frac{\sum d'(x_1^i, x_2^i)}{|attributes \text{ in }x_1 \cup x_2|} \\
   d'(x_1^i, x_2^i) &= \begin{cases}
-    1 &, i \text{ is } numerical \wedge (x_1^i \text{ is } null \vee x_2^i \text{ is } null) \\
+    1 &, x_1^i \text{ is } null \vee x_2^i \text{ is } null \\
     |x_1^i - x_2^i| &, i \text{ is } numerical \\
     0 &, i \text{ is } categorical \wedge x_1^i = x_2^i \\
     1 &, i \text{ is } categorical \wedge x_1^i \neq x_2^i \\

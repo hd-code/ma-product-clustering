@@ -4,23 +4,16 @@
 
 ### Verarbeitung multi-kategorischer Attribute
 
-![Stabilität und Qualität der Hüllen mit multi-kategorischem Attribut](img/cases-multi.png)
-
-
-| Name | Stabilität | Qualität | Erkennung: Generation | Modell | Ø |
+| Name | Stabilität | Qualität | Erkennung: Generation | Modell |
 |-|-:|-:|-:|-:|-:|
-| multi            | $70.8$% | $43.9$% | $2.1$% | $4.3$% | $30.3$% |
-| multi als single | $61.0$% | $44.5$% | $0.4$% | $4.3$% | $27.5$% |
+| multi            | $0.71$ | $0.44$ | $0.02$ | $0.04$ |
+| multi als single | $0.61$ | $0.44$ | $0.00$ | $0.04$ |
 : Clustering der Hüllen mit multi-kategorischem Attribut
 
-
-![Stabilität und Qualität der Hüllen mit String-Attributen](img/cases-strings.png)
-
-
-| Name | Stabilität | Qualität | Erkennung: Generation | Modell | Ø |
+| Name | Stabilität | Qualität | Erkennung: Generation | Modell |
 |-|-:|-:|-:|-:|-:|
-| strings als multi  | $90.8$% | $24.1$% | $1.5$% | $17.5$% | $33.5$% |
-| strings als single | $79.0$% | $15.0$% | $1.2$% |  $7.5$% | $25.7$% |
+| strings als multi  | $0.91$ | $0.24$ | $0.01$ | $0.18$ |
+| strings als single | $0.79$ | $0.15$ | $0.01$ | $0.08$ |
 : Clustering der Hüllen mit String-Attributen
 
 ### Attribut-Auswahl

@@ -2,29 +2,31 @@
 
 ## Überblick
 
-- Akeneo-PIM Instanz auf adesso VM
-- AKeneo Client und Cache
-- Import von Daten aus Icecat
-- Implementierung Clustering-Bibliothek + weitere (z.B. Datenaufbereitung)
-- Durchführung des Clusterings selbst
+Nach der Konzeption folgte die Umsetzung und Implementierung des Praxisteils. Für eine bessere Übersicht ist in der folgenden Grafik die Architektur in detaillierterer Form inklusive implementierter Klassen und sonstigen Software-Komponenten dargestellt.
 
-## Akeneo-PIM
+![Detaillierte Architektur der praktischen Umsetzung](img/architecture-detail.png)
 
-### Installation und Deployment
+adesso stellte für diesen Teil einen Server bereit, welcher für das Hosting von Akeneo-PIM genutzt wurde. Anschließend erfolgte die Installation von Akeneo-PIM Community Edition Version 5.0 auf diesem Server. Dazu wurde die offizielle Installationsanleitung von Akeneo unter Verwendung der Containerization-Lösung Docker (<https://www.docker.com/>) befolgt [@akeneo2022install]. Zusätzlich wurde das Akeneo-Plugin "Akeneo Icecat Connector" Version 2.0.0 [@akeneo2022icecat] in die Instanz integriert. Das kostenpflichtige Plugin wurde von adesso gesponsert.
 
-- Überblick zur Projekt-Initialisierung
-- Installation auf adesso VM
-- Icecat Importer
-- Anlegen verschiedener Basis-Attribute für Icecat
+Nun musste Akeneo-PIM mit Produktdaten gefüllt werden, welche aus dem Online-Katalog Icecat stammen. Eine genaue Übersicht zur Auswahl der Produkte sowie der weiteren Aufbereitung innerhalb von Akeneo siehe Abschnitt [Datenset](#datenset).
 
-### Akeneo-Client und -Cache
+Anschließend erfolgte die Implementierung diverser Klassen und Packages, welche das hergeleitete Konzept umsetzen oder wichtige Hilfsfunktionalitäten für die spätere Evaluation liefern. Alle diese Komponenten sind in der Programmiersprache Python (<https://www.python.org/>) implementiert worden. Python ist sehr weit verbreitet für Aufgaben der Datenanalyse bzw. Data Science allgemein. Das liegt daran, dass es eine Vielzahl nützlicher Bibliotheken für die Analyse und Aufbereitung von Daten gibt. Ebenso sind Implementierungen vieler Algorithmen und Verfahren in Python verfügbar [@papp2019, Kap. 2.4.2 Programmierung]. Zu den meisten umgesetzten Elementen ist ebenfalls grundlegendes Unit-Testing durchgeführt worden, um die korrekte Funktionalität zu prüfen.
 
-- Klasse zur Interaktion mit Akeneo-Api, behandelt Authentifizierung, Auflösung von Listen etc.
-- Requests dauern mit unter einige Sekunden
-- Cache fragt alle wichtigen Endpunkte ab und speichert JSON-payload in JSON-Dateien
-- Abfrage von Daten aus dem Cache (lädt und parsed JSON-Dateien in Python-Datenstrukturen "dacite" Package)
+Das Package `akeneo` liefert zwei Hauptkomponenten. Der `AkeneoClient` kommuniziert mit der REST-API von Akeneo zum Abrufen der hinterlegten Daten. Ebenso konnten damit verschiedene Aufgaben, wie das Zuordnen der Produkte zu ihren passenden Kategorien teilweise automatisiert werden. Der `AkeneoCache` nutzt den `AkeneoClient`, um alle Endpunkte, welche Daten zurückgeben, abzufragen. Die `JSON`-Payloads dieser Anfragen werden anschließend in `JSON`-Dateien gespeichert. Die REST-Anfragen dauern mit unter recht lange (mehrere Sekunden), allerdings änderte sich das Datenset nach der Erstellung nicht mehr. Durch diese Zwischenspeicherung wurde die Evaluation erheblich beschleunigt, da die Daten direkt aus den Dateien gelesen werden konnten. Der `AkeneoCache` kann die gespeicherten Daten ebenfalls laden und zur Verfügung stellen. Dazu werden die `JSON`-Objekte in Python-Datenstrukturen umgewandelt. Dazu kam das Tool `dacite` (<https://github.com/konradhalas/dacite>) zum Einsatz.
+
+Zunächst wurde überprüft, ob externe Clustering-Bibliotheken in der Lage sind, das erarbeitete Konzept umzusetzen. Da keine Bibliothek den Anforderungen genügte, wurde im Package `clustering` eine generische Version des `KMeans` und `BisectingKMeans` implementiert. Sie nutzen ein allgemeines Interface `Centroid`, welches für eine konkrete Clustering-Anwendung vorher implementiert werden muss. Genauere Details dazu in Abschnitt [Clustering](#clustering).
+
+Das Package `akeneo_clustering` bringt nun die beiden anderen Packages zusammen. Die Funktion `parse_products()` liest die Daten aus dem Cache aus und bereitet die Produkte für das Clustering auf. Dabei werden zum Beispiel die beschriebenen Vorverarbeitungen für numerische und String-Attribute durchgeführt. Die `Centroid`-Klasse implementiert das Interface für das `clustering`-Package. Hier ist die erarbeitete Distanzfunktion hinterlegt, ebenso der genaue Prozess, wie Mittelpunkte zu den jeweiligen Clustern berechnet werden. Weitere Details im Abschnitt [Clustering](#clustering)
+
+Abschließend fand die Evaluation mithilfe von Jupyter-Notebooks statt. Das sind Source-Code-Dateien, die in einzelne Code-Zellen unterteilt sind. Mithilfe eines Webfrontends, welches Jupyter mitliefert, können die Notebooks interaktiv verändert und beliebig einzelne oder mehrere Code-Zellen ausgeführt werden. Die Ausgaben der Zellen erscheinen direkt darunter. Dadurch eignet sich Jupyter für Analysen, in denen wiederholt Versuche und leichte Abwandlungen dieser durchgeführt werden. Die direkte Visualisierung beschleunigt den Evaluationsprozess [@papp2019, Kap. 2.4.2 Programmierung]. Die genauen Schritte der Evaluation und welche Tools zur Berechnung der Metriken zum Einsatz kamen, ist im Abschnitt [Evaluation](#evaluation) beschrieben.
 
 ## Datenset
+
+### Auswahl und Import
+
+### Analyse und Korrektur
+
+### Übersicht
 
 - Icecat Taxonomy => Import der Attribute
 - händische Auswahl aller zu importierenden Attribute

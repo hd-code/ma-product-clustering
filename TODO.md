@@ -71,7 +71,7 @@
 - [x] Versuche mit gesamtem Set – gemeinsame Attribute
 - [x] pickle zum caching verwenden
 - [ ] Clusterings in RapidMiner => AutoModel => Einfluss der Attribute auf Ergebnis cross-validieren
-- [ ] MacQueen's Ansatz per Parameter einbauen
+- [-] MacQueen's Ansatz per Parameter einbauen
 
 ## Sonstiges
 

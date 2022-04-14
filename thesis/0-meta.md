@@ -5,7 +5,7 @@ title: Generisches Clustern hoch-komplexer Produktdaten
 # subtitle: Untertitel des Arbeit     # optional
 author:
     - Hannes Dröse
-date: 29.04.2022    # Abgabedatum
+date: 25.04.2022    # Abgabedatum
 publishers:         # Betreuer der Arbeit
     - Prof. Dr. Ines-Kerstin Rossak
     - Dipl.-Inform. Robert Queck
