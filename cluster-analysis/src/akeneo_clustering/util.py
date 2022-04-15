@@ -20,4 +20,4 @@ def map_to_attribute_kind(attr_type: akeneo.AttributeType) -> str:
         return "multi-categorical"
     if attr_type in TYPES_TEXT:
         return "string"
-    return attr_type.name
+    return "other"

@@ -74,9 +74,9 @@ Etwas später wurde noch offenkundig, dass alle numerischen Attribute mit einer 
 |--|-:|-:|-:|-:|-:|
 | | *erforderlich* | *optional* | *erforderlich* | *optional* | |
 | numerisch         | 1 | 22 | 10 | 106 | 10 |
-| kategorisch       | 2 | 16 | 18 | 157 |  1 |
+| kategorisch       | 3 | 16 | 19 | 157 |  2 |
 | multi-kategorisch | 1 |  4 |  3 |  26 |  3 |
-| strings           | 6 |  5 |  7 |  27 | 10 |
+| strings           | 5 |  5 |  6 |  27 |  9 |
 | andere            | 5 |  0 |  4 |   2 |  4 |
 : Anzahl an Attributen je Attribut-Klasse und Produktfamilie
 
