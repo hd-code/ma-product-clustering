@@ -1,4 +1,5 @@
 code,type_akeneo,type_icecat,target_type
+icecat_brand,pim_catalog_text,dropdown,pim_catalog_simpleselect
 icecat_1024,pim_catalog_text,dropdown,pim_catalog_simpleselect
 icecat_12435,pim_catalog_text,numerical,pim_catalog_number
 icecat_12437,pim_catalog_text,numerical,pim_catalog_number
