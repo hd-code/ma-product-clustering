@@ -2,7 +2,7 @@ code,type,locale_en,locale_de,opts
 sku,pim_catalog_identifier,SKU,SKU,{}
 ean,pim_catalog_text,EAN,EAN,"{""unique"": True}"
 icecat_brand,pim_catalog_text,Brand,Brand,"{""localizable"": True, ""scopable"": True, ""group"": ""faulty""}"
-icecat_brand_fixed,pim_catalog_simple_select,Brand,Brand,"{""localizable"": True, ""scopable"": True}"
+icecat_brand_fixed,pim_catalog_simpleselect,Brand,Brand,"{""localizable"": True, ""scopable"": True}"
 icecat_name,pim_catalog_text,Name,Name,"{""localizable"": True, ""scopable"": True}"
 icecat_title,pim_catalog_text,Title,Titel,"{""localizable"": True, ""scopable"": True}"
 icecat_description,pim_catalog_textarea,Description,Beschreibung,"{""localizable"": True, ""scopable"": True}"
