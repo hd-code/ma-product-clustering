@@ -137,29 +137,80 @@ Insgesamt lässt sich feststellen, dass die Kombination aus numerischen und kate
 
 ## Datenset "Smartphones"
 
+### Überblick
+
+| Typ | erforderlich | Anzahl | Ø non-`null` | Ø unique |
+|-|-|-:|-:|-:|
+| numerisch   | ja   |  $8$ | $41.1$ |  $5.4$ |
+| numerisch   | nein | $48$ | $18.5$ |  $3.5$ |
+| kategorisch | ja   | $19$ | $37.9$ |  $1.6$ |
+| kategorisch | nein | $87$ | $26.1$ |  $1.2$ |
+| multi-kat.  | ja   |  $3$ | $38.7$ |  $7.0$ |
+| multi-kat.  | nein | $19$ | $23.1$ |  $2.9$ |
+| string      | ja   |  $5$ | $40.8$ | $24.0$ |
+| string      | nein |  $6$ | $18.0$ |  $4.8$ |
+: Übersicht zu den Attributen der Smartphones
+
 ### Verarbeitung multi-kategorischer Attribute
 
-![Stabilität und Qualität der Smartphones mit multi-kategorischen Attributen](img/phones-multi.png)
-
-| Name | Stabilität | Qualität | Erkennung: Generation | Modell | Duplikate | Ø |
+| Verarbeitung | Stabilität | Qualität | Erkennung | | |
 |-|-:|-:|-:|-:|-:|-:|
-| multi            | $90.5$% | $38.9$% | $39.8$% | $45.2$% | $89.2$% | $60.7$% |
-| multi als single | $85.4$% | $38.5$% | $11.7$% | $30.0$% | $87.8$% | $50.7$% |
+| | | | *Generation* | *Modell* | *Duplikate* |
+| multi-kategorisch    | 0.91 | 0.39 | 0.40 | 0.45 | 0.89 |
+| (single) kategorisch | 0.85 | 0.38 | 0.12 | 0.30 | 0.88 |
 : Clustering der Smartphones mit multi-kategorischen Attributen
 
-![Stabilität und Qualität der Smartphones mit String-Attributen](img/phones-strings.png)
+=> alle multi-kat
 
-| Name | Stabilität | Qualität | Erkennung: Generation | Modell | Duplikate | Ø |
+| Verarbeitung | Stabilität | Qualität | Erkennung | | |
 |-|-:|-:|-:|-:|-:|-:|
-| strings als multi  | $88.2$% | $34.0$% | $64.3$% | $87.2$% |$100.0$% | $74.7$% |
-| strings als single | $80.7$% | $23.7$% | $13.8$% | $58.6$% | $96.7$% | $54.7$% |
+| | | | *Generation* | *Modell* | *Duplikate* |
+| Strings als multi-kat.  | 0.91 | 0.34 | 0.64 | 0.87 | 1.00 |
+| Strings als single-kat. | 0.80 | 0.23 | 0.14 | 0.58 | 1.00 |
 : Clustering der Smartphones mit String-Attributen
 
 ### Attribut-Auswahl
 
 #### Vergleich nach Datentypen
 
+| Typen | Stabilität | Qualität | Erkennung | | |
+|-|-:|-:|-:|-:|-:|-:|
+| | | | *Generation* | *Modell* | *Duplikate* |
+| numerical   | 0.88 | 0.43 | 0.01 | 0.75 | 0.96 |
+| categorical | 0.96 | **0.45** | **0.65** | 0.49 | 0.81 |
+| multi       | 0.91 | 0.39 | 0.40 | 0.45 | 0.89 |
+| string      | 0.91 | 0.34 | 0.64 | 0.87 | **1.00** |
+| num+cat     | 0.98 | 0.43 | **0.65** | 0.71 | 0.96 |
+| num+mul     | 0.94 | 0.39 | 0.16 | 0.70 | **1.00** |
+| num+str     | 0.93 | 0.38 | 0.01 | 0.67 | 0.97 |
+| cat+mul     | 0.89 | 0.39 | 0.11 | 0.49 | 0.92 |
+| cat+str     | **0.99** | 0.40 | **0.65** | 0.42 | 0.94 |
+| mul+str     | 0.85 | 0.32 | 0.37 | 0.49 | 1.00 |
+| num+cat+mul | 0.98 | 0.41 | 0.16 | 0.70 | 0.97 |
+| num+cat+str | 0.98 | 0.41 | **0.65** | 0.66 | 0.96 |
+| num+mul+str | 0.92 | 0.37 | 0.16 | 0.70 | **1.00** |
+| cat+mul+str | 0.95 | 0.37 | 0.11 | 0.45 | 0.96 |
+| alle        | 0.92 | 0.39 | 0.16 | 0.70 | **1.00** |
+: Clustering der Smartphones mit verschiedenen Kombinationen an Attribut-Typen
+
 #### Vergleich nach Erforderlichkeit
+
+| Typen | Auswahl | Stabilität | Qualität | Erkennung | | |
+|-|-:|-:|-:|-:|-:|-:|
+| | | | | *Generation* | *Modell* | *Duplikate* |
+| numerisch   | alle | 0.88 | 0.43 | 0.01 | 0.75 | 0.96 |
+|             | erf. | 0.96 | 0.48 |-0.04 | 0.48 | 0.97 |
+| kategorisch | alle | 0.96 | 0.45 | 0.65 | 0.49 | 0.81 |
+|             | erf. | 0.76 | 0.44 | 0.55 | 0.46 | 0.75 |
+| multi-kat.  | alle | 0.91 | 0.39 | 0.40 | 0.45 | 0.89 |
+|             | erf. | 0.70 | 0.38 | 0.51 | 0.24 | 0.86 |
+| string      | alle | 0.91 | 0.34 | 0.64 | 0.87 | 1.00 |
+|             | erf. | 0.94 | 0.37 | 0.17 | 0.53 | 0.96 |
+| num+kat     | alle | 0.98 | 0.43 | 0.65 | 0.71 | 0.96 |
+|             | erf. | 0.91 | 0.42 |-0.04 | 0.61 | 0.89 |
+| alle        | alle | 0.92 | 0.39 | 0.16 | 0.70 | 1.00 |
+|             | erf. | 0.89 | 0.34 | 0.30 | 0.71 | 0.96 |
+: Clustering der Smartphones mit erforderlichen und optionalen Attributen
 
 #### Vergleich nach menschlicher Auswahl
 
