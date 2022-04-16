@@ -144,9 +144,13 @@ Es gibt in der Klasse auch eine Methode names `labels_flat(k: int)`. Hiermit kö
 
 ```python
 # ...
-BisectingKMeans(dataset, Centroid).labels_flat(3)
+BisectingKMeans(dataset, Centroid).labels_flat(2)
 # Ausgabe:
-[ 2, 1, 0, 0, 0 ]
+[ 1, 1, 0, 0, 0 ]
+# ...
+BisectingKMeans(dataset, Centroid).labels_flat(4)
+# Ausgabe:
+[ 2, 1, 0, 3, 3 ]
 ```
 
 Aus einer `BisectingKMeans`-Instanz kann also die Cluster-Zuordnung für jede beliebige Hierarchie-Ebene abgerufen werden.

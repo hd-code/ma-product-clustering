@@ -39,11 +39,11 @@
 - [ ] Kapitel 4 – Implementierung
   - [x] Stichpunkte sammeln
   - [x] Stichpunkte gegenprüfen
-  - [ ] ausformulieren
+  - [x] ausformulieren
     - [x] Überblick
     - [x] Datenset
-    - [ ] Clustering
-    - [ ] Evaluation
+    - [x] Clustering
+    - [x] Evaluation
   - [ ] Gegenlesen lassen
     - [ ] Rossak
     - [ ] Mama
@@ -61,6 +61,10 @@
   - [ ] Gegenlesen lassen
     - [ ] Rossak
     - [ ] Mama
+- [ ] Anhang: Link zu Git und kurzer Überblick
+- [ ] Abstract
+  - [ ] de
+  - [ ] en
 - [x] Formatierung
   - [x] Citation mit Natbib => keine Überschneidungen im Quellenverzeichnis und keine extra citeproc-Fixes
   - [x] Ränder bei Hausen-Vorlage abgleichen
