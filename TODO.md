@@ -49,9 +49,10 @@
     - [ ] Mama
 - [ ] Kapitel 5 – Auswertung
   - [x] genaue Kapitelstruktur
-  - [ ] Grafiken und Tabellen einfügen
-  - [ ] Stichpunkte sammeln
   - [ ] ausformulieren
+    - [x] Datenset "Hüllen"
+    - [ ] Datenset "Phones"
+    - [ ] Datenset beide
   - [ ] Gegenlesen lassen
     - [ ] Rossak
     - [ ] Mama
