@@ -180,7 +180,7 @@ Um den Rahmen dieser Arbeit nicht zu sprengen, ist die Auswahl aus der Einschät
 | Depth               | numerisch   | nein | 24 | 11 |
 | Brand compatibility | kategorisch | ja   | 79 |  1 |
 | Case type           | kategorisch | ja   | 76 |  3 |
-: Ausgewählte "relevante" Attribute für das Clustering
+: Ausgewählte Attribute für das Clustering der Hüllen
 
 Die numerischen Attribute bilden die Abmessungen der Hüllen ab, was ein entscheidender Faktor ist, ob die Hülle zum jeweiligen Smartphone passt. Die "Brand compatibility" ist zwar inhaltlich sinnvoll, da das Datenset aber nur Hüllen für Smartphones von Samsung enthält, ist der Mehrwert dieses Attributs begrenzt. "Title" und "Case type" wurden als sinnvolle Ergänzungen zu den numerischen Attributen ausgewählt.
 
@@ -225,22 +225,22 @@ Insgesamt lässt sich durch die Übergewichtung von Attributen kein Vorteil für
 
 ### Überblick
 
-| Typ | erforderlich | Anzahl | Ø non-`null` | Ø unique |
+| Typ | Art | Anzahl | Ø non-`null` | Ø unique |
 |-|-|-:|-:|-:|
-| numerisch   | ja   |  $8$ | $41.1$ |  $5.4$ |
-| numerisch   | nein | $48$ | $18.5$ |  $3.5$ |
-| kategorisch | ja   | $19$ | $37.9$ |  $1.6$ |
-| kategorisch | nein | $87$ | $26.1$ |  $1.2$ |
-| multi-kat.  | ja   |  $3$ | $38.7$ |  $7.0$ |
-| multi-kat.  | nein | $19$ | $23.1$ |  $2.9$ |
-| string      | ja   |  $5$ | $40.8$ | $24.0$ |
-| string      | nein |  $6$ | $18.0$ |  $4.8$ |
+| numerisch   | erf. |  $8$ | $41.1$ |  $5.4$ |
+|             | opt. | $48$ | $18.5$ |  $3.5$ |
+| kategorisch | erf. | $19$ | $37.9$ |  $1.6$ |
+|             | opt. | $87$ | $26.1$ |  $1.2$ |
+| multi-kat.  | erf. |  $3$ | $38.7$ |  $7.0$ |
+|             | opt. | $19$ | $23.1$ |  $2.9$ |
+| string      | erf. |  $5$ | $40.8$ | $24.0$ |
+|             | opt. |  $6$ | $18.0$ |  $4.8$ |
 : Übersicht zu den Attributen der Smartphones
 
 ### Verarbeitung multi-kategorischer Attribute
 
 | Verarbeitung | Stabilität | Qualität | Erkennung | | |
-|-|-:|-:|-:|-:|-:|-:|
+|-|-:|-:|-:|-:|-:|
 | | | | *Generation* | *Modell* | *Duplikate* |
 | multi-kategorisch    | 0.91 | 0.39 | 0.40 | 0.45 | 0.89 |
 | (single) kategorisch | 0.85 | 0.38 | 0.12 | 0.30 | 0.88 |
@@ -249,7 +249,7 @@ Insgesamt lässt sich durch die Übergewichtung von Attributen kein Vorteil für
 => alle multi-kat
 
 | Verarbeitung | Stabilität | Qualität | Erkennung | | |
-|-|-:|-:|-:|-:|-:|-:|
+|-|-:|-:|-:|-:|-:|
 | | | | *Generation* | *Modell* | *Duplikate* |
 | Strings als multi-kat.  | 0.91 | 0.34 | 0.64 | 0.87 | 1.00 |
 | Strings als single-kat. | 0.80 | 0.23 | 0.14 | 0.58 | 1.00 |
@@ -260,50 +260,85 @@ Insgesamt lässt sich durch die Übergewichtung von Attributen kein Vorteil für
 #### Vergleich nach Datentypen
 
 | Typen | Stabilität | Qualität | Erkennung | | |
-|-|-:|-:|-:|-:|-:|-:|
+|-|-:|-:|-:|-:|-:|
 | | | | *Generation* | *Modell* | *Duplikate* |
-| numerical   | 0.88 | 0.43 | 0.01 | 0.75 | 0.96 |
-| categorical | 0.96 | **0.45** | **0.65** | 0.49 | 0.81 |
-| multi       | 0.91 | 0.39 | 0.40 | 0.45 | 0.89 |
-| string      | 0.91 | 0.34 | 0.64 | 0.87 | **1.00** |
-| num+cat     | 0.98 | 0.43 | **0.65** | 0.71 | 0.96 |
+| numerisch   | 0.88 | 0.43 | 0.01 | 0.75 | 0.96 |
+| kategorisch | 0.96 | 0.45 | 0.65 | 0.49 | 0.81 |
+| multi-kat.  | 0.91 | 0.39 | 0.40 | 0.45 | 0.89 |
+| string      | 0.91 | 0.34 | 0.64 | 0.87 | 1.00 |
+: Clustering der Smartphones mit jeweils einem Attribut-Typ
+
+| Typen | Stabilität | Qualität | Erkennung | | |
+|-|-:|-:|-:|-:|-:|
+| | | | *Generation* | *Modell* | *Duplikate* |
+| num+kat     | 0.98 | **0.43** | **0.65** | 0.71 | 0.96 |
 | num+mul     | 0.94 | 0.39 | 0.16 | 0.70 | **1.00** |
-| num+str     | 0.93 | 0.38 | 0.01 | 0.67 | 0.97 |
-| cat+mul     | 0.89 | 0.39 | 0.11 | 0.49 | 0.92 |
-| cat+str     | **0.99** | 0.40 | **0.65** | 0.42 | 0.94 |
-| mul+str     | 0.85 | 0.32 | 0.37 | 0.49 | 1.00 |
-| num+cat+mul | 0.98 | 0.41 | 0.16 | 0.70 | 0.97 |
-| num+cat+str | 0.98 | 0.41 | **0.65** | 0.66 | 0.96 |
+| kat+str     | **0.99** | 0.40 | **0.65** | 0.42 | 0.94 |
+| num+kat+str | 0.98 | 0.41 | **0.65** | 0.66 | 0.96 |
 | num+mul+str | 0.92 | 0.37 | 0.16 | 0.70 | **1.00** |
-| cat+mul+str | 0.95 | 0.37 | 0.11 | 0.45 | 0.96 |
 | alle        | 0.92 | 0.39 | 0.16 | 0.70 | **1.00** |
 : Clustering der Smartphones mit verschiedenen Kombinationen an Attribut-Typen
 
 #### Vergleich nach Erforderlichkeit
 
-| Typen | Auswahl | Stabilität | Qualität | Erkennung | | |
-|-|-:|-:|-:|-:|-:|-:|
-| | | | | *Generation* | *Modell* | *Duplikate* |
-| numerisch   | alle | 0.88 | 0.43 | 0.01 | 0.75 | 0.96 |
-|             | erf. | 0.96 | 0.48 |-0.04 | 0.48 | 0.97 |
-| kategorisch | alle | 0.96 | 0.45 | 0.65 | 0.49 | 0.81 |
-|             | erf. | 0.76 | 0.44 | 0.55 | 0.46 | 0.75 |
-| multi-kat.  | alle | 0.91 | 0.39 | 0.40 | 0.45 | 0.89 |
-|             | erf. | 0.70 | 0.38 | 0.51 | 0.24 | 0.86 |
-| string      | alle | 0.91 | 0.34 | 0.64 | 0.87 | 1.00 |
-|             | erf. | 0.94 | 0.37 | 0.17 | 0.53 | 0.96 |
-| num+kat     | alle | 0.98 | 0.43 | 0.65 | 0.71 | 0.96 |
-|             | erf. | 0.91 | 0.42 |-0.04 | 0.61 | 0.89 |
-| alle        | alle | 0.92 | 0.39 | 0.16 | 0.70 | 1.00 |
-|             | erf. | 0.89 | 0.34 | 0.30 | 0.71 | 0.96 |
+| Auswahl | Stabilität | Qualität | Erkennung | | |
+|-|-:|-:|-:|-:|-:|
+| | | | *Generation* | *Modell* | *Duplikate* |
+| alle     | 0.98 | 0.43 | 0.65 | 0.71 | 0.96 |
+| nur erf. | 0.91 | 0.42 |-0.04 | 0.61 | 0.89 |
+| nur opt. | 0.93 | 0.45 | 0.65 | 0.60 | 0.94 |
 : Clustering der Smartphones mit erforderlichen und optionalen Attributen
 
 #### Vergleich nach menschlicher Auswahl
 
+| Name | Typ | erforderlich | non-`null` | unique |
+|-|-|-|-:|-:|
+| Rear camera resolution (numeric)  | numerisch   | ja   | 42 |  4 |
+| Front camera resolution (numeric) | numerisch   | ja   | 42 |  3 |
+| Display diagonal                  | numerisch   | ja   | 42 |  8 |
+| Pixel density                     | numerisch   | nein | 37 | 11 |
+| Weight                            | numerisch   | ja   | 40 | 11 |
+| Height                            | numerisch   | nein | 40 | 11 |
+| Width                             | numerisch   | nein | 40 |  8 |
+| Depth                             | numerisch   | nein | 40 |  7 |
+| Platform                          | kategorisch | ja   | 40 |  1 |
+| Operating system installed        | kategorisch | ja   | 36 |  3 |
+| Mobile network generation         | kategorisch | ja   | 40 |  2 |
+| Native aspect ratio               | kategorisch | nein | 19 |  3 |
+| Title                             | string      | ja   | 42 | 38 |
+: Ausgewählte Attribute für das Clustering der Smartphones
+
 ### Attribut-Gewichtung
+
+| Attribute | Gewichtung | Stabilität | Qualität | Erkennung |
+|-|-|-:|-:|-:|-:|-:|
+| | | | | *Generation* | *Modell* | *Duplikate* |
+| num+kat | gleichgew.  | 0.98 | 0.43 | 0.65 | 0.71 | 0.96 |
+| alle | mensch.Ausw. x2 | 0.95 | 0.39 | 0.72 | 0.70 | 1.00 |
+| alle | mensch.Ausw. x3 | 0.94 | 0.39 | 0.72 | 0.70 | 1.00 |
+| num+kat | mensch.Ausw. x2 | 0.96 | 0.42 | 0.52 | 0.73 | 0.96 |
+| num+kat | mensch.Ausw. x3 | 0.93 | 0.41 | 0.52 | 0.67 | 0.97 |
+: Clustering der Smartphones mit verschiedenen Gewichtungen der Attribute
 
 ## Kombiniertes Datenset
 
 ### Verwendung aller Attribute
 
+| Attribute | Stabilität | Qualität | Erkennung | | | |
+|-|-:|-:|-:|-:|-:|-:|
+| | | | *Familie* | *Generation* | *Modell* | *Duplikate* |
+| num+kat                   | 0.80 | 0.49 | 1.00 | 0.59 | 0.66 | 0.97 |
+| alle & mensch.Ausw. x2    | 0.95 | 0.33 | 1.00 | 0.79 | 0.71 | 0.97 |
+| num+kat & mensch.Ausw. x2 | 0.91 | 0.49 | 1.00 | 0.71 | 0.70 | 0.97 |
+| strings                   | 0.88 | 0.26 | 1.00 | 0.61 | 0.58 | 1.00 |
+: Clustering des gesamten Datensets
+
+![Stabilität des Clustering des gesamten Datensets](img/both-stability.png){width=70%}
+
+![Qualität des Clustering des gesamten Datensets](img/both-quality.png){width=70%}
+
 ### Verwendung gemeinsamer Attribute
+
+Übereinstimmung mit Generationen 0.04, Modelle 0.16
+
+![Stabilität und Qualität des Clustern mit den gemeinsamen Attributen](img/both-shared.png){width=70%}

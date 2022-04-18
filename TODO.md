@@ -81,7 +81,7 @@
 - [x] pickle zum caching verwenden
 - [ ] Clusterings in RapidMiner => AutoModel => Einfluss der Attribute auf Ergebnis cross-validieren
 - [-] MacQueen's Ansatz per Parameter einbauen
-- [ ] Reports erstellen HTML
+- [x] Reports erstellen HTML
 - [ ] Reports erstellen PDF
 - [ ] README für `cluster-analysis`
 
