@@ -1,1 +1,29 @@
 # Fazit und Ausblick
+
+- Kernfrage: Clustern komplexer Produktdaten
+- realitätsnahes Datenset aus Icecat in Akeneo-PIM zusammengestellt
+- Verfahren erarbeitet: Hierarchisch, gute Laufzeit, flexibel: Bisecting K-Prototypes
+- spezielle Verarbeitung von mutli-kategorischen us String-Attributen überlegt
+- Implementierung des Verfahrens und Evaluation anhand von Metriken
+- Stabilität, wie ähnlich sind mehrere Durchläufe mit random Init
+- Qualität, wie gut getrennt sind die entstandenen Cluster
+- Erkennung, Vergleich mit vordefinierter Struktur innerhalb der Daten (Generationen, Modelle und Duplikate)
+- Clustering mit verschiedener Auswahl an Attributen
+- Verfahren Bisecting K-Prototypes funktioniert:
+  - adäquate Ergebnisse in Metriken
+  - ermöglichte oder bestätigte Erkenntnisse zum Datenset
+    - Datenqualität zwischen Herstellern der Hüllen sehr unterschiedlich
+    - Smartphones hohe Menge an redundanten Attributen, die Clustering negativ beeinflussen, besser funktionieren wenn cleaner
+- Verfahren für multi-kategorische und Strings liefert für sich genommen grundsätzlich bessere Ergebnisse, Kombination mit numerisch und kategroisch ist aber nicht sinnvoll – liegt eventuell an der Qualität des Datensets => erneute Evaluation mit besserem Datenset dringend empfohlen
+- bzgl Attribute:
+  - numerisch und kategorisch gleichgewichtet liefert zuverlässige gute Ergebnisse
+  - Strings für sich alleine können ebenfalls ganz adäquate Ergebnisse produzieren, aber Überführung in numerisch und kategorisch wahrscheinlich wesentlich sinnvoller
+  - Übergewichtung von Attributen kann grundsätzlich die Erzeugung bestimmter gewollter Cluster fördern, aber auf kosten der Stabilität und Qualität des Clusterings als ganzes
+  - Weglassen von Attributen i.d.R. nicht sinnvoll, außer sie sind redundant
+- Zukunft:
+  - Versuche mit besserem Datenset wiederholen
+  - vor allem mit sinnvollen multi-kategorischen Attributen, laut dieser Untersuchung: eher alles ignorieren, was schwierig zu verarbeiten ist, lieber in sinnvolle numerische und kategorische überführen
+  - Anwendungen des Verfahrens erforschen:
+    - Duplikat-Erkennung sehr potent
+    - Teilung in Familien bzw. Teilung in Hersteller => Anomalie-Erkennung, Outlier
+    - Am Anfang diskutierte Ansätze

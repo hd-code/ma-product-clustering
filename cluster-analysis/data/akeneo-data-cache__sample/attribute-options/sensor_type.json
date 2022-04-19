@@ -1,1 +1,0 @@
-[{"code": "ccd", "attribute": "sensor_type", "sort_order": 1, "labels": {"de_DE": "CCD", "en_US": "CCD", "fr_FR": "CCD"}}, {"code": "cmos", "attribute": "sensor_type", "sort_order": 2, "labels": {"de_DE": "CMOS", "en_US": "CMOS", "fr_FR": "CMOS"}}]
