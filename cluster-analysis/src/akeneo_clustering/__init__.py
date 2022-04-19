@@ -19,5 +19,5 @@ from .util import (
     TYPES_NUMERICAL,
     TYPES_TEXT,
     TYPES_TEXTAREA,
-    map_to_attribute_kind
+    map_to_attribute_kind,
 )

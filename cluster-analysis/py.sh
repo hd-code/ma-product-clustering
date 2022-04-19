@@ -1,4 +1,5 @@
 cd $(dirname $0)
+SELF="$(basename $0)"
 
 export PIPENV_VERBOSITY=-1
 
@@ -8,11 +9,11 @@ shift
 case $CMD in
   check)
     echo "\n--- Format codebase:"
-    sh py.sh format
+    sh $SELF format
     echo "\n--- Typecheck codebase:"
-    sh py.sh lint
+    sh $SELF lint
     echo "\n--- Test codebase:"
-    sh py.sh test
+    sh $SELF test
     ;;
   coverage)
     pipenv run coverage run -m unittest discover -p '*_test.py'
