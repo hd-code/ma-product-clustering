@@ -49,10 +49,10 @@
     - [ ] Mama
 - [ ] Kapitel 5 – Auswertung
   - [x] genaue Kapitelstruktur
-  - [ ] ausformulieren
+  - [x] ausformulieren
     - [x] Datenset "Hüllen"
-    - [ ] Datenset "Phones"
-    - [ ] Datenset beide
+    - [x] Datenset "Phones"
+    - [x] Datenset beide
   - [ ] Gegenlesen lassen
     - [ ] Rossak
     - [ ] Mama
