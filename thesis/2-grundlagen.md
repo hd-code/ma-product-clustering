@@ -142,51 +142,26 @@ $|\{x \in X^i\}|$ ist dabei die Menge an auftretenden Labels. Dadurch liegen all
 
 #### Nominale Attribute
 
-TODO: Abschnitt überarbeiten!
-
-Die Verarbeitung von nominalen Attributen kann wieder über verschiedene Ansätze geschehen.
-
-Eine Möglichkeit ist, die auftretenden Labels in eine künstliche Reihenfolge zu bringen. Dadurch entsprechen sie ordinalen Attributen, welche wie beschrieben in numerische Werte umgewandelt werden können. Die Berechnung des Abstands kann dann mit entsprechenden Distanzmaßen für numerische Attribute erfolgen. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
-
-Eine andere Möglichkeit ist die Codierung als sog. binäre Attribute. Diese sind dadurch gekennzeichnet, dass sie nur zwei verschiedene Werte annehmen können (i.d.R. $0$/$1$) [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]. Hier gilt es zwei Fälle zu unterscheiden:
+Die Verarbeitung von nominalen Attributen geschieht über die vorherige Umwandlung in sog. binäre Attribute. Diese Attribute sind dadurch gekennzeichnet, dass sie nur zwei verschiedene Werte annehmen können (i.d.R. $0$/$1$ bzw. $false$/$true$) [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]. Hier gilt es zwei Fälle zu unterscheiden:
 
 Kommen in den Labels eines Attributs maximal zwei verschiedene Werte vor (z.B. Ja/Nein, schwarz/weiß etc.), so werden diese in ein einzelnes binäres Attribut umgewandelt. Solche Attribute werden auch als *symmetrische* binäre Attribute bezeichnet. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
 Bei mehr als zwei Wertausprägungen gibt es hingegen wiederum zwei Möglichkeiten:
 
-- Zum einen können die vorkommenden Labels auf genau zwei verschiedene Wertausprägungen komprimiert werden, sodass wieder ein einzelnes binäres Attribut entsteht. Dieser Vorgang geht aber mit einem Informationsverlust einher. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
-- Zum anderen kann für jedes vorkommende Label ein eigenes binäres Attribut angelegt werden. Das Attribut, welches das tatsächlich vorkommende Label eines Datenpunktes repräsentiert, wird entsprechend auf $1$ gesetzt und alle anderen auf $0$. Diese Umwandlung resultiert in sog. *asymmetrische* binäre Attribute. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+- Zum einen können die vorkommenden Labels auf genau zwei verschiedene Wertausprägungen komprimiert werden, sodass wieder ein einzelnes binäres Attribut verwendet werden kann. Dieser Vorgang geht aber mit einem Informationsverlust einher. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
+- Zum anderen kann für jedes vorkommende Label ein eigenes binäres Attribut angelegt werden. Das Attribut, welches das tatsächlich vorkommende Label eines Datenpunktes repräsentiert, wird entsprechend auf $true$ gesetzt und alle anderen auf $false$. Diese Umwandlung resultiert in sog. *asymmetrische* binäre Attribute. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
-Kennzeichnend für die symmetrischen binäre Attribute ist, dass beide Wertausprägung eine konkrete Eigenschaft des Objektes darstellen (z.B. $0=\text{schwarz}$ und $1=\text{weiß}$). Asymmetrische zeigen hingegen nur das Vorhanden- oder Nicht-Vorhandensein einer bestimmten Eigenschaft an und müssen stets im Kontext der gesamten Gruppe betrachtet werden. [@kaufman2009, Kap. 1.2.4 Binary Variables]
-
-Diese binären Attribute sind grundsätzlich wieder numerische Werte und könnten entsprechend verarbeitet werden. Allerdings gibt es jeweils spezielle Distanzmaße, die explizit für den Vergleich solcher binärer Attribute geeignet sind. In der Praxis empfiehlt es sich daher auf diese Maße zurückzugreifen, da sie die speziellen Eigenschaften kategorischer Attribute besser berücksichtigen. Außerdem existieren zu diesen speziellen Distanzmaßen verkürzte Varianten, welche eine vorherige binäre Codierung schlussendlich wieder unnötig machen. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
+Kennzeichnend für die symmetrischen binäre Attribute ist, dass beide Wertausprägung eine konkrete Eigenschaft des Objektes darstellen (z.B. $0=\text{schwarz}$ und $1=\text{weiß}$). Asymmetrische zeigen hingegen nur das Vorhanden- oder Nicht-Vorhandensein einer bestimmten Eigenschaft an und müssen stets im Kontext der gesamten Gruppe betrachtet werden. Für beide Arten gibt es jeweils eigene Distanzmaße. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
 ##### Simple Matching
 
-Beim sog. Simple Matching wird die Menge an Attributen, in denen zwei Datenpunkte den gleichen Wert aufweisen, durch die Gesamtzahl der Attribute geteilt. Wurden die Werte zuvor in binäre Attribute umgewandelt, so entspricht das Simple Matching dem Manhattan-Abstand geteilt durch die Anzahl an Attributen. Das kommt daher, dass die Differenz zwischen den Werten der Attribute ausschließlich $0$ oder $1$ betragen kann. [@kaufman2009, Kap. 1.2.4 Binary Variables]
-
-\begin{equation}
-  s(x_1,x_2) = \frac{1}{n} \sum_{i=1}^n |x_1^i - x_2^i|
-\end{equation}
-
-Das sog. Simple Matching ist für die Bewertung der Ähnlichkeit von Objekten mit ausschließlich symmetrischen binären Attributen geeignet.  [@kaufman2009, Kap. 1.2.4 Binary Variables]
-
-Formel überarbeiten => nochmal Quellen checken => Binary überhaupt nötig zu erwähnen?
-z.B. Huang => 
-\begin{align}
-  s(x_1,x_2) &= \sum_i s'(x_1^i,x_2^i)
-  s'(x_1^i,x_2^i) = \begin{case}
-    
-  \end{case}
-\end{align}
-
-=> 2 Formen: eine kompliziert mit Summen, eine einfach dargestellt
-
-
+Das sog. Simple Matching ist für die Bewertung der Ähnlichkeit von Objekten mit ausschließlich symmetrischen binären Attributen geeignet [@kaufman2009, Kap. 1.2.4 Binary Variables]. Es berechnet sich wie folgt:
 
 \begin{equation}
   s(x_1,x_2) = \frac{|x_1 \cap x_2| + |\bar{x_1} \cap \bar{x_2}|}{|x_1 \cup \bar{x_1} \cup x_2 \cup \bar{x_2}|}
 \end{equation}
+
+TODO: Formel anpassen. Verkürzte Form
 
 Verglichen werden also die Menge an Attributen mit der gleichen Wertausprägung in beiden Objekten (beide $true$: $|x_1 \cap x_2|$ und beide $false$: $|\bar{x_1} \cap \bar{x_2}|$) im Verhältnis zur Anzahl aller Attribute. Es handelt sich damit um ein Ähnlichkeitsmaß im Interval $[0;1]$, wobei die $1$ für perfekte Übereinstimmung steht. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
