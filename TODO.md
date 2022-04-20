@@ -2,25 +2,16 @@
 
 ## Thesis
 
-- [ ] Kapitel 1 – Einleitung
-  - [x] ausformulieren
-  - [ ] Gegenlesen lassen
-    - [ ] Robert
-    - [x] Rossak
-    - [x] Mama
-- [ ] Kapitel 2 – Clusteranalyse
-  - [x] ausformulieren
-    - [x] Begriff und Definition
-    - [x] Notation
-    - [x] Distanz- und Ähnlichkeitsmaße
-    - [x] Clustering-Verfahren
-      - [x] Quellen zu Agglomerative nachschauen
-      - [x] schreiben
-    - [x] Evaluation
-  - [ ] Gegenlesen lassen
-    - [ ] Rossak
-    - [ ] Mama => nur noch Distanz- und Ähnlichkeitsmaße & Clustering-Verfahren
-- [ ] Kapitel 3 – Konzeption
+- [x] Kapitel 1 – Einleitung
+- [x] Kapitel 2 – Clusteranalyse
+  - [x] Begriff und Definition
+  - [x] Notation
+  - [x] Distanz- und Ähnlichkeitsmaße
+  - [x] Clustering-Verfahren
+    - [x] Quellen zu Agglomerative nachschauen
+    - [x] schreiben
+  - [x] Evaluation
+- [x] Kapitel 3 – Konzeption
   - [x] Architektur-Überblick geben und einbauen
   - [x] mehr Informationen zu Icecat – warum verwenden wir es?
   - [x] ausformulieren
@@ -33,10 +24,7 @@
       - [x] Kriterien
       - [x] Aspekte
       - [x] Vorgehen
-  - [ ] Gegenlesen lassen
-    - [ ] Rossak
-    - [ ] Mama => Überblick nochmal
-- [ ] Kapitel 4 – Implementierung
+- [x] Kapitel 4 – Implementierung
   - [x] Stichpunkte sammeln
   - [x] Stichpunkte gegenprüfen
   - [x] ausformulieren
@@ -44,24 +32,15 @@
     - [x] Datenset
     - [x] Clustering
     - [x] Evaluation
-  - [ ] Gegenlesen lassen
-    - [ ] Rossak
-    - [ ] Mama
-- [ ] Kapitel 5 – Auswertung
+- [x] Kapitel 5 – Auswertung
   - [x] genaue Kapitelstruktur
   - [x] ausformulieren
     - [x] Datenset "Hüllen"
     - [x] Datenset "Phones"
     - [x] Datenset beide
-  - [ ] Gegenlesen lassen
-    - [ ] Rossak
-    - [ ] Mama
-- [ ] Kapitel 6 – Fazit & Ausblick
-  - [ ] Stichpunkte sammeln
-  - [ ] ausformulieren
-  - [ ] Gegenlesen lassen
-    - [ ] Rossak
-    - [ ] Mama
+- [x] Kapitel 6 – Fazit & Ausblick
+  - [x] Stichpunkte sammeln
+  - [x] ausformulieren
 - [ ] Anhang: Link zu Git und kurzer Überblick
 - [ ] Abstract
   - [ ] de
@@ -71,6 +50,24 @@
   - [x] Ränder bei Hausen-Vorlage abgleichen
   - [x] Autoren per Filter zählen und soa anpassen
   - [-] Listings-Verzeichnis
+- [ ] Gegenlesen
+  - [ ] Ich
+  - [ ] Mama
+    - [ ] Kap 2: nur noch Distanz- und Ähnlichkeitsmaße & Clustering-Verfahren
+    - [ ] Kap 3: Überblick nochmal
+    - [ ] Kap 4
+    - [ ] Kap 5
+    - [ ] Kap 6
+  - [ ] Rossak
+  - [ ] Robert Queck
+- [ ] Sonstige:
+  - [ ] alle Referenzen auf das Repo checken
+  - [ ] Überarbeitungen:
+    - [ ] Kap 1: Formulierungen
+    - [ ] Kap 2: Nominale und Strings
+    - [ ] Kap 3: Formulierungen + binäre Attribute Geschichte
+    - [ ] Kap 5: nochmal durchgehen, Kommentare beachten, Zusammenfassung?
+    - [ ] Kap 6: nochmal durchgehen
 
 ## Implementierung
 
@@ -84,7 +81,7 @@
 - [x] Reports erstellen HTML
 - [ ] Reports erstellen PDF
 - [ ] README für `cluster-analysis`
-- [ ] `data` aufräumen und alle Referenzen auf das Repo im Text checken
+- [x] `data` aufräumen
 
 ## Sonstiges
 

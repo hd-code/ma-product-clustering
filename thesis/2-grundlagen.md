@@ -4,14 +4,6 @@
 
 King definiert die *Clusteranalyse* als die "[...] Generierung eines Klassifizierungsschemas, welches Individuen in eine feste Anzahl an Gruppen einteilt, so dass sich die Individuen innerhalb einer Gruppe auf eine Art und Weise ähnlich sind und unähnlich denen in anderen Gruppen" [@king2015, Kap. 1.1 What Is a Cluster?]. Diese Gruppen werden auch als Cluster bezeichnet.
 
-Dieser Prozess des Clusterings ist eine Methode des *unüberwachten Lernens (unsupervised learning)* – einem Teilgebiet des maschinellen Lernens. Papp et al. schreiben dazu: "Machine Learning beschäftigt sich mit der Entwicklung von Methoden, die Modelle von Zusammenhängen aus Daten erlernen, anstatt sie *per Hand* zu implementieren" [@papp2019, Kap. 5 Statistik-Grundlagen]. Ferner geben sie an, dass die Unterschiede zur Statistik fließend sind [@papp2019, Kap. 5 Statistik-Grundlagen]. Unüberwachtes Lernen bedeutet dabei, dass die verwendeten Daten nicht im Vorhinein gekennzeichnet sind (Unlabeled Data). Stattdessen werden Ähnlichkeiten und Muster in den Daten selbst gesucht ohne eine vorgegebene Zielgröße. Häufig dienen diese Analysen als erste Schritte der *Data Exploration*, aus denen im Anschluss neue Erkenntnisse und Anwendungen abgeleitet werden. [@papp2019, Kap. 5.2.3 Unüberwachtes Lernen]
-
-Allgemein wird die Clusteranalyse als eine Form des Data Minings gesehen. Laut Bissantz und Hagedorn "beschreibt [Data Mining] die Extraktion implizit vorhandenen, nicht trivialen und nützlichen Wissens aus großen, dynamischen, relativ komplex strukturierten Datenbeständen" [@bissantz2009]. Mit "Wissen" meinen sie dabei in den Daten implizit enthaltene Muster, welche für den Anwender interessant sind und mit einer hinreichenden Wahrscheinlichkeit tatsächlich in den Daten existieren. [@bissantz2009]
-
-## Notation
-
-Bevor konkrete Algorithmen und Verfahren der Clusteranalyse vorgestellt werden, müssen einige grundlegende Sachverhalte und ihre mathematische Definition geklärt werden:
-
 Die Objekte, welche es zu clustern gilt, werden in dieser Arbeit auch als *Datenpunkte* oder *Produkte* (da dies die Anwendung im Praxisteil ist) bezeichnet. Mathematisch werden sie i.d.R. mittels $x$ definiert. Diese Produkte bestehen aus einer festen Menge an Attributen (z.B. Farbe, Gewicht etc.). Mathematisch ist so ein Datenpunkt als ein Vektor definiert und jedes Element im Vektor steht für die Ausprägung eines spezifischen Attributes. Mittels Superskript werden spezifische Attribute eines Datenpunktes angesprochen. $x^i$ bezeichnet also das $i$-te Attribut von $x$.
 
 \begin{equation}
@@ -34,6 +26,8 @@ Schlussendlich gibt es noch das *Clustering-Ergebnis* $Y$. Dies ist ein Vektor d
   Y = (l | l_i = \text{ label for } x_i \in X)
 \end{equation}
 
+Dieser Prozess des Clusterings ist eine Methode des *unüberwachten Lernens (unsupervised learning)* – einem Teilgebiet des maschinellen Lernens. Papp et al. schreiben dazu: "Machine Learning beschäftigt sich mit der Entwicklung von Methoden, die Modelle von Zusammenhängen aus Daten erlernen, anstatt sie *per Hand* zu implementieren" [@papp2019, Kap. 5 Statistik-Grundlagen]. Unüberwachtes Lernen bedeutet dabei, dass die verwendeten Daten nicht im Vorhinein gekennzeichnet sind (Unlabeled Data). Stattdessen werden Ähnlichkeiten und Muster in den Daten selbst gesucht ohne eine vorgegebene Zielgröße. Häufig dienen diese Analysen als erste Schritte der *Data Exploration*, aus denen im Anschluss neue Erkenntnisse und Anwendungen abgeleitet werden. [@papp2019, Kap. 5.2.3 Unüberwachtes Lernen]
+
 ## Distanz- und Ähnlichkeitsmaße
 
 ### Definition
@@ -41,6 +35,8 @@ Schlussendlich gibt es noch das *Clustering-Ergebnis* $Y$. Dies ist ein Vektor d
 Die Forderung, dass Objekte in gleichen Clustern sich "ähnlich" sein sollen und unähnlich zu den Objekten in anderen Clustern, muss in irgendeiner Form quantifiziert werden. Dies erfolgt über die Berechnung der "Nähe" (engl. proximity) der Objekte zueinander. Dazu werden sog. Abstands- bzw. Distanzmaße verwendet. [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
 
 Mathematisch wird dieses Distanzmaß mittels der Funktion $d(x_1,x_2)$ (engl. distance) definiert, welche die Distanz zwischen zwei Datenpunkten $x_1$ und $x_2$ als skalaren Wert zurückgibt. Zusätzlich geben Kaufmann und Rousseeuw folgende Eigenschaften für $d$ an [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]:
+
+TODO: Grafik einfügen, welche DIstanzen verdeutlicht
 
 ||||
 |-|--------|----------|
@@ -146,20 +142,47 @@ $|\{x \in X^i\}|$ ist dabei die Menge an auftretenden Labels. Dadurch liegen all
 
 #### Nominale Attribute
 
-Die Verarbeitung von nominalen Attributen geschieht über die vorherige Umwandlung in sog. binäre Attribute. Diese Attribute sind dadurch gekennzeichnet, dass sie nur zwei verschiedene Werte annehmen können (i.d.R. $0$/$1$ bzw. $false$/$true$) [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]. Hier gilt es zwei Fälle zu unterscheiden:
+TODO: Abschnitt überarbeiten!
+
+Die Verarbeitung von nominalen Attributen kann wieder über verschiedene Ansätze geschehen.
+
+Eine Möglichkeit ist, die auftretenden Labels in eine künstliche Reihenfolge zu bringen. Dadurch entsprechen sie ordinalen Attributen, welche wie beschrieben in numerische Werte umgewandelt werden können. Die Berechnung des Abstands kann dann mit entsprechenden Distanzmaßen für numerische Attribute erfolgen. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
+
+Eine andere Möglichkeit ist die Codierung als sog. binäre Attribute. Diese sind dadurch gekennzeichnet, dass sie nur zwei verschiedene Werte annehmen können (i.d.R. $0$/$1$) [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]. Hier gilt es zwei Fälle zu unterscheiden:
 
 Kommen in den Labels eines Attributs maximal zwei verschiedene Werte vor (z.B. Ja/Nein, schwarz/weiß etc.), so werden diese in ein einzelnes binäres Attribut umgewandelt. Solche Attribute werden auch als *symmetrische* binäre Attribute bezeichnet. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
 Bei mehr als zwei Wertausprägungen gibt es hingegen wiederum zwei Möglichkeiten:
 
-- Zum einen können die vorkommenden Labels auf genau zwei verschiedene Wertausprägungen komprimiert werden, sodass wieder ein einzelnes binäres Attribut verwendet werden kann. Dieser Vorgang geht aber mit einem Informationsverlust einher. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
-- Zum anderen kann für jedes vorkommende Label ein eigenes binäres Attribut angelegt werden. Das Attribut, welches das tatsächlich vorkommende Label eines Datenpunktes repräsentiert, wird entsprechend auf $true$ gesetzt und alle anderen auf $false$. Diese Umwandlung resultiert in sog. *asymmetrische* binäre Attribute. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+- Zum einen können die vorkommenden Labels auf genau zwei verschiedene Wertausprägungen komprimiert werden, sodass wieder ein einzelnes binäres Attribut entsteht. Dieser Vorgang geht aber mit einem Informationsverlust einher. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
+- Zum anderen kann für jedes vorkommende Label ein eigenes binäres Attribut angelegt werden. Das Attribut, welches das tatsächlich vorkommende Label eines Datenpunktes repräsentiert, wird entsprechend auf $1$ gesetzt und alle anderen auf $0$. Diese Umwandlung resultiert in sog. *asymmetrische* binäre Attribute. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
-Kennzeichnend für die symmetrischen binäre Attribute ist, dass beide Wertausprägung eine konkrete Eigenschaft des Objektes darstellen (z.B. $0=\text{schwarz}$ und $1=\text{weiß}$). Asymmetrische zeigen hingegen nur das Vorhanden- oder Nicht-Vorhandensein einer bestimmten Eigenschaft an und müssen stets im Kontext der gesamten Gruppe betrachtet werden. Für beide Arten gibt es jeweils eigene Distanzmaße. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+Kennzeichnend für die symmetrischen binäre Attribute ist, dass beide Wertausprägung eine konkrete Eigenschaft des Objektes darstellen (z.B. $0=\text{schwarz}$ und $1=\text{weiß}$). Asymmetrische zeigen hingegen nur das Vorhanden- oder Nicht-Vorhandensein einer bestimmten Eigenschaft an und müssen stets im Kontext der gesamten Gruppe betrachtet werden. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+
+Diese binären Attribute sind grundsätzlich wieder numerische Werte und könnten entsprechend verarbeitet werden. Allerdings gibt es jeweils spezielle Distanzmaße, die explizit für den Vergleich solcher binärer Attribute geeignet sind. In der Praxis empfiehlt es sich daher auf diese Maße zurückzugreifen, da sie die speziellen Eigenschaften kategorischer Attribute besser berücksichtigen. Außerdem existieren zu diesen speziellen Distanzmaßen verkürzte Varianten, welche eine vorherige binäre Codierung schlussendlich wieder unnötig machen. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
 
 ##### Simple Matching
 
-Das sog. Simple Matching ist für die Bewertung der Ähnlichkeit von Objekten mit ausschließlich symmetrischen binären Attributen geeignet [@kaufman2009, Kap. 1.2.4 Binary Variables]. Es berechnet sich wie folgt:
+Beim sog. Simple Matching wird die Menge an Attributen, in denen zwei Datenpunkte den gleichen Wert aufweisen, durch die Gesamtzahl der Attribute geteilt. Wurden die Werte zuvor in binäre Attribute umgewandelt, so entspricht das Simple Matching dem Manhattan-Abstand geteilt durch die Anzahl an Attributen. Das kommt daher, dass die Differenz zwischen den Werten der Attribute ausschließlich $0$ oder $1$ betragen kann. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+
+\begin{equation}
+  s(x_1,x_2) = \frac{1}{n} \sum_{i=1}^n |x_1^i - x_2^i|
+\end{equation}
+
+Das sog. Simple Matching ist für die Bewertung der Ähnlichkeit von Objekten mit ausschließlich symmetrischen binären Attributen geeignet.  [@kaufman2009, Kap. 1.2.4 Binary Variables]
+
+Formel überarbeiten => nochmal Quellen checken => Binary überhaupt nötig zu erwähnen?
+z.B. Huang => 
+\begin{align}
+  s(x_1,x_2) &= \sum_i s'(x_1^i,x_2^i)
+  s'(x_1^i,x_2^i) = \begin{case}
+    
+  \end{case}
+\end{align}
+
+=> 2 Formen: eine kompliziert mit Summen, eine einfach dargestellt
+
+
 
 \begin{equation}
   s(x_1,x_2) = \frac{|x_1 \cap x_2| + |\bar{x_1} \cap \bar{x_2}|}{|x_1 \cup \bar{x_1} \cup x_2 \cup \bar{x_2}|}
@@ -183,7 +206,17 @@ Im Gegensatz zum Simple Matching werden hier alle Attribute, in denen beide Obje
 
 ### String-Attribute
 
-Manche Autoren (z.B. [@rajalingam2011]) definieren eine weitere Gruppe sog. String-Attribute. Streng genommen sind dies ebenfalls nominale bzw. kategorische Attribute. Sie zeichnen sich aber durch eine hohe Variation an Werten aus, sodass häufig keine einzige Wertausprägung mehr als einmal vorkommt. Ein klassisches Beispiel wäre der Produkttitel. Es wird i.d.R. keine zwei Produkte mit dem gleichen Titel geben. Dies führt die Betrachtung dieser Attribute als "kategorisch" ad-absurdum, wenn jeder Datenpunkt seine eigene individuelle Kategorie definiert. Sollen diese Werte dennoch auf ihre Ähnlichkeit geprüft werden, so gibt es eine Reihe verschiedener Vorgehensweisen.
+TODO: das ist zu simpel, drei verschiedene Sorten Klopapier => alle drei heißen Toilettenpapier
+
+Manche Autoren (z.B. [@rajalingam2011]) definieren eine weitere Gruppe sog. String-Attribute. Streng genommen sind dies ebenfalls nominale bzw. kategorische Attribute. Sie zeichnen sich aber durch eine hohe Variation an Werten aus, sodass häufig keine einzige Wertausprägung mehr als einmal vorkommt.
+
+Ein klassisches Beispiel wäre der Produkttitel. Die meisten Produkte werden einen individuellen Titel aufweisen, damit sie direkt voneinander unterschieden werden können. Bspw. ist ein "Samsung Galaxy S20 128GB" sehr ähnlich zu einem "Samsung Galaxy S20 256GB". Da der Titel aber nicht exakt identisch ist, wird in der klassischen Verarbeitung als kategorische Attribute keine Ähnlichkeit zwischen diesen beiden Produkt festgestellt.
+
+
+sofort klar wird "Samsung Galaxy S20 128GB"      , zum Beispiel das "Samsung Galaxy S20 128GB" 
+
+
+Ein klassisches Beispiel wäre der Produkttitel. Es wird i.d.R. keine zwei Produkte mit dem gleichen Titel geben. Dies führt die Betrachtung dieser Attribute als "kategorisch" ad-absurdum, wenn jeder Datenpunkt seine eigene individuelle Kategorie definiert. Sollen diese Werte dennoch auf ihre Ähnlichkeit geprüft werden, so gibt es eine Reihe verschiedener Vorgehensweisen.
 
 #### String-Metrics
 
@@ -435,7 +468,6 @@ Um unabhängig von der Benennung der Labels zu werden, vergleicht man nicht wie 
 |-|:-:|:-:|
 | Paar im gleichen Cluster | $a$ | $b$ |
 | Paar in anderem Cluster | $c$ | $d$ |
-
 : Kontingenz der Datenpunkt-Paare in $Y$ und $Y'$ [@steinley2004]
 
 Die Tabelle zeigt die möglichen Fälle: Ein Paar aus Datenpunkten kann entweder dem gleichen Cluster oder zwei unterschiedlichen Clustern zugeordnet worden sein. Haben sowohl $Y$ als auch $Y'$ das Paar jeweils in das gleiche Cluster (mit dem gleichen Label wie auch immer dieses benannt ist) zugordnet, so wird dieses Paar zu $a$ gezählt. Haben beide jeweils ein unterschiedliches Cluster zugeordnet, so wird das Paar in $d$ gezählt usw. [@steinley2004]
@@ -510,3 +542,5 @@ Die Ähnlichkeit zwischen den Clustern $K$ ($K$ steht hier für die Menge an gef
 Je kleiner der Wert des Indexes, desto enger liegen die Datenpunkte um ihren Cluster-Mittelpunkt im Verhältnis zum benachbarten Cluster. Möglichst niedrige Werte nahe der $0$ sind also als optimal anzusehen. [@davies1979]
 
 Der große Vorteil von diesem Verfahren ist die geringere Laufzeit, da die Punkte der Cluster nur mit ihrem Mittelpunkt verrechnet werden. Nachteilig ist, dass die Be- und Verrechnung der Mittelpunkte primär nur für numerische Vektoren definiert ist. In den Versuchen von Rendón et al. [@rendon2011] schnitt dieser Index genauso gut ab wie der Silhouettenkoeffizient.
+
+TODO: Abschließender Absatz, Für die Masterarbeit erscheinen als besonders geeignet, ... weil ...

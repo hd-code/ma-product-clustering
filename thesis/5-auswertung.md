@@ -1,5 +1,9 @@
 # Auswertung
 
+TODO: Kommentare: Warum Stabilität hoch und Duplikate hoch, aber Qualität niedrig? Warum klappt Trennung der Cluster nicht so gut. => Strings => zu nah
+Abbildungen von Produkten und Clustern??? vielleicht zur Untermauerung der beschriebenen Aspekte
+Oder Referenz auf Datenset? => Export von Produktset in Final?
+
 ## Datenset "Smartphone-Hüllen"
 
 ### Überblick

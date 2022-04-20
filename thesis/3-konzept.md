@@ -90,7 +90,9 @@ Mit einer "Category" können Produkte in verschiedene Kategorien sortiert werden
 }
 ```
 
-*Hinweis:* Mit Ausnahme der "Products" haben die meisten Entitäten einen "code", welcher als eindeutiger Identifier fungiert.
+Viele der Entitäten in Akeneo-PIM weisen eine ähnliche Grundstruktur auf. So haben viele Objekte einen sog. "code", welcher als eindeutiger Identifier des Objektes fungiert. Beziehen sich die verschiedenen Entitäten aufeinander, so geschieht dies stets über den besagten "code". Die dargestellte "Category" definiert bspw. über den Key "parent", dass die Kategorie mit dem Code "master" eine Hierarchie-Stufe darüber steht.
+
+Ebenso haben viele Entitäten "labels", welche dem angezeigten Namen dieser Entität im Webfrontend entspricht. Der Name kann lokalisiert werden.
 
 ##### Family
 
@@ -148,11 +150,11 @@ Jedes Attribut ist einem `type` zugeordnet, welches den Datentyp anzeigt. Z.B. d
 | pim_catalog_price_collection | Preise je Währung |
 | pim_catalog_image | Bild |
 | pim_catalog_file | sonstige Datei (z.B. Datenblatt als PDF) |
-| pim_reference_data_simpleselect | einfache Auswahl einer "ReferenceEntity" |
-| pim_reference_data_multiselect | mehrfache Auswahl von "ReferenceEntities" |
+| pim_reference_data_simpleselect | einfache Auswahl einer "ReferenceEntity" [^refent] |
+| pim_reference_data_multiselect | mehrfache Auswahl von "ReferenceEntities" [^refent] |
 : Attribut-Typen in Akeneo-PIM [@akeneo2022constraints]
 
-*Hinweis:* "ReferenceEntities" sind in dieser Arbeit ebenfalls nicht verwendet worden und können daher ignoriert werden.
+[^refent]: "ReferenceEntities" sind in dieser Arbeit nicht verwendet worden und können daher ignoriert werden.
 
 ##### Channel, Currency, Locale
 
@@ -298,6 +300,8 @@ Zu beachten ist aber, dass kategorische Attribute auf ihre Ähnlichkeit und nume
 
 Der naheliegendste Ansatz besteht darin, die verschiedenen auftretenden Kombinationen an gewählten Optionen in eigene Kategorien zu fassen und sie wie normale kategorische Attribute zu behandeln. Dies geht allerdings mit einem Verlust an Informationen einher: Angenommen ein Produkt besteht aus den Materialien $\{\text{silicone}, \text{pet}\}$ und ein anderes aus $\{\text{silicone}, \text{glass}\}$. Beide würden nun unterschiedlichen Kategorien zugeordnet und ihre Ähnlichkeit ist $0$, obwohl sie zumindest eines der Materialien gemeinsam haben. Besser wäre, wenn dieses Attribut z.B. mittels Jaccard-Koeffizient analysiert werden würde. Hier würde eine Ähnlichkeit von $\frac{1}{3}$ herauskommen.
 
+TODO: Verfahren beschreiben!
+
 Dieser Ansatz ist neuartig und so noch nicht beschrieben worden. Daher wird er im Rahmen dieser Arbeit mit dem naheliegenderem Ansatz verglichen werden.
 
 ##### String-Attribute
@@ -309,6 +313,8 @@ Die einfache Verwendung als kategorische Attribute fällt, wie bereits in der Pr
 Eine weitere Möglichkeit wäre der Vergleich mittels String-Metrics (wie Jaro-Winkler oder Levensthein-Distance). Dieser Ansatz birgt ein Hauptproblem: Der K-Prototypes-Algorithmus berechnet für jedes Cluster einen Mittelpunkt. Die String-Metrics sind aber nur für einen paarweisen Vergleich von Strings geeignet. Ein "Mittelpunkt" kann hieraus nicht abgeleitet werden. Die Verwendung des Modus (wie bei kategorischen Attributen) scheidet ebenfalls aus. Wenn jeder Produkttitel individuell ist, dann ist der Modus immer $1$. Dieser Ansatz funktioniert für das gewählte Clustering-Verfahren also nicht ohne weiteres.
 
 Schließlich besteht der Ansatz, mit Tokenization zu arbeiten. In der Literatur wird dieser Ansatz aber lediglich für Datensets beschrieben, deren Datenpunkte aus ausschließlich einem String-Wert bestehen. Datensets mit mehreren String-Attributen oder in gemischter Form sind hingegen noch nicht zusammen verarbeitet worden.
+
+TODO: Formulierung zu plump
 
 Zur Lösung kam die Idee folgende auf: Zuvor wurde ein Ansatz zur Evaluation multi-kategorischer Attribute hergeleitet. Dieser Ansatz könnte für Strings ebenfalls verwendet werden. Zerlegt man einen solchen String in Tokens, so erhält man eine Art multi-kategorischen Wert. Bsp.: aus "Samsung Galaxy S20 128GB" wird $\{\text{samsung}, \text{galaxi}, \text{s20}, \text{128gb}\}$. Solche Tokens lassen sich wieder mittels Jaccard-Koeffizienten vergleichen.
 
@@ -325,7 +331,7 @@ Aus den genannten Ansätzen lässt sich insgesamt folgende Formell für die fina
 \begin{align}
   d_{num}(x_1, x_2) &= \sum_{i \in num} |x_1^{i} - x_2^{i}| \\
   d_{cat}(x_1, x_2) &= 1 - \frac{|x_1^{cat} \cap x_2^{cat}|}{|x_1^{cat} \cup x_2^{cat}|} \\
-  d_{mul}(x_1, x_2) &= \sum_{i \in mul} \frac{|x_1^i \cap x_2^i|}{|x_1^i \cup x_2^i|}
+  d_{mul}(x_1, x_2) &= \sum_{i \in mul} 1 - \frac{|x_1^i \cap x_2^i|}{|x_1^i \cup x_2^i|}
 \end{align}
 
 Die numerischen Attribute werden mittels Manhatten-Distanz verrechnet. Da die Attribute vorher normalisiert worden sind, kann so maximal eine Distanz von $1$ je numerischem Attribut entstehen. Die kategorischen Attribute werden mit dem beschriebenen inversen Jaccard-Koeffizienten berechnet (da asynchron). Der Koeffizient wird außerdem mit der Anzahl an kategorischen Attributen $n_{cat}$ multipliziert, um ihn mit den anderen Metriken gleich zu gewichten. Die multi-kategorischen Attribute werden jeweils einzeln mittels inversem Jaccard-Koeffizienten verglichen.
@@ -360,6 +366,8 @@ Der K-Prototypes-Algorithmus nutzt wie alle Verfahren dieser Klasse ein Initiali
 Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird stets mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches Verfahren verwendet wird, wird jede Hierarchie-Ebene der verschiedenen Durchläufe betrachtet und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchie-Stufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100$% sein.
 
 #### Qualität
+
+TODO: besser formulieren, keine Polemik :-D
 
 Ziel des Clusterings ist es, ordentlich voneinander getrennte Gruppen zu finden. Dies ist zum einen wichtig, um mit den Ergebnissen überhaupt weiterarbeiten und belastbare Aussagen zu den Gruppierungen finden zu können. Zum anderen sind wohl-separierte Cluster aber auch ein Garant für eine gewisse Resilienz vor neuen Datenpunkten, welche in Zukunft zum Datenset hinzugefügt werden. Schließlich ist es nicht sinnvoll, wenn sich jedes mal bei einem neu hinzugefügten Produkt die Cluster stark verschieben. Sind sie ordentlich voneinander getrennt, so ist dies unwahrscheinlicher.
 
