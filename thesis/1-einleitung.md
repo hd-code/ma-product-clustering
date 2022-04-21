@@ -6,7 +6,7 @@ Diese Masterarbeit ist in Kooperation mit der adesso SE entstanden. adesso ist e
 
 Über die Jahre sind nicht nur die Mitarbeiterzahlen gestiegen, sondern auch die Menge an abgedeckten Branchen, in denen das Unternehmen tätig ist. In den letzten Jahren sind zunehmend Projekte im E-Commerce-Sektor umgesetzt worden. Mit Beginn von 2022 kümmert sich eine eigene Abteilung des Unternehmens explizit um das Thema E-Commerce und Retail.
 
-In diesen Bereich fällt die Programmierung und Betreuung von Online-Shops sowie das umfangreiche Thema des Product-Information-Managements (PIM). Dabei geht es um das Verwalten und Aufbereiten von Produktdaten für verschiedene Anwendungen wie Warenhaltung, Marketing oder Bestellabwicklung. adesso erwägt in Zukunft ein eigenes Product-Information-Management-System (PIM-System) zu entwickeln. In Vorbereitung dessen steht die Evaluierung der Machbarkeit verschiedener Ansätze und Ideen rund um das Product-Information-Management an. Dies ist auch der Aufhänger für diese Masterarbeit.
+In diesen Bereich fällt die Programmierung und Betreuung von Online-Shops sowie das umfangreiche Thema des Product-Information-Managements (PIM). Dabei geht es um das Verwalten und Aufbereiten von Produktdaten sowie die anschließende Verteilung dieser für verschiedene Anwendungen wie Warenhaltung, Marketing oder Bestellabwicklung. PIM-Systeme sitzen also zumeist im Zentrum der Unternehmens-Architektur, weshalb erhöhte Anforderungen an solche Systeme bestehen. adesso erwägt daher in Zukunft ein eigenes Product-Information-Management-System (PIM-System) zu entwickeln. In Vorbereitung dessen steht die Evaluierung der Machbarkeit verschiedener Ansätze und Ideen rund um das Product-Information-Management an. Dies gibt auch die thematische Eingrenzung für diese Masterarbeit.
 
 ## Themenfindung
 
@@ -28,7 +28,7 @@ Davon abgesehen gibt es für diesen Bereich kaum Arbeiten, in denen Suchfunktion
 
 ## Kernfrage und Ablauf
 
-Parallel zu der beschriebenen Recherche ist ebenfalls ein Blick in typische PIM-System wie z.B. Akeneo-PIM geworfen worden. Ziel war es zu verstehen, wie die Produktdaten in solchen System typischerweise vorliegen. Dies ist nötig, um einzuschätzen, ob und wie das Clustering der Produktdaten in solchen Systemen möglich ist.
+Parallel zu der beschriebenen Recherche ist die Dokumentation eines typischen PIM-Systems (Akeneo-PIM) analysiert worden. Ziel war es zu verstehen, wie die Produktdaten in solchen System typischerweise vorliegen. Dies ist nötig, um einzuschätzen, ob und wie das Clustering der Produktdaten in solchen Systemen möglich ist.
 
 Zum einen weisen die Produktdaten einen hohen Grad an Struktur auf. Die Attribute sind fest definiert. Umfangreiche Constraints sorgen für die Einhaltung des definierten Schemas. Zum anderen kommen sehr verschiedenartige Datentypen vor wie z.B. Textfelder, Einfach- und Mehrfachauswahl, numerische Daten mit verschiedenen Einheiten. Zudem sind viele Attribute lokalisierbar und weisen je nach Sprache andere Werte auf. Die klassische Clusteranalyse arbeitet allerdings nur mit numerischen Daten  [@king2015, Kap. 1.2 Capturing the Clusters]. Somit war abzusehen, dass das Clustern selbst kein einfacher Prozess sein wird.
 

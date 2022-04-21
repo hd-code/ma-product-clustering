@@ -4,7 +4,7 @@
 
 King definiert die *Clusteranalyse* als die "[...] Generierung eines Klassifizierungsschemas, welches Individuen in eine feste Anzahl an Gruppen einteilt, so dass sich die Individuen innerhalb einer Gruppe auf eine Art und Weise ähnlich sind und unähnlich denen in anderen Gruppen" [@king2015, Kap. 1.1 What Is a Cluster?]. Diese Gruppen werden auch als Cluster bezeichnet.
 
-Die Objekte, welche es zu clustern gilt, werden in dieser Arbeit auch als *Datenpunkte* oder *Produkte* (da dies die Anwendung im Praxisteil ist) bezeichnet. Mathematisch werden sie i.d.R. mittels $x$ definiert. Diese Produkte bestehen aus einer festen Menge an Attributen (z.B. Farbe, Gewicht etc.). Mathematisch ist so ein Datenpunkt als ein Vektor definiert und jedes Element im Vektor steht für die Ausprägung eines spezifischen Attributes. Mittels Superskript werden spezifische Attribute eines Datenpunktes angesprochen. $x^i$ bezeichnet also das $i$-te Attribut von $x$.
+Die Objekte, welche es zu clustern gilt, werden in dieser Arbeit auch als *Datenpunkte* oder *Produkte* (da dies die Anwendung im Praxisteil ist) bezeichnet. Mathematisch werden sie i.d.R. mittels $x$ definiert. Diese Produkte bestehen aus einer festen Menge an Attributen (z.B. Farbe, Gewicht etc.). Mathematisch ist so ein Datenpunkt als ein Vektor definiert und jedes Element im Vektor steht für die Wertausprägung eines spezifischen Attributes. Mittels Superskript werden spezifische Attribute eines Datenpunktes angesprochen. $x^i$ bezeichnet also das $i$-te Attribut von $x$.
 
 \begin{equation}
   x=(a | a \text{ is attribute})
@@ -36,10 +36,8 @@ Die Forderung, dass Objekte in gleichen Clustern sich "ähnlich" sein sollen und
 
 Mathematisch wird dieses Distanzmaß mittels der Funktion $d(x_1,x_2)$ (engl. distance) definiert, welche die Distanz zwischen zwei Datenpunkten $x_1$ und $x_2$ als skalaren Wert zurückgibt. Zusätzlich geben Kaufmann und Rousseeuw folgende Eigenschaften für $d$ an [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]:
 
-TODO: Grafik einfügen, welche DIstanzen verdeutlicht
-
 ||||
-|-|--------|----------|
+|-|------|--------|
 | 1. | $d(x_1,x_2) \geq 0$ | Distanzen sind stets positiv |
 | 2. | $d(x_1,x_1) = 0$ | zwei gleiche Objekte haben immer einen Abstand von $0$ |
 | 3. | $d(x_1,x_2) = d(x_2,x_1)$ | die Distanzfunktion ist kommutativ bzw. symmetrisch |
@@ -155,15 +153,19 @@ Kennzeichnend für die symmetrischen binäre Attribute ist, dass beide Wertauspr
 
 ##### Simple Matching
 
-Das sog. Simple Matching ist für die Bewertung der Ähnlichkeit von Objekten mit ausschließlich symmetrischen binären Attributen geeignet [@kaufman2009, Kap. 1.2.4 Binary Variables]. Es berechnet sich wie folgt:
+Das sog. Simple Matching ist für die Bewertung der Ähnlichkeit von Objekten mit ausschließlich symmetrischen binären Attributen geeignet. [@kaufman2009, Kap. 1.2.4 Binary Variables]. Es berechnet sich wie folgt:
 
-\begin{equation}
-  s(x_1,x_2) = \frac{|x_1 \cap x_2| + |\bar{x_1} \cap \bar{x_2}|}{|x_1 \cup \bar{x_1} \cup x_2 \cup \bar{x_2}|}
-\end{equation}
+\begin{align}
+  s(x_1, x_2) &= \frac{\sum_i^n s'(x_1^i, x_2^i)}{n} \\
+  s'(x_1^i, x_2^i) &= \begin{cases}
+    1 &, x_1^i = x_2^i \\
+    0 &, x_1^i \neq x_2^i \\
+  \end{cases}
+\end{align}
 
-TODO: Formel anpassen. Verkürzte Form
+Es wird also die Anzahl an Attributen, in denen beide Datenpunkte den gleichen Wert aufweisen, durch die Gesamtzahl der Attribute von $x_1$ und $x_2$ ($n$) geteilt. Es handelt sich damit um ein Ähnlichkeitsmaß im Interval $[0;1]$, wobei die $1$ für perfekte Übereinstimmung steht. [kombiniert aus @huang1998; und @kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
 
-Verglichen werden also die Menge an Attributen mit der gleichen Wertausprägung in beiden Objekten (beide $true$: $|x_1 \cap x_2|$ und beide $false$: $|\bar{x_1} \cap \bar{x_2}|$) im Verhältnis zur Anzahl aller Attribute. Es handelt sich damit um ein Ähnlichkeitsmaß im Interval $[0;1]$, wobei die $1$ für perfekte Übereinstimmung steht. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+Wenn in der Implementierung die Labels der Datenpunkte direkt auf Gleichheit bzw. Ungleichheit überprüft werden können (also $x_1^i = x_2^i$ und $x_1^i \neq x_2^i$), so kann die vorherige Umwandlung in binäre Attribute auch entfallen. [@kaufman2009, Kap. 1.2.5 Nominal, Ordinal, and Ratio Variables]
 
 Es gibt von diesem Verfahren eine Reihe von Abwandlungen, welche die Ausprägungen bestimmter Wertekombinationen gesondert gewichten. Alle diese Varianten basieren im Kern auf dem Simple Matching und liefern stets ähnliche Ergebnisse. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
@@ -177,21 +179,13 @@ Für die Bewertung der Ähnlichkeit von Objekten mit asymmetrischen binären Att
 
 Im Gegensatz zum Simple Matching werden hier alle Attribute, in denen beide Objekte den Wert $false$ aufweisen, ignoriert. Die Übereinstimmung wird nur mit den Attributen berechnet, wo wenigstens eines von beiden Objekten den Wert $true$ aufweist. [@kaufman2009, Kap. 1.2.4 Binary Variables]
 
-*Hintergrund:* Angenommen ein kategorisches Attribut weist im Datenset bis zu drei verschiedene Labels auf ("red", "green" und "blue"). $x_1$ hat das Label "red" und $x_2$ hat "blue". Nach der Umwandlung in binäre Werte wäre $x_1=(1,0,0)$ und $x_2=(0,0,1)$. Das Simple Matching würde nun eine Ähnlichkeit von $\frac{1}{3}$ berechnen, da beiden Objekten gemeinsam ist, dass sie *nicht "green"* sind. Bei asymmetrischen binären Attributen sind aber zwangsläufig mit steigender Anzahl an vorkommenden Labels die meisten Werte $0$ bzw. $false$. Dies treibt das Ergebnis vom Simple Matching künstlich in die Höhe, macht aber inhaltlich in diesem Kontext keinen Sinn. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+Angenommen für ein kategorisches Attribut treten im Datenset bis zu drei verschiedene Labels auf (z.B. "red", "green" und "blue"). $x_1$ hat das Label "red" und $x_2$ hat "blue". Nach der Umwandlung in binäre Werte wäre $x_1=(1,0,0)$ und $x_2=(0,0,1)$. Das Simple Matching würde nun eine Ähnlichkeit von $\frac{1}{3}$ berechnen, da beiden Objekten gemeinsam ist, dass sie *"nicht green"* sind. Bei asymmetrischen binären Attributen sind aber zwangsläufig mit steigender Anzahl an vorkommenden Labels die meisten Werte $0$ bzw. $false$. Dies treibt das Ergebnis vom Simple Matching künstlich in die Höhe, macht aber inhaltlich in diesem Kontext keinen Sinn. [@kaufman2009, Kap. 1.2.4 Binary Variables]
+
+Auch hier ist die dargestellte Formel ohne eine vorherige Umwandlung in binäre Attribute nutzbar, sofern die Gleichheit und Ungleichheit zwischen den Labels direkt bestimmt werden kann. Bspw. beträgt für $x_1=(red, xl, up)$ und $x_2=(blue, xl, up)$ der Jaccard-Koeffizient $\frac{|\{xl, up\}|}{|\{red, blue, xl, up\}|} = \frac{1}{2}$. [@king2015, Kap. 9.2 ROCK]
 
 ### String-Attribute
 
-TODO: das ist zu simpel, drei verschiedene Sorten Klopapier => alle drei heißen Toilettenpapier
-
-Manche Autoren (z.B. [@rajalingam2011]) definieren eine weitere Gruppe sog. String-Attribute. Streng genommen sind dies ebenfalls nominale bzw. kategorische Attribute. Sie zeichnen sich aber durch eine hohe Variation an Werten aus, sodass häufig keine einzige Wertausprägung mehr als einmal vorkommt.
-
-Ein klassisches Beispiel wäre der Produkttitel. Die meisten Produkte werden einen individuellen Titel aufweisen, damit sie direkt voneinander unterschieden werden können. Bspw. ist ein "Samsung Galaxy S20 128GB" sehr ähnlich zu einem "Samsung Galaxy S20 256GB". Da der Titel aber nicht exakt identisch ist, wird in der klassischen Verarbeitung als kategorische Attribute keine Ähnlichkeit zwischen diesen beiden Produkt festgestellt.
-
-
-sofort klar wird "Samsung Galaxy S20 128GB"      , zum Beispiel das "Samsung Galaxy S20 128GB" 
-
-
-Ein klassisches Beispiel wäre der Produkttitel. Es wird i.d.R. keine zwei Produkte mit dem gleichen Titel geben. Dies führt die Betrachtung dieser Attribute als "kategorisch" ad-absurdum, wenn jeder Datenpunkt seine eigene individuelle Kategorie definiert. Sollen diese Werte dennoch auf ihre Ähnlichkeit geprüft werden, so gibt es eine Reihe verschiedener Vorgehensweisen.
+Manche Autoren (z.B. [@rajalingam2011]) definieren eine weitere Gruppe sog. String-Attribute. Streng genommen sind dies ebenfalls nominale bzw. kategorische Attribute. Sie zeichnen sich aber durch eine hohe Variation an Werten aus, sodass häufig keine einzige Wertausprägung mehr als einmal vorkommt. Gleichzeitig sind String-Werte häufig zwar nicht exakt identisch, aber dennoch gibt es große Ähnlichkeit zwischen ihnen. Ein klassisches Beispiel wäre der Produkttitel. Die Strings "Samsung Galaxy S20 128GB" und "Samsung Galaxy S20 256GB" sind "kategorisch-betrachtet" zwei komplett verschiedene Kategorien. Dennoch herrscht augenscheinlich eine hohe Ähnlichkeit zwischen diesen beiden Werten vor. Zur Quantifizierung dieser Übereinstimmung gibt es eine Reihe von verschiedenen Ansätzen.
 
 #### String-Metrics
 
@@ -518,4 +512,6 @@ Je kleiner der Wert des Indexes, desto enger liegen die Datenpunkte um ihren Clu
 
 Der große Vorteil von diesem Verfahren ist die geringere Laufzeit, da die Punkte der Cluster nur mit ihrem Mittelpunkt verrechnet werden. Nachteilig ist, dass die Be- und Verrechnung der Mittelpunkte primär nur für numerische Vektoren definiert ist. In den Versuchen von Rendón et al. [@rendon2011] schnitt dieser Index genauso gut ab wie der Silhouettenkoeffizient.
 
-TODO: Abschließender Absatz, Für die Masterarbeit erscheinen als besonders geeignet, ... weil ...
+---
+
+In diesem Kapitel wurde ein breiter Überblick zu den verschiedenen Abstanzmaßen, Clustering-Verfahren und Metriken zur Bewertung der gefundenen Cluster gegeben. Daraus wird im folgenden Kapitel ein geeignetes Clustering-Verfahren zur Beantwortung der Kernfrage hergeleitet sowie passende Metriken für eine praktische Überprüfung des Verfahrens ausgewählt.

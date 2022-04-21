@@ -60,14 +60,16 @@
     - [ ] Kap 6
   - [ ] Rossak
   - [ ] Robert Queck
-- [ ] Sonstige:
+- [ ] Sonstiges:
   - [ ] alle Referenzen auf das Repo checken
   - [ ] Überarbeitungen:
-    - [ ] Kap 1: Formulierungen
-    - [ ] Kap 2: Nominale und Strings
-    - [ ] Kap 3: Formulierungen + binäre Attribute Geschichte
+    - [x] Kap 1: Formulierungen
+    - [x] Kap 2: Nominale und Strings
+    - [x] Kap 3: Formulierungen + binäre Attribute Geschichte
     - [ ] Kap 5: nochmal durchgehen, Kommentare beachten, Zusammenfassung?
     - [ ] Kap 6: nochmal durchgehen
+  - [ ] Grafiken erstellen
+    - [ ] Kap 2: Grafik mit Punkten, Clustern und Abständen
 
 ## Implementierung
 

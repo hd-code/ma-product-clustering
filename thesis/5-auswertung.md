@@ -404,11 +404,11 @@ Für beide Teilsets ist die Kombination numerischer und kategorischer Attribute 
 | Attribute | Stabilität | Qualität | Erkennung | | | |
 |-|-:|-:|-:|-:|-:|-:|
 | | | | *Familie* | *Generation* | *Modell* | *Duplikate* |
-| num+kat                   | 0.80 | 0.49 | 1.00 | 0.59 | 0.66 | 0.97 |
-| mensch.Ausw.              | 0.92 | 0.34 | 1.00 | 0.41 | 0.63 | 0.97 |
-| num+kat & mensch.Ausw. x2 | 0.91 | 0.49 | 1.00 | 0.71 | 0.70 | 0.97 |
-| alle & mensch.Ausw. x2    | 0.95 | 0.33 | 1.00 | 0.79 | 0.71 | 0.97 |
-| strings                   | 0.88 | 0.26 | 1.00 | 0.61 | 0.58 | 1.00 |
+| num+kat             | 0.80 | 0.49 | 1.00 | 0.59 | 0.66 | 0.97 |
+| mensch.Ausw.        | 0.92 | 0.34 | 1.00 | 0.41 | 0.63 | 0.97 |
+| num+kat & m.Aus. x2 | 0.91 | 0.49 | 1.00 | 0.71 | 0.70 | 0.97 |
+| alle & m.Aus. x2    | 0.95 | 0.33 | 1.00 | 0.79 | 0.71 | 0.97 |
+| strings             | 0.88 | 0.26 | 1.00 | 0.61 | 0.58 | 1.00 |
 : Clustering des gesamten Datensets
 
 Die ermittelten Metriken sind alle bereits bekannt. Für die Erkennung ist aber eine neue Spalte "Familie" hinzugekommen. Hier wird überprüft, ob im ersten Split des Datensets alle Hüllen in eine Gruppe und alle Smartphones in die andere Gruppe sortiert werden. Diese Einteilung ist wie gewohnt mit Adjusted-Rand-Index berechnet worden. Die Erkennung der Generationen und Modelle erfolgt entsprechend auf den darauf folgenden Hierarchie-Ebenen. Für die Hüllen ist dabei die vorherige Unterteilung nach Herstellern ebenfalls beachtet worden.
@@ -435,16 +435,16 @@ In Abbildung \ref{fig:allqual} ist der Silhouetten-Koeffizient für die verschie
 
 In einem letzten Versuch wurde geprüft, ob das Clustering die zueinander passenden Hüllen und Smartphones in gemeinsame Gruppen sortieren kann. Dafür ist das Clustering ausschließlich mit den Attributen erfolgt, welche in beiden Produktfamilien verwendet werden. Die folgende Tabelle zeigt diese gemeinsamen Attribute.
 
-| Name | Typ | erforderlich für Hüllen | erforderlich für Smartphones | non-`null` | unique |
+| Name | Typ | Hüllen | Smartphones | non-`null` | unique |
 |-|-|-|-|-:|-:|
-| Height            | numerisch   | nein | nein | 64  |  22 |
-| Width             | numerisch   | nein | nein | 64  |  17 |
-| Depth             | numerisch   | nein | nein | 64  |  18 |
-| Weight            | numerisch   | nein | ja   | 64  |  22 |
-| Brand             | kategorisch | ja   | ja   | 122 |   4 |
-| Short Description | string      | ja   | ja   | 113 |  75 |
-| Short Summary     | string      | ja   | ja   | 122 | 118 |
-| Title             | string      | ja   | ja   | 122 | 118 |
+| Height            | numerisch   | opt. | opt. | 64  |  22 |
+| Width             | numerisch   | opt. | opt. | 64  |  17 |
+| Depth             | numerisch   | opt. | opt. | 64  |  18 |
+| Weight            | numerisch   | opt. | erf. | 64  |  22 |
+| Brand             | kategorisch | erf. | erf. | 122 |   4 |
+| Short Description | string      | erf. | erf. | 113 |  75 |
+| Short Summary     | string      | erf. | erf. | 122 | 118 |
+| Title             | string      | erf. | erf. | 122 | 118 |
 : Gemeinsame Attribute von Hüllen und Smartphones
 
 Nach dem Clustering wurde wieder die Zuteilung für $k=3$ mit den Smartphone-Generationen mittels Adjusted-Rand-Index auf ihre Ähnlichkeit überprüft. Diese lag hier bei mageren **0.04**. Für $k=11$ und die Übereinstimmung mit den Smartphone-Modellen lag der Werte nur bei **0.16**.

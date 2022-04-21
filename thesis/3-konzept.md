@@ -137,7 +137,7 @@ Jedes Attribut kann einer "AttributeGroup" zugeordnet werden. Dies erlaubt das b
 Jedes Attribut ist einem `type` zugeordnet, welches den Datentyp anzeigt. Z.B. der Typ `pim_catalog_boolean` zeigt einen booleschen Wert an, `pim_catalog_text` eine Textzeile usw. Zusätzlich können in einem Attribut auch weitere Constraints für die jeweiligen Typen definiert werden. Bspw. kann mit dem Constraint `decimals_allowed` festgelegt werden, ob ein numerisches Attribut Nachkommastellen erlaubt oder nicht [@akeneo2022catalog]. Auf diese Constraints wird allerdings nicht weiter eingegangen, da sie für diese Arbeit keine Rolle spielen. Die folgende Tabelle zeigt ein Auflistung aller möglicher Typen.
 
 | Akeneo-Typ | Erklärung |
-|-|-|
+|--|---|
 | pim_catalog_identifier | eindeutige Id |
 | pim_catalog_text | Textzeile |
 | pim_catalog_textarea | mehrzeiliger Textblock |
@@ -151,7 +151,7 @@ Jedes Attribut ist einem `type` zugeordnet, welches den Datentyp anzeigt. Z.B. d
 | pim_catalog_image | Bild |
 | pim_catalog_file | sonstige Datei (z.B. Datenblatt als PDF) |
 | pim_reference_data_simpleselect | einfache Auswahl einer "ReferenceEntity" [^refent] |
-| pim_reference_data_multiselect | mehrfache Auswahl von "ReferenceEntities" [^refent] |
+| pim_reference_data_multiselect | mehrfache Auswahl von "ReferenceEntities" |
 : Attribut-Typen in Akeneo-PIM [@akeneo2022constraints]
 
 [^refent]: "ReferenceEntities" sind in dieser Arbeit nicht verwendet worden und können daher ignoriert werden.
@@ -275,7 +275,6 @@ Viele der numerischen Attribute enthalten ihre Daten auf eine implizite Art und 
 | pim_catalog_number | Normalisierung |
 | pim_catalog_metric | Umrechnung in Standard-Unit des Attributs, Normalisierung |
 | pim_catalog_price_collection | Filter nach einer Währung z.B. USD, Normalisierung |
-
 : Vorverarbeitung der numerischen Attribute in Akeneo
 
 Die Verarbeitungsschritte sind recht selbsterklärend. Alle Attribute werden auf das Interval zwischen $[0,1]$ normalisiert, um eine stärkere Gewichtung von Attributen mit tendenziell höheren Zahlen (z.B. Unix-Timestamps) zu vermeiden. Für die Normalisierung werden nur die tatsächlich vorkommenden Werte genutzt. Werte, welche in den Constraints der Akeneo-Attribute definiert sind (z.B. `date_min` und `date_max`), werden nicht betrachtet.
@@ -288,9 +287,7 @@ Die Verarbeitungsschritte sind recht selbsterklärend. Alle Attribute werden auf
 
 Es könnte bei ordinalen Attributen sinnvoll sein, diese u.U. als numerische Attribute anzusehen. Allerdings geben die Daten in Akeneo keinen direkten Rückschluss her, ob es sich z.B. bei einem Single-Select eigentlich um ein ordinales Attribut handelt. Somit müssten hier alle Attribute (knapp hundert) händisch analysiert werden, was den Rahmen dieser Arbeit weit gesprengt hätte.
 
-Der K-Prototypes verlangt keine spezielle Vorverarbeitung kategorischer Attribute abseits von der Umwandlung der Labels in symmetrische bzw. asymmetrische binäre Werte. Der Akeneo-Typ "Bool" ist theoretisch symmetrisch. Praktisch kann aber in Akeneo jedes Attribut auch `null` sein. Somit können tatsächlich drei Wertausprägungen ($true$, $false$ oder `null`) vorkommen. Daher werden diese Attribute genauso wie alle anderen (z.B. Single-Selects) in asymmetrische binäre Attribute umgewandelt.
-
-Zu beachten ist aber, dass kategorische Attribute auf ihre Ähnlichkeit und numerische auf ihre Distanz überprüft werden. Da die numerischen im Interval $[0;1]$ liegen, können die Ergebnisse der Ähnlichkeitsmaße (z.B. Jaccard-Koeffizient) einfach invertiert werden.
+Der K-Prototypes verlangt keine spezielle Vorverarbeitung kategorischer Attribute. Es können aber jederzeit `null`-Werte in den Daten vorkommen, weswegen der Jaccard-Koeffizient als Ähnlichkeitsmaß zu bevorzugen ist. Außerdem ist zu beachten, dass kategorische Attribute auf ihre Ähnlichkeit und numerische auf ihre Distanz überprüft werden. Da die numerischen im Interval $[0;1]$ liegen, können die Ergebnisse der Ähnlichkeitsmaße einfach invertiert werden.
 
 \begin{equation}
   d(x_1^{cat}, x_2^{cat}) = 1 - \frac{|x_1^{cat} \cap x_2^{cat}|}{|x_1^{cat} \cup x_2^{cat}|}
@@ -298,11 +295,11 @@ Zu beachten ist aber, dass kategorische Attribute auf ihre Ähnlichkeit und nume
 
 ##### multi-kategorische Attribute
 
-Der naheliegendste Ansatz besteht darin, die verschiedenen auftretenden Kombinationen an gewählten Optionen in eigene Kategorien zu fassen und sie wie normale kategorische Attribute zu behandeln. Dies geht allerdings mit einem Verlust an Informationen einher: Angenommen ein Produkt besteht aus den Materialien $\{\text{silicone}, \text{pet}\}$ und ein anderes aus $\{\text{silicone}, \text{glass}\}$. Beide würden nun unterschiedlichen Kategorien zugeordnet und ihre Ähnlichkeit ist $0$, obwohl sie zumindest eines der Materialien gemeinsam haben. Besser wäre, wenn dieses Attribut z.B. mittels Jaccard-Koeffizient analysiert werden würde. Hier würde eine Ähnlichkeit von $\frac{1}{3}$ herauskommen.
+Der naheliegendste Ansatz besteht darin, die verschiedenen auftretenden Kombinationen an gewählten Optionen in eigene Kategorien zu fassen und sie wie normale kategorische Attribute zu behandeln. Dies geht allerdings mit einem Verlust an Informationen einher: Angenommen ein Produkt besteht aus den Materialien $\{\text{silicone}, \text{pet}\}$ und ein anderes aus $\{\text{silicone}, \text{glass}\}$. Beide würden nun unterschiedlichen Kategorien zugeordnet und ihre Ähnlichkeit ist $0$, obwohl sie zumindest eines der Materialien gemeinsam haben. Besser wäre, wenn dieses einzelne Attribut als ganzes z.B. mittels Jaccard-Koeffizient analysiert werden würde. Hier würde eine Ähnlichkeit von $\frac{1}{3}$ herauskommen.
 
-TODO: Verfahren beschreiben!
+Im Unterschied zu normalen kategorischen Attributen, wo die Ähnlichkeit über alle Attribute zusammen errechnet wird, könnte für multi-kategorische Attribute also die Ähnlichkeit zwischen den Werten für jedes Attribut einzeln ermittelt und aufsummiert werden. Daraus ergibt sich dann die gesamte Ähnlichkeit der beiden Datenpunkte.
 
-Dieser Ansatz ist neuartig und so noch nicht beschrieben worden. Daher wird er im Rahmen dieser Arbeit mit dem naheliegenderem Ansatz verglichen werden.
+Dieser Ansatz ist neuartig und so noch nicht beschrieben worden. Daher wird er im Rahmen dieser Arbeit mit dem naheliegenderem erstgenannten Ansatz verglichen werden.
 
 ##### String-Attribute
 
@@ -314,11 +311,9 @@ Eine weitere Möglichkeit wäre der Vergleich mittels String-Metrics (wie Jaro-W
 
 Schließlich besteht der Ansatz, mit Tokenization zu arbeiten. In der Literatur wird dieser Ansatz aber lediglich für Datensets beschrieben, deren Datenpunkte aus ausschließlich einem String-Wert bestehen. Datensets mit mehreren String-Attributen oder in gemischter Form sind hingegen noch nicht zusammen verarbeitet worden.
 
-TODO: Formulierung zu plump
+Zuvor wurde ein Ansatz zur Evaluation multi-kategorischer Attribute hergeleitet. Dieser Ansatz könnte für Strings ebenfalls verwendet werden. Zerlegt man einen solchen String in Tokens, so erhält man eine Art multi-kategorischen Wert. Bsp.: aus "Samsung Galaxy S20 128GB" wird $\{\text{samsung}, \text{galaxi}, \text{s20}, \text{128gb}\}$. Solche Tokens lassen sich wieder mittels Jaccard-Koeffizienten für jedes String-Attribut separat vergleichen und die Ergebnisse aufsummieren.
 
-Zur Lösung kam die Idee folgende auf: Zuvor wurde ein Ansatz zur Evaluation multi-kategorischer Attribute hergeleitet. Dieser Ansatz könnte für Strings ebenfalls verwendet werden. Zerlegt man einen solchen String in Tokens, so erhält man eine Art multi-kategorischen Wert. Bsp.: aus "Samsung Galaxy S20 128GB" wird $\{\text{samsung}, \text{galaxi}, \text{s20}, \text{128gb}\}$. Solche Tokens lassen sich wieder mittels Jaccard-Koeffizienten vergleichen.
-
-Auch dieser Ansatz wird mit der Verwendung der Strings als einfaches kategorisches Attribute verglichen werden.
+Auch dieser Ansatz wird mit der Verwendung der Strings als einfache kategorische Attribute verglichen werden.
 
 #### Mathematische Formulierung
 
@@ -361,15 +356,13 @@ Das hergeleitete Clustering-Verfahren in seinen Varianten sollte auf seine Valid
 
 #### Stabilität
 
-Der K-Prototypes-Algorithmus nutzt wie alle Verfahren dieser Klasse ein Initialisierungsverfahren, welches auf dem Zufall beruht. Da es sich um ein klassisches Minimierungsverfahren mit eventuellen lokalen Minima handelt, können mehrmalige Durchläufe über das gleiche Datenset verschiedene Clusterzuteilungen finden. Ein Verfahren, welches keinerlei Determinismus aufweist und je nach Uhrzeit komplett andere Ergebnisse liefert, ist allerdings in der Praxis nicht zu gebrauchen. Zudem sollte eine wohldefinierte Distanzfunktion in der Lage sein, die Datenpunkte eindeutig genug voneinander zu trennen, sodass trotz verschiedener Startpunkte die Zuteilung in Cluster stets ähnlich abläuft.
+Der K-Prototypes-Algorithmus nutzt wie alle Verfahren dieser Klasse ein Initialisierungsverfahren, welches auf dem Zufall beruht. Da es sich um ein klassisches Minimierungsverfahren mit eventuellen lokalen Minima handelt, können mehrmalige Durchläufe über das gleiche Datenset verschiedene Clusterzuteilungen finden. Ein Verfahren, welches keinerlei Determinismus aufweist und je nach Uhrzeit komplett andere Ergebnisse liefert, ist allerdings in der Praxis wenig zu gebrauchen. Zudem sollte eine wohldefinierte Distanzfunktion in der Lage sein, die Datenpunkte eindeutig genug voneinander zu trennen, sodass trotz verschiedener Startpunkte die Zuteilung in Cluster stets ähnlich abläuft.
 
 Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird stets mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches Verfahren verwendet wird, wird jede Hierarchie-Ebene der verschiedenen Durchläufe betrachtet und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchie-Stufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100$% sein.
 
 #### Qualität
 
-TODO: besser formulieren, keine Polemik :-D
-
-Ziel des Clusterings ist es, ordentlich voneinander getrennte Gruppen zu finden. Dies ist zum einen wichtig, um mit den Ergebnissen überhaupt weiterarbeiten und belastbare Aussagen zu den Gruppierungen finden zu können. Zum anderen sind wohl-separierte Cluster aber auch ein Garant für eine gewisse Resilienz vor neuen Datenpunkten, welche in Zukunft zum Datenset hinzugefügt werden. Schließlich ist es nicht sinnvoll, wenn sich jedes mal bei einem neu hinzugefügten Produkt die Cluster stark verschieben. Sind sie ordentlich voneinander getrennt, so ist dies unwahrscheinlicher.
+Ziel des Clusterings ist es, die Datenpunkte in wohl-separierte Gruppen zu sortieren. Dies ist zum einen wichtig, um mit den Ergebnissen überhaupt weiterarbeiten und belastbare Aussagen zu den Gruppierungen finden zu können. Zum anderen sind Cluster von hoher Qualität aber auch ein Garant für eine gewisse Resilienz vor neuen Datenpunkten, welche in Zukunft zum Datenset hinzugefügt werden. Mit jedem neuen Datenpunkt verschieben sich die bisherigen Clusterschwerpunkte geringfügig. Liegen die Cluster nun sehr nahe beieinander, ändert sich dadurch u.U. auch die Clusterzuordnung der älteren Punkte.
 
 Daher wird ein gefundenes Clustering-Ergebnis mittels eines internen Index auf seine Qualität überprüft. Zum Einsatz können entweder der Silhouetten-Koeffizient oder Davies-Bouldin-Index kommen. Um bei der Evaluation keine zusätzlichen Fehlerquellen zu erzeugen, wird für die Berechnung der Metriken auf externe Bibliotheken zurückgegriffen werden. Es wird dabei der Index zum Einsatz kommen, der besser nutzbar ist.
 
