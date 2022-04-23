@@ -41,10 +41,10 @@
 - [x] Kapitel 6 – Fazit & Ausblick
   - [x] Stichpunkte sammeln
   - [x] ausformulieren
-- [ ] Anhang: Link zu Git und kurzer Überblick
-- [ ] Abstract
-  - [ ] de
-  - [ ] en
+- [x] Anhang: Link zu Git und kurzer Überblick
+- [x] Abstract
+  - [x] de
+  - [x] en
 - [x] Formatierung
   - [x] Citation mit Natbib => keine Überschneidungen im Quellenverzeichnis und keine extra citeproc-Fixes
   - [x] Ränder bei Hausen-Vorlage abgleichen
@@ -66,7 +66,8 @@
     - [x] Kap 1: Formulierungen
     - [x] Kap 2: Nominale und Strings
     - [x] Kap 3: Formulierungen + binäre Attribute Geschichte
-    - [ ] Kap 5: nochmal durchgehen, Kommentare beachten, Zusammenfassung?
+    - [x] Kap 5: nochmal durchgehen, Kommentare beachten, Zusammenfassung?
+    - [ ] Kap 5: Einfügungen
     - [ ] Kap 6: nochmal durchgehen
   - [ ] Grafiken erstellen
     - [ ] Kap 2: Grafik mit Punkten, Clustern und Abständen
@@ -82,7 +83,7 @@
 - [-] MacQueen's Ansatz per Parameter einbauen
 - [x] Reports erstellen HTML
 - [ ] Reports erstellen PDF
-- [ ] README für `cluster-analysis`
+- [x] README für `cluster-analysis`
 - [x] `data` aufräumen
 
 ## Sonstiges

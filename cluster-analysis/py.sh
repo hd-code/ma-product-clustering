@@ -40,13 +40,13 @@ case $CMD in
     pipenv run python -m unittest discover -p '*_test.py' "$@"
     ;;
   *)
-    echo "Usage: $0 CMD"
+    echo "Usage: sh $0 CMD"
     echo "  check       – does 'format', 'lint' and 'test'"
     echo "  coverage    – checks the code coverage of all unit tests"
     echo "  format      – format all source code files"
     echo "  init        – setup environment with all dependencies"
     echo "  install PKG – install PKG into environment (add '--dev' for dev dependencies)"
     echo "  lint        – static check the source code, especially the types"
-    echo "  run PY_FILE – runs a python file"
+    echo "  run PY_FILE – runs a python file. Relative paths start at '$(dirname $0)'"
     echo "  test        – run all unit tests"
 esac
