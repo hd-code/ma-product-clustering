@@ -14,7 +14,7 @@ Die initiale Idee bestand darin zu überprüfen, ob es mögliche Anwendungen des
 
 In einem ersten Brainstorming sind verschiedene Anwendungen der Clusteranalyse diskutiert worden. Es folgte eine intensive Literaturrecherche zu den besprochenen Anwendungen, die im Folgenden kurz diskutiert werden.
 
-Die erste Idee war das automatische Kategorisieren von Produkten. Zu dieser Anwendung gibt es kaum Literatur – lediglich einige hoch-experimentelle Ansätze. Z.B. nutzten Chen et al. [@chen2019] ein neuronales Netz zum Vorschlagen von Produktkategorien zu Produkten bestehend aus Titel und Beschreibung.
+Die erste Idee war das automatische Kategorisieren von Produkten. Zu dieser Anwendung gibt es kaum Literatur – lediglich einige hoch experimentelle Ansätze. Z.B. nutzten Chen et al. [@chen2019] ein neuronales Netz zum Vorschlagen von Produktkategorien zu Produkten bestehend aus Titel und Beschreibung.
 
 Eine weitere Idee war die Nutzung der Clusteranalyse zur Entwicklung eines Produktempfehlungsalgorithmus. Zu diesem Thema gibt es ganze Reihe an Arbeiten:
 
@@ -34,7 +34,7 @@ Zum einen weisen die Produktdaten einen hohen Grad an Struktur auf. Die Attribut
 
 Dadurch verschob sich der Fokus der Arbeit. Bevor mögliche Anwendungen der Clusteranalyse evaluiert werden, stellt sich zuerst die Frage, ob so vielfältige Produktdaten überhaupt geclustert werden können. Die Kernfrage der Arbeit lautet also:
 
-*Ist das effektive Clustern hoch-komplexer Produktdaten möglich – und wenn ja, wie?*
+*Ist das effektive Clustern hochkomplexer Produktdaten möglich – und wenn ja, wie?*
 
 Diese Fragestellung war der Ausgangspunkt weiterer Recherchen, Experimente und Versuche. Sie werden in den folgenden Kapiteln erläutert.
 

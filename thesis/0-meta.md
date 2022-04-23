@@ -1,7 +1,7 @@
 ---
 subject: Masterarbeit               # Projektbeleg, Bachelorarbeit oder Masterarbeit
 registernumber: Nr. AI-2021-MA-014  # Registernummer aus der Anmeldung
-title: Generisches Clustern hoch-komplexer Produktdaten
+title: Generisches Clustern hochkomplexer Produktdaten
 # subtitle: Untertitel des Arbeit     # optional
 author:
     - Hannes Dröse
