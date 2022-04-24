@@ -16,13 +16,13 @@ Das hergeleitete Clustering-Verfahren wurde zuerst auf die Smartphone-Hüllen de
 | string      | erf. | $4$ | $79.2$ | $69.2$ |
 : Übersicht zu den Attributen der Smartphone-Hüllen
 
-Die Smartphone-Hüllen zeichnen sich vor allem durch eine überschaubare Anzahl an 22 verschiedenen Attributen aus. In der Tabelle sind die Attribute nach ihrem Typen und der Erforderlichkeit (erforderlich oder optional) gruppiert dargestellt. Für jede Gruppe ist in der dritten Spalte die Anzahl an Attributen der entsprechenden Gruppe aufgeführt. Attribute, in denen keine einzige Wertausprägung in den Produkten vorkommt, sind bereits entfernt. Ebenso sind nur Attribute betrachtet worden, die mit dem hergeleiteten Verfahren verarbeitet werden können.
+Die Smartphone-Hüllen zeichnen sich vor allem durch eine überschaubare Anzahl von 22 verschiedenen Attributen aus. In der Tabelle sind die Attribute nach ihrem Typen und der Erforderlichkeit (erforderlich oder optional) gruppiert dargestellt. Für jede Gruppe ist in der dritten Spalte die Anzahl an Attributen der entsprechenden Gruppe aufgeführt. Attribute, in denen keine einzige Wertausprägung in den Produkten vorkommt, sind bereits entfernt. Ebenso sind nur Attribute betrachtet worden, die mit dem hergeleiteten Verfahren verarbeitet werden können.
 
 Die multi-kategorischen und String-Attribute sind allesamt erforderlich in dieser Produktgruppe. Für numerische und kategorische Werte existieren sowohl erforderliche als auch optionale Attribute.
 
 Die Spalte "Ø non-`null`" gibt an, wie viele der 80 Produkte im Schnitt in der jeweiligen Attributart einen Wert ausweisen (also nicht `null` sind). Erforderliche Attribute liegen hier stets bei etwas unter 80 mit Ausnahme des einen multi-kategorischen Attributs. Das heißt, dass die erforderlichen Attribute tatsächlich meistens mit Werten gefüllt sind – wenn auch nicht immer.
 
-Die Spalte "Ø unique" gibt an, wie viele unterschiedliche Wertausprägungen im Schnitt in der jeweiligen Attributart vorkommen. `null`-Werte zählen in diese Spalt nicht mit hinein. Besonders die String-Attribute weisen in praktisch jedem Produkt einen anderen Wert auf, was aber auch in der Natur dieser Attributart liegt. Die multi-kategorischen und numerischen Attribute weisen im Schnitt knapp 10 unterschiedliche Wertausprägungen auf. Das liegt daran, dass das Datenset Hüllen für 11 verschiedene Smartphone-Modelle enthält. Die kategorischen weisen die geringste Vielfalt an unterschiedlichen Werten auf. Das erklärt sich daraus, dass viele dieser Attribute boolesche Werte in Akeneo sind.
+Die Spalte "Ø unique" gibt an, wie viele unterschiedliche Wertausprägungen im Schnitt in der jeweiligen Attributart vorkommen. `null`-Werte zählen in diese Spalte nicht mit hinein. Besonders die String-Attribute weisen in praktisch jedem Produkt einen anderen Wert auf, was aber auch in der Natur dieser Attributart liegt. Die multi-kategorischen und numerischen Attribute weisen im Schnitt knapp 10 unterschiedliche Wertausprägungen auf. Das liegt daran, dass das Datenset Hüllen für 11 verschiedene Smartphone-Modelle enthält. Die kategorischen weisen die geringste Vielfalt an unterschiedlichen Werten auf. Das erklärt sich daraus, dass viele dieser Attribute boolesche Werte in Akeneo sind.
 
 ### Verarbeitung multi-kategorischer Attribute
 
@@ -46,17 +46,17 @@ Als nächstes sind die gleichen Versuche mit den String-Attributen durchgeführt
 | Strings als single-kat. | $0.64$ | $0.15$ | $0.03$ |$-0.01$ |
 : Clustering der Hüllen mit String-Attributen
 
-Die Tabelle zeigt die Ergebnisse dieser Versuche. Für die Strings macht die Verarbeitung als "multi-kategorische" Attribute einen enormen Unterschied. Alle Metriken verbessern sich drastisch durch die hergeleitete Art der Verarbeitung. Das Aufteilen der Strings in Tokens und der anschließende Vergleich der Ähnlichkeit der auftretenden Tokens steigert vor allem die Erkennung der Smartphone-Generation. Bei den vier Attributen handelt sich um "Name", "Titel", "Short Description", "Short Summary". "Name" enthält eher willkürlich vergebene Zahlen- und Buchstabenkombinationen, die keinem erkennbaren Muster folgen. In den drei anderen Attributen steckt aber stets die jeweilige Smartphone-Generation, für welche die Hülle ausgelegt ist (also die Token "s20", "s21" und "s22"), was die hohe Erkennung erklärt.
+Die Tabelle zeigt die Ergebnisse dieser Versuche. Für die Strings macht die Verarbeitung als multi-kategorische Attribute einen enormen Unterschied. Alle Metriken verbessern sich drastisch durch die hergeleitete Art der Verarbeitung. Das Aufteilen der Strings in Tokens und der anschließende Vergleich der Ähnlichkeit der auftretenden Tokens steigert vor allem die Erkennung der Smartphone-Generation. Bei den vier Attributen handelt sich um "Name", "Titel", "Short Description", "Short Summary". "Name" enthält eher willkürlich vergebene Zahlen- und Buchstabenkombinationen, die keinem erkennbaren Muster folgen. In den drei anderen Attributen steckt aber stets die jeweilige Smartphone-Generation, für welche die Hülle ausgelegt ist (also die Token "s20", "s21" und "s22"), was die hohe Erkennung erklärt.
 
-Vor allem der zweite Versuch mit den String-Attributen legt nahe, dass das hergeleitete Verfahren für die Verarbeitung multi-kategorischer Attribute, sinnvolle Ergebnisse für die Clusteranalyse bringen und einen alternativen Ansatz für die Verarbeitung von String-Werten darstellen kann.
+Vor allem der zweite Versuch mit den String-Attributen legt nahe, dass das hergeleitete Verfahren für die Verarbeitung multi-kategorischer Attribute sinnvolle Ergebnisse für die Clusteranalyse bringen und einen alternativen Ansatz für die Verarbeitung von String-Werten darstellen kann.
 
 ### Attributauswahl
 
-Als nächstes geht es darum, dass hergeleitete Clustering-Verfahren als ganzes zu bewerten. Dabei geht es auch um die Auswahl an Attributen. Eventuell funktioniert das Verfahren besser, wenn nur Attribute eines bestimmten Types verwendet werden etc. In allen Versuchen mit den multi-kategorischen und String-Attributen ist von hier an die hergeleitete Verarbeitung verwendet worden.
+Als nächstes geht es darum, das hergeleitete Clustering-Verfahren als ganzes zu bewerten. Dabei geht es auch um die Auswahl an Attributen. Eventuell funktioniert das Verfahren besser, wenn nur Attribute eines bestimmten Types verwendet werden etc. In allen Versuchen mit den multi-kategorischen und String-Attributen ist von hier an die hergeleitete Verarbeitung verwendet worden.
 
 #### Vergleich nach Datentypen
 
-Zuerst ist geprüft worden, ob bestimmte Typen von Attributen und Typen-Kombinationen besser für das Clustern des Datensets geeignet sind als andere. Insgesamt gibt es vier verschiedene Typen (numerisch, kategorisch, multi-kategorisch und Strings). Das Clustering wurde nun in allen möglichen Kombinationen an Attributtypen durchgeführt. Also zuerst wurden nur die numerischen Attribute für das Clustering verwendet, dann nur die kategorischen usw. Im letzten Durchlauf wurden schließlich alle Attributtypen benutzt.
+Zuerst ist geprüft worden, ob bestimmte Typen von Attributen und Typen-Kombinationen besser für das Clustern des Datensets geeignet sind als andere. Insgesamt gibt es vier verschiedene Typen (numerisch, kategorisch, multi-kategorisch und Strings). Das Clustering wurde nun in allen möglichen Kombinationen an Attributtypen durchgeführt. Zuerst wurden nur die numerischen Attribute für das Clustering verwendet, dann nur die kategorischen usw. Im letzten Durchlauf wurden schließlich alle Attributtypen benutzt.
 
 Zuerst werden die Ergebnisse des Clusterings mit jeweils einem Attributtyp betrachtet. Die folgende Tabelle zeigt diese Ergebnisse:
 
@@ -101,7 +101,7 @@ Daher wird die Erkennungsfähigkeit erst einmal nicht weiter betrachtet und stä
 
 ![Stabilität der Clusterings nach Typen über alle Hierarchieebenen \label{fig:casesstab}](img/cases-types-stability.png){width=70%}
 
-Abbildung \ref{fig:casesstab} zeigt die Stabilität der verschiedenen Typkombinationen über die verschiedenen Hierarchieebenen ($k$) des Clusterings. Die Kombination aus numerischen und kategorischen Attributen erreicht auf den ersten Ebenen bis $k=38$ die höchste Stabilität, verschlechtert sich in den nachfolgenden Stufen aber drastisch. Die Kombinationen, welche auch String-Attribute enthalten, verhalten sich eher gegenteilig. Die Stabilität ist auf den niedrigeren Ebenen schlechter und gegen Ende des Top-down-Clusterings deutlich stabiler. Dieses Phänomen lässt sich mit der Menge an unterschiedlichen Wertausprägungen der Attributtypen erklären. Faktisch jeder String ist anders, dadurch sind die Clusterzuordnungen gegen Ende besonders deterministisch, da sich die Strings immer noch in Nuancen voneinander unterscheiden (dank der Verarbeitung als multi-kategorische Attribute). Die Produkte sind sich aber in den numerischen und kategorischen Attributen ab einer bestimmten Feinheit des Clusterings faktisch deckungsgleich (aufgrund der geringen Vielfalt an unterschiedlichen Wertausprägungen).
+Abbildung \ref{fig:casesstab} zeigt die Stabilität der verschiedenen Typkombinationen über die verschiedenen Hierarchieebenen ($k$) des Clusterings. Die Kombination aus numerischen und kategorischen Attributen erreicht auf den ersten Ebenen bis $k=38$ die höchste Stabilität, verschlechtert sich in den nachfolgenden Stufen aber drastisch. Die Kombinationen, welche auch String-Attribute enthalten, verhalten sich eher gegenteilig. Die Stabilität ist auf den niedrigeren Ebenen schlechter und gegen Ende des Top-down-Clusterings deutlich stabiler. Dieses Phänomen lässt sich mit der Menge an unterschiedlichen Wertausprägungen der Attributtypen erklären. Faktisch jeder String ist anders, dadurch sind die Cluster-Zuordnungen gegen Ende besonders deterministisch, da sich die Strings immer noch in Nuancen voneinander unterscheiden (dank der Verarbeitung als multi-kategorische Attribute). Die Produkte sind sich aber in den numerischen und kategorischen Attributen ab einer bestimmten Feinheit des Clusterings faktisch deckungsgleich (aufgrund der geringen Vielfalt an unterschiedlichen Wertausprägungen).
 
 In der Praxis sind die oberen Ebenen der Hierarchie interessanter als die vielen kleinen Cluster gegen Ende. Daher ist die Kombination aus numerischen und kategorischen Attributen in dieser Betrachtung als die überlegene anzusehen.
 
@@ -128,11 +128,11 @@ Es fällt auf, dass die Hälfte der Tokens bei allen Produkten gleich sind. Erst
 
 #### Zusätzliche Erkenntnisse aus den Versuchen
 
-Am Ende des vorherigen Abschnittes ist die Qualität des Clusterings mithilfe des Silhouettenkoeffizienten analysiert worden. Dieser Koeffizient kann genutzt werden, um die "optimale" Anzahl an Clustern zu finden. Dazu wird analysiert, für welche Anzahl an Clustern, der Koeffizient seine maximalen Werte annimmt. An diesem Punkt in der Hierarchie ist folglich die Trennung der Cluster am schärfsten.
+Am Ende des vorherigen Abschnittes ist die Qualität des Clusterings mithilfe des Silhouettenkoeffizienten analysiert worden. Dieser Koeffizient kann genutzt werden, um die optimale Anzahl an Clustern zu finden. Dazu wird analysiert, für welche Anzahl an Clustern der Koeffizient seine maximalen Werte annimmt. An diesem Punkt in der Hierarchie ist folglich die Trennung der Cluster am schärfsten.
 
-In Abbildung \ref{fig:casesqual} ist zu erkennen, dass die Kombination aus numerischen und kategorischen Attributen ihre höchsten Werte in der Qualität zwischen $k=20$ und $k=40$ erreicht. Dadurch kam eine Vermutung auf: Vielleicht liegen die Ergebnisse für die Erkennung der Smartphone-Generation und Modelle deshalb so niedrig, weil sich die Hüllen verschiedener Hersteller (für das gleiche Gerät) zu stark unterscheiden. U.U. ist es sinnvoller die Hüllen zuerst nach Hersteller zu gruppieren und anschließend das Clustering auf die Generationen und Modelle zu prüfen.
+In Abbildung \ref{fig:casesqual} ist zu erkennen, dass die Kombination aus numerischen und kategorischen Attributen ihre höchsten Werte in der Qualität zwischen $k=20$ und $k=40$ erreicht. Dadurch kam eine Vermutung auf: Vielleicht liegen die Ergebnisse für die Erkennung der Smartphone-Generation und Modelle deshalb so niedrig, weil sich die Hüllen verschiedener Hersteller (für das gleiche Gerät) zu stark unterscheiden. U.U. ist es sinnvoller die Hüllen zuerst nach Hersteller zu gruppieren und anschließend nach Generationen und Modellen.
 
-Die Clusterings wurden deshalb erneut auf die Erkennungsfähigkeit überprüft. Dazu wurden die Produkte auf verschiedene Arten gruppiert. Zuerst erfolgte die Gruppierung nach Hersteller ($k=4$), danach nach Hersteller und Smartphone-Generation ($k=8$) zusammen und schließlich nach Hersteller und Smartphone-Modell ($k=25$) zusammen. Die Übereinstimmung der Clusterings mit diesen Gruppierung wurde anschließend mit dem Adjusted-Rand-Index quantifiziert. Die folgenden Tabelle zeigt die Ergebnisse für ausgewählte Typen-Kombinationen:
+Die Clusterings wurden deshalb erneut auf die Erkennungsfähigkeit überprüft. Dazu wurden die Produkte auf verschiedene Arten gruppiert. Zuerst erfolgte die Gruppierung nach Hersteller ($k=4$), danach nach Hersteller und Smartphone-Generation ($k=8$) und schließlich nach Hersteller und Smartphone-Modell ($k=25$). Die Übereinstimmung der Clusterings mit diesen Gruppierungen wurde anschließend mit dem Adjusted-Rand-Index quantifiziert. Die folgende Tabelle zeigt die Ergebnisse für ausgewählte Typen-Kombinationen:
 
 | Typen | Hersteller | Generation | Modell |
 |-|-:|-:|-:|
@@ -150,7 +150,7 @@ Die Clusterings wurden deshalb erneut auf die Erkennungsfähigkeit überprüft. 
 
 Die Übereinstimmung mit dieser Art der Gruppierung liegt deutlich höher als mit der ursprünglich angenommenen (wo die Hersteller der Hüllen nicht berücksichtigt worden sind). Die Kombination aus numerischen und kategorischen Attributen erreicht für alle Ebenen die höchste Erkennungsfähigkeit.
 
-Damit wird der entstandene Eindruck, dass die numerischen und kategorischen Attributen in Kombination am besten für das Clustering der Hüllen geeignet sind, weiter untermauert. Durch das Clustering mit diesen Attributen ist erkannt worden, dass die Produkte der verschiedenen Hersteller zueinander unterschiedlicher sind als, für welches Smartphone die jeweilige Hülle geeignet ist. Wird diese erste Ebene (Hersteller) berücksichtigt, tritt anschließend die angenommene Struktur wieder zutage. Produkte des selben Herstellers werden tatsächlich nach ihrer passenden Smartphone-Generation und Modell geclustert. Die Übereinstimmung liegt mit $0.65$ bzw. $0.61$ zwar nicht überragend hoch, aber es wurde bereits geklärt, dass viele Attribute in den Hüllen generell weniger Rückschluss über die passenden Smartphones liefern.
+Damit wird der entstandene Eindruck weiter untermauert, dass die numerischen und kategorischen Attribute in Kombination am besten für das Clustering der Hüllen geeignet sind. Die Hüllen der verschiedenen Hersteller unterscheiden sich sehr stark voneinander. Dadurch tritt die angenommene Struktur (Smartphone-Generationen und Modelle) erst zutage, nachdem die Produkte zuerst nach Hersteller gruppiert wurden. Die Übereinstimmung liegt mit $0.65$ bzw. $0.61$ zwar nicht überragend hoch, aber es wurde bereits geklärt, dass viele Attribute in den Hüllen generell weniger Rückschluss über die passenden Smartphones liefern.
 
 #### Vergleich nach Erforderlichkeit
 
@@ -176,7 +176,7 @@ Zuletzt sei auch die modifizierte Erkennungsfähigkeit nach Hersteller betrachte
 | nur opt. | 0.72 | 0.61 | 0.27 |
 : Erkennung der gewünschten Cluster auf Basis der Hersteller nach Erforderlichkeit
 
-Auch in diesem Vergleich ergibt sich kein Vorteil, durch die Beschränkung auf ausschließlich erforderliche oder optionale Attribute.
+Auch in diesem Vergleich ergibt sich kein Vorteil durch die Beschränkung auf ausschließlich erforderliche oder optionale Attribute.
 
 #### Vergleich nach menschlicher Auswahl {#cases-select}
 
@@ -210,7 +210,7 @@ Da in der Praxis vor allem die Ergebnisse für die niedrigen Werte von $k$ entsc
 | Auswahl | 0.17 | 0.12 | 0.27 |
 : Erkennung der gewünschten Cluster auf Basis der Hersteller für die menschliche Auswahl von Attributen
 
-Die Tabelle zeigt eindeutig, dass die erwartete Erkennung der zu den Hüllen passenden Smartphones durch die menschliche Auswahl an Attributen nicht verbessert wird. Alle Werte sind deutlich schlechter, als wenn pauschal alle numerischen und kategorischen Attribute verwendet werden. Es sind anschließend noch weitere Versuche durchgeführt worden, wo bspw. nur die ausgewählten numerischen Attribute für das Clustering verwendet worden etc. Aber keine Form der händischen Auswahl an Attributen hat bessere Ergebnisse geliefert als der Pauschalansatz.
+Die Tabelle zeigt eindeutig, dass die erwartete Erkennung der zu den Hüllen passenden Smartphones durch die menschliche Auswahl an Attributen nicht verbessert wird. Es sind anschließend noch weitere Versuche durchgeführt worden, wo bspw. nur die ausgewählten numerischen Attribute für das Clustering verwendet wurden etc. Aber keine Form der händischen Auswahl an Attributen hat bessere Ergebnisse geliefert als der Pauschalansatz.
 
 ### Attributgewichtung
 
@@ -271,11 +271,11 @@ Auch für dieses Datenset sind zuerst nur die multi-kategorischen Attribute ausg
 
 Es sind wieder die bekannten Metriken zu den Clusterings berechnet worden. Unter den Smartphones befinden sich nun auch Duplikate, sodass die Erkennung der Duplikate nun ebenfalls als Metrik auftritt. Sie misst die Übereinestimmung der zugeordneten hierarchischen Cluster zwischen allen Paaren an Duplikaten.
 
-Bei den Smartphone-Hüllen hat die Verarbeitung der multi-kategorischen Attribute keinen wirklichen Unterschied bei diesem Versuch gezeigt. Für die Smartphones zeichnet sich ein anderes Bild. Alle Metriken verbessern sich, wenn das hergeleitete Verfahren angewandt wird, statt der Umwandlung in einfache kategorische Attribute.
+Bei den Smartphone-Hüllen hat die Verarbeitung der multi-kategorischen Attribute keinen wirklichen Unterschied bei diesem Versuch gezeigt. Für die Smartphones zeichnet sich ein anderes Bild. Alle Metriken verbessern sich, wenn das hergeleitete Verfahren angewandt wird.
 
 Bei den Hüllen gab es nur ein einziges multi-kategorisches Attribut (Material), welches obendrein kaum eine Relevanz für die geforderte Erkennung der zugehörigen Smartphones gehabt hat. Die Smartphones selbst weisen $22$ verschiedene Attribute von diesem Typ auf. Unter diesen Attributen befinden sich inhaltlich relevante Werte wie z.B. "3G standards" oder "5G bands supported", welche signifikante Unterschiede zwischen den verschiedenen Smartphone-Generationen abbilden. Die höhere Menge an Attributen und die größere Relevanz erklären, warum die Ergebnisse hier signifikant anders sind als bei den Hüllen.
 
-Analog zu den Versuchen mit den Smartphone-Hüllen, ist das gleiche Vorgehen nun auf die String-Attribute angewandt worden. Zuerst wurden sie nach dem hergeleiteten Verfahren als multi-kategorische Attribute behandelt und geclustert. Anschließend wurde das Clustering wiederholt, dieses mal mit Verarbeitung der Strings als kategorische Attribute.
+Analog zu den Versuchen mit den Smartphone-Hüllen ist das gleiche Vorgehen nun auf die String-Attribute angewandt worden. Zuerst wurden sie nach dem hergeleiteten Verfahren als multi-kategorische Attribute behandelt und geclustert. Anschließend wurde das Clustering wiederholt, dieses mal mit Verarbeitung der Strings als kategorische Attribute.
 
 | Verarbeitung | Stabilität | Qualität | Erkennung | | |
 |-|-:|-:|-:|-:|-:|
@@ -332,7 +332,7 @@ Die Strings verhalten sich ähnlich wie bei den Hüllen. Auf den unteren Ebenen 
 
 ![Qualität der verschiedenen Kombinationen an Attributtypen \label{fig:phonestypesqual}](img/phones-types-quality.png)
 
-In Abbildung \ref{fig:phonestypesqual} ist genauerer Blick auf die Qualität über die verschiedenen Ebenen des Clusterings der Attributtypen geworfen worden. Auch hier sinkt die Qualität für alle Clusterings mit zunehmender Menge an Clustern immer weiter auf $0$. Dies erklärt auch die recht mittelmäßigen Ergebnisse in den Tabellen für die Qualität, da sie aus dem Durchschnitt über alle Hierarchieebenen berechnet wird. Dennoch liegt die Qualität bei den Smartphones auf keiner Ebene höher als $0.67$. Dieses Phänomen lässt sich durch die geringere Anzahl an `null`-Values bei den Smartphones erklären. Fehlende Werte erzeugen in der hergeleiteten Distanzfunktion stets den maximalen Abstand von $1$, wenn ein Produkt diesen Wert definiert und das andere nicht. Definieren beide Produkte jedoch einen Wert für das jeweiligen Attribut, so liegen die Distanzen je nach den Wertausprägungen geringer. Dadurch sind die Produkte und auch die Cluster weniger scharf voneinander getrennt und die Qualität sinkt.
+In Abbildung \ref{fig:phonestypesqual} ist ein genauerer Blick auf die Qualität über die verschiedenen Ebenen des Clusterings der Attributtypen geworfen worden. Auch hier sinkt die Qualität für alle Clusterings mit zunehmender Menge an Clustern immer weiter auf $0$. Dies erklärt auch die recht mittelmäßigen Ergebnisse in den Tabellen für die Qualität, da sie aus dem Durchschnitt über alle Hierarchieebenen berechnet wird. Dennoch liegt die Qualität bei den Smartphones auf keiner Ebene höher als $0.67$. Dieses Phänomen lässt sich durch die geringere Anzahl an `null`-Values bei den Smartphones erklären. Fehlende Werte erzeugen in der hergeleiteten Distanzfunktion stets den maximalen Abstand von $1$, wenn ein Produkt diesen Wert definiert und das andere nicht. Definieren beide Produkte jedoch einen Wert für das jeweilige Attribut, so liegen die Distanzen je nach den Wertausprägungen geringer. Dadurch sind die Produkte und auch die Cluster weniger scharf voneinander getrennt und die Qualität sinkt.
 
 Die Betrachtung der numerischen und kategorischen Attribute zeigt ein interessantes Verhalten. Einzeln erreichen kategorische eine bessere Qualität als numerische bis $k=10$. Danach liegen die numerischen bis $k=22$ stets höher. In Kombination miteinander "mittelt" sich die Qualität über die beschriebenen Ebenen. Die beiden Attributtypen bilden also eine gute Ergänzung zueinander.
 
@@ -340,7 +340,7 @@ Die Strings und multi-kategorischen Attribute erreichen durchweg und vor allem a
 
 #### Vergleich nach Erforderlichkeit
 
-Bei den Hüllen brachte die Beschränkung der Attribute auf ausschließlich erforderliche oder optionale keine Verbesserung der Cluster. Dieser Versuch wird nun für die Smartphones für die Kombination an numerischen und kategorischen Attributen wiederholt.
+Bei den Hüllen brachte die Beschränkung der Attribute auf ausschließlich erforderliche oder optionale keine Verbesserung der Cluster. Dieser Versuch wird nun für die Smartphones für die Kombination an numerischen und kategorischen Attributen wiederholt. Die folgende Tabelle zeigt die Ergebnisse.
 
 | Auswahl | Stabilität | Qualität | Erkennung | | |
 |-|-:|-:|-:|-:|-:|
@@ -350,7 +350,7 @@ Bei den Hüllen brachte die Beschränkung der Attribute auf ausschließlich erfo
 | nur opt. | 0.93 | 0.45 | 0.65 | 0.60 | 0.94 |
 : Clustering der Smartphones mit erforderlichen und optionalen Attributen
 
-Auch bei den Smartphones bringt das Weglassen von Attributen keine Verbesserung des Clusterings. Speziell die Stabilität verschlechtert sich durch die eingeschränkte Auswahl. Interessant ist, dass die optionalen Attribute bessere Cluster produzieren, als die erforderlichen. Eine genauere Analyse würde den Rahmen sprengen (aufgrund der hohen Menge an Attributen). Allgemein lässt sich aber folgern, dass besonders relevante Attribute nicht durch die Einteilung nach erforderlich und optional durch die Icecat-Taxonomie erkennbar sind.
+Auch bei den Smartphones bringt das Weglassen von Attributen keine Verbesserung des Clusterings. Speziell die Stabilität verschlechtert sich durch die eingeschränkte Auswahl. Interessant ist, dass die optionalen Attribute bessere Cluster produzieren als die erforderlichen. Eine genauere Analyse würde den Rahmen sprengen (aufgrund der hohen Menge an Attributen). Allgemein lässt sich aber folgern, dass besonders relevante Attribute nicht durch die Einteilung nach erforderlich und optional durch die Icecat-Taxonomie erkennbar sind.
 
 #### Vergleich nach menschlicher Auswahl {#phones-selection}
 
@@ -392,7 +392,7 @@ In Abbildung \ref{fig:phonesselect} sind die Stabilität und Qualität des pausc
 
 Besonders die Stabilität bei geringen Werten für $k$ leidet unter der beschränkten Auswahl an Attributen massiv. Dies ist sehr kritisch zu bewerten, weil das bedeutet, dass das Verfahren im relevanteren Bereich nicht besonders zuverlässig arbeitet.
 
-Die Qualität liegt im Bereich zwischen $k=3$ und $k=18$ etwas höher für die menschliche Auswahl. Dies ist der besonders wichtige Abschnitt, in dem auch die Clustereinteilungen für die Metriken zur Erkennung der Generation und der Modelle liegen. In Bezug auf die Qualität ist die Beschränkung der Attribute also empfehlenswert.
+Die Qualität liegt im Bereich zwischen $k=3$ und $k=18$ etwas höher für die menschliche Auswahl. Dies ist der besonders wichtige Abschnitt, in dem auch die Cluster-Einteilungen für die Metriken zur Erkennung der Generation und der Modelle liegen. In Bezug auf die Qualität ist die Beschränkung der Attribute also empfehlenswert.
 
 Es ist im Folgenden versucht worden, noch andere Attribute zur Auswahl hinzuzufügen, welche die Erkennung der Generation und die Stabilität verbessern – allerdings ohne Erfolg.
 
@@ -414,7 +414,7 @@ Die erste Zeile zeigt wieder die bisher beste Kombination von numerischen und ka
 
 Werden nur die numerischen und kategorischen Attribute verwendet und die Attribute aus dem [vorherigen Abschnitt](#phones-selection) übergewichtet (Zeile zwei und drei), so verschlechtern sich die Stabilität und die Qualität. Geringfügig besser wird die Erkennung der Modelle und Duplikate, allerdings ist dies im Gegensatz zu Stabilität und Qualität zu vernachlässigen.
 
-Die letzten beiden Zeilen zeigen die Variante, wo alle Attribute für das Clustering verwendet werden plus Übergewichtung der ausgewählten Attribute. Dadurch verbessern sich die Metriken für die Erkennung; Stabilität und Qualität sinkt etwas ab.
+Die letzten beiden Zeilen zeigen die Variante, wo alle Attribute für das Clustering verwendet werden plus Übergewichtung der ausgewählten Attribute. Dadurch verbessern sich die Metriken für die Erkennung; Stabilität und Qualität sinken etwas ab.
 
 Insgesamt bringt die unterschiedliche Gewichtung keine signifikanten Verbesserungen der Cluster.
 
@@ -444,13 +444,13 @@ Zunächst fällt auf, dass alle Clusterings die beiden Produktfamilien direkt im
 
 In den Versuchen mit jeder Produktfamilie einzeln hat die Kombination numerisch und kategorisch eigentlich stets mit die höchsten Werte für die Stabilität aufgewiesen. Auf das gesamte Set angewandt, lieferte diese Kombination im Vergleich die schlechtesten Ergebnisse in dieser Metrik. Dafür liegt die Qualität für diese Kombination wiederum am höchsten.
 
-Die Erkennung der Smartphone-Generationen und Modelle liegt mit $0.59$ und $0.66$ für die Kombi aus numerischen und kategorischen Attributen auf einem mittelmäßigen aber akzeptablen Niveau, welches auch den Ergebnissen der Versuche mit den einzelnen Produktfamilien entspricht. Die Clusterings, in denen mit Übergewichtung von Attributen gearbeitet worden ist (Zeile drei und vier), können diese Erkennungsfähigkeit aber auf Werte von $0.79$ bzw. $0.71$ steigern. Bei einer genaueren Analysen ist deutlich geworden, dass vor allem die Smartphones nicht sehr zuverlässig den richtigen Generationen und Modellen zugeordnet werden konnten. Die Vermutung daraus ist, dass die hohe Menge an redundanten Attributen hinderlich für eine bessere Erkennung und Einordnung der Smartphones ist. Diese Versuche müssten also unbedingt mit einem besseren Datenset wiederholt werden.
+Die Erkennung der Smartphone-Generationen und Modelle liegt mit $0.59$ und $0.66$ für die Kombi aus numerischen und kategorischen Attributen auf einem mittelmäßigen aber akzeptablen Niveau, welches auch den Ergebnissen der Versuche mit den einzelnen Produktfamilien entspricht. Die Clusterings, in denen mit Übergewichtung von Attributen gearbeitet worden ist (Zeile drei und vier), können diese Erkennungsfähigkeit aber auf Werte von $0.79$ bzw. $0.71$ steigern. Bei einer genaueren Analyse ist deutlich geworden, dass vor allem die Smartphones nicht sehr zuverlässig den richtigen Generationen und Modellen zugeordnet werden konnten. Hieraus ergab sich die Vermutung, dass die hohe Menge an redundanten Attributen hinderlich für eine bessere Erkennung und Einordnung der Smartphones ist. Diese Versuche müssten also unbedingt mit einem besseren Datenset wiederholt werden.
 
 Die ausschließliche Verwendung von String-Attributen zeigt auch hier wieder das Verhalten aus den Einzelversuchen. Die Qualität wird sehr schlecht bewertet, jedoch weisen alle anderen Metriken akzeptable Werte und besonders die Duplikaterkennung sogar den Höchstwert auf.
 
 ![Stabilität des Clusterings des gesamten Datensets \label{fig:allstab}](img/all-stability.png){width=70%}
 
-In Abbildung \ref{fig:allstab} ist ein genauerer Blick in das Verhalten der Stabilität über die verschiedenen Hierarchieebenen geworfen worden. Vor allem die Kombination numerisch und kategorisch verzeichnet auf den ersten und auf den letzten Hierarchiestufen massive Einbrüche in der Stabilität. Werden hingegen die relevanten numerischen und kategorischen Attribute übergewichtet (grüne Linie), so stabilisiert sich das Clustering vor allem auf den wichtigen ersten Ebenen. Das stützt die These, dass unter den numerischen und kategorischen Attributen eine ganz Reihe von "störenden" Werten liegen. Werden diese weniger stark gewichtet, so verbessert sich die Stabilität enorm. Das Datenset müsste also vor allem in Bezug auf die vielen redundanten Attribute bei den Smartphones überarbeitet werden.
+In Abbildung \ref{fig:allstab} ist ein genauerer Blick in das Verhalten der Stabilität über die verschiedenen Hierarchieebenen geworfen worden. Vor allem die Kombination numerisch und kategorisch verzeichnet auf den ersten und auf den letzten Hierarchiestufen massive Einbrüche in der Stabilität. Werden hingegen die relevanten numerischen und kategorischen Attribute übergewichtet (grüne Linie), so stabilisiert sich das Clustering vor allem auf den wichtigen ersten Ebenen. Das stützt die These, dass unter den numerischen und kategorischen Attributen eine ganze Reihe von "störenden" Werten liegen. Werden diese weniger stark gewichtet, so verbessert sich die Stabilität enorm. Das Datenset müsste also vor allem in Bezug auf die vielen redundanten Attribute bei den Smartphones überarbeitet werden.
 
 ![Qualität des Clusterings des gesamten Datensets \label{fig:allqual}](img/all-quality.png){width=70%}
 
@@ -458,7 +458,7 @@ In Abbildung \ref{fig:allqual} ist der Silhouettenkoeffizient für die verschied
 
 ### Verwendung gemeinsamer Attribute
 
-In einem letzten Versuch wurde geprüft, ob das Clustering die zueinander passenden Hüllen und Smartphones in gemeinsame Gruppen sortieren kann. Dafür ist das Clustering ausschließlich mit den Attributen erfolgt, welche in beiden Produktfamilien verwendet werden. Die folgende Tabelle zeigt diese gemeinsamen Attribute.
+In einem letzten Versuch wurde geprüft, ob das Clustering die zueinander passenden Hüllen und Smartphones in gemeinsame Gruppen sortieren kann. Dafür ist das Clustering ausschließlich mit den Attributen erfolgt, welche in beiden Produktfamilien vorkommen. Die folgende Tabelle zeigt diese gemeinsamen Attribute.
 
 | Name | Typ | Hüllen | Smartphones | non-`null` | unique |
 |-|-|-|-|-:|-:|
