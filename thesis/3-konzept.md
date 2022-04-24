@@ -90,7 +90,7 @@ Mit einer "Category" können Produkte in verschiedene Kategorien sortiert werden
 }
 ```
 
-Viele der Entitäten in Akeneo-PIM weisen eine ähnliche Grundstruktur auf. So haben viele Objekte einen sog. "code", welcher als eindeutiger Identifier des Objektes fungiert. Beziehen sich die verschiedenen Entitäten aufeinander, so geschieht dies stets über den besagten "code". Die dargestellte "Category" definiert bspw. über den Key "parent", dass die Kategorie mit dem Code "master" eine Hierarchie-Stufe darüber steht.
+Viele der Entitäten in Akeneo-PIM weisen eine ähnliche Grundstruktur auf. So haben viele Objekte einen sog. "code", welcher als eindeutiger Identifier des Objektes fungiert. Beziehen sich die verschiedenen Entitäten aufeinander, so geschieht dies stets über den besagten "code". Die dargestellte "Category" definiert bspw. über den Key "parent", dass die Kategorie mit dem Code "master" eine Hierarchiestufe darüber steht.
 
 Ebenso haben viele Entitäten "labels", welche dem angezeigten Namen dieser Entität im Webfrontend entspricht. Der Name kann lokalisiert werden.
 
@@ -152,7 +152,7 @@ Jedes Attribut ist einem `type` zugeordnet, welches den Datentyp anzeigt. Z.B. d
 | pim_catalog_file | sonstige Datei (z.B. Datenblatt als PDF) |
 | pim_reference_data_simpleselect | einfache Auswahl einer "ReferenceEntity" [^refent] |
 | pim_reference_data_multiselect | mehrfache Auswahl von "ReferenceEntities" |
-: Attribut-Typen in Akeneo-PIM [@akeneo2022constraints]
+: Attributtypen in Akeneo-PIM [@akeneo2022constraints]
 
 [^refent]: "ReferenceEntities" sind in dieser Arbeit nicht verwendet worden und können daher ignoriert werden.
 
@@ -177,7 +177,7 @@ Um maximale Flexibilität bei der Verwaltung der Daten zu gewährleisten, könne
 
 ##### Measurement Family
 
-Für den Attribut-Typ "pim_catalog_metric" werden eine Zahl und eine Einheit hinterlegt. Jede Einheit wird einer bestimmten "Measurement Family" zugeordnet. Dort sind alle verfügbaren Einheiten sowie deren Umrechnung ineinander hinterlegt. [@akeneo2022catalog]
+Für den Attributtyp "pim_catalog_metric" werden eine Zahl und eine Einheit hinterlegt. Jede Einheit wird einer bestimmten "Measurement Family" zugeordnet. Dort sind alle verfügbaren Einheiten sowie deren Umrechnung ineinander hinterlegt. [@akeneo2022catalog]
 
 ### Icecat
 
@@ -239,7 +239,7 @@ Das Verfahren Bisecting K-Means wird in dem Zusammenhang als sehr potent angeseh
 
 #### Problemstellung
 
-Grundsätzlich kann K-Prototypes mit gemischten Attributen (numerisch und kategorisch) arbeiten. Die Produktdaten in Akeneo-PIM können allerdings noch weitere Ausprägungen annehmen. Die folgende Tabelle zeigt die grobe Einteilung der Attribut-Typen in Typ-Klassen:
+Grundsätzlich kann K-Prototypes mit gemischten Attributen (numerisch und kategorisch) arbeiten. Die Produktdaten in Akeneo-PIM können allerdings noch weitere Ausprägungen annehmen. Die folgende Tabelle zeigt die grobe Einteilung der Attributtypen in Typklassen:
 
 | Klasse | Akeneo-Typ |
 |-|----|
@@ -261,7 +261,7 @@ Die Klasse "Datei" wird im Rahmen dieser Arbeit ignoriert. Die Analyse von Bilde
 
 Der Akeneo-Typ "pim_catalog_identifier" ist die Id eines Produktes. Sie hat keine Relevanz für das Clustering. Ebenso können in Akeneo Attribute als `unique` gekennzeichnet werden. Dies ist sinnvoll für das Speichern mehrerer verschiedener Identifier (also in Akeneo wird das besagte Identifier-Attribut genutzt, aber die Id im ERP-System ist eine andere, die hier ebenfalls hinterlegt ist). Diese Identifier geben aber keine Ähnlichkeitsinformationen, sondern sind rein logistische Werte. Sie werden im Clustering stets ignoriert werden.
 
-Ein weiteres Problem ist, dass die Definition der Attribut-Anforderungen in den Akeneo-Families keinen bindenden Charakter haben. Das heißt, jedes Produkt kann Werte für jedes beliebige Attribut aufweisen oder auch nicht. Der Umgang mit `null`-Values wird also ebenfalls eine zentrale Rolle einnehmen.
+Ein weiteres Problem ist, dass die Definition der Attributanforderungen in den Akeneo-Families keinen bindenden Charakter haben. Das heißt, jedes Produkt kann Werte für jedes beliebige Attribut aufweisen oder auch nicht. Der Umgang mit `null`-Values wird also ebenfalls eine zentrale Rolle einnehmen.
 
 #### Ansatz
 
@@ -329,7 +329,7 @@ Aus den genannten Ansätzen lässt sich insgesamt folgende Formell für die fina
   d_{mul}(x_1, x_2) &= \sum_{i \in mul} 1 - \frac{|x_1^i \cap x_2^i|}{|x_1^i \cup x_2^i|}
 \end{align}
 
-Die numerischen Attribute werden mittels Manhatten-Distanz verrechnet. Da die Attribute vorher normalisiert worden sind, kann so maximal eine Distanz von $1$ je numerischem Attribut entstehen. Die kategorischen Attribute werden mit dem beschriebenen inversen Jaccard-Koeffizienten berechnet (da asynchron). Der Koeffizient wird außerdem mit der Anzahl an kategorischen Attributen $n_{cat}$ multipliziert, um ihn mit den anderen Metriken gleich zu gewichten. Die multi-kategorischen Attribute werden jeweils einzeln mittels inversem Jaccard-Koeffizienten verglichen.
+Die numerischen Attribute werden mittels Manhatten-Distanz verrechnet. Da die Attribute vorher normalisiert worden sind, kann so maximal eine Distanz von $1$ je numerischem Attribut entstehen. Die kategorischen Attribute werden mit dem beschriebenen inversen Jaccard-Koeffizienten berechnet. Der Koeffizient wird außerdem mit der Anzahl an kategorischen Attributen $n_{cat}$ multipliziert, um ihn mit den anderen Metriken gleich zu gewichten. Die multi-kategorischen Attribute werden jeweils einzeln mittels inversem Jaccard-Koeffizienten verglichen und aufsummiert.
 
 Wie bereits ausführlich dargelegt, können in den Produktdaten von Akeneo immerzu `null`-Values vorkommen. Die kategorischen und multi-kategorischen Distanzmaße können danke des Jaccard-Koeffizienten problemlos damit umgehen. Die Minkowski-Metriken sind allerdings nur für tatsächlich vorhandene numerische Werte in beiden Produkten definiert. Daher wird $d_{num}$ ausschließlich in diesem Fall aufgerufen. Für den Fall, dass `null`-Values in den numerischen Attributen von einem der beiden Produkte vorkommen, wird für jedes dieser Attribute $1$ addiert. Die Attribute sind sich ja maximal unähnlich, da das eine Produkt es definiert und das andere nicht. In der Formel ist das mit $|x_1^{num_{null}}|$ und $|x_2^{num_{null}}|$ hinterlegt.
 
@@ -358,15 +358,15 @@ Das hergeleitete Clustering-Verfahren in seinen Varianten sollte auf seine Valid
 
 Der K-Prototypes-Algorithmus nutzt wie alle Verfahren dieser Klasse ein Initialisierungsverfahren, welches auf dem Zufall beruht. Da es sich um ein klassisches Minimierungsverfahren mit eventuellen lokalen Minima handelt, können mehrmalige Durchläufe über das gleiche Datenset verschiedene Clusterzuteilungen finden. Ein Verfahren, welches keinerlei Determinismus aufweist und je nach Uhrzeit komplett andere Ergebnisse liefert, ist allerdings in der Praxis wenig zu gebrauchen. Zudem sollte eine wohldefinierte Distanzfunktion in der Lage sein, die Datenpunkte eindeutig genug voneinander zu trennen, sodass trotz verschiedener Startpunkte die Zuteilung in Cluster stets ähnlich abläuft.
 
-Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird stets mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches Verfahren verwendet wird, wird jede Hierarchie-Ebene der verschiedenen Durchläufe betrachtet und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchie-Stufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100$% sein.
+Zur Prüfung der Stabilität wird also wie folgt vorgegangen: Das Clustering wird mehrmals hintereinander ausgeführt. Anschließend wird die Ähnlichkeit der gefundenen Cluster mittels Adjusted-Rand-Index berechnet. Da ein hierarchisches Verfahren verwendet wird, wird jede Hierarchieebene der verschiedenen Durchläufe betrachtet und anschließend der Durchschnitt aus allen Ähnlichkeitsmessungen über alle Hierarchiestufen und alle Durchläufe berechnet. Die Ähnlichkeit der Cluster sollte dabei nahe $100$% sein.
 
 #### Qualität
 
-Ziel des Clusterings ist es, die Datenpunkte in wohl-separierte Gruppen zu sortieren. Dies ist zum einen wichtig, um mit den Ergebnissen überhaupt weiterarbeiten und belastbare Aussagen zu den Gruppierungen finden zu können. Zum anderen sind Cluster von hoher Qualität aber auch ein Garant für eine gewisse Resilienz vor neuen Datenpunkten, welche in Zukunft zum Datenset hinzugefügt werden. Mit jedem neuen Datenpunkt verschieben sich die bisherigen Clusterschwerpunkte geringfügig. Liegen die Cluster nun sehr nahe beieinander, ändert sich dadurch u.U. auch die Clusterzuordnung der älteren Punkte.
+Ziel des Clusterings ist es, die Datenpunkte in wohl-separierte Gruppen zu sortieren. Dies ist zum einen wichtig, um mit den Ergebnissen weiterarbeiten und belastbare Aussagen zu den Gruppierungen äußern zu können. Zum anderen sind Cluster von hoher Qualität auch ein Garant für eine gewisse Resilienz vor neuen Datenpunkten, welche in Zukunft zum Datenset hinzugefügt werden. Mit jedem neuen Datenpunkt verschieben sich die bisherigen Cluster-Mittelpunkte geringfügig. Liegen die Cluster nun sehr nahe beieinander, ändert sich dadurch u.U. auch die Cluster-Zuordnung der älteren Punkte.
 
-Daher wird ein gefundenes Clustering-Ergebnis mittels eines internen Index auf seine Qualität überprüft. Zum Einsatz können entweder der Silhouetten-Koeffizient oder Davies-Bouldin-Index kommen. Um bei der Evaluation keine zusätzlichen Fehlerquellen zu erzeugen, wird für die Berechnung der Metriken auf externe Bibliotheken zurückgegriffen werden. Es wird dabei der Index zum Einsatz kommen, der besser nutzbar ist.
+Daher wird ein gefundenes Clustering-Ergebnis mittels eines internen Index auf seine Qualität überprüft. Zum Einsatz können entweder der Silhouettenkoeffizient oder Davies-Bouldin-Index kommen. Um bei der Evaluation keine zusätzlichen Fehlerquellen zu erzeugen, wird für die Berechnung der Metriken auf externe Bibliotheken zurückgegriffen werden. Es wird dabei der Index zum Einsatz kommen, der besser nutzbar ist.
 
-Da das Clustering ein hierarchisches Verfahren verwendet, wird der interne Index für jede sinnvolle Hierarchie-Stufe ($2 \leq k \leq n$) berechnet und anschließend der Durchschnitt gebildet.
+Da das Clustering ein hierarchisches Verfahren verwendet, wird der interne Index für jede sinnvolle Hierarchiestufe ($2 \leq k \leq n$) berechnet und anschließend der Durchschnitt gebildet.
 
 #### Erkennungsfähigkeit
 
@@ -376,11 +376,11 @@ Stabile und wohl-separierte Cluster zu finden, sind sehr sinnvolle Kriterien. Al
 
 In dem erstellten Datenset kommen objektiv erkennbare natürliche "Gruppen" vor. Die verschiedenen Generationen der Smartphones sowie die verschiedenen Modelle innerhalb einer Serie sind für uns Menschen offensichtliche Unterscheidungsmerkmale dieser Produkte. Daher sollte das Clustering-Verfahren ebenfalls in der Lage sein, diese Unterteilung zu finden.
 
-Konkret werden die Generationen und Modelle in den "Akeneo-Categories" hinterlegt werden. Nach einem Cluster-Durchlauf werden anschließend die Hierarchie-Ebenen für die jeweiligen Kategorien abgefragt (z.B. wenn es drei Generationen im Datenset gibt, dann sollte das Clustering bei $k=3$ jedes Produkt der gleichen Generation in die gleiche Gruppe positioniert haben). Der Vergleich der Übereinstimmung mit "Akeneo-Categories" und Clustering-Ergebnis erfolgt über den Adjusted-Rand-Index.
+Konkret werden die Generationen und Modelle in den "Akeneo-Categories" hinterlegt werden. Nach einem Cluster-Durchlauf werden anschließend die Hierarchieebenen für die jeweiligen Kategorien abgefragt (z.B. wenn es drei Generationen im Datenset gibt, dann sollte das Clustering bei $k=3$ jedes Produkt der gleichen Generation in die gleiche Gruppe positioniert haben). Der Vergleich der Übereinstimmung mit "Akeneo-Categories" und Clustering-Ergebnis erfolgt über den Adjusted-Rand-Index.
 
 ##### Duplikate
 
-Außerdem befinden sich unter den Smartphones einige Duplikate. Diese werden ebenfalls mit einer entsprechenden "Category" in Akeneo markiert. Anschließend wird geprüft, ob die Duplikate über alle Hierarchie-Ebenen stets dem gleichen Cluster zugeordnet worden sind (was man von einem sinnvollen Clustering-Verfahren erwarten würde). Je nach Implementierung könnte hier der Jaccard-Koeffizient zum Einsatz kommen. Der Vergleich erfolgt nun über die Menge an zugeteilten Clustern beider Produkte. Diese sollte bei beiden sehr ähnlich sein und der Koeffizient entsprechend eine Ähnlichkeit nahe der $1$ feststellen.
+Außerdem befinden sich unter den Smartphones einige Duplikate. Diese werden ebenfalls mit einer entsprechenden "Category" in Akeneo markiert. Anschließend wird geprüft, ob die Duplikate über alle Hierarchieebenen stets dem gleichen Cluster zugeordnet worden sind (was man von einem sinnvollen Clustering-Verfahren erwarten würde). Je nach Implementierung könnte hier der Jaccard-Koeffizient zum Einsatz kommen. Der Vergleich erfolgt nun über die Menge an zugeteilten Clustern beider Produkte. Diese sollte bei beiden sehr ähnlich sein und der Koeffizient entsprechend eine Ähnlichkeit nahe der $1$ feststellen.
 
 ### Aspekte
 
@@ -416,6 +416,6 @@ Als erstes werden nur die "Smartphone-Hüllen" geclustert und in den genannten A
 
 Diese initialen Ergebnisse werden nun mit dem Datenset, welches nur aus den "Samsung Smartphones" besteht, gegengeprüft. Hier kommen deutlich mehr Attribute vor, sodass interessant zu sehen sein wird, ob sich die Ergebnisse aus "einfacheren" Produkten auch auf komplexere übertragen lassen.
 
-Schließlich werden alle Produkte (Smartphones und Hüllen) gleichzeitig geclustert mithilfe der zuvor gewonnen Erkenntnisse (bspw. welche Attribut-Typen oder Gewichtungen die besten Ergebnisse geliefert haben etc.). Ziel hierbei ist es, dass die Ergebnisse des Clusterings der Teilsets und des Gesamtsets möglichst identisch sind. Ist das der Fall, so ist das gefundene Clustering-Verfahren tatsächlich "generisch", da nicht einmal eine vorherige Trennung der Produktfamilien nötig ist.
+Schließlich werden alle Produkte (Smartphones und Hüllen) gleichzeitig geclustert mithilfe der zuvor gewonnen Erkenntnisse (bspw. welche Attributtypen oder Gewichtungen die besten Ergebnisse geliefert haben etc.). Ziel hierbei ist es, dass die Ergebnisse des Clusterings der Teilsets und des Gesamtsets möglichst identisch sind. Ist das der Fall, so ist das gefundene Clustering-Verfahren tatsächlich "generisch", da nicht einmal eine vorherige Trennung der Produktfamilien nötig ist.
 
 Eine letzte Teilfrage wird in diesem Zusammenhang ebenfalls evaluiert: Wird das Clustering nur mit Attributen durchgeführt, welche in beiden Familien vorkommen, so könnten u.U. die "passenden" Smartphones und Hüllen in gemeinsame Gruppen sortiert werden. Dieser Versuch stellt eher eine Spekulation dar. Die Überprüfung ist in diesem Rahmen aber leicht durchführbar und bildet damit den Abschluss der Evaluation.

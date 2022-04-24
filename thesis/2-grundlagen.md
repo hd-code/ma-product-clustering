@@ -34,12 +34,14 @@ Dieser Prozess des Clusterings ist eine Methode des *unüberwachten Lernens (uns
 
 Die Forderung, dass Objekte in gleichen Clustern sich "ähnlich" sein sollen und unähnlich zu den Objekten in anderen Clustern, muss in irgendeiner Form quantifiziert werden. Dies erfolgt über die Berechnung der "Nähe" (engl. proximity) der Objekte zueinander. Dazu werden sog. Abstands- bzw. Distanzmaße verwendet. [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
 
+![Sich naheliegende Objekte werden in das gleiche Cluster sortiert](img/clustering.png){width=40%}
+
 Mathematisch wird dieses Distanzmaß mittels der Funktion $d(x_1,x_2)$ (engl. distance) definiert, welche die Distanz zwischen zwei Datenpunkten $x_1$ und $x_2$ als skalaren Wert zurückgibt. Zusätzlich geben Kaufmann und Rousseeuw folgende Eigenschaften für $d$ an [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]:
 
 ||||
-|-|------|--------|
+|-|---------------------------|------------------------------------------------|
 | 1. | $d(x_1,x_2) \geq 0$ | Distanzen sind stets positiv |
-| 2. | $d(x_1,x_1) = 0$ | zwei gleiche Objekte haben immer einen Abstand von $0$ |
+| 2. | $d(x_1,x_1) = 0$ | die Distanz eines Objektes zu sich selbst ist $0$ |
 | 3. | $d(x_1,x_2) = d(x_2,x_1)$ | die Distanzfunktion ist kommutativ bzw. symmetrisch |
 | 4. | $d(x_1,x_3) \leq d(x_1,x_2) + d(x_2,x_3)$ | Distanzen geben stets den kürzesten Weg an |
 : Eigenschaften der Abstandfunktion $d$
@@ -52,13 +54,13 @@ Anstatt des Abstandes kann alternativ auch die Ähnlichkeit zweier Objekte berec
 
 Distanzen und Ähnlichkeiten sind dadurch beliebig austauschbar. Daher ist dieses Vorgehen stets empfehlenswert.
 
-Es existieren eine Vielzahl an Distanz- und Ähnlichkeitsmaßen. Welche zur Anwendung kommen, hängt maßgeblich von den Attributen und vor allem den Attribut-Typen ab, aus denen die Datenpunkte bestehen. [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
+Es existieren eine Vielzahl an Distanz- und Ähnlichkeitsmaßen. Welche zur Anwendung kommen, hängt maßgeblich von den Attributen und vor allem den Attributtypen ab, aus denen die Datenpunkte bestehen. [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them]
 
 ### Numerische Attribute
 
 Numerische Attribute sind im Allgemeinen alle Arten von (rationale) Zahlen [@kaufman2009, Kap. 1.2 Types of Data and How to Handle Them] mit stetigen (engl. continuous) Werten [@huang1998]. Es kann sich dabei sowohl um Intervall- als auch um Verhältnisskalen handeln (engl. interval and ratio data). [@boslaugh2012, Kap. 1 Basic Concepts of Measurement]
 
-Datenpunkte, die nur aus numerischen Attributen bestehen, sind die klassischste Form von Daten, mit denen Clusteranalyse durchgeführt wird. Die meisten Algorithmen und Verfahren sind damit speziell auf diesen Attribut-Typ ausgelegt. [@king2015, Kap. 1.2 Capturing the Clusters]
+Datenpunkte, die nur aus numerischen Attributen bestehen, sind die klassischste Form von Daten, mit denen Clusteranalyse durchgeführt wird. Die meisten Algorithmen und Verfahren sind damit speziell auf diesen Attributtyp ausgelegt. [@king2015, Kap. 1.2 Capturing the Clusters]
 
 #### Minkowski-Familie
 
@@ -122,7 +124,7 @@ Kaufmann und Rousseeuw geben zu bedenken, dass die unterschiedlichen Gewichtunge
 
 ### Kategorische Attribute
 
-Kategorische Attribute bilden die zweite große Gruppe von Attribut-Typen. Sie zeichnen sich dadurch aus, dass als Wertausprägungen Labels verwendet werden, die verschiedene Kategorien repräsentieren. Diese Labels können in Form von Zeichenketten (z.B. "red", "green", "blue"), Bool-Werten ($true$/$false$, Ja/Nein, $0$/$1$) oder auch diskreten Ziffern auftreten. Es ist eine weitere Unterscheidung in die zwei Teilgruppen ordinale und nominale Attribute möglich. [@boslaugh2012, Kap. 5 Categorical Data]
+Kategorische Attribute bilden die zweite große Gruppe von Attributtypen. Sie zeichnen sich dadurch aus, dass als Wertausprägungen Labels verwendet werden, die verschiedene Kategorien repräsentieren. Diese Labels können in Form von Zeichenketten (z.B. "red", "green", "blue"), Bool-Werten ($true$/$false$, Ja/Nein, $0$/$1$) oder auch diskreten Ziffern auftreten. Es ist eine weitere Unterscheidung in die zwei Teilgruppen ordinale und nominale Attribute möglich. [@boslaugh2012, Kap. 5 Categorical Data]
 
 #### Ordinale Attribute
 
@@ -185,7 +187,7 @@ Auch hier ist die dargestellte Formel ohne eine vorherige Umwandlung in binäre 
 
 ### String-Attribute
 
-Manche Autoren (z.B. [@rajalingam2011]) definieren eine weitere Gruppe sog. String-Attribute. Streng genommen sind dies ebenfalls nominale bzw. kategorische Attribute. Sie zeichnen sich aber durch eine hohe Variation an Werten aus, sodass häufig keine einzige Wertausprägung mehr als einmal vorkommt. Gleichzeitig sind String-Werte häufig zwar nicht exakt identisch, aber dennoch gibt es große Ähnlichkeit zwischen ihnen. Ein klassisches Beispiel wäre der Produkttitel. Die Strings "Samsung Galaxy S20 128GB" und "Samsung Galaxy S20 256GB" sind "kategorisch-betrachtet" zwei komplett verschiedene Kategorien. Dennoch herrscht augenscheinlich eine hohe Ähnlichkeit zwischen diesen beiden Werten vor. Zur Quantifizierung dieser Übereinstimmung gibt es eine Reihe von verschiedenen Ansätzen.
+Manche Autoren (z.B. [@rajalingam2011]) definieren eine weitere Gruppe sog. String-Attribute. Streng genommen sind dies ebenfalls nominale bzw. kategorische Attribute. Sie zeichnen sich aber durch eine hohe Variation an Werten aus, sodass häufig keine einzige Wertausprägung mehr als einmal vorkommt. Gleichzeitig sind String-Werte häufig zwar nicht exakt identisch, aber dennoch gibt es große Ähnlichkeit zwischen ihnen. Ein klassisches Beispiel wäre der Produkttitel. Die Strings "Samsung Galaxy S20 128GB" und "Samsung Galaxy S20 256GB" sind "kategorisch-betrachtet" zwei komplett verschiedene Labels. Dennoch herrscht augenscheinlich eine hohe Ähnlichkeit zwischen diesen beiden Werten vor. Zur Quantifizierung dieser Übereinstimmung gibt es eine Reihe von verschiedenen Ansätzen.
 
 #### String-Metrics
 
@@ -239,7 +241,7 @@ Diese Umwandlung geht aber mit einem massiven Verlust an Informationen einher. B
 
 #### Subspace-Clustering
 
-Ein ganz anderer Ansatz besteht darin, das Clustering mehrmals durchzuführen, jeweils mit jedem Attribut-Typen separat. Anschließend werden die Ergebnisse verglichen und entsprechende Erkenntnisse abgeleitet. Allerdings ist hier der Interpretationsspielraum sehr groß, sodass i.d.R. andere Arten des Vorgehens empfehlenswerter sind. [@kaufman2009, Kap. 1.2.6 Mixed Variables]
+Ein ganz anderer Ansatz besteht darin, das Clustering mehrmals durchzuführen, jeweils mit jedem Attributtypen separat. Anschließend werden die Ergebnisse verglichen und entsprechende Erkenntnisse abgeleitet. Allerdings ist hier der Interpretationsspielraum sehr groß, sodass i.d.R. andere Arten des Vorgehens empfehlenswerter sind. [@kaufman2009, Kap. 1.2.6 Mixed Variables]
 
 Dieser Ansatz wird auch als *Subspace-Clustering* bezeichnet und kann sehr weit ausgeführt werden. So werden teilweise mehrmalige Clusterings mit verschiedenen Kombinationen an Attributen (beliebigen Types) durchgeführt und bewertet. Solche Ansätze sind sehr aufwendig sowohl in Sachen Laufzeit als auch in der Interpretation der eigentlichen Ergebnisse. [@jia2017]
 
@@ -253,7 +255,7 @@ Ein geläufiges Beispiel ist das kombinierte Distanzmaß des [K-Prototypes-Algor
   d(x_1,x_2) = d_{num}(x^{num}_1,x^{num}_2) + w \cdot d_{cat}(x^{cat}_1,x^{cat}_2)
 \end{equation}
 
-Dieser Algorithmus kann numerische und kategorische Attribute gemeinsam verarbeiten. Die spezifischen Distanzmaße für jeden Attribut-Typ sind dabei frei wählbar (im Original: euklidisch für die numerischen und Simple Matching für die kategorischen). Der Faktor $w$ soll Unterschiede in der Gewichtung der Distanzmaße ausgleichen. So hat der euklidische Abstand umso höhere Werte, je mehr numerische Attribute vorkommen. Das Simple Matching hingegen liegt immer im Interval $[0;1]$. [@huang1998]
+Dieser Algorithmus kann numerische und kategorische Attribute gemeinsam verarbeiten. Die spezifischen Distanzmaße für jeden Attributtyp sind dabei frei wählbar (im Original: euklidisch für die numerischen und Simple Matching für die kategorischen). Der Faktor $w$ soll Unterschiede in der Gewichtung der Distanzmaße ausgleichen. So hat der euklidische Abstand umso höhere Werte, je mehr numerische Attribute vorkommen. Das Simple Matching hingegen liegt immer im Interval $[0;1]$. [@huang1998]
 
 ## Clustering-Verfahren
 
@@ -261,9 +263,9 @@ Dieser Algorithmus kann numerische und kategorische Attribute gemeinsam verarbei
 
 #### Überblick
 
-Partitionierende Verfahren betrachten die Clusterzuteilung als ein Minimierungsproblem. Auf verschiedene Arten starten die jeweiligen Verfahren mit einer initialen Gruppierung der Datenpunkte. Anschließend werden die Clusterzuteilungen wiederholt verändert bis ein lokales Optimum erreicht ist [@king2015, Kap. 4.1 Partition Clustering – Introduction]. Wichtig zu erwähnen ist dabei, dass jeder Datenpunkt nur genau einem Cluster zugeordnet werden kann [@kaufman2009, Kap. 1.3.1 Partitioning Methods]. Die konkreten Verfahren unterscheiden sich dabei in der Art der Initialisierung der Cluster, dem genauen Ablauf der Minimierung sowie in der Definition, wann ein Clustering "besseres" ist [@king2015, Kap. 4.1 Partition Clustering – Introduction]. Ebenso gibt es spezielle Verfahren für das Clustern von Daten, welche nicht ausschließlich numerisch sind. [@huang1998]
+Partitionierende Verfahren betrachten die Clusterzuteilung als ein Minimierungsproblem. Auf verschiedene Arten starten die jeweiligen Verfahren mit einer initialen Gruppierung der Datenpunkte. Anschließend werden die Clusterzuteilungen wiederholt verändert bis ein lokales Optimum erreicht ist [@king2015, Kap. 4.1 Partition Clustering – Introduction]. Wichtig zu erwähnen ist, dass jeder Datenpunkt nur genau einem Cluster zugeordnet werden kann [@kaufman2009, Kap. 1.3.1 Partitioning Methods]. Die konkreten Verfahren unterscheiden sich dabei in der Art der Initialisierung der Cluster, dem genauen Ablauf der Minimierung sowie in der Definition, wann ein Clustering "besseres" ist [@king2015, Kap. 4.1 Partition Clustering – Introduction]. Ebenso gibt es spezielle Verfahren für das Clustern von Daten, welche nicht ausschließlich numerisch sind. [@huang1998]
 
-Kennzeichnend für diese Verfahren ist außerdem, dass die Anzahl der erwarteten Cluster im Vorfeld bekannt sein muss. Dies ist zum Teil problematisch, wenn kaum Informationen zum Datenset vorliegen. Eine mögliche Lösung ist das mehrmalige Clustern mit verschiedenen Werten für die Clusteranzahl. Anschließend kann mittels verschiedener Metriken (siehe Abschnitt [Cluster-Validität](#cluster-validität)) eine adäquate Clusteranzahl aus den Ergebnissen ausgewählt werden. Ebenso könnte zu erst ein [hierarchisches Clustering](#hierarchisches-clustering) zur Bestimmung der Clusterzahl durchgeführt werden. [@king2015, Kap. 4.1 Partition Clustering – Introduction]
+Kennzeichnend für diese Verfahren ist außerdem, dass die Anzahl der erwarteten Cluster im Vorfeld bekannt sein muss. Dies ist zum Teil problematisch, wenn kaum Informationen zum Datenset vorliegen. Eine mögliche Lösung ist das mehrmalige Clustern mit verschiedenen Werten für die Clusteranzahl. Anschließend kann mittels verschiedener Metriken (siehe Abschnitt [Cluster-Validität](#cluster-validität)) eine adäquate Clusteranzahl aus den Ergebnissen ausgewählt werden. Ebenso könnte zuerst ein [hierarchisches Clustering](#hierarchisches-clustering) zur Bestimmung der Clusterzahl durchgeführt werden. [@king2015, Kap. 4.1 Partition Clustering – Introduction]
 
 Diese Verfahren neigen dazu in lokalen Minima während des Clusterings hängen zu bleiben. Deswegen ist es empfehlenswert, das jeweilige Verfahren mehrmals mit unterschiedlichen Start-Partitionierungen durchzuführen und anschließend das "beste" Ergebnis aus diesen Durchläufen auszuwählen. Trotz der mehrfachen Durchläufe sind partitionierende Verfahren allgemein recht effizient in ihrer Laufzeit. Die Komplexität beträgt $\mathcal{O}(n \cdot k \cdot l)$. $n$ ist die Anzahl an Datenpunkten, $k$ die Menge an gesuchten Clustern und $l$ die mehrmalige Wiederholung des Verfahrens. $k$ und $l$ sind typischerweise recht kleine Werte, die auch mit steigender Anzahl von Datenpunkten im Datenset nicht zunehmen. Daher handelt es sich unterm Strich um eine lineare Laufzeit von $\mathcal{O}(n)$. [@huang1998]
 
@@ -319,11 +321,11 @@ Das bedeutet, dass jeder Datenpunkt mehreren verschiedenen Clustern zugeteilt is
 
 ![Bsp. eines Dendrograms](img/dengrogram-example.png){width=50%}
 
-Ein großer Vorteil von diesem Verfahren ist, dass die Anzahl an gesuchten Clustern nicht vorher bekannt sein muss. Stattdessen wird eine Clusterzuteilung für alle möglichen Clusterzahlen ($1 \leq k \leq n$) im Zuge der Berechnung ermittelt [@kaufman2009, Kap. 1.3.2 Hierarchical Methods]. Dadurch können die verschiedenen Hierarchie-Ebenen mit geeigneten Metriken (siehe Abschnitt [Cluster-Validität](#cluster-validität)) bewertet und anschließend z.B. eine geeignete Clusteranzahl für die Durchführung eines partitionierenden Verfahrens ausgewählt werden. [@king2015, Kap. 4.1 Partition Clustering – Introduction]
+Ein großer Vorteil von diesem Verfahren ist, dass die Anzahl an gesuchten Clustern nicht vorher bekannt sein muss. Stattdessen wird eine Clusterzuteilung für alle möglichen Clusterzahlen ($1 \leq k \leq n$) im Zuge der Berechnung ermittelt [@kaufman2009, Kap. 1.3.2 Hierarchical Methods]. Dadurch können die verschiedenen Hierarchieebenen mit geeigneten Metriken (siehe Abschnitt [Cluster-Validität](#cluster-validität)) bewertet und anschließend z.B. eine geeignete Clusteranzahl für die Durchführung eines partitionierenden Verfahrens ausgewählt werden. [@king2015, Kap. 4.1 Partition Clustering – Introduction]
 
 Weiterhin bringt die hierarchische Struktur vielfältige Möglichkeiten der Analyse. So kann nicht nur festgestellt werden, welche Objekte in verschiedene Cluster sortiert werden, sondern auch welche der Cluster sich ähnlicher sind (aufgrund ihrer Position in der Hierarchie). Das Ermitteln von Outliern wird ebenfalls möglich, da diese meistens recht früh in der Hierarchie in ihr eigenes Cluster platziert werden. [@dogan2022]
 
-Ein großer Nachteil dieser Verfahren ist, dass die Clusterzuteilungen im Laufe der Berechnung nicht mehr nachträglich korrigiert werden. Nachdem also zwei Datenpunkte in einem Top-Down-Verfahren in verschiedene Cluster gesplittet worden sind, werden sie in den nachfolgenden Hierarchie-Ebenen niemals wieder im selben Cluster landen (für Bottom-Up-Verfahren gilt das gleiche entsprechend umgekehrt). Dies führt u.U. zu einer ungeeigneten Clusterzuteilung je nach betrachteter Hierarchie-Ebene. [@kaufman2009, Kap. 1.3.2 Hierarchical Methods]
+Ein großer Nachteil dieser Verfahren ist, dass die Clusterzuteilungen im Laufe der Berechnung nicht mehr nachträglich korrigiert werden. Nachdem also zwei Datenpunkte in einem Top-Down-Verfahren in verschiedene Cluster gesplittet worden sind, werden sie in den nachfolgenden Hierarchieebenen niemals wieder im selben Cluster landen (für Bottom-Up-Verfahren gilt das gleiche entsprechend umgekehrt). Dies führt u.U. zu einer ungeeigneten Clusterzuteilung je nach betrachteter Hierarchieebene. [@kaufman2009, Kap. 1.3.2 Hierarchical Methods]
 
 #### Agglomeratives Clustering (Bottom-Up)
 
@@ -401,7 +403,7 @@ Rajalingam und Ranjini [@rajalingam2011] verglichen die Performance einiger Bott
 
 Der Bisecting K-Means wurde von Steinbach et al. [@steinbach2000] zum Clustern von Dokumenten entwickelt. Ihr ursprünglicher Plan war der Vergleich von agglomerativen Verfahren mit dem klassichen K-Means-Algorithmus. In diesem Prozess entwickelten sie die Idee für das divise Verfahren – Bisecting K-Means.
 
-Initial befinden sich wieder alle Datenpunkte in einem großen Cluster. Für den Split in zwei kleinere Cluster wird nun der klassische K-Means-Algorithmus mit $k=2$ ausgeführt. Aus den resultierenden kleineren Clustern gilt es nun einen Kandidaten für den nächsten Split auszuwählen. Das kann das Cluster mit dem größeren Durchschnitt oder mit der höheren Anzahl an Datenpunkten sein (in ihren Versuchen ergab sich zwischen beiden Vorgehen kein Unterschied). Der Split wird wiederum durch K-Means mit $k=2$ ausgeführt usw. Das Verfahren endet, wie gewohnt, wenn alle Punkte in ihrem eigenen Cluster gelandet sind. [@steinbach2000]
+Initial befinden sich wieder alle Datenpunkte in einem großen Cluster. Für den Split in zwei kleinere Cluster wird nun der klassische K-Means-Algorithmus mit $k=2$ ausgeführt. Aus den resultierenden kleineren Clustern gilt es nun, einen Kandidaten für den nächsten Split auszuwählen. Das kann das Cluster mit dem größeren Durchschnitt oder mit der höheren Anzahl an Datenpunkten sein (in ihren Versuchen ergab sich zwischen beiden Vorgehen kein Unterschied). Der Split wird wiederum durch K-Means mit $k=2$ ausgeführt usw. Das Verfahren endet, wie gewohnt, wenn alle Punkte in ihrem eigenen Cluster gelandet sind. [@steinbach2000]
 
 Das Verfahren besticht durch seine Laufzeit $\mathcal{O}(n)$, welche durch den K-Means für den allerersten Split bestimmt wird. Alle folgenden Splits sind durch die kleinere Menge an Datenpunkten je Cluster zu vernachlässigen. [@steinbach2000]
 
@@ -450,11 +452,11 @@ Der Rand-Index teilt nun die Menge an Paaren, welche die gleiche Zuordnung erhal
 Der Rand-Index weist eine Reihe von Problemen auf, welche teilweise von Rand selbst erkannt oder später ermittelt worden sind:
 
 - Je höher die Anzahl an Clustern ist, desto höher (näher an der $1$) liegt der Rand-Index standardmäßig. Das kommt daher, dass bei einer hohen Anzahl an Clustern die meisten Paare unterschiedlichen Clustern zugewiesen sein müssen. Das treibt den Index künstlich in die Höhe. [@steinley2004; teilweise zitiert nach @rand1971]
-- Zum Vergleich verschiedener Clustering-Verfahren werden häufig Monte-Carlo-Simulationen mit großen Mengen an zufällig generierten Datensätzen und Clusterings verwendet. Werden zwei Zufalls-Zuordnung miteinander verglichen, so gibt der Rand-Index keine Werte nahe der $0$, was aber wünschenswert wäre. Das liegt daran, dass die Anzahl an zufälligen Übereinstimmungen nicht adäquat herausgerechnet wird. [@hubert1985; und @king2015, Kap. 8.4 Indices of Cluster Validity]
+- Zum Vergleich verschiedener Clustering-Verfahren werden häufig Monte-Carlo-Simulationen mit großen Mengen an zufällig generierten Datensätzen und Clusterings verwendet. Werden zwei Zufallszuordnung miteinander verglichen, so gibt der Rand-Index keine Werte nahe der $0$, was aber wünschenswert wäre. Das liegt daran, dass die Anzahl an zufälligen Übereinstimmungen nicht adäquat herausgerechnet wird. [@hubert1985; und @king2015, Kap. 8.4 Indices of Cluster Validity]
 
-#### Adjusted Rand-Index
+#### Adjusted-Rand-Index
 
-Aus den genannten Problemen haben eine Vielzahl von Autoren versucht, eine bessere Variante des Rand-Indexes zu finden. Vor allem das "Herausrechnen" von angeblichen hohen Übereinstimmungen bei zufälligen Zuteilungen (engl. correction for chance) ist eines der Hauptanliegen gewesen [@hubert1985]. Von allen vorgestellten Lösungen scheint die Variante von Hubert und Arabie [@hubert1985] diejenige mit den wünschenwertesten Eigenschaften zu sein. (siehe die Versuche z.B. von Steinley [@steinley2004])
+Aus den genannten Problemen haben eine Vielzahl von Autoren versucht, eine bessere Variante des Rand-Indexes zu finden. Vor allem das "Herausrechnen" von angeblichen hohen Übereinstimmungen bei zufälligen Zuteilungen (engl. correction for chance) ist eines der Hauptanliegen gewesen [@hubert1985]. Von allen vorgestellten Lösungen scheint die Variante von Hubert und Arabie [@hubert1985] diejenige, mit den wünschenwertesten Eigenschaften zu sein. (siehe die Versuche z.B. von Steinley [@steinley2004])
 
 \begin{equation}
   arand = \frac{rand - rand_{expected}}{rand_{max} - rand_{expected}}
@@ -468,7 +470,7 @@ Im Allgemeinen geht es darum, den Rand-Index zu berechnen und anschließend den 
 
 Hubert und Arabie berechnen den "erwarteten Rand-Index" aus der Menge aller möglichen Permutationen der Paarungen und ihrer Übereinstimmung $\frac{(a+b)(a+c)+(c+d)(b+d)}{\binom{n}{2}}$. Die gegebene Formel zeigt eine breits vereinfachte Umstellung von Steinley. [@hubert1985; und vereinfachte Formel aus @steinley2004]
 
-Dieser "Adjusted Rand-Index" liefert Werte zwischen $-1$ und $1$. Negative Ergebnisse oder Werte um die $0$ zeigen, dass die Übereinstimmung der beiden Clusterings eher auf den Zufall zurückzuführen und damit nicht signifikant ist. Höhere Zahlen nahe der $1$ stehen nach wie vor für eine perfekte Übereinstimmung, welche zusätzlich statistische Signifikanz aufweist. Auch der Bias zu hohen Werten bei einer hohen Anzahl an Clustern wird dadurch ausgeglichen. [@hubert1985; und @steinley2004]
+Dieser "Adjusted-Rand-Index" liefert Werte zwischen $-1$ und $1$. Negative Ergebnisse oder Werte um die $0$ zeigen, dass die Übereinstimmung der beiden Clusterings eher auf den Zufall zurückzuführen und damit nicht signifikant ist. Höhere Zahlen nahe der $1$ stehen nach wie vor für eine perfekte Übereinstimmung, welche zusätzlich statistische Signifikanz aufweist. Auch der Bias zu hohen Werten bei einer hohen Anzahl an Clustern wird dadurch ausgeglichen. [@hubert1985; und @steinley2004]
 
 ### Internal Indices
 
@@ -506,7 +508,7 @@ Der Davies-Bouldin Index wurde von seinen Namesgebern David L. Davies und Donald
   dbi = \frac{1}{k} \sum_{i=1}^{k} \max_{i \neq j}{\frac{d(c_i, C_i) + d(c_j, C_j)}{d(c_i, c_j)}}
 \end{equation}
 
-Die Ähnlichkeit zwischen den Clustern $K$ ($K$ steht hier für die Menge an gefundenen Clustern $C_i$) berechnet sich aus dem durchschnittlichen Abstand der Punkte eines Clusters zu ihrem Cluster-Mittelpunkt ($d(c_i, C_i)$ und $d(c_j, C_j)$) geteilt durch den Abstand der beiden Cluster-Mittelpunkte zueinander ($d(c_i, c_j)$). [@davies1979]
+Die Ähnlichkeit zwischen den Clustern $K$ berechnet sich aus dem durchschnittlichen Abstand der Punkte eines Clusters zu ihrem Cluster-Mittelpunkt ($d(c_i, C_i)$ und $d(c_j, C_j)$) geteilt durch den Abstand der beiden Cluster-Mittelpunkte zueinander ($d(c_i, c_j)$). [@davies1979]
 
 Je kleiner der Wert des Indexes, desto enger liegen die Datenpunkte um ihren Cluster-Mittelpunkt im Verhältnis zum benachbarten Cluster. Möglichst niedrige Werte nahe der $0$ sind also als optimal anzusehen. [@davies1979]
 

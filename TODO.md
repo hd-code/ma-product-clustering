@@ -51,26 +51,26 @@
   - [x] Autoren per Filter zählen und soa anpassen
   - [-] Listings-Verzeichnis
 - [ ] Gegenlesen
-  - [ ] Ich
+  - [x] Ich
   - [ ] Mama
     - [ ] Kap 2: nur noch Distanz- und Ähnlichkeitsmaße & Clustering-Verfahren
     - [ ] Kap 3: Überblick nochmal
     - [ ] Kap 4
     - [ ] Kap 5
     - [ ] Kap 6
-  - [ ] Rossak
-  - [ ] Robert Queck
-- [ ] Sonstiges:
-  - [ ] alle Referenzen auf das Repo checken
-  - [ ] Überarbeitungen:
+  - [x] Rossak
+  - [-] Robert Queck
+- [x] Sonstiges:
+  - [x] alle Referenzen auf das Repo checken
+  - [x] Überarbeitungen:
     - [x] Kap 1: Formulierungen
     - [x] Kap 2: Nominale und Strings
     - [x] Kap 3: Formulierungen + binäre Attribute Geschichte
     - [x] Kap 5: nochmal durchgehen, Kommentare beachten, Zusammenfassung?
-    - [ ] Kap 5: Einfügungen
-    - [ ] Kap 6: nochmal durchgehen
-  - [ ] Grafiken erstellen
-    - [ ] Kap 2: Grafik mit Punkten, Clustern und Abständen
+    - [x] Kap 5: Einfügungen
+    - [x] Kap 6: nochmal durchgehen
+  - [x] Grafiken erstellen ?
+    - [x] Kap 2: Grafik mit Punkten, Clustern und Abständen ?
 
 ## Implementierung
 
@@ -82,12 +82,6 @@
 - [-] Clusterings in RapidMiner => AutoModel => Einfluss der Attribute auf Ergebnis cross-validieren
 - [-] MacQueen's Ansatz per Parameter einbauen
 - [x] Reports erstellen HTML
-- [ ] Reports erstellen PDF
+- [-] Reports erstellen PDF
 - [x] README für `cluster-analysis`
 - [x] `data` aufräumen
-
-## Sonstiges
-
-- [ ] Haitse und Robert
-  - [ ] klären der Erwartungen
-  - [ ] Termin für Kolloquium absprechen

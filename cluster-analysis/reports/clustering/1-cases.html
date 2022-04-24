@@ -15627,6 +15627,155 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">ac</span><span class="o">.</span><span class="n">dataset_from_records</span><span class="p">(</span><span class="n">products_df</span><span class="p">[</span><span class="n">attr_codes_str</span><span class="p">]</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;records&quot;</span><span class="p">))</span>
+<span class="n">bik</span> <span class="o">=</span> <span class="n">clustering</span><span class="o">.</span><span class="n">BisectingKMeans</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">ac</span><span class="o">.</span><span class="n">Centroid</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">res_gen</span> <span class="o">=</span> <span class="n">bik</span><span class="o">.</span><span class="n">labels_flat</span><span class="p">(</span><span class="n">k_generations</span><span class="p">)</span>
+<span class="n">res_mod</span> <span class="o">=</span> <span class="n">bik</span><span class="o">.</span><span class="n">labels_flat</span><span class="p">(</span><span class="n">k_models</span><span class="p">)</span>
+<span class="n">tmp_df</span> <span class="o">=</span> <span class="n">products_df</span><span class="p">[[</span><span class="n">ac</span><span class="o">.</span><span class="n">KEY_ID</span><span class="p">,</span> <span class="s2">&quot;icecat_brand_fixed&quot;</span><span class="p">]</span><span class="o">+</span> <span class="n">attr_codes_str</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">tmp_df</span><span class="p">[</span><span class="s2">&quot;generation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_gen</span>
+<span class="n">tmp_df</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res_mod</span>
+<span class="n">tmp_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>__id__</th>
+      <th>icecat_brand_fixed</th>
+      <th>icecat_description_short</th>
+      <th>icecat_name</th>
+      <th>icecat_summary_short</th>
+      <th>icecat_title</th>
+      <th>generation</th>
+      <th>model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>104889</td>
+      <td>mobiparts</td>
+      <td>{grip, galaxi, s20, black, tough, mobipart, ca...</td>
+      <td>{104889}</td>
+      <td>{galaxi, 6.2, s20, cover, black, mobipart, 104...</td>
+      <td>{mobil, 6.2, phone, cover, black, case, mobipa...</td>
+      <td>0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MP-104927</td>
+      <td>mobiparts</td>
+      <td>{scarlet, galaxi, silicon, red, s20, cover, mo...</td>
+      <td>{mp-104927}</td>
+      <td>{galaxi, 6.2, red, s20, cover, mobipart, mp-10...</td>
+      <td>{mobil, 6.2, red, phone, cover, case, mobipart...</td>
+      <td>0</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MP-104925</td>
+      <td>mobiparts</td>
+      <td>{galaxi, silicon, green, s20, pistach, cover, ...</td>
+      <td>{mp-104925}</td>
+      <td>{galaxi, 6.2, green, s20, cover, mobipart, mp-...</td>
+      <td>{mobil, 6.2, green, phone, cover, case, mobipa...</td>
+      <td>0</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MP-108422</td>
+      <td>mobiparts</td>
+      <td>{blue, galaxi, silicon, s20, cover, blueberri,...</td>
+      <td>{mp-108422}</td>
+      <td>{blue, galaxi, 6.2, s20, cover, mobipart, sams...</td>
+      <td>{mobil, blue, 6.2, phone, cover, case, mobipar...</td>
+      <td>0</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MP-104926</td>
+      <td>mobiparts</td>
+      <td>{royal, galaxi, silicon, s20, cover, grey, mob...</td>
+      <td>{mp-104926}</td>
+      <td>{gray, galaxi, mp-104926, 6.2, s20, cover, mob...</td>
+      <td>{mobil, gray, 6.2, mp-104926, phone, cover, ca...</td>
+      <td>0</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">/</span> <span class="s2">&quot;cases-strings.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">

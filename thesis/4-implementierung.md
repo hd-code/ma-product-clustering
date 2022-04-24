@@ -24,11 +24,11 @@ Abschließend fand die Evaluation mithilfe von Jupyter-Notebooks statt. Das sind
 
 ### Attribute
 
-Wie bereits beschrieben, müssen die Attribute in Akeneo zu erst existieren, bevor ein Produkt einen Wert darin aufweisen kann. Icecat definiert ebenfalls eine sehr umfangreiche Liste an Icecat-Attributen. Diese können über den Icecat-Importer ausgewählt und in Akeneo importiert werden. Dabei werden die Icecat-Typen entsprechend auf äquivalente Akeneo-Attribut-Typen abgebildet. Dieser Prozess läuft grundsätzlich automatisch über den Importer. Allerdings müssen dazu vorher per Hand in der Weboberfläche des Importers alle Attribute ausgewählt werden, welche es zu importieren gilt.
+Wie bereits beschrieben, müssen die Attribute in Akeneo zu erst existieren, bevor ein Produkt einen Wert darin aufweisen kann. Icecat definiert ebenfalls eine sehr umfangreiche Liste an Icecat-Attributen. Diese können über den Icecat-Importer ausgewählt und in Akeneo importiert werden. Dabei werden die Icecat-Typen entsprechend auf äquivalente Akeneo-Attributtypen abgebildet. Dieser Prozess läuft grundsätzlich automatisch über den Importer. Allerdings müssen dazu vorher per Hand in der Weboberfläche des Importers alle Attribute ausgewählt werden, welche es zu importieren gilt.
 
 Icecat stellt für jede Produktkategorie eine eigene Taxonomie zur Verfügung, welche beschreibt, was für Attribute in den Produkten der jeweiligen Kategorie vorkommen können und ob sie erforderlich oder optional sind. Entsprechend sind die Taxonomien für "mobile_phone_cases" und "smartphones" heruntergeladen worden. Die Excel-Dateien finden sich im angehängt Git-Repository im Ordner `cluster-analysis > data > icecat-taxonomy`. Mittels dieser Dateien sind per Hand im Importer alle benötigten Attribute ausgewählt und importiert worden.
 
-Anschließend sind nach dem Vorbild der Icecat-Taxonomien in Akeneo 2 "Families" (eine für die Hüllen und eine für die Smartphones) angelegt worden. Über die "Family" kann in Akeneo festgelegt werden, welche Attribute bei Produkten dieser Art vorkommen können sowie ob sie erforderlich oder optional sind. Dieser Prozess ließ sich weitestgehend per Skript lösen. Im Repository im Ordner `cluster-analysis > reports > dataset` sind die ausgeführten Schritte, samt Code in HTML-Dateien hinterlegt.
+Anschließend sind nach dem Vorbild der Icecat-Taxonomien in Akeneo 2 "Families" (eine für die Hüllen und eine für die Smartphones) angelegt worden. Über die "Family" kann in Akeneo festgelegt werden, welche Attribute bei Produkten dieser Art vorkommen können sowie, ob sie erforderlich oder optional sind. Dieser Prozess ließ sich weitestgehend per Skript lösen. Im Repository im Ordner `cluster-analysis > reports > dataset` sind die ausgeführten Schritte samt Code hinterlegt.
 
 Es folgten ein paare kleinere weitere Schritte, wie die Strukturierung der Attribute in Gruppen zur besseren Übersicht. Diese sind aber nicht weiter von Belang.
 
@@ -66,11 +66,11 @@ Nach dem Import der Attribute und Produkte wurden die Daten analysiert und auf F
 
 Diese Fehler wurden anschließend per Skript gefixt. Dazu wurde jedes fehlerhafte Attribut ein zweites Mal in korrigierter Version in Akeneo angelegt. Anschließend wurde jedes Produkt durchgegangen und die Werte aus den fehlerhaften Attributen korrigiert und in den neuen Attributen gespeichert. Die Werte der Multi-Selects enthielten die verschiedenen Optionen als Komma-getrennte Liste, welche entsprechend aufgeteilt worden ist. Die fehlerhaften numerischen Attribute und Single-Selects konnten ohne Problem direkt auf den richtigen Typ übertragen werden.
 
-Zum Schluss sind alle fehlerhaften Attribute in eine Attribut-Gruppe names "Faulty" sortiert worden. Dadurch können sie in der Evaluation direkt herausgefiltert werden, sodass nur die korrekten Attribute bei der Verarbeitung übrig bleiben.
+Zum Schluss sind alle fehlerhaften Attribute in eine Attributgruppe names "Faulty" sortiert worden. Dadurch können sie in der Evaluation direkt herausgefiltert werden, sodass nur die korrekten Attribute bei der Verarbeitung übrig bleiben.
 
 Etwas später wurde noch offenkundig, dass alle numerischen Attribute mit einer "MeasurementUnit" ebenfalls fehlerhaft sind. Die Einheit ist falsch importiert worden, sodass bspw. die Smartphones zwischen 5 und 6 Kilogramm wiegen. Da dieser Fehler aber bei allen Attributen "konsistent" aufgetreten ist und die numerischen Attribute im Zuge der Vorverarbeitung sowieso normalisiert werden, kann dieser Fehler ignoriert werden.
 
-| Attribut-Klasse | Hüllen |  | Smartphones | | davon in beiden |
+| Attributklasse | Hüllen |  | Smartphones | | davon in beiden |
 |--|-:|-:|-:|-:|-:|
 | | *erforderlich* | *optional* | *erforderlich* | *optional* | |
 | numerisch         | 1 | 22 | 10 | 106 | 10 |
@@ -78,7 +78,7 @@ Etwas später wurde noch offenkundig, dass alle numerischen Attribute mit einer 
 | multi-kategorisch | 1 |  4 |  3 |  26 |  3 |
 | strings           | 5 |  5 |  6 |  27 |  9 |
 | andere            | 5 |  0 |  4 |   2 |  4 |
-: Anzahl an Attributen je Attribut-Klasse und Produktfamilie
+: Anzahl an Attributen je Attributklasse und Produktfamilie
 
 Die Tabelle zeigt die jeweilige Menge an Attributen für die Hüllen und die Smartphones nach der Durchführung der Korrekturen.
 
@@ -92,7 +92,7 @@ Die Bibliothek "PySpark" von Apache [@apache2022bikmeans] ist eine der wenigen, 
 
 Für den K-Means und den K-Prototypes existieren ebenfalls Implementierungen, welche vielleicht als Grundlage für eine eigenen Implementierung in der "Bisecting-Variante" hätten dienen können.
 
-Eine der größten Bibliotheken für das Machine Learning – scikit-learn – bietet nur den klassischen K-Means an und ist ebenfalls nicht in der Lage `null`-Values zu verarbeiten [@sklearn2022]. Für das Clustering der Produktdaten ist diese Bibliothek also ebenfalls ungeeignet. Allerdings ermöglicht sie zusätzlich die Berechnung diverser Metriken wie den Adjusted-Rand-Index oder den Silhouetten-Koeffizienten. Diese sind für die Evaluation verwendet worden.
+Eine der größten Bibliotheken für das Machine Learning – scikit-learn – bietet nur den klassischen K-Means an und ist ebenfalls nicht in der Lage `null`-Values zu verarbeiten [@sklearn2022]. Für das Clustering der Produktdaten ist diese Bibliothek also ebenfalls ungeeignet. Allerdings ermöglicht sie zusätzlich die Berechnung diverser Metriken wie den Adjusted-Rand-Index oder den Silhouettenkoeffizienten. Diese sind für die Evaluation verwendet worden.
 
 Die einzige gepflegte Implementierung des K-Prototypes stammt von Nico de Vos [@nicodv2022]. Wie alle Verfahren, kann auch diese Variante nicht mit `null`-Values umgehen. Da die Distanzfunktionen per Parameter übergeben werden, hätte die erarbeitete Berechnung der multi-kategorischen Attribute mit dieser Bibliothek wahrscheinlich umgesetzt werden können. Auf die Ermittlung des Mittelpunktes kann aber im Gegensatz dazu kein Einfluss genommen werden. Schlussendlich wurde auch diese Lösung verworfen.
 
@@ -113,9 +113,9 @@ Die tatsächliche Implementierung dieses Interfaces liegt auf der Seite des Anwe
 
 #### Generisches K-Means
 
-Die umgesetzte Version des K-Means nutzt also das `Centroid`-Interface für das Clustering. Dadurch ist es streng genommen kein reiner "K-Means" mehr, sondern abhängig von der Centroid-Klasse eventuell ein K-Modes, ein K-Prototypes oder etwas komplett anderes. Aus Gründen Einfachheit wird stets vom (generischen) K-Means die Rede sein.
+Die umgesetzte Version des K-Means nutzt also das `Centroid`-Interface für das Clustering. Dadurch ist es streng genommen kein reiner "K-Means" mehr, sondern abhängig von der `Centroid`-Klasse eventuell ein K-Modes, ein K-Prototypes oder etwas komplett anderes. Aus Gründen der Einfachheit wird stets vom (generischen) K-Means die Rede sein.
 
-Die Umsetzung ähnelt der Version von scikit-learn. `KMeans` ist eine Klasse, welche direkt bei der Instanziierung das Datenset, die implementierte Centroid-Klasse und eventuelle weitere Parameter übergeben bekommt. Mit der Instanziierung wird direkt das Clustering ausgeführt. Die Ergebnisse können anschließend über Attribute der Instanz abgerufen werden.
+Die Umsetzung ähnelt der Version von scikit-learn. `KMeans` ist eine Klasse, welche direkt bei der Instanziierung das Datenset, die implementierte `Centroid`-Klasse und eventuelle weitere Parameter übergeben bekommt. Mit der Instanziierung wird direkt das Clustering ausgeführt. Die Ergebnisse können anschließend über Attribute der Instanz abgerufen werden.
 
 Es können sehr ähnliche Parameter wie in der scikit-learn-Implementierung für das Clustering gesetzt werden. So kann mit dem Parameter `n_init` festgelegt werden, wie häufig sich der K-Means selbst initialisiert, um anschließend den besten "Lauf" auszuwählen. Über `random_state` lässt sich ein Seed für die zufällige Wahl der initialen Startpunkte festlegen usw. [@sklearn2022]
 
@@ -140,7 +140,7 @@ BisectingKMeans(dataset, Centroid).labels
 
 In dem Beispiel wurde ein Clustering über ein Datenset mit fünf Punkten durchgeführt. Jede Zeile listet die Clusterzuordnungen für jeweils einen Datenpunkt. Datenpunkt 1 gehört bspw. den Clustern 0, 1 und 2 an. Da es sich um ein Top-down-Clustering handelt, starten alle Datenpunkte entsprechend initial im Cluster $0$. Der erste Split trennte die ersten beiden Punkte vom Rest. Als nächstes wurden Punkt 1 und 2 ebenfalls voneinander getrennt usw.
 
-Es gibt in der Klasse auch eine Methode names `labels_flat(k: int)`. Hiermit können die Clusterzuordnungen für ein spezifisches $k$ abgerufen werden. Entsprechend wäre das Ergebnis für das gegebene Beispiel mit $k=3$:
+Es gibt in der Klasse auch eine Methode names `labels_flat(k: int)`. Hiermit können die Clusterzuordnungen für ein spezifisches $k$ abgerufen werden.
 
 ```python
 # ...
@@ -153,13 +153,13 @@ BisectingKMeans(dataset, Centroid).labels_flat(4)
 [ 2, 1, 0, 3, 3 ]
 ```
 
-Aus einer `BisectingKMeans`-Instanz kann also die Cluster-Zuordnung für jede beliebige Hierarchie-Ebene abgerufen werden.
+Aus einer `BisectingKMeans`-Instanz kann also die Cluster-Zuordnung für jede beliebige Hierarchieebene abgerufen werden.
 
 ### Weitere Implementierungen
 
 #### `Centroid`-Klasse
 
-Mit der Implementierung des `Centroid`-Interfaces konnte nun das hergeleitete Konzept aus Kapitel 3 umgesetzt werden. Die Klasse verarbeitet Datenpunkte in Form einer Hash-Map, welche die "codes" der Attribute aus Akeneo einem numerischen, kategorischen oder multi-kategorischen Wert zuordnet. Das folgende Listing zeigt die Typ-Definition eines solchen Datenpunktes in Python.
+Mit der Implementierung des `Centroid`-Interfaces konnte nun das hergeleitete Konzept aus Kapitel 3 umgesetzt werden. Die Klasse verarbeitet Datenpunkte in Form einer Hash-Map, welche die "codes" der Attribute aus Akeneo einem numerischen, kategorischen oder multi-kategorischen Wert zuordnet. Das folgende Listing zeigt die Typdefinition eines solchen Datenpunktes in Python.
 
 ```python
 Datapoint = dict[str, float|str|set[str]]
@@ -167,11 +167,11 @@ Datapoint = dict[str, float|str|set[str]]
 
 Damit weisen die Datenpunkte eine sehr ähnliche Struktur zu den "ProductValues" in Akeneo auf und bedürfen nur noch geringfügiger Vorverarbeitung.
 
-Die `calc_distance`-Funktion konnte fast eins-zu-eins zu der serialisierten Formel in Kapitel 3 implementiert werden. `on_add_point` aktualisiert den Centroid in den numerischen Werten über den Durchschnitt und in den kategorischen und multi-kategorischen Werten über den Modus. `null`-Values (welche dadurch zustande kommen, dass ein Produkte einige Attribute nicht in seiner Hash-Map aufweist) werden wie beschrieben behandelt.
+Die `calc_distance`-Funktion konnte fast eins-zu-eins zu der serialisierten Formel in Kapitel 3 implementiert werden. `on_add_point` aktualisiert den Centroid in den numerischen Werten über den Durchschnitt und in den kategorischen und multi-kategorischen Werten über den Modus. `null`-Values (welche dadurch zustande kommen, dass ein Produkt einige Attribute nicht in seiner Hash-Map aufweist) werden, wie beschrieben, behandelt.
 
 #### Datenvorverarbeitung
 
-Im Rahmen der Vorverarbeitung müssen die "Products" aus Akeneo-PIM in die Form des definierten `Datapoint` gebracht werden. Dies geschieht mit Hilfe der `parse_products()`-Funktion. Sie extrahiert die "ProductValues" und bereitet sie entsprechend auf. Je nach Attribut-Typ werden hier verschiedene Schritte durchgeführt:
+Im Rahmen der Vorverarbeitung müssen die "Products" aus Akeneo-PIM in die Form des definierten `Datapoint` gebracht werden. Dies geschieht mit Hilfe der `parse_products()`-Funktion. Sie extrahiert die "ProductValues" und bereitet sie entsprechend auf. Je nach Attributtyp werden hier verschiedene Schritte durchgeführt:
 
 - Numerische Attribute werden entsprechend der Tabelle in Kapitel 3.3.2 verarbeitet und normalisiert.
 - Kategorische Attribute bleiben wie sie sind, denn die serialisierte Version der Distanzfunktion bedarf keiner vorherigen Umwandlung in binäre Attribute.
@@ -179,22 +179,22 @@ Im Rahmen der Vorverarbeitung müssen die "Products" aus Akeneo-PIM in die Form 
 - Textzeilen werden entsprechend mithilfe der Python-Bibliothek nltk (<https://www.nltk.org/>), welche auf das Natural Language Processing spezialisiert ist, tokenisiert.
 - Alle anderen Arten von Attributen werden entfernt.
 
-In dem `akeneo_clustering`-Package existieren noch weitere Hilfsfunktionen, welche hier ber nicht weiter von Belang sind.
+In dem `akeneo_clustering`-Package existieren noch weitere Hilfsfunktionen, welche hier aber nicht weiter von Belang sind.
 
 Damit sind alle Vorbereitungen für die Evaluation getroffen.
 
 ## Evaluation
 
-Die Evaluation erfolgt, wie in der Konzeption festgelegt, zuerst nur mit den Hüllen, danach nur mit den Smartphones und schließlich mit allen Produkten zusammen.
+Die Evaluation erfolgt, wie in der Konzeption festgelegt, zuerst nur mit den Hüllen, danach nur mit den Smartphones und schließlich mit allen Produkten zusammen. Die Jupyter Notebooks, welche die Versuche enthalten sind im angehängten Git-Repository unter `cluster-analysis > notebooks > clustering` zu finden. Zusätzlich wurden die Notebooks auch nochmal als HTML-Dateien exportiert. Diese befinden sich in Repository unter `cluster-analysis > reports > clustering`.
 
-Die Versuche laufen stets nach einem ähnlichen Muster ab: Zuerst werden die jeweiligen Produkte aus Akeneo geladen und vorverarbeitet (wie beschrieben mittels der `parse_products()`-Funktion und weiteren). Dann findet eine kurze Analyse der tatsächlich vorkommenden Attribute statt, welche davon viele `null`-Values enthalten etc. Anschließend werden immer verschiedene Kombinationen an Attributen ausgewählt und das Clustering wird mit dieser Auswahl durchgeführt. Zu den Clustering-Ergebnisse werden die Metriken für die Stabilität, Qualität und Erkennungsfähigkeit berechnet und ausgegeben. Daran können sich entsprechend weiterführende Analysen anschließen.
+Die Versuche laufen stets nach einem ähnlichen Muster ab: Zuerst werden die jeweiligen Produkte aus Akeneo geladen und vorverarbeitet (wie beschrieben mittels der `parse_products()`-Funktion und weiteren). Dann findet eine kurze Analyse der tatsächlich vorkommenden Attribute statt. Anschließend werden immer verschiedene Kombinationen an Attributen ausgewählt und das Clustering wird mit dieser Auswahl durchgeführt. Zu den Clustering-Ergebnisse werden die Metriken für die Stabilität, Qualität und Erkennungsfähigkeit berechnet und ausgegeben. Daran können sich entsprechend weiterführende Analysen anschließen.
 
 Die genaue Berechnung der Metriken funktioniert dabei, wie folgt:
 
-- Die *Stabilität* wird berechnet, indem das Clustering mit den gewählten Attributen zehn Mal durchgeführt wird, jedes mal mit einem anderen Seed für die Zufallsinitialisierung. Dann werden die Clusterzuordnungen des ersten Durchlaufes nacheinander mit den neun folgenden Durchläufen verglichen. Der Vergleich erfolgt so, dass mittels der `labels_flat`-Methode des `BisectingKMeans` nacheinander alle Hierarchie-Ebenen von $2$ bis $n-1$ abgerufen werden. Für die Clusterzuordnung von zwei verschiedenen Initialisierungen wird nun der Adjusted-Rand-Index (Implementierung aus scikit-learn) berechnet, welche die Übereinstimmung beider Clustering-Ergebnisse misst. Man erhält also $9 \cdot (n-2)$ verschiedene Ergebnisse. Aus all diesen Werten wird der Durchschnitt berechnet. Die Stabilität ist also der durchschnittliche Adjusted-Rand-Index (Ähnlichkeit) über alle sinnvollen Hierarchie-Ebenen von einem Clustering zu neun weiteren Durchläufen mit exakt den gleichen Parametern.
-- Die *Qualität* wird über den Silhouetten-Koeffizienten ermittelt. Die Implementierung in scikit-learn erlaubt die Verwendung dieses Koeffizienten mit eigenen Distanzfunktionen, weswegen diese Metrik dem Davies-Bouldin-Index vorgezogen worden ist. Ähnlich wie bei der Stabilität wird ebenfalls die `labels_flat`-Methode benutzt, um alle Clusterzuordnungen über die verschiedenen sinnvollen Hierarchie-Stufen ($2 \leq k \leq n-1$) zu erhalten. Für jede Stufe wird nun der Silhouetten-Koeffizient berechnet. Anschließend wird der Durchschnitt aller Koeffizienten über alle Ebenen gebildet. D.h. die Qualität ist der durchschnittliche Silhouetten-Koeffizient eines Clustering-Durchlaufes über alle sinnvollen Hierarchie-Ebenen.
-- Die *Erkennungsfähigkeit* wird über den Vergleich der Ähnlichkeit mit den "Akeneo-Categories" durchgeführt, in denen die Smartphone-Generationen und -Modelle hinterlegt sind. Über die `labels_flat`-Methode wird die Zuordnung für die jeweilige Stufe abgefragt (Generationen: $k=3$, Modelle: $k=11$). Anschließend wird der Adjusted-Rand-Index zwischen den berechneten und den erwarteten Zuteilungen ermittelt. Hier werden für jeden Versuch also in der Regel zwei Werte für die jeweiligen $k$s gegeben sein.
-- Speziell in den Smartphones kommen zusätzlich noch die Duplikate vor, welche eine Sonderform für die Erkennungsfähigkeit darstellen. Hier ist die Erwartung, dass die Produkte, welche Duplikate von einander sind, über alle Hierarchie-Ebenen (minus der letzten) stets in die gleichen Cluster zugeteilt sein müssten. Wie bereits erklärt, kann aus der `BisectingKMeans`-Klasse zu jedem Datenpunkt die Zugehörigkeit zu allen Clustern im Verlaufe des Prozesses abgerufen werden. Die Menge $y_1$ sind also alle Cluster, denen der Punkt $x_1$ angehört und $y_2$ entsprechend alle Cluster, denen $x_2$ angehört. Mit Hilfe eines abgewandelten Jaccard-Koeffizienten kann nun berechnet werden, ob beide Punkte häufig denselben Clustern zugeordnet worden sind:
+- Die *Stabilität* wird berechnet, indem das Clustering mit den gewählten Attributen zehn Mal durchgeführt wird, jedes mal mit einem anderen Seed für die Zufallsinitialisierung. Dann werden die Clusterzuordnungen des ersten Durchlaufes nacheinander mit den neun folgenden Durchläufen verglichen. Der Vergleich erfolgt so, dass mittels der `labels_flat`-Methode des `BisectingKMeans` nacheinander alle Hierarchieebenen von $2$ bis $n-1$ abgerufen werden. Für die Clusterzuordnung von zwei verschiedenen Initialisierungen wird nun der Adjusted-Rand-Index (Implementierung aus scikit-learn) berechnet, welche die Übereinstimmung beider Clustering-Ergebnisse misst. Man erhält also $9 \cdot (n-2)$ verschiedene Ergebnisse. Aus all diesen Werten wird der Durchschnitt berechnet. Die Stabilität ist also der durchschnittliche Adjusted-Rand-Index (Ähnlichkeit) über alle sinnvollen Hierarchieebenen von einem Clustering zu neun weiteren Durchläufen mit exakt den gleichen Parametern.
+- Die *Qualität* wird über den Silhouettenkoeffizienten ermittelt. Die Implementierung in scikit-learn erlaubt die Verwendung dieses Koeffizienten mit eigenen Distanzfunktionen, weswegen diese Metrik dem Davies-Bouldin-Index vorgezogen worden ist. Ähnlich wie bei der Stabilität wird ebenfalls die `labels_flat`-Methode benutzt, um alle Clusterzuordnungen über die verschiedenen sinnvollen Hierarchiestufen ($2 \leq k \leq n-1$) zu erhalten. Für jede Stufe wird nun der Silhouettenkoeffizient berechnet. Anschließend wird der Durchschnitt aller Koeffizienten über alle Ebenen gebildet. D.h. die Qualität ist der durchschnittliche Silhouettenkoeffizient eines Clustering-Durchlaufes über alle sinnvollen Hierarchieebenen.
+- Die *Erkennungsfähigkeit* wird über den Vergleich der Ähnlichkeit mit den "Akeneo-Categories" durchgeführt, in denen die Smartphone-Generationen und Modelle hinterlegt sind. Über die `labels_flat`-Methode wird die Zuordnung für die jeweilige Stufe abgefragt (i.d.R. Generationen: $k=3$, Modelle: $k=11$). Anschließend wird der Adjusted-Rand-Index zwischen den berechneten und den erwarteten Zuteilungen ermittelt. Hier werden für jeden Versuch also in der Regel zwei Werte für die jeweiligen $k$s gegeben sein.
+- Speziell in den Smartphones kommen zusätzlich noch die Duplikate vor, welche eine Sonderform für die Erkennungsfähigkeit darstellen. Hier ist die Erwartung, dass die Produkte, welche Duplikate von einander sind, über alle Hierarchieebenen (minus der letzten) stets in die gleichen Cluster zugeteilt sein müssten. Wie bereits erklärt, kann aus der `BisectingKMeans`-Klasse zu jedem Datenpunkt die Zugehörigkeit zu allen Clustern im Verlaufe des Prozesses abgerufen werden. Die Menge $y_1$ sind also alle Cluster, denen der Punkt $x_1$ angehört und $y_2$ entsprechend alle Cluster, denen $x_2$ angehört. Mit Hilfe eines abgewandelten Jaccard-Koeffizienten kann nun berechnet werden, ob beide Punkte häufig denselben Clustern zugeordnet worden sind:
 
 \begin{equation}
     \frac{|y_1 \cap y_2| - 1}{|y_1 \cup y_2| - 1}
@@ -204,6 +204,6 @@ Da die Duplikate im letzten Split ebenfalls in verschiedenen Clustern landen, wi
 
 Für alle vorkommenden Duplikate wird dieser modifizierte Jaccard-Koeffizient berechnet und anschließend der Durchschnitt aus diesen Koeffizienten gebildet. Der Spezialwert "Duplikate" in der Erkennungsfähigkeit ist also die durchschnittliche Übereinstimmung der Clusterzuteilung aller Duplikate.
 
-Alle Metriken liegen damit im Bereich $[-1;1]$ (außer die Duplikat-Erkennung: $[0;1]$) und Werte nahe der $1$ stellen das beste Ergebnis dar. Werte um die $0$ oder sogar tiefer sind entsprechend negativ für den jeweiligen Versuch zu werten.
+Alle Metriken liegen damit im Bereich $[-1;1]$ (außer die Duplikaterkennung: $[0;1]$) und Werte nahe der $1$ stellen das beste Ergebnis dar. Werte um die $0$ oder sogar tiefer sind entsprechend negativ für den jeweiligen Versuch zu werten.
 
-Außerdem ist wichtig zu erwähnen, dass die Werte der Stabilität nahe der $1$ liegen sollten. Andernfalls ist das Clustering nicht deterministisch und die Distanzfunktion trennt die Produkte nicht ausreichend voneinander. Die Qualität sollte auf jeden Fall positiv sein, allerdings ist es ganz normal, dass die Qualität auf bestimmten Hierarchie-Ebenen höher ist und auf anderen niedriger, wodurch im Durchschnitt eher mittelmäßige Werte in dieser Metrik entstehen. Die Erkennungsfähigkeit sollte so hoch wie möglich liegen, da dies ja der intuitiven Einteilung der Produkte durch Menschen entspricht. Liegen die Werte hier unter $0.5$ ist die Verwendung in der Praxis wohl eher ausgeschlossen.
+Außerdem ist wichtig zu erwähnen, dass die Werte der Stabilität nahe der $1$ liegen sollten. Andernfalls ist das Clustering nicht deterministisch und die Distanzfunktion trennt die Produkte nicht ausreichend voneinander. Die Qualität sollte auf jeden Fall positiv sein, allerdings ist es ganz normal, dass die Qualität auf bestimmten Hierarchieebenen höher ist und auf anderen niedriger, wodurch im Durchschnitt eher mittelmäßige Werte in dieser Metrik entstehen. Die Erkennungsfähigkeit sollte so hoch wie möglich liegen, da dies ja der intuitiven Einteilung der Produkte durch Menschen entspricht. Liegen die Werte hier unter $0.5$ ist die Verwendung in der Praxis wohl eher ausgeschlossen.
