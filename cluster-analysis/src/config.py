@@ -17,6 +17,12 @@ T = TypeVar("T")
 
 
 def load_or_create(file: Path, create_func: Callable[[], T]) -> T:
+    """Store the result of complex calculations in a file
+
+    If the file with the data already exists, the results are loaded from the
+    file. Otherwise, the complex calculation in `create_func` is executed and
+    the results will be stored to `file`.
+    """
     try:
         with open(file, "rb") as f:
             return pickle.load(f)

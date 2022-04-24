@@ -15,6 +15,8 @@ class Datapoint2D:
 
 @dataclass
 class Centroid2D(Centroid, Datapoint2D):
+    """Example implementation of a 2D vector"""
+
     n: int = 0
 
     @classmethod

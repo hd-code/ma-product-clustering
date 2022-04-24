@@ -99,6 +99,7 @@ class BisectingKMeans:
         return self._dataset_to_cluster
 
     def labels_flat(self, num_of_clusters: int = None) -> list[int]:
+        """Returns the labels for a specific level in the cluster hierarchy"""
         if num_of_clusters is None:
             return [max(d) for d in self._dataset_to_cluster]
 
