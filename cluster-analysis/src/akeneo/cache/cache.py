@@ -14,6 +14,7 @@ class Cache:
     the `data_dir`. Afterwards, the data can be accessed through the properties
     of this class.
     """
+
     def __init__(self, data_dir: Path, client: Client = None) -> None:
         self._data_dir = data_dir
         self._client = client
