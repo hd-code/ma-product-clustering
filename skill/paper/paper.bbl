@@ -1,0 +1,676 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{akeneo2022about}{online}{}
+      \name{author}{1}{}{%
+        {{hash=5ea7699d3bf4379a525a7291bd3e93ff}{%
+           family={Akeneo},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{5ea7699d3bf4379a525a7291bd3e93ff}
+      \strng{fullhash}{5ea7699d3bf4379a525a7291bd3e93ff}
+      \strng{bibnamehash}{5ea7699d3bf4379a525a7291bd3e93ff}
+      \strng{authorbibnamehash}{5ea7699d3bf4379a525a7291bd3e93ff}
+      \strng{authornamehash}{5ea7699d3bf4379a525a7291bd3e93ff}
+      \strng{authorfullhash}{5ea7699d3bf4379a525a7291bd3e93ff}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{3}
+      \field{title}{About Akeneo}
+      \field{urlday}{4}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.akeneo.com/de/about-us/
+      \endverb
+      \verb{url}
+      \verb https://www.akeneo.com/de/about-us/
+      \endverb
+    \endentry
+    \entry{cohen2003}{inproceedings}{}
+      \true{moreauthor}
+      \true{morelabelname}
+      \name{author}{3}{}{%
+        {{hash=e73233352c261fd69883c5f0f01f4218}{%
+           family={Cohen},
+           familyi={C\bibinitperiod},
+           given={William\bibnamedelima W},
+           giveni={W\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=7d8c4e95ae1b368d048ab15201b3f087}{%
+           family={Ravikumar},
+           familyi={R\bibinitperiod},
+           given={Pradeep},
+           giveni={P\bibinitperiod}}}%
+        {{hash=05db46edd38d5670035ac0b33e85c58f}{%
+           family={Fienberg},
+           familyi={F\bibinitperiod},
+           given={Stephen\bibnamedelima E},
+           giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{e7388dcadee8586e237e7fbaac08fcd2}
+      \strng{fullhash}{e7388dcadee8586e237e7fbaac08fcd2}
+      \strng{bibnamehash}{e7388dcadee8586e237e7fbaac08fcd2}
+      \strng{authorbibnamehash}{e7388dcadee8586e237e7fbaac08fcd2}
+      \strng{authornamehash}{e7388dcadee8586e237e7fbaac08fcd2}
+      \strng{authorfullhash}{e7388dcadee8586e237e7fbaac08fcd2}
+      \field{sortinit}{C}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IIWeb}
+      \field{title}{A Comparison of String Distance Metrics for Name-Matching Tasks}
+      \field{volume}{3}
+      \field{year}{2003}
+      \field{pages}{73\bibrangedash 78}
+      \range{pages}{6}
+    \endentry
+    \entry{cui2021}{article}{}
+      \name{author}{1}{}{%
+        {{hash=9bfd90dc33c3f5f065b48ed36801b670}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Yimin},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Hindawi}%
+      }
+      \strng{namehash}{9bfd90dc33c3f5f065b48ed36801b670}
+      \strng{fullhash}{9bfd90dc33c3f5f065b48ed36801b670}
+      \strng{bibnamehash}{9bfd90dc33c3f5f065b48ed36801b670}
+      \strng{authorbibnamehash}{9bfd90dc33c3f5f065b48ed36801b670}
+      \strng{authornamehash}{9bfd90dc33c3f5f065b48ed36801b670}
+      \strng{authorfullhash}{9bfd90dc33c3f5f065b48ed36801b670}
+      \field{sortinit}{C}
+      \field{sortinithash}{4c244ceae61406cdc0cc2ce1cb1ff703}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Mathematical Problems in Engineering}
+      \field{title}{Intelligent recommendation system based on mathematical modeling in personalized data mining}
+      \field{volume}{2021}
+      \field{year}{2021}
+    \endentry
+    \entry{dogan2022}{article}{}
+      \name{author}{2}{}{%
+        {{hash=f003e9aed4f4877b0cca2503f3b44b19}{%
+           family={Dogan},
+           familyi={D\bibinitperiod},
+           given={Alican},
+           giveni={A\bibinitperiod}}}%
+        {{hash=ad1ad90ef84a99a662c28083e5887f15}{%
+           family={Birant},
+           familyi={B\bibinitperiod},
+           given={Derya},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{00ab097e620ebee969bf198616d9389a}
+      \strng{fullhash}{00ab097e620ebee969bf198616d9389a}
+      \strng{bibnamehash}{00ab097e620ebee969bf198616d9389a}
+      \strng{authorbibnamehash}{00ab097e620ebee969bf198616d9389a}
+      \strng{authornamehash}{00ab097e620ebee969bf198616d9389a}
+      \strng{authorfullhash}{00ab097e620ebee969bf198616d9389a}
+      \field{sortinit}{D}
+      \field{sortinithash}{c438b3d5d027251ba63f5ed538d98af5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Applied Intelligence}
+      \field{number}{5}
+      \field{title}{K-centroid link: a novel hierarchical clustering linkage method}
+      \field{volume}{52}
+      \field{year}{2022}
+      \field{pages}{5537\bibrangedash 5560}
+      \range{pages}{24}
+    \endentry
+    \entry{apache2022bikmeans}{online}{}
+      \name{author}{1}{}{%
+        {{hash=eb1472a1dd93ea5972fb047e03c718e0}{%
+           family={Foundation},
+           familyi={F\bibinitperiod},
+           given={The\bibnamedelimb Apache\bibnamedelima Software},
+           giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \strng{namehash}{eb1472a1dd93ea5972fb047e03c718e0}
+      \strng{fullhash}{eb1472a1dd93ea5972fb047e03c718e0}
+      \strng{bibnamehash}{eb1472a1dd93ea5972fb047e03c718e0}
+      \strng{authorbibnamehash}{eb1472a1dd93ea5972fb047e03c718e0}
+      \strng{authornamehash}{eb1472a1dd93ea5972fb047e03c718e0}
+      \strng{authorfullhash}{eb1472a1dd93ea5972fb047e03c718e0}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{BisectingKMeans – PySpark 3.2.1 documentation}
+      \field{urlday}{14}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.clustering.BisectingKMeans.html
+      \endverb
+      \verb{url}
+      \verb https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.clustering.BisectingKMeans.html
+      \endverb
+    \endentry
+    \entry{huang1998}{article}{}
+      \name{author}{1}{}{%
+        {{hash=f6d10bb5148ace9fa28838d8fcc1ac77}{%
+           family={Huang},
+           familyi={H\bibinitperiod},
+           given={Zhexue},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f6d10bb5148ace9fa28838d8fcc1ac77}
+      \strng{fullhash}{f6d10bb5148ace9fa28838d8fcc1ac77}
+      \strng{bibnamehash}{f6d10bb5148ace9fa28838d8fcc1ac77}
+      \strng{authorbibnamehash}{f6d10bb5148ace9fa28838d8fcc1ac77}
+      \strng{authornamehash}{f6d10bb5148ace9fa28838d8fcc1ac77}
+      \strng{authorfullhash}{f6d10bb5148ace9fa28838d8fcc1ac77}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Data mining and knowledge discovery}
+      \field{number}{3}
+      \field{title}{Extensions to the k-means algorithm for clustering large data sets with categorical values}
+      \field{volume}{2}
+      \field{year}{1998}
+      \field{pages}{283\bibrangedash 304}
+      \range{pages}{22}
+    \endentry
+    \entry{hubert1985}{article}{}
+      \name{author}{2}{}{%
+        {{hash=d5d1d02dd8d174f83c61ea441c89cba6}{%
+           family={Hubert},
+           familyi={H\bibinitperiod},
+           given={Lawrence},
+           giveni={L\bibinitperiod}}}%
+        {{hash=baebbb2356b9e79fc400b332e197f628}{%
+           family={Arabie},
+           familyi={A\bibinitperiod},
+           given={Phipps},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{fa62d725515e6d56c25bb670992fc030}
+      \strng{fullhash}{fa62d725515e6d56c25bb670992fc030}
+      \strng{bibnamehash}{fa62d725515e6d56c25bb670992fc030}
+      \strng{authorbibnamehash}{fa62d725515e6d56c25bb670992fc030}
+      \strng{authornamehash}{fa62d725515e6d56c25bb670992fc030}
+      \strng{authorfullhash}{fa62d725515e6d56c25bb670992fc030}
+      \field{sortinit}{H}
+      \field{sortinithash}{6db6145dae8dc9e1271a8d556090b50a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of classification}
+      \field{number}{1}
+      \field{title}{Comparing partitions}
+      \field{volume}{2}
+      \field{year}{1985}
+      \field{pages}{193\bibrangedash 218}
+      \range{pages}{26}
+    \endentry
+    \entry{icecat2021}{online}{}
+      \name{author}{1}{}{%
+        {{hash=9c8cae1a83d5a3e8b71743b7051590f2}{%
+           family={Icecat},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{9c8cae1a83d5a3e8b71743b7051590f2}
+      \strng{fullhash}{9c8cae1a83d5a3e8b71743b7051590f2}
+      \strng{bibnamehash}{9c8cae1a83d5a3e8b71743b7051590f2}
+      \strng{authorbibnamehash}{9c8cae1a83d5a3e8b71743b7051590f2}
+      \strng{authornamehash}{9c8cae1a83d5a3e8b71743b7051590f2}
+      \strng{authorfullhash}{9c8cae1a83d5a3e8b71743b7051590f2}
+      \field{sortinit}{I}
+      \field{sortinithash}{9417e9a1288a9371e2691d999083ed39}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{11}
+      \field{title}{About Icecat}
+      \field{urlday}{5}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://icecat.com/about-us/
+      \endverb
+      \verb{url}
+      \verb https://icecat.com/about-us/
+      \endverb
+    \endentry
+    \entry{kaufman2009}{book}{}
+      \name{author}{2}{}{%
+        {{hash=362891924a56b4d25f9a399dfc3198f9}{%
+           family={Kaufman},
+           familyi={K\bibinitperiod},
+           given={Leonard},
+           giveni={L\bibinitperiod}}}%
+        {{hash=72d8129c9f4e6afddacb834fb2d8226f}{%
+           family={Rousseeuw},
+           familyi={R\bibinitperiod},
+           given={Peter\bibnamedelima J},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{e410ff139c15ddddf1cde01b477e5635}
+      \strng{fullhash}{e410ff139c15ddddf1cde01b477e5635}
+      \strng{bibnamehash}{e410ff139c15ddddf1cde01b477e5635}
+      \strng{authorbibnamehash}{e410ff139c15ddddf1cde01b477e5635}
+      \strng{authornamehash}{e410ff139c15ddddf1cde01b477e5635}
+      \strng{authorfullhash}{e410ff139c15ddddf1cde01b477e5635}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Finding groups in data: an introduction to cluster analysis}
+      \field{volume}{344}
+      \field{year}{2009}
+    \endentry
+    \entry{king2015}{book}{}
+      \name{author}{1}{}{%
+        {{hash=3c14d5024d79e994fa4ca8f63ac624bf}{%
+           family={King},
+           familyi={K\bibinitperiod},
+           given={Ronald\bibnamedelima S},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Stylus Publishing, LLC}%
+      }
+      \strng{namehash}{3c14d5024d79e994fa4ca8f63ac624bf}
+      \strng{fullhash}{3c14d5024d79e994fa4ca8f63ac624bf}
+      \strng{bibnamehash}{3c14d5024d79e994fa4ca8f63ac624bf}
+      \strng{authorbibnamehash}{3c14d5024d79e994fa4ca8f63ac624bf}
+      \strng{authornamehash}{3c14d5024d79e994fa4ca8f63ac624bf}
+      \strng{authorfullhash}{3c14d5024d79e994fa4ca8f63ac624bf}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Cluster analysis and data mining: An introduction}
+      \field{year}{2015}
+    \endentry
+    \entry{kou2012}{article}{}
+      \name{author}{2}{}{%
+        {{hash=df1bb29625bf7f37e2ca6a5bfc9e6e9e}{%
+           family={Kou},
+           familyi={K\bibinitperiod},
+           given={Gang},
+           giveni={G\bibinitperiod}}}%
+        {{hash=4a311d0ee6122a2155b7367ed5ed191e}{%
+           family={Lou},
+           familyi={L\bibinitperiod},
+           given={Chunwei},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{6b66aa2cb6b1a1971c7b461933b429d0}
+      \strng{fullhash}{6b66aa2cb6b1a1971c7b461933b429d0}
+      \strng{bibnamehash}{6b66aa2cb6b1a1971c7b461933b429d0}
+      \strng{authorbibnamehash}{6b66aa2cb6b1a1971c7b461933b429d0}
+      \strng{authornamehash}{6b66aa2cb6b1a1971c7b461933b429d0}
+      \strng{authorfullhash}{6b66aa2cb6b1a1971c7b461933b429d0}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Operations Research}
+      \field{number}{1}
+      \field{title}{Multiple factor hierarchical clustering algorithm for large scale web page and search engine clickstream data}
+      \field{volume}{197}
+      \field{year}{2012}
+      \field{pages}{123\bibrangedash 134}
+      \range{pages}{12}
+    \endentry
+    \entry{kumar2001}{article}{}
+      \name{author}{4}{}{%
+        {{hash=8b41fe0754fd3864ac9f18e92f6daf24}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Ravi},
+           giveni={R\bibinitperiod}}}%
+        {{hash=68f523934985e2f967ab2b15f4ded07c}{%
+           family={Raghavan},
+           familyi={R\bibinitperiod},
+           given={Prabhakar},
+           giveni={P\bibinitperiod}}}%
+        {{hash=87ba8b5f2a177fd89099eedcd5438a75}{%
+           family={Rajagopalan},
+           familyi={R\bibinitperiod},
+           given={Sridhar},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1be6b0855ca65a591e8efd28fa72ebc6}{%
+           family={Tomkins},
+           familyi={T\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{56615393aa56d5ca4c564bf0c372c8ee}
+      \strng{fullhash}{bd46363112adbd3f2215b05474634fba}
+      \strng{bibnamehash}{56615393aa56d5ca4c564bf0c372c8ee}
+      \strng{authorbibnamehash}{56615393aa56d5ca4c564bf0c372c8ee}
+      \strng{authornamehash}{56615393aa56d5ca4c564bf0c372c8ee}
+      \strng{authorfullhash}{bd46363112adbd3f2215b05474634fba}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Computer and System Sciences}
+      \field{number}{1}
+      \field{title}{Recommendation systems: A probabilistic analysis}
+      \field{volume}{63}
+      \field{year}{2001}
+      \field{pages}{42\bibrangedash 61}
+      \range{pages}{20}
+    \endentry
+    \entry{oh2019}{article}{}
+      \name{author}{2}{}{%
+        {{hash=5b37840fea0a1d1b37265935b49d225d}{%
+           family={Oh},
+           familyi={O\bibinitperiod},
+           given={Yoori},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=c0d307c40b6b1457a2af13b308fb2229}{%
+           family={Kim},
+           familyi={K\bibinitperiod},
+           given={Yoonhee},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{84c1c664ad997614bc18ea3faf5b3637}
+      \strng{fullhash}{84c1c664ad997614bc18ea3faf5b3637}
+      \strng{bibnamehash}{84c1c664ad997614bc18ea3faf5b3637}
+      \strng{authorbibnamehash}{84c1c664ad997614bc18ea3faf5b3637}
+      \strng{authornamehash}{84c1c664ad997614bc18ea3faf5b3637}
+      \strng{authorfullhash}{84c1c664ad997614bc18ea3faf5b3637}
+      \field{sortinit}{O}
+      \field{sortinithash}{ff8d4eeb5101e3cf3809959b3592d942}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Cluster Computing}
+      \field{number}{1}
+      \field{title}{A resource recommendation method based on dynamic cluster analysis of application characteristics}
+      \field{volume}{22}
+      \field{year}{2019}
+      \field{pages}{175\bibrangedash 184}
+      \range{pages}{10}
+    \endentry
+    \entry{papp2019}{book}{}
+      \name{author}{6}{}{%
+        {{hash=bd269f5cbd6c7303596070be661e134d}{%
+           family={Papp},
+           familyi={P\bibinitperiod},
+           given={Stefan},
+           giveni={S\bibinitperiod}}}%
+        {{hash=49ea18843151d0df0c75051c8e318de4}{%
+           family={Weidinger},
+           familyi={W\bibinitperiod},
+           given={Wolfgang},
+           giveni={W\bibinitperiod}}}%
+        {{hash=e9ffaf7295eb4406114de7645a7e6975}{%
+           family={Meir-Huber},
+           familyi={M\bibinithyphendelim H\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+        {{hash=6cd2a74760da9ba7a76e51e71caf6fba}{%
+           family={Ortner},
+           familyi={O\bibinitperiod},
+           given={Bernhard},
+           giveni={B\bibinitperiod}}}%
+        {{hash=328e7c8cba2446711b3e55e02911dd07}{%
+           family={Langs},
+           familyi={L\bibinitperiod},
+           given={Georg},
+           giveni={G\bibinitperiod}}}%
+        {{hash=0cd28d131ef793826c6f8823cd5dc278}{%
+           family={Wazir},
+           familyi={W\bibinitperiod},
+           given={Rania},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Carl Hanser Verlag GmbH Co KG}%
+      }
+      \strng{namehash}{255154b56c22e1bee8ac7b5223a529f5}
+      \strng{fullhash}{bf915c55fcff0f8f60a9a620d7563aaf}
+      \strng{bibnamehash}{255154b56c22e1bee8ac7b5223a529f5}
+      \strng{authorbibnamehash}{255154b56c22e1bee8ac7b5223a529f5}
+      \strng{authornamehash}{255154b56c22e1bee8ac7b5223a529f5}
+      \strng{authorfullhash}{bf915c55fcff0f8f60a9a620d7563aaf}
+      \field{sortinit}{P}
+      \field{sortinithash}{bb5b15f2db90f7aef79bb9e83defefcb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Handbuch Data Science: Mit Datenanalyse und Machine Learning Wert aus Daten generieren}
+      \field{year}{2019}
+    \endentry
+    \entry{pimcore2021}{online}{}
+      \name{author}{1}{}{%
+        {{hash=15a658be6971d6250b0fc31668570f0b}{%
+           family={Pimcore},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{15a658be6971d6250b0fc31668570f0b}
+      \strng{fullhash}{15a658be6971d6250b0fc31668570f0b}
+      \strng{bibnamehash}{15a658be6971d6250b0fc31668570f0b}
+      \strng{authorbibnamehash}{15a658be6971d6250b0fc31668570f0b}
+      \strng{authornamehash}{15a658be6971d6250b0fc31668570f0b}
+      \strng{authorfullhash}{15a658be6971d6250b0fc31668570f0b}
+      \field{sortinit}{P}
+      \field{sortinithash}{bb5b15f2db90f7aef79bb9e83defefcb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{8}
+      \field{title}{What, why and how of product information management}
+      \field{urlday}{4}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://pimcore.com/en/what-is-pim
+      \endverb
+      \verb{url}
+      \verb https://pimcore.com/en/what-is-pim
+      \endverb
+    \endentry
+    \entry{rajalingam2011}{article}{}
+      \name{author}{2}{}{%
+        {{hash=17ecbd1530e601d6b5bc5bc0f94d6e74}{%
+           family={Rajalingam},
+           familyi={R\bibinitperiod},
+           given={N},
+           giveni={N\bibinitperiod}}}%
+        {{hash=343fe473b3e2bc0b913c47594392ea88}{%
+           family={Ranjini},
+           familyi={R\bibinitperiod},
+           given={K},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Citeseer}%
+      }
+      \strng{namehash}{51a858e386fa81535c90613c8104912f}
+      \strng{fullhash}{51a858e386fa81535c90613c8104912f}
+      \strng{bibnamehash}{51a858e386fa81535c90613c8104912f}
+      \strng{authorbibnamehash}{51a858e386fa81535c90613c8104912f}
+      \strng{authornamehash}{51a858e386fa81535c90613c8104912f}
+      \strng{authorfullhash}{51a858e386fa81535c90613c8104912f}
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Computer Applications}
+      \field{number}{3}
+      \field{title}{Hierarchical Clustering Algorithm - A Comparative Study}
+      \field{volume}{19}
+      \field{year}{2011}
+      \field{pages}{42\bibrangedash 46}
+      \range{pages}{5}
+    \endentry
+    \entry{rousseeuw1987}{article}{}
+      \name{author}{1}{}{%
+        {{hash=72d8129c9f4e6afddacb834fb2d8226f}{%
+           family={Rousseeuw},
+           familyi={R\bibinitperiod},
+           given={Peter\bibnamedelima J},
+           giveni={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{72d8129c9f4e6afddacb834fb2d8226f}
+      \strng{fullhash}{72d8129c9f4e6afddacb834fb2d8226f}
+      \strng{bibnamehash}{72d8129c9f4e6afddacb834fb2d8226f}
+      \strng{authorbibnamehash}{72d8129c9f4e6afddacb834fb2d8226f}
+      \strng{authornamehash}{72d8129c9f4e6afddacb834fb2d8226f}
+      \strng{authorfullhash}{72d8129c9f4e6afddacb834fb2d8226f}
+      \field{sortinit}{R}
+      \field{sortinithash}{b9c68a358aea118dfa887b6e902414a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of computational and applied mathematics}
+      \field{title}{Silhouettes: a graphical aid to the interpretation and validation of cluster analysis}
+      \field{volume}{20}
+      \field{year}{1987}
+      \field{pages}{53\bibrangedash 65}
+      \range{pages}{13}
+    \endentry
+    \entry{sklearn2022}{online}{}
+      \name{author}{1}{}{%
+        {{hash=3483ff058deda3dad41fa7925fab2dac}{%
+           family={scikit-learn},
+           familyi={s\bibinithyphendelim l\bibinitperiod}}}%
+      }
+      \strng{namehash}{3483ff058deda3dad41fa7925fab2dac}
+      \strng{fullhash}{3483ff058deda3dad41fa7925fab2dac}
+      \strng{bibnamehash}{3483ff058deda3dad41fa7925fab2dac}
+      \strng{authorbibnamehash}{3483ff058deda3dad41fa7925fab2dac}
+      \strng{authornamehash}{3483ff058deda3dad41fa7925fab2dac}
+      \strng{authorfullhash}{3483ff058deda3dad41fa7925fab2dac}
+      \field{sortinit}{s}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{2.3. Clustering – scikit-learn 1.0.2 documentation}
+      \field{urlday}{14}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://scikit-learn.org/stable/modules/clustering.html
+      \endverb
+      \verb{url}
+      \verb https://scikit-learn.org/stable/modules/clustering.html
+      \endverb
+    \endentry
+    \entry{steinbach2000}{article}{}
+      \name{author}{3}{}{%
+        {{hash=b9765658c356344d0b65e62185a7fbda}{%
+           family={Steinbach},
+           familyi={S\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3db7df6401b206bb040d6735adbe81e2}{%
+           family={Karypis},
+           familyi={K\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod}}}%
+        {{hash=efb90d78e35ff61d3bc639f5c6f3d822}{%
+           family={Kumar},
+           familyi={K\bibinitperiod},
+           given={Vipin},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{8a0bbb901a881817979ba7bbbb3822a2}
+      \strng{fullhash}{8a0bbb901a881817979ba7bbbb3822a2}
+      \strng{bibnamehash}{8a0bbb901a881817979ba7bbbb3822a2}
+      \strng{authorbibnamehash}{8a0bbb901a881817979ba7bbbb3822a2}
+      \strng{authornamehash}{8a0bbb901a881817979ba7bbbb3822a2}
+      \strng{authorfullhash}{8a0bbb901a881817979ba7bbbb3822a2}
+      \field{sortinit}{S}
+      \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A comparison of document clustering techniques}
+      \field{year}{2000}
+    \endentry
+    \entry{nicodv2022}{online}{}
+      \name{author}{1}{}{%
+        {{hash=fa1052d50beec4ec73b5b34012b672d2}{%
+           family={Vos},
+           familyi={V\bibinitperiod},
+           given={Nico},
+           giveni={N\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+      }
+      \strng{namehash}{fa1052d50beec4ec73b5b34012b672d2}
+      \strng{fullhash}{fa1052d50beec4ec73b5b34012b672d2}
+      \strng{bibnamehash}{fa1052d50beec4ec73b5b34012b672d2}
+      \strng{authorbibnamehash}{fa1052d50beec4ec73b5b34012b672d2}
+      \strng{authornamehash}{fa1052d50beec4ec73b5b34012b672d2}
+      \strng{authorfullhash}{fa1052d50beec4ec73b5b34012b672d2}
+      \field{sortinit}{V}
+      \field{sortinithash}{02432525618c08e2b03cac47c19764af}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{nicodv/kmodes: Python implementations of the k-modes and k-prototypes clustering algorithms, for clustering categorical data}
+      \field{urlday}{14}
+      \field{urlmonth}{4}
+      \field{urlyear}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/nicodv/kmodes
+      \endverb
+      \verb{url}
+      \verb https://github.com/nicodv/kmodes
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

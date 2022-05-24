@@ -1,0 +1,21 @@
+[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
+[0] Config.pm:307> INFO - Logfile is 'paper.blg'
+[89] biber:322> INFO - === Sun May 15, 2022, 09:12:30
+[112] Biber.pm:415> INFO - Reading 'paper.bcf'
+[205] Biber.pm:943> INFO - Found 20 citekeys in bib section 0
+[228] Biber.pm:4256> INFO - Processing section 0
+[229] Utils.pm:75> INFO - Globbing data source 'assets/quellen.bib'
+[230] Utils.pm:91> INFO - Globbed data source 'assets/quellen.bib' to assets/quellen.bib
+[241] Biber.pm:4455> INFO - Looking for bibtex format file 'assets/quellen.bib' for section 0
+[248] bibtex.pm:1653> INFO - LaTeX decoding ...
+[302] bibtex.pm:1471> INFO - Found BibTeX data source 'assets/quellen.bib'
+[370] Utils.pm:293> WARN - month field 'Aug' in entry 'pimcore2021' is not an integer - this will probably not sort properly.
+[425] Utils.pm:293> WARN - month field 'Mar' in entry 'akeneo2022about' is not an integer - this will probably not sort properly.
+[432] Utils.pm:293> WARN - month field 'Nov' in entry 'icecat2021' is not an integer - this will probably not sort properly.
+[479] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[480] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[481] Biber.pm:4084> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'de-DE'
+[482] Biber.pm:4090> INFO - No sort tailoring available for locale 'de-DE'
+[512] bbl.pm:652> INFO - Writing 'paper.bbl' with encoding 'UTF-8'
+[536] bbl.pm:755> INFO - Output to paper.bbl
+[537] Biber.pm:128> INFO - WARNINGS: 3

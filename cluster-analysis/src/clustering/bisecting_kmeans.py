@@ -62,31 +62,35 @@ class BisectingKMeans:
 
         cluster_alias = {i: i for i in range(n_datapoints)}
         n_cluster = n_datapoints
-        cluster_count = {i: 1 for i in range(n_datapoints)}
 
         for i in range(1, n_datapoints):
             merged_cluster = n_datapoints - i
-            merged_points = np.array(self.labels_flat(merged_cluster))[
-                np.array(self.labels_flat(merged_cluster + 1)) == merged_cluster
-            ]
-            merged_with = merged_points[0]
 
-            cluster_count[merged_with] += len(merged_points)
+            merged_points = np.array(self.labels_flat(merged_cluster)) != np.array(self.labels_flat(merged_cluster + 1))
+            merged_point_i = merged_points.argmax()
+
+            merged_with_value = self.labels_flat(merged_cluster)[merged_point_i]
+            merged_with_points = np.array(self.labels_flat(merged_cluster + 1)) == merged_with_value
+            merged_with_point_i = merged_with_points.argmax()
 
             result = np.append(
                 result,
                 [
                     [
-                        cluster_alias[merged_cluster],
-                        cluster_alias[merged_with],
+                        cluster_alias[merged_point_i],
+                        cluster_alias[merged_with_point_i],
                         self._cluster_errors_history[merged_cluster],
-                        cluster_count[merged_with],
+                        len(self._dataset[merged_points])+len(self._dataset[merged_with_points]),
                     ]
                 ],
                 axis=0,
             )
 
-            cluster_alias[merged_with] = n_cluster
+            i = 0
+            for point_changed in np.logical_or(merged_points, merged_with_points):
+                if point_changed:
+                    cluster_alias[i] = n_cluster
+                i += 1
             n_cluster += 1
         return result[1:]
 

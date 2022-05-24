@@ -1,0 +1,92 @@
+% !TeX encoding = UTF-8
+% !TeX program = pdflatex
+% !BIB program = bibtex
+
+%%% Um einen Artikel auf deutsch zu schreiben, genügt es die Klasse ohne
+%%% Parameter zu laden.
+\documentclass[]{lni}
+%%% To write an article in English, please use the option ``english'' in order
+%%% to get the correct hyphenation patterns and terms.
+%%% \documentclass[english]{class}
+%%
+
+% additional includes ----------------------------------------------------------
+
+\usepackage{biblatex}
+\addbibresource{assets/quellen.bib}
+
+% graphics
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\graphicspath{ {./assets/} }
+
+% list
+% no space between list items
+\providecommand{\tightlist}{%
+    \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% tables
+\usepackage{longtable,booktabs,array}
+\usepackage{multirow}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
+% end additional includes ------------------------------------------------------
+
+\begin{document}
+%%% Mehrere Autoren werden durch \and voneinander getrennt.
+%%% Die Fußnote enthält die Adresse sowie eine E-Mail-Adresse.
+%%% Das optionale Argument (sofern angegeben) wird für die Kopfzeile verwendet.
+\title[Bisecting K-Prototypes]{Bisecting K-Prototypes: Effizientes hierarchisches Clustering gemischter Datensets}
+%%%\subtitle{Untertitel / Subtitle} % if needed
+\author[Hannes Dröse]{
+    Hannes Dröse
+    \footnote{FH Erfurt, Angewandte Informatik, Altonaer Str. 25, 99085 Erfurt, Deutschland
+    \email{hannes.droese@fh-erfurt.de}}
+}
+\startpage{1} % Beginn der Seitenzählung für diesen Beitrag / Start page
+\editor{Herausgeber et al.} % Names of Editors
+\booktitle{SKILL} % Name of book title
+% \yearofpublication{2022} % does not work!
+%%%\lnidoi{18.18420/provided-by-editor-02} % if known
+\maketitle
+
+\begin{abstract}
+    Dieses Paper stellt ein neuartiges effizientes hierarchisches Top-down-Clustering-Verfahren für gemischte Datensets vor: Bisecting K-Prototypes. Der Algorithmus ist speziell für die Verarbeitung komplexer (numerischer und kategorischer) Datensets mit vielen fehlende Werten geeignet. Dabei ist keine exzessive Vorverarbeitung des Datensets nötig. Zusätzlich werden Erweiterungen des Algorithmus vorgestellt, welche für die Verarbeitung von Multi-Select- und Freitext-Feldern (multi-kategorische und String-Attribute) geeignet sind. Der Algorithmus wurde implementiert und gegen ein entsprechend komplexes Datenset getestet und evaluiert.
+    % This paper introduces a new efficient hierarchical divisive clustering algorithm for mixed datasets – Bisecting K-Prototypes. The algorithm is specifically designed to handle complex mixed (numerical and categorical) datasets with many missing values without the need for extensive data preparation. Additionally, extensions to this algorithm for multi-select data (multi-categorical) and string data are provided. The algorithm is then tested and evaluated against a corresponding dataset containing each of these complex cases.
+\end{abstract}
+
+\begin{keywords}
+    Clusteranalyse
+    \and Product-Information-Management
+    \and hierarchisches Clustering
+    \and Bisecting K-Means
+    \and K-Prototypes
+    \and gemischte Datensets
+    \and fehlende Werte
+\end{keywords}
+
+%%% Beginn des Artikeltexts
+\input{assets/content}
+
+%%% Angabe der .bib-Datei (ohne Endung) / State .bib file (for BibTeX usage)
+\printbibliography %\printbibliography if you use biblatex/Biber
+\end{document}
