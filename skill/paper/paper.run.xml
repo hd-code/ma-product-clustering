@@ -81,7 +81,7 @@
       <file>paper.bcf</file>
     </requires>
     <requires type="editable">
-      <file>assets/quellen.bib</file>
+      <file>quellen.bib</file>
     </requires>
   </external>
 </requests>
