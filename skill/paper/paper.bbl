@@ -149,36 +149,6 @@
       \field{pages}{5537\bibrangedash 5560}
       \range{pages}{24}
     \endentry
-    \entry{apache2022bikmeans}{online}{}
-      \name{author}{1}{}{%
-        {{hash=eb1472a1dd93ea5972fb047e03c718e0}{%
-           family={Foundation},
-           familyi={F\bibinitperiod},
-           given={The\bibnamedelimb Apache\bibnamedelima Software},
-           giveni={T\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
-      }
-      \strng{namehash}{eb1472a1dd93ea5972fb047e03c718e0}
-      \strng{fullhash}{eb1472a1dd93ea5972fb047e03c718e0}
-      \strng{bibnamehash}{eb1472a1dd93ea5972fb047e03c718e0}
-      \strng{authorbibnamehash}{eb1472a1dd93ea5972fb047e03c718e0}
-      \strng{authornamehash}{eb1472a1dd93ea5972fb047e03c718e0}
-      \strng{authorfullhash}{eb1472a1dd93ea5972fb047e03c718e0}
-      \field{sortinit}{F}
-      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{BisectingKMeans – PySpark 3.2.1 documentation}
-      \field{urlday}{14}
-      \field{urlmonth}{4}
-      \field{urlyear}{2022}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.clustering.BisectingKMeans.html
-      \endverb
-      \verb{url}
-      \verb https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.clustering.BisectingKMeans.html
-      \endverb
-    \endentry
     \entry{huang1998}{article}{}
       \name{author}{1}{}{%
         {{hash=f6d10bb5148ace9fa28838d8fcc1ac77}{%
@@ -635,40 +605,10 @@
       \field{sortinithash}{c319cff79d99c853d775f88277d4e45f}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{A comparison of document clustering techniques}
+      \field{journaltitle}{Proceedings of the International KDD Workshop on Text Mining}
+      \field{month}{06}
+      \field{title}{A Comparison of Document Clustering Techniques}
       \field{year}{2000}
-    \endentry
-    \entry{nicodv2022}{online}{}
-      \name{author}{1}{}{%
-        {{hash=fa1052d50beec4ec73b5b34012b672d2}{%
-           family={Vos},
-           familyi={V\bibinitperiod},
-           given={Nico},
-           giveni={N\bibinitperiod},
-           prefix={de},
-           prefixi={d\bibinitperiod}}}%
-      }
-      \strng{namehash}{fa1052d50beec4ec73b5b34012b672d2}
-      \strng{fullhash}{fa1052d50beec4ec73b5b34012b672d2}
-      \strng{bibnamehash}{fa1052d50beec4ec73b5b34012b672d2}
-      \strng{authorbibnamehash}{fa1052d50beec4ec73b5b34012b672d2}
-      \strng{authornamehash}{fa1052d50beec4ec73b5b34012b672d2}
-      \strng{authorfullhash}{fa1052d50beec4ec73b5b34012b672d2}
-      \field{sortinit}{V}
-      \field{sortinithash}{02432525618c08e2b03cac47c19764af}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{nicodv/kmodes: Python implementations of the k-modes and k-prototypes clustering algorithms, for clustering categorical data}
-      \field{urlday}{14}
-      \field{urlmonth}{4}
-      \field{urlyear}{2022}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://github.com/nicodv/kmodes
-      \endverb
-      \verb{url}
-      \verb https://github.com/nicodv/kmodes
-      \endverb
     \endentry
   \enddatalist
 \endrefsection
