@@ -56,13 +56,13 @@ Hierarchische Verfahren produzieren eine ineinander verschachtelte Struktur von 
 - *Bottom-up- oder agglomerative Verfahren* starten mit jedem Datenpunkt in einem eigenen Cluster. Anschließend werden die beiden nächstgelegenen Cluster zu einem größeren kombiniert. Dieser Prozess wird solange wiederholt bis im letzten Schritt die beiden verbliebenen Cluster zu einem großen verschmolzen werden, welches also alle Datenpunkte enthält.
 - *Top-down- oder divisive Verfahren* arbeiten genau andersrum. Sie starten mit allen Datenpunkten in einem Cluster. Anschließend wird immer wieder das größte der verbleibenden Cluster in zwei kleinere aufgesplittet, bis schließlich jeder Datenpunkt seinem eigenen Cluster zugeordnet ist.
 
-Durch dieses Vorgehen wird faktisch eine Cluster-Zuteilung für jede mögliche Anzahl an Clustern ($1 \leq k \leq n$) generiert. Jeder Datenpunkt gehört dadurch mehreren Clustern auf den unterschiedlichen Hierarchieebenen an, was sehr umfangreiche Analysen der Cluster erlaubt [@dogan2022]. Eine alternative Visualisierung der Ergebnisse besteht in Form einer Baumstruktur – einem sog. Dendrogramm. [@steinbach2000]
+Durch dieses Vorgehen wird faktisch eine Cluster-Zuteilung für jede mögliche Anzahl an Clustern ($1 \leq k \leq n$) generiert. Jeder Datenpunkt gehört dadurch mehreren Clustern auf den unterschiedlichen Hierarchieebenen an, was umfangreichere Analysen der Cluster erlaubt [@dogan2022]. Eine alternative Visualisierung der Ergebnisse besteht in Form einer Baumstruktur – einem sog. Dendrogramm. [@steinbach2000]
 
 ![Bsp. eines Dendrogramms](img/dengrogram-example.png){width=33%}
 
 Der größte Nachteil dieser Verfahren ist die Laufzeit. Meistens liegt diese bei mindestens $\mathcal{O}(n^2)$ bis teilweise $\mathcal{O}(n^3)$. [@dogan2022]
 
-Deshalb entwickelten Steinbach et al. [@steinbach2000] den *Bisecting K-Means-Algorithmus*. Dabei handelt sich um ein Top-down-Clustering-Verfahren, welches für den Split eines größeren Clusters in zwei kleinere den K-Means mit $k=2$ benutzt. Da nur das initiale Cluster alle Datenpunkte enthält und mit den folgenden Splits die Cluster immer kleiner werden, ist die Laufzeit linear ($\mathcal{O}(n)$)
+Deshalb entwickelten Steinbach et al. [@steinbach2000] den *Bisecting K-Means-Algorithmus*. Dabei handelt sich um ein Top-down-Clustering-Verfahren, welches für den Split eines größeren Clusters in zwei kleinere den K-Means mit $k=2$ benutzt. Da nur das initiale Cluster alle Datenpunkte enthält und mit den folgenden Splits die Cluster immer kleiner werden, ist die Laufzeit linear ($\mathcal{O}(n)$).
 
 # Bisecting K-Prototypes
 
@@ -70,7 +70,7 @@ Deshalb entwickelten Steinbach et al. [@steinbach2000] den *Bisecting K-Means-Al
 
 Für die beschriebenen möglichen Anwendungen der Clusteranalyse in PIM-Systemen sind hierarchische Verfahren zu bevorzugen, da die ineinander verschachtelte Cluster-Hierarchie eine umfassendere Analyse ermöglicht [@dogan2022]. Außerdem entfällt eine vorherige Bestimmung der erwarteten Anzahl an Clustern, wie sie partitionierende Verfahren benötigen.
 
-Gleichzeitig ist die quadratische oder noch schlechtere Laufzeit vieler hierarchischer Verfahren problematisch. Produktkataloge umfassen gerne mehrere tausend oder sogar einige Millionen Produkte, sodass eine möglichst geringe Laufzeit zu bevorzugen ist.
+Gleichzeitig ist die quadratische oder noch schlechtere Laufzeit vieler hierarchischer Verfahren problematisch. Produktkataloge umfassen häufig mehrere tausend oder sogar einige Millionen Produkte, sodass eine möglichst geringe Laufzeit zu bevorzugen ist.
 
 Der naheliegendste Ansatz besteht nun darin, den Bisecting K-Means-Algorithmus zu verwenden. Allerdings kann dieser nur numerische Vektoren verarbeiten. Grundsätzlich können kategoriale Werte in numerische umgewandelt werden (z.B. durch Nummerierung also Rot = 1, Grün = 2, Blau = 3). Solche Umwandlungen verzerren aber das Datenset (rote und blaue Produkte unterscheiden sich nun stärker voneinander als rote und grüne). [@kaufman2009, Kap. 1.2.6 Mixed Variables]
 
@@ -99,7 +99,7 @@ Zwei Produkte werden Attribut für Attribut miteinander verglichen. Dabei liegt 
 
 Weisen beide Produkte in einem Attribut keinen Wert auf, so wird dieses sowohl über als auch unter dem Bruchstrich ignoriert. Fehlt der Wert nur bei einem der beiden Produkte, so wird der maximale Abstand von $1$ addiert. Dieses Vorgehen ist durch den Jaccard-Koeffizienten inspiriert, welcher für asymmetrische binäre Attribute verwendet wird. Er ignoriert ebenfalls alle Attribute, bei denen beide Werte $false$ sind. [siehe @kaufman2009, Kap. 1.2.4 Binary Variables]
 
-Die numerischen Attribute werden mittels Manhattan-Abstand verrechnet. Damit auch hier die Abstände auf Attributebasis im Interval $[0,1]$ liegen, müssen die Werte vorher auf ebendieses Interval skaliert werden. Eine solche Normalisierung sorgt außerdem dafür, dass alle Attribute in etwa das gleiche Gewicht zueinander haben. [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]
+Die numerischen Attribute werden mittels Manhattan-Abstand verrechnet. Damit auch hier die Abstände auf Attributbasis im Interval $[0,1]$ liegen, müssen die Werte vorher auf ebendieses Interval skaliert werden. Eine solche Normalisierung sorgt außerdem dafür, dass alle Attribute in etwa das gleiche Gewicht zueinander haben. [@kaufman2009, Kap. 1.2.1 Interval-Scaled Variables]
 
 Die kategorialen Attribute werden nach dem Prinzip des Simple Matchings verarbeitet. Weisen beide Produkte den gleichen Wert auf, so wird $0$ und im Falle von Ungleichheit $1$ addiert.
 
@@ -138,7 +138,7 @@ Anschließend wurde das hergeleitete Clustering-Verfahren implementiert. Nun wur
 
 ## Datenset
 
-Es wurden 42 Smartphones der Samsung Galaxy S-Reihe importiert. Dabei waren 17 Smartphones der Generation S20, 21 der Generation S21 und 4 der Generation S22 vertreten. Es wurden sowohl Modelle der Produktausführungen Standard, Plus und Ultra sowie der sog. Fan Edition (FE) importiert. Die Smartphones zeichnen sich durch ein große Menge an verschiedenen Attributen der unterschiedlichsten Typen aus. Die folgende Tabelle gibt eine Übersicht dazu:
+Es wurden 42 Smartphones der Samsung Galaxy S-Reihe importiert. Dabei waren 17 Smartphones der Generation S20, 21 der Generation S21 und 4 der Generation S22 vertreten. Es wurden sowohl Modelle der Produktausführungen Standard, Plus und Ultra sowie der sog. Fan Edition (FE) importiert. Die Smartphones zeichnen sich durch eine große Menge an verschiedenen Attributen der unterschiedlichsten Typen aus. Die folgende Tabelle gibt eine Übersicht dazu:
 
 | Typ | Anzahl | Ø non-`null` | Ø unique | Beispiele |
 |---|-:|-:|-:|------|
@@ -190,7 +190,7 @@ Auffällig bei den Versuchen ist, dass die ausschließliche Verwendung von numer
 
 Die Verarbeitung der multi-kategorialen Attribute nach dem hergeleiteten Verfahren (+mul) bringt etwas bessere Stabilität und Qualität als die Umwandlung in einfache kategoriale Attribute (+mul_k). Die Erkennung der Generationen ist mit dem hergeleiteten Verfahren drastisch schlechter. Die Modelle werden dann wiederum etwa gleich gut erkannt. Insgesamt haben die multi-kategorialen Attribute keinen positiven Einfluss auf das Clustering. Eine klare Überlegenheit des hergeleiteten Verfahrens zur Umwandlung in einfache kategoriale Attribute ist ebenfalls nicht erkennbar.
 
-Die String-Attribute mit den numerischen und kategorialen Attributen zu kombinieren verschlechtert die Clustering-Ergebnisse. Werden allerdings nur die String-Attribute verwendet, so liefern sie adäquate Cluster. Zwar ist die Qualität dieser Cluster im Vergleich sehr schlecht, aber vor allem die Erkennung und die Duplikate erreichen etwas bessere Werte als die Kombination aus numerischen und kategorialen Attributen. Dies lässt sich dadurch erklären, dass z.B. im Produkttitel die wesentlichen Informationen des Produktes komprimiert – wenn auch unstrukturiert – hinterlegt sind. 
+Die String-Attribute mit den numerischen und kategorialen Attributen zu kombinieren verschlechtert die Clustering-Ergebnisse. Werden allerdings nur die String-Attribute verwendet, so bilden sich adäquate Cluster. Zwar ist die Qualität dieser Cluster im Vergleich sehr schlecht, aber vor allem die Erkennung und die Duplikate erreichen etwas bessere Werte als die Kombination aus numerischen und kategorialen Attributen. Dies lässt sich dadurch erklären, dass z.B. im Produkttitel die wesentlichen Informationen des Produktes komprimiert – wenn auch unstrukturiert – hinterlegt sind. 
 
 # Fazit und Ausblick
 
