@@ -13,7 +13,7 @@
 % additional includes ----------------------------------------------------------
 
 \usepackage{biblatex}
-\addbibresource{assets/quellen.bib}
+\addbibresource{quellen.bib}
 
 % graphics
 \usepackage{graphicx}
@@ -29,7 +29,6 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-\graphicspath{ {./assets/} }
 
 % list
 % no space between list items
@@ -70,8 +69,8 @@
 \maketitle
 
 \begin{abstract}
-    Dieses Paper stellt ein neuartiges effizientes hierarchisches Top-down-Clustering-Verfahren für gemischte Datensets vor: Bisecting K-Prototypes. Der Algorithmus ist speziell für die Verarbeitung komplexer (numerischer und kategorischer) Datensets mit vielen fehlende Werten geeignet. Dabei ist keine exzessive Vorverarbeitung des Datensets nötig. Zusätzlich werden Erweiterungen des Algorithmus vorgestellt, welche für die Verarbeitung von Multi-Select- und Freitext-Feldern (multi-kategorische und String-Attribute) geeignet sind. Der Algorithmus wurde implementiert und gegen ein entsprechend komplexes Datenset getestet und evaluiert.
-    % This paper introduces a new efficient hierarchical divisive clustering algorithm for mixed datasets – Bisecting K-Prototypes. The algorithm is specifically designed to handle complex mixed (numerical and categorical) datasets with many missing values without the need for extensive data preparation. Additionally, extensions to this algorithm for multi-select data (multi-categorical) and string data are provided. The algorithm is then tested and evaluated against a corresponding dataset containing each of these complex cases.
+    Dieses Paper stellt ein hierarchisches Top-down-Clustering-Verfahren für gemischte Datensets mit linearer Laufzeit vor: Bisecting K-Prototypes. Der Algorithmus ist speziell für die Verarbeitung komplexer (numerischer und kategorialer) Datensets mit vielen fehlenden Werten geeignet. Dabei ist keine exzessive Vorverarbeitung des Datensets nötig. Zusätzlich werden Erweiterungen des Algorithmus vorgestellt, welche für die Verarbeitung von Multi-Select- und Freitext-Feldern (multi-kategoriale und String-Attribute) geeignet sind. Der Algorithmus wurde implementiert und gegen ein entsprechendes Datenset getestet und evaluiert.
+    % This paper introduces a hierarchical divisive clustering algorithm for mixed datasets with linear runtime: Bisecting K-Prototypes. The algorithm is specifically designed to handle complex mixed (numerical and categorical) datasets with many missing values without the need for extensive data preparation. Additionally, extensions to this algorithm for multi-select data (multi-categorical) and string data are provided. The algorithm is then tested and evaluated against a corresponding dataset containing each of these complex cases.
 \end{abstract}
 
 \begin{keywords}
@@ -85,7 +84,7 @@
 \end{keywords}
 
 %%% Beginn des Artikeltexts
-\input{assets/content}
+\input{content}
 
 %%% Angabe der .bib-Datei (ohne Endung) / State .bib file (for BibTeX usage)
 \printbibliography %\printbibliography if you use biblatex/Biber

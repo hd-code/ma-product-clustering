@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.9)  15 MAY 2022 09:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.6.21)  10 JUL 2022 12:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -19,8 +19,8 @@ Package: hyphsubst 2016/05/16 v0.3 Substitute hyphenation patterns (HO)
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 ))
 Package hyphsubst Info: Redefined: \l@ngerman
-(hyphsubst)             old value: 24
-(hyphsubst)             new value: 76 on input line 71.
+(hyphsubst)             old value: 74
+(hyphsubst)             new value: 82 on input line 71.
 Class lni Info: Using latest German hyphenation patterns on input line 71.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -86,9 +86,9 @@ File: babel.def 2020/02/14 3.40 Babel common definitions
 Package babel Info: \l@canadian = using hyphenrules for english
 (babel)             (\language0) on input line 102.
 Package babel Info: \l@australian = using hyphenrules for ukenglish
-(babel)             (\language69) on input line 105.
+(babel)             (\language79) on input line 105.
 Package babel Info: \l@newzealand = using hyphenrules for ukenglish
-(babel)             (\language69) on input line 108.
+(babel)             (\language79) on input line 108.
 )
 (/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngerman.ldf
 Language: ngerman 2018/12/08 v2.11 German support for babel (post-1996 orthogra
@@ -939,9 +939,9 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip97
 )
-Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 54.
+Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 53.
 
-Package hyperref Info: Option `colorlinks' set `true' on input line 54.
+Package hyperref Info: Option `colorlinks' set `true' on input line 53.
 
 (/usr/share/texlive/texmf-dist/tex/latex/cleveref/cleveref.sty
 Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
@@ -973,59 +973,59 @@ File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 (./paper.aux)
 \openout1 = `paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 54.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 53.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line
- 54.
+ 53.
  (/usr/share/texlive/texmf-dist/tex/latex/newtx/omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 53.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-54.
+53.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 53.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 54.
+ 53.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 53.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 54.
+e 53.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 54.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
-LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    ... okay on input line 53.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 53.
+LaTeX Font Info:    ... okay on input line 53.
 \c@mv@tabular=\count436
 \c@mv@boldtabular=\count437
-LaTeX Info: Redefining \microtypecontext on input line 54.
+LaTeX Info: Redefining \microtypecontext on input line 53.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `alltext-nott'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using expansion set `alltext'.
-LaTeX Info: Redefining \showhyphens on input line 54.
+LaTeX Info: Redefining \showhyphens on input line 53.
 Package microtype Info: Tracking enabled.
 Package microtype Info: Using tracking set `smallcaps'.
 Package microtype Info: No adjustment of interword spacing.
@@ -1142,8 +1142,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'paper.bbl' found.
  (./paper.bbl)
-Package biblatex Info: Reference section=0 on input line 54.
-Package biblatex Info: Reference segment=0 on input line 54.
+Package biblatex Info: Reference section=0 on input line 53.
+Package biblatex Info: Reference segment=0 on input line 53.
 
 
 Package footnotehyper Warning: 
@@ -1154,7 +1154,7 @@ cref@currentlabel {[footnote][\arabic {footnote}][\cref@result ]\p@footnote \@t
 hefnmark }\cref@old@makefntext 
  together with the used preamble.
 
-Package hyperref Info: Link coloring ON on input line 54.
+Package hyperref Info: Link coloring ON on input line 53.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 
@@ -1166,67 +1166,67 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count445
 )
-LaTeX Info: Redefining \ref on input line 54.
-LaTeX Info: Redefining \pageref on input line 54.
-LaTeX Info: Redefining \nameref on input line 54.
+LaTeX Info: Redefining \ref on input line 53.
+LaTeX Info: Redefining \pageref on input line 53.
+LaTeX Info: Redefining \nameref on input line 53.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 14.0pt on input line 71.
+(Font)              scaled to size 14.0pt on input line 70.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 14.0pt on input line 71.
+(Font)              scaled to size 14.0pt on input line 70.
 LaTeX Font Info:    Trying to load font information for OT1+ntxtlf on input lin
-e 71.
+e 70.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/ot1ntxtlf.fd
 File: ot1ntxtlf.fd 2015/01/17 v1.0 font definition file for OT1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.0pt on input line 71.
+(Font)              scaled to size 10.0pt on input line 70.
 <<ot1.cmap>>
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 7.3pt on input line 71.
+(Font)              scaled to size 7.3pt on input line 70.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 5.5pt on input line 71.
+(Font)              scaled to size 5.5pt on input line 70.
 <<oml.cmap>>
 LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 
-71.
+70.
  (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 
-71.
+70.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2015/03/20 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 
-71.
+70.
 
 (/usr/share/texlive/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 7.3pt on input line 71.
+(Font)              scaled to size 7.3pt on input line 70.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.0pt on input line 71.
+(Font)              scaled to size 8.0pt on input line 70.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.0pt on input line 71.
+(Font)              scaled to size 8.0pt on input line 70.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 6.2pt on input line 71.
+(Font)              scaled to size 6.2pt on input line 70.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 6.2pt on input line 71.
+(Font)              scaled to size 6.2pt on input line 70.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 9.0pt on input line 72.
+(Font)              scaled to size 9.0pt on input line 71.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 9.0pt on input line 72.
-
-(./assets/content.tex
+(Font)              scaled to size 9.0pt on input line 71.
+ (./content.tex
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 12.0pt on input line 2.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 12.0pt on input line 2.
 LaTeX Font Info:    Font shape `U/ccicons/m/n' will be
 (Font)              scaled to size 10.0pt on input line 36.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+newtxtt on input lin
@@ -1242,83 +1242,72 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
 (Font)              scaled to size 10.0pt on input line 59.
  [2] [3]
-<./assets/img/dengrogram-example.png, id=82, 378.41376pt x 282.05376pt>
-File: ./assets/img/dengrogram-example.png Graphic file (type png)
-<use ./assets/img/dengrogram-example.png>
-Package pdftex.def Info: ./assets/img/dengrogram-example.png  used on input lin
-e 201.
+<img/dengrogram-example.png, id=83, 378.41376pt x 282.05376pt>
+File: img/dengrogram-example.png Graphic file (type png)
+<use img/dengrogram-example.png>
+Package pdftex.def Info: img/dengrogram-example.png  used on input line 197.
 (pdftex.def)             Requested size: 118.30597pt x 88.18031pt.
- [4 <./assets/img/dengrogram-example.png>] [5]
+ [4 <./img/dengrogram-example.png>]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 5.5pt on input line 287.
- [6] [7] [8] [9]
-Overfull \hbox (0.88443pt too wide) in paragraph at lines 506--507
+(Font)              scaled to size 5.5pt on input line 277.
+ [5] [6] [7] [8]
+Overfull \hbox (2.91591pt too wide) in paragraph at lines 486--487
  []\T1/ntxtlf/m/n/10 (-20) Stabilität
  []
 
 
-Overfull \hbox (8.48924pt too wide) in paragraph at lines 512--513
+Overfull \hbox (10.52072pt too wide) in paragraph at lines 492--493
  []\T1/ntxtlf/m/n/10 (-20) Erkennung
  []
 
 
-Overfull \hbox (4.33806pt too wide) in paragraph at lines 515--516
- []\T1/ntxtlf/m/n/10 (-20) Duplikate
- []
-
-
-Overfull \hbox (0.88443pt too wide) in paragraph at lines 523--524
+Overfull \hbox (2.91591pt too wide) in paragraph at lines 503--504
  []\T1/ntxtlf/m/n/10 (-20) Stabilität
  []
 
 
-Overfull \hbox (8.48924pt too wide) in paragraph at lines 529--530
+Overfull \hbox (10.52072pt too wide) in paragraph at lines 509--510
  []\T1/ntxtlf/m/n/10 (-20) Erkennung
  []
 
 
-Overfull \hbox (4.33806pt too wide) in paragraph at lines 532--533
- []\T1/ntxtlf/m/n/10 (-20) Duplikate
- []
-
-
-Overfull \hbox (0.61407pt too wide) in paragraph at lines 539--539
+Overfull \hbox (2.64555pt too wide) in paragraph at lines 519--519
 []|\T1/ntxtlf/m/n/10 (-20) num+kat|  
  []
 
 
-Overfull \hbox (1.64008pt too wide) in paragraph at lines 546--546
+Overfull \hbox (3.67155pt too wide) in paragraph at lines 526--526
 []|\T1/ntxtlf/m/n/10 (-20) +mul+str|  
  []
 
-<./assets/img/dendrogram-phones.png, id=168, 438.1971pt x 278.9622pt>
-File: ./assets/img/dendrogram-phones.png Graphic file (type png)
-<use ./assets/img/dendrogram-phones.png>
-Package pdftex.def Info: ./assets/img/dendrogram-phones.png  used on input line
- 563.
-(pdftex.def)             Requested size: 358.5082pt x 228.23117pt.
-[10] [11 <./assets/img/dendrogram-phones.png>])
+[9]
+<img/dendrogram-phones.png, id=165, 438.1971pt x 278.9622pt>
+File: img/dendrogram-phones.png Graphic file (type png)
+<use img/dendrogram-phones.png>
+Package pdftex.def Info: img/dendrogram-phones.png  used on input line 544.
+(pdftex.def)             Requested size: 286.81058pt x 182.5875pt.
+ [10 <./img/dendrogram-phones.png>])
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 91.
+(Font)              scaled to size 10.0pt on input line 90.
+ [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 91.
  [12]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 92.
- [13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 92.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 91.
  (./paper.aux
 Package cleveref Info: loaded `ngerman' language definitions on input line 41.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 92.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 92.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 91.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 91.
 Package logreq Info: Writing requests to 'paper.run.xml'.
 \openout1 = `paper.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24509 strings out of 481239
- 412930 string characters out of 5920378
- 1129913 words of memory out of 5000000
- 38987 multiletter control sequences out of 15000+600000
- 614832 words of font info for 242 fonts, out of 8000000 for 9000
+ 24514 strings out of 481239
+ 412843 string characters out of 5920377
+ 1130746 words of memory out of 5000000
+ 38983 multiletter control sequences out of 15000+600000
+ 615931 words of font info for 254 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  63i,16n,109p,806b,2278s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-sc.enc}{/usr/
@@ -1334,10 +1323,10 @@ blic/tex-gyre/qtmr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qtmri.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/newtx/txexs.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/newtx/txsys.pfb>
-Output written on paper.pdf (13 pages, 341899 bytes).
+Output written on paper.pdf (12 pages, 338809 bytes).
 PDF statistics:
- 264 PDF objects out of 1000 (max. 8388607)
- 228 compressed objects within 3 object streams
- 83 named destinations out of 1000 (max. 500000)
+ 251 PDF objects out of 1000 (max. 8388607)
+ 216 compressed objects within 3 object streams
+ 80 named destinations out of 1000 (max. 500000)
  55319 words of extra memory for PDF output out of 61914 (max. 10000000)
 
