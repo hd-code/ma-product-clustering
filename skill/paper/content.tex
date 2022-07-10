@@ -130,7 +130,7 @@ grundsätzlichen Ablauf dieses Algorithmus wie folgt:
 \item
   Neuberechnung aller Mittelpunkte aus den zugeordneten Datenpunkten
 \item
-  Wiederholung der Schritte 2 und 3; solange bis sich die
+  Wiederholung der Schritte 2 und 3; solange, bis sich die
   Cluster-Zuordnungen nicht mehr verändern oder ein Höchstlimit an
   Iterationen überschritten ist
 \end{enumerate}
@@ -173,9 +173,9 @@ Methods]{kaufman2009}:
   \emph{Bottom-up- oder agglomerative Verfahren} starten mit jedem
   Datenpunkt in einem eigenen Cluster. Anschließend werden die beiden
   nächstgelegenen Cluster zu einem größeren kombiniert. Dieser Prozess
-  wird solange wiederholt bis im letzten Schritt die beiden verbliebenen
-  Cluster zu einem großen verschmolzen werden, welches also alle
-  Datenpunkte enthält.
+  wird solange wiederholt, bis im letzten Schritt die beiden
+  verbliebenen Cluster zu einem großen verschmolzen werden, welches also
+  alle Datenpunkte enthält.
 \item
   \emph{Top-down- oder divisive Verfahren} arbeiten genau andersrum. Sie
   starten mit allen Datenpunkten in einem Cluster. Anschließend wird
@@ -187,7 +187,7 @@ Methods]{kaufman2009}:
 Durch dieses Vorgehen wird faktisch eine Cluster-Zuteilung für jede
 mögliche Anzahl an Clustern (\(1 \leq k \leq n\)) generiert. Jeder
 Datenpunkt gehört dadurch mehreren Clustern auf den unterschiedlichen
-Hierarchieebenen an, was sehr umfangreiche Analysen der Cluster erlaubt
+Hierarchieebenen an, was umfangreichere Analysen der Cluster erlaubt
 \autocite{dogan2022}. Eine alternative Visualisierung der Ergebnisse
 besteht in Form einer Baumstruktur -- einem sog. Dendrogramm.
 \autocite{steinbach2000}
@@ -208,7 +208,7 @@ Top-down-Clustering-Verfahren, welches für den Split eines größeren
 Clusters in zwei kleinere den K-Means mit \(k=2\) benutzt. Da nur das
 initiale Cluster alle Datenpunkte enthält und mit den folgenden Splits
 die Cluster immer kleiner werden, ist die Laufzeit linear
-(\(\mathcal{O}(n)\))
+(\(\mathcal{O}(n)\)).
 
 \hypertarget{bisecting-k-prototypes}{%
 \section{Bisecting K-Prototypes}\label{bisecting-k-prototypes}}
@@ -224,7 +224,7 @@ Bestimmung der erwarteten Anzahl an Clustern, wie sie partitionierende
 Verfahren benötigen.
 
 Gleichzeitig ist die quadratische oder noch schlechtere Laufzeit vieler
-hierarchischer Verfahren problematisch. Produktkataloge umfassen gerne
+hierarchischer Verfahren problematisch. Produktkataloge umfassen häufig
 mehrere tausend oder sogar einige Millionen Produkte, sodass eine
 möglichst geringe Laufzeit zu bevorzugen ist.
 
@@ -292,7 +292,7 @@ ebenfalls alle Attribute, bei denen beide Werte \(false\) sind.
 \autocite[siehe][Kap. 1.2.4 Binary Variables]{kaufman2009}
 
 Die numerischen Attribute werden mittels Manhattan-Abstand verrechnet.
-Damit auch hier die Abstände auf Attributebasis im Interval \([0,1]\)
+Damit auch hier die Abstände auf Attributbasis im Interval \([0,1]\)
 liegen, müssen die Werte vorher auf ebendieses Interval skaliert werden.
 Eine solche Normalisierung sorgt außerdem dafür, dass alle Attribute in
 etwa das gleiche Gewicht zueinander haben. \autocite[Kap. 1.2.1
@@ -370,7 +370,7 @@ hochladen.
 Anschließend wurde das hergeleitete Clustering-Verfahren implementiert.
 Nun wurde das Datenset geclustert, wobei verschiedene Kombinationen an
 Attributen für das Clustering verwendet worden sind. Diese
-Clustering-Ergebnisse wurde schließlich mittels einiger Metriken
+Clustering-Ergebnisse wurden schließlich mittels einiger Metriken
 evaluiert.
 
 \hypertarget{datenset}{%
@@ -380,7 +380,7 @@ Es wurden 42 Smartphones der Samsung Galaxy S-Reihe importiert. Dabei
 waren 17 Smartphones der Generation S20, 21 der Generation S21 und 4 der
 Generation S22 vertreten. Es wurden sowohl Modelle der
 Produktausführungen Standard, Plus und Ultra sowie der sog. Fan Edition
-(FE) importiert. Die Smartphones zeichnen sich durch ein große Menge an
+(FE) importiert. Die Smartphones zeichnen sich durch eine große Menge an
 verschiedenen Attributen der unterschiedlichsten Typen aus. Die folgende
 Tabelle gibt eine Übersicht dazu:
 
@@ -425,10 +425,10 @@ verwendet worden:
 Die \textbf{Stabilität} zeigt die Übereinstimmung der
 Clustering-Ergebnisse von zehn verschiedenen Durchläufen des Bisecting
 K-Prototypes. Da das Verfahren mit zufälligen Startpunkten arbeitet,
-sind die Ergebnisse von zwei Durchläufe nicht immer deckungsgleich. Ein
+sind die Ergebnisse von zwei Durchläufen nicht immer deckungsgleich. Ein
 sinnvolles Clustering-Verfahren sollte aber dennoch einen gewissen
 Determinismus aufweisen. Die Übereinstimmung der Clusterings wurde
-mittel Adjusted-Rand-Index \autocite{hubert1985} berechnet. Er liefert
+mittels Adjusted-Rand-Index \autocite{hubert1985} berechnet. Er liefert
 Werte zwischen \(-1\) und \(1\) und je höher er liegt, desto höher ist
 die Übereinstimmung zweier Cluster-Zuteilungen.
 
@@ -453,7 +453,7 @@ Schließlich befinden sich im Datenset sechs Paare an \textbf{Duplikaten}
 -- also das gleiche Produkt unter verschiedenen Ids. Ein hierarchisches
 Clustering-Verfahren sollte die Duplikate stets in die gleichen Cluster
 sortieren und erst beim letzten Split die Duplikate schließlich
-voneinander trennen. Ist dies der Fall, so wird ein Duplikate als
+voneinander trennen. Ist dies der Fall, so wird ein Duplikat als
 erfolgreich erkannt gezählt.
 
 \hypertarget{auswertung}{%
@@ -535,9 +535,9 @@ zwischen \(0.16\) und \(0.65\) eher mittelmäßig. Die Smartphone-Modelle
 (\(k=11\)) erreichen höhere Werte zwischen \(0.66\) und \(0.87\).
 Abbildung \ref{fig:result} zeigt das Dendrogramm zum Clustering mit
 numerischen und kategorialen Attributen. Hier wird deutlich, dass die
-Trennung in die Generationen S20 und S21 sehr gut funktioniert. In der
-Gruppe mit den S22-ern (orange) finden sich hingegen auch Smartphones,
-die nicht in diese Generation gehören.
+Trennung in die Generationen S20 und S21 sowie deren Modelle sehr gut
+funktioniert. Lediglich in der Gruppe mit den S22-ern (orange) finden
+sich auch Smartphones, die nicht in diese Generation gehören.
 
 \begin{figure}
 \centering
@@ -546,17 +546,17 @@ die nicht in diese Generation gehören.
 Attributen \label{fig:result}}
 \end{figure}
 
-Die Qualität ist einmal als Durchschnitt für alle möglichen Werte von
-\(k\) gegeben sowie für die beiden relevanten Hierarchiestufen. Sie
-liegt in allen Versuchen eher in mittelmäßigen Bereichen zwischen
-\(0.26\) und \(0.60\). Dies könnte daran liegen, dass sich die Produkte
-des Datensets insgesamt ziemlich ähnlich sind (alle vom gleichen
-Hersteller, recht geringe Anzahl an verschiedenen Wertausprägungen).
+Die Qualität ist einmal als Durchschnitt über alle Werte von \(k\)
+gegeben sowie für die beiden relevanten Hierarchiestufen. Sie liegt in
+allen Versuchen eher in mittelmäßigen Bereichen zwischen \(0.26\) und
+\(0.60\). Dies könnte daran liegen, dass sich die Produkte des Datensets
+insgesamt ziemlich ähnlich sind (alle vom gleichen Hersteller, recht
+geringe Anzahl an verschiedenen Wertausprägungen).
 
-Auffällig bei den Versuchen ist, dass die ausschließliche Verwendung von
-numerischen und kategorialen Attributen auf fast allen Metriken die
-besten Werte liefert. Die Hinzunahme von multi-kategorialen und
-String-Attributen hingegen verschlechtert diese Ergebnisse wieder.
+Auffällig ist, dass die ausschließliche Verwendung von numerischen und
+kategorialen Attributen auf fast allen Metriken die besten Werte
+liefert. Die Hinzunahme von multi-kategorialen und String-Attributen
+hingegen verschlechtert diese Ergebnisse wieder.
 
 Die Verarbeitung der multi-kategorialen Attribute nach dem hergeleiteten
 Verfahren (+mul) bringt etwas bessere Stabilität und Qualität als die
@@ -570,7 +570,7 @@ ebenfalls nicht erkennbar.
 
 Die String-Attribute mit den numerischen und kategorialen Attributen zu
 kombinieren verschlechtert die Clustering-Ergebnisse. Werden allerdings
-nur die String-Attribute verwendet, so liefern sie adäquate Cluster.
+nur die String-Attribute verwendet, so bilden sich adäquate Cluster.
 Zwar ist die Qualität dieser Cluster im Vergleich sehr schlecht, aber
 vor allem die Erkennung und die Duplikate erreichen etwas bessere Werte
 als die Kombination aus numerischen und kategorialen Attributen. Dies
@@ -584,11 +584,10 @@ hinterlegt sind.
 In diesem Paper wurde ein hierarchisches Clustering-Verfahren für
 gemischte Datensets mit linearer Laufzeit hergeleitet: \emph{Bisecting
 K-Prototypes}. Das Verfahren wurde erweitert, um ohne Verzerrung der
-Daten mit fehlenden Werten (\texttt{null}-Values) umgehen zu können. In
-der anschließenden praktischen Evaluation zeigte sich, dass das
-Verfahren funktioniert und sinnvolle Cluster für ein Datenset mit recht
-komplexen Datenpunkten (Smartphones mit über 100 verschiedenen
-Attributen) finden kann.
+Daten mit fehlenden Werten umgehen zu können. In der anschließenden
+praktischen Evaluation zeigte sich, dass das Verfahren funktioniert und
+sinnvolle Cluster für ein Datenset mit recht komplexen Datenpunkten
+(Smartphones mit über 100 verschiedenen Attributen) finden kann.
 
 Es ist außerdem eine Erweiterung des Verfahrens für sog.
 multi-kategoriale Attribute vorgestellt worden, welche sich ebenfalls

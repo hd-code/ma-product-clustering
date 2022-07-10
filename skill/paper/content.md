@@ -186,7 +186,7 @@ Die Erkennung von Smartphone-Generationen ($k=3$) ist mit Werten zwischen $0.16$
 
 Die Qualität ist einmal als Durchschnitt über alle Werte von $k$ gegeben sowie für die beiden relevanten Hierarchiestufen. Sie liegt in allen Versuchen eher in mittelmäßigen Bereichen zwischen $0.26$ und $0.60$. Dies könnte daran liegen, dass sich die Produkte des Datensets insgesamt ziemlich ähnlich sind (alle vom gleichen Hersteller, recht geringe Anzahl an verschiedenen Wertausprägungen).
 
-Auffällig bei den Versuchen ist, dass die ausschließliche Verwendung von numerischen und kategorialen Attributen auf fast allen Metriken die besten Werte liefert. Die Hinzunahme von multi-kategorialen und String-Attributen hingegen verschlechtert diese Ergebnisse wieder.
+Auffällig ist, dass die ausschließliche Verwendung von numerischen und kategorialen Attributen auf fast allen Metriken die besten Werte liefert. Die Hinzunahme von multi-kategorialen und String-Attributen hingegen verschlechtert diese Ergebnisse wieder.
 
 Die Verarbeitung der multi-kategorialen Attribute nach dem hergeleiteten Verfahren (+mul) bringt etwas bessere Stabilität und Qualität als die Umwandlung in einfache kategoriale Attribute (+mul_k). Die Erkennung der Generationen ist mit dem hergeleiteten Verfahren drastisch schlechter. Die Modelle werden dann wiederum etwa gleich gut erkannt. Insgesamt haben die multi-kategorialen Attribute keinen positiven Einfluss auf das Clustering. Eine klare Überlegenheit des hergeleiteten Verfahrens zur Umwandlung in einfache kategoriale Attribute ist ebenfalls nicht erkennbar.
 
@@ -194,7 +194,7 @@ Die String-Attribute mit den numerischen und kategorialen Attributen zu kombinie
 
 # Fazit und Ausblick
 
-In diesem Paper wurde ein hierarchisches Clustering-Verfahren für gemischte Datensets mit linearer Laufzeit hergeleitet: *Bisecting K-Prototypes*. Das Verfahren wurde erweitert, um ohne Verzerrung der Daten mit fehlenden Werten (`null`-Values) umgehen zu können. In der anschließenden praktischen Evaluation zeigte sich, dass das Verfahren funktioniert und sinnvolle Cluster für ein Datenset mit recht komplexen Datenpunkten (Smartphones mit über 100 verschiedenen Attributen) finden kann.
+In diesem Paper wurde ein hierarchisches Clustering-Verfahren für gemischte Datensets mit linearer Laufzeit hergeleitet: *Bisecting K-Prototypes*. Das Verfahren wurde erweitert, um ohne Verzerrung der Daten mit fehlenden Werten umgehen zu können. In der anschließenden praktischen Evaluation zeigte sich, dass das Verfahren funktioniert und sinnvolle Cluster für ein Datenset mit recht komplexen Datenpunkten (Smartphones mit über 100 verschiedenen Attributen) finden kann.
 
 Es ist außerdem eine Erweiterung des Verfahrens für sog. multi-kategoriale Attribute vorgestellt worden, welche sich ebenfalls für String-Attribute verwenden lässt. In der praktischen Evaluation hat die Hinzunahme dieser Attributtypen die Cluster allerdings nicht verbessert. Werden ausschließlich String-Attribute für das Clustering verwendet, so entstehen ähnlich gute Cluster wie mit ausschließlich numerischen und kategorialen Attributen. U.U. ist das hergeleitete Verfahren besonders für die Verarbeitung von Datensets geeignet, welche aus Freitext-Feldern bestehen. Hier könnte zukünftige Forschung anknüpfen.
 
