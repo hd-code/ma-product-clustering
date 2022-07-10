@@ -37,7 +37,7 @@ Steinbach et al. [@steinbach2000] beschreiben den grundsätzlichen Ablauf dieses
 1. zufällige Wahl von $k$ Punkten aus dem Datenset als initiale Mittelpunkte
 2. Zuordnung aller Datenpunkte des Datensets zum jeweils nächstgelegen Mittelpunkt
 3. Neuberechnung aller Mittelpunkte aus den zugeordneten Datenpunkten
-4. Wiederholung der Schritte 2 und 3; solange bis sich die Cluster-Zuordnungen nicht mehr verändern oder ein Höchstlimit an Iterationen überschritten ist
+4. Wiederholung der Schritte 2 und 3; solange, bis sich die Cluster-Zuordnungen nicht mehr verändern oder ein Höchstlimit an Iterationen überschritten ist
 
 Der große Vorteil dieser Verfahren ist eine lineare Laufzeit von $\mathcal{O}(n)$ [@huang1998]. Nachteilig ist, dass die gesuchte Anzahl an Clustern vorher bekannt sein muss und jeder Datenpunkt nur genau einem Cluster zugeordnet sein kann. [@kaufman2009, Kap. 1.3.1 Partitioning Methods]
 
@@ -53,7 +53,7 @@ Die numerischen und kategorialen Werte werden also separat mit einer jeweils gee
 
 Hierarchische Verfahren produzieren eine ineinander verschachtelte Struktur von Clustern. Diese Cluster werden entweder nach dem Top-down- oder Bottom-up-Ansatz generiert [@kaufman2009, Kap. 1.3.2 Hierarchical Methods]:
 
-- *Bottom-up- oder agglomerative Verfahren* starten mit jedem Datenpunkt in einem eigenen Cluster. Anschließend werden die beiden nächstgelegenen Cluster zu einem größeren kombiniert. Dieser Prozess wird solange wiederholt bis im letzten Schritt die beiden verbliebenen Cluster zu einem großen verschmolzen werden, welches also alle Datenpunkte enthält.
+- *Bottom-up- oder agglomerative Verfahren* starten mit jedem Datenpunkt in einem eigenen Cluster. Anschließend werden die beiden nächstgelegenen Cluster zu einem größeren kombiniert. Dieser Prozess wird solange wiederholt, bis im letzten Schritt die beiden verbliebenen Cluster zu einem großen verschmolzen werden, welches also alle Datenpunkte enthält.
 - *Top-down- oder divisive Verfahren* arbeiten genau andersrum. Sie starten mit allen Datenpunkten in einem Cluster. Anschließend wird immer wieder das größte der verbleibenden Cluster in zwei kleinere aufgesplittet, bis schließlich jeder Datenpunkt seinem eigenen Cluster zugeordnet ist.
 
 Durch dieses Vorgehen wird faktisch eine Cluster-Zuteilung für jede mögliche Anzahl an Clustern ($1 \leq k \leq n$) generiert. Jeder Datenpunkt gehört dadurch mehreren Clustern auf den unterschiedlichen Hierarchieebenen an, was umfangreichere Analysen der Cluster erlaubt [@dogan2022]. Eine alternative Visualisierung der Ergebnisse besteht in Form einer Baumstruktur – einem sog. Dendrogramm. [@steinbach2000]
@@ -134,7 +134,7 @@ Durch die Umwandlung in Tokens, sind die String-Attribute equivalent zu den mult
 
 Für die praktische Evaluation ist Akeneo-PIM [@akeneo2022about] (ein Open-Source PIM-System mit weiter Verbreitung) verwendet worden. Dieses System wurde mit Produkten aus dem sehr umfangreichen Online-Katalog Icecat [@icecat2021] gefüllt, wo Hersteller aus der ganzen Welt ihre Produktdatenblätter für die Verteilung an Händler hochladen.
 
-Anschließend wurde das hergeleitete Clustering-Verfahren implementiert. Nun wurde das Datenset geclustert, wobei verschiedene Kombinationen an Attributen für das Clustering verwendet worden sind. Diese Clustering-Ergebnisse wurde schließlich mittels einiger Metriken evaluiert.
+Anschließend wurde das hergeleitete Clustering-Verfahren implementiert. Nun wurde das Datenset geclustert, wobei verschiedene Kombinationen an Attributen für das Clustering verwendet worden sind. Diese Clustering-Ergebnisse wurden schließlich mittels einiger Metriken evaluiert.
 
 ## Datenset
 
@@ -155,13 +155,13 @@ Die Spalte "Anzahl" zeigt, wie viele Attribute je Typ vorkommen. Die numerischen
 
 Für die Bewertung des Clustering-Verfahrens sind verschiedene Metriken verwendet worden:
 
-Die **Stabilität** zeigt die Übereinstimmung der Clustering-Ergebnisse von zehn verschiedenen Durchläufen des Bisecting K-Prototypes. Da das Verfahren mit zufälligen Startpunkten arbeitet, sind die Ergebnisse von zwei Durchläufe nicht immer deckungsgleich. Ein sinnvolles Clustering-Verfahren sollte aber dennoch einen gewissen Determinismus aufweisen. Die Übereinstimmung der Clusterings wurde mittel Adjusted-Rand-Index [@hubert1985] berechnet. Er liefert Werte zwischen $-1$ und $1$ und je höher er liegt, desto höher ist die Übereinstimmung zweier Cluster-Zuteilungen.
+Die **Stabilität** zeigt die Übereinstimmung der Clustering-Ergebnisse von zehn verschiedenen Durchläufen des Bisecting K-Prototypes. Da das Verfahren mit zufälligen Startpunkten arbeitet, sind die Ergebnisse von zwei Durchläufen nicht immer deckungsgleich. Ein sinnvolles Clustering-Verfahren sollte aber dennoch einen gewissen Determinismus aufweisen. Die Übereinstimmung der Clusterings wurde mittels Adjusted-Rand-Index [@hubert1985] berechnet. Er liefert Werte zwischen $-1$ und $1$ und je höher er liegt, desto höher ist die Übereinstimmung zweier Cluster-Zuteilungen.
 
 Die **Qualität** wird mittels des Silhouetten-Koeffizienten [@rousseeuw1987] gemessen. Er berechnet den durchschnittlichen Abstand der Datenpunkte zu den Punkten im selben Cluster im Verhältnis zu den Punkten des unmittelbar benachbarten Clusters. Auch hier können Werte zwischen $-1$ und $1$ entstehen. Je näher an $1$, desto besser sind die Cluster voneinander getrennt.
 
 Mit der **Erkennung** wird geprüft, ob das Clustering-Verfahren die inhärenten Strukturen des Datensets erkennen kann. Die Smartphones stammen aus drei verschiedenen Generationen und es gibt elf verschiedene Modelle (unter Berücksichtigung der Generationen). Auf der Hierarchiestufe $k=3$ sollten also die Smartphones der gleichen Generationen dem gleichen Cluster zugeordnet werden. Ebenso bei $k=11$ für die Smartphone-Modelle. Die Übereinstimmung der berechneten Cluster-Zuteilung mit der erwarteten wurde mittels Adjusted-Rand-Index berechnet.
 
-Schließlich befinden sich im Datenset sechs Paare an **Duplikaten** – also das gleiche Produkt unter verschiedenen Ids. Ein hierarchisches Clustering-Verfahren sollte die Duplikate stets in die gleichen Cluster sortieren und erst beim letzten Split die Duplikate schließlich voneinander trennen. Ist dies der Fall, so wird ein Duplikate als erfolgreich erkannt gezählt.
+Schließlich befinden sich im Datenset sechs Paare an **Duplikaten** – also das gleiche Produkt unter verschiedenen Ids. Ein hierarchisches Clustering-Verfahren sollte die Duplikate stets in die gleichen Cluster sortieren und erst beim letzten Split die Duplikate schließlich voneinander trennen. Ist dies der Fall, so wird ein Duplikat als erfolgreich erkannt gezählt.
 
 # Auswertung
 
